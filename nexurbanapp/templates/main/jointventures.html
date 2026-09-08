@@ -1,0 +1,1695 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — JOINT VENTURES
+   Same editorial typography/style as OFF-PLAN page
+========================================================= */
+
+.jv-page {
+    width: 100%;
+    background: #f7f4ed;
+    color: #111111;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.jv-hero {
+    position: relative;
+
+    width: 100%;
+    min-height: 720px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    color: #f7f4ed;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.91) 0%,
+            rgba(8,8,8,.72) 34%,
+            rgba(8,8,8,.36) 65%,
+            rgba(8,8,8,.18) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.94) 0%,
+            rgba(8,8,8,.18) 55%,
+            rgba(8,8,8,.384) 100%
+        ),
+        url("{% static 'img/jvhero.jpg' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    isolation: isolate;
+
+    animation: nxJVHeroReveal 1.2s ease-out both;
+}
+
+
+@keyframes nxJVHeroReveal {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT SIDE PANEL
+========================================================= */
+
+.jv-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 24%;
+    height: 100%;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,29,12,.025),
+            rgba(255,29,12,.10)
+        );
+
+    border-left:
+        1px solid rgba(255,29,12,.12);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO INNER
+========================================================= */
+
+.jv-hero-inner {
+
+    position: relative;
+
+    z-index: 3;
+
+    width:
+        min(
+            1400px,
+            calc(100% - 100px)
+        );
+
+    margin: 0 auto;
+
+    padding:
+        155px 0 90px;
+}
+
+
+/* =========================================================
+   HERO EYEBROW
+========================================================= */
+
+.jv-hero-eyebrow {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        0 0 22px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxJVFade .8s cubic-bezier(.22,1,.36,1)
+        .1s forwards;
+}
+
+
+.jv-hero-eyebrow::before {
+
+    content: "";
+
+    width: 32px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+.jv-hero-eyebrow::after {
+
+    content: "";
+
+    width: 5px;
+
+    height: 5px;
+
+    margin-left: -5px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 0 5px rgba(255,29,12,.08),
+        0 0 13px rgba(255,29,12,.45);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.jv-hero-title {
+
+    max-width: 920px;
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(52px, 6.3vw, 90px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.045em;
+
+    opacity: 0;
+
+    animation:
+        nxJVFade 1s cubic-bezier(.22,1,.36,1)
+        .22s forwards;
+}
+
+
+.jv-hero-title em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO LINE
+========================================================= */
+
+.jv-hero-line {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    height: 1px;
+
+    margin-top: 32px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff1d0c,
+            rgba(255,29,12,.12)
+        );
+
+    opacity: 0;
+
+    animation:
+        nxJVFade .8s ease
+        .32s forwards;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.jv-hero-description {
+
+    max-width: 580px;
+
+    margin:
+        27px 0 0;
+
+    color:
+        rgba(247,244,237,.66);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+
+    opacity: 0;
+
+    animation:
+        nxJVFade .9s cubic-bezier(.22,1,.36,1)
+        .38s forwards;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.jv-hero-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 32px;
+
+    opacity: 0;
+
+    animation:
+        nxJVFade .9s cubic-bezier(.22,1,.36,1)
+        .48s forwards;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.jv-button {
+
+    min-height: 48px;
+
+    padding:
+        0 22px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    border: 1px solid transparent;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .15em;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+
+/* PRIMARY */
+
+.jv-button-primary {
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border-color: #ff1d0c;
+}
+
+
+.jv-button-primary:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* SECONDARY */
+
+.jv-button-outline {
+
+    background: transparent;
+
+    color: #f7f4ed;
+
+    border-color:
+        rgba(247,244,237,.35);
+}
+
+
+.jv-button-outline:hover {
+
+    background: #f7f4ed;
+
+    color: #111111;
+
+    border-color: #f7f4ed;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ARROW */
+
+.jv-button-arrow {
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.jv-button:hover
+.jv-button-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   HERO BOTTOM DETAIL
+========================================================= */
+
+.jv-hero-inner::after {
+
+    content:
+        "NEXURBAN · DUBAI · JOINT VENTURES";
+
+    display: block;
+
+    margin-top: 52px;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxJVFade .8s ease
+        .58s forwards;
+}
+
+
+/* =========================================================
+   FADE
+========================================================= */
+
+@keyframes nxJVFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.jv-marquee {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #111111;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    white-space: nowrap;
+}
+
+
+.jv-marquee-track {
+
+    width: max-content;
+
+    display: flex;
+
+    align-items: center;
+
+    animation:
+        jvMarquee 28s linear infinite;
+}
+
+
+.jv-marquee-track span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 34px;
+
+    padding:
+        23px 17px;
+
+    color:
+        rgba(247,244,237,.72);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.jv-marquee-track i {
+
+    width: 5px;
+
+    height: 5px;
+
+    flex-shrink: 0;
+
+    display: inline-block;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 10px rgba(255,29,12,.5);
+}
+
+
+@keyframes jvMarquee {
+
+    from {
+        transform:
+            translateX(0);
+    }
+
+    to {
+        transform:
+            translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   APPROACH SECTION
+========================================================= */
+
+.jv-approach {
+
+    width: 100%;
+
+    background: #111111;
+
+    color: #f7f4ed;
+}
+
+
+.jv-site-shell {
+
+    width:
+        min(
+            calc(100% - 100px),
+            1400px
+        );
+
+    margin: 0 auto;
+}
+
+
+.jv-section-pad {
+
+    padding:
+        120px 0 130px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.jv-section-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.jv-section-eyebrow::before {
+
+    content: "";
+
+    width: 28px;
+
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   APPROACH QUOTE
+========================================================= */
+
+.jv-quote {
+
+    max-width: 1100px;
+
+    margin-top: 48px;
+}
+
+
+.jv-quote p {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(38px, 4.7vw, 67px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -.04em;
+}
+
+
+.jv-quote em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   SERVICE GRID
+========================================================= */
+
+.jv-service-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0,1fr));
+
+    margin-top: 75px;
+
+    border-top:
+        1px solid rgba(247,244,237,.14);
+
+    border-left:
+        1px solid rgba(247,244,237,.14);
+}
+
+
+/* =========================================================
+   SERVICE TILE
+========================================================= */
+
+.jv-service-tile {
+
+    min-height: 310px;
+
+    padding:
+        36px 35px;
+
+    border-right:
+        1px solid rgba(247,244,237,.14);
+
+    border-bottom:
+        1px solid rgba(247,244,237,.14);
+
+    transition:
+        background .4s ease;
+}
+
+
+.jv-service-tile:hover {
+
+    background:
+        rgba(247,244,237,.035);
+}
+
+
+.jv-service-number {
+
+    display: block;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+}
+
+
+.jv-service-title {
+
+    margin:
+        70px 0 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 30px;
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -.025em;
+}
+
+
+.jv-service-description {
+
+    max-width: 320px;
+
+    margin:
+        20px 0 0;
+
+    color:
+        rgba(247,244,237,.53);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CTA BAND
+========================================================= */
+
+.jv-cta-band {
+
+    width: 100%;
+
+    min-height: 360px;
+
+    padding:
+        75px 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+
+    background: #f7f4ed;
+
+    color: #111111;
+
+    border-top:
+        1px solid rgba(17,17,17,.12);
+}
+
+
+.jv-cta-band-inner {
+
+    width:
+        min(
+            1400px,
+            100%
+        );
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.jv-cta-text {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(42px, 5vw, 70px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.045em;
+}
+
+
+/* =========================================================
+   CTA BUTTON
+========================================================= */
+
+.jv-cta-button {
+
+    min-height: 56px;
+
+    padding:
+        0 26px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+
+    color: #ffffff;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+.jv-cta-button:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-3px);
+}
+
+
+.jv-cta-arrow {
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.jv-cta-button:hover
+.jv-cta-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .jv-site-shell {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .jv-hero-inner {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .jv-hero {
+
+        min-height: 650px;
+    }
+
+
+    .jv-service-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+    }
+
+
+    .jv-cta-band-inner {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .jv-site-shell {
+
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .jv-hero-inner {
+
+        width:
+            calc(100% - 36px);
+
+        padding:
+            125px 0 65px;
+    }
+
+
+    .jv-hero {
+
+        min-height: 620px;
+
+        align-items: flex-end;
+
+        background-position:
+            60% center;
+    }
+
+
+    .jv-hero::after {
+
+        width: 100%;
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(255,29,12,.015),
+                rgba(255,29,12,.055)
+            );
+
+        border-left: 0;
+
+        border-top:
+            1px solid rgba(255,29,12,.06);
+    }
+
+
+    /* HERO EYEBROW */
+
+    .jv-hero-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+
+        gap: 8px;
+    }
+
+
+    .jv-hero-eyebrow::before {
+
+        width: 22px;
+    }
+
+
+    /* HERO TITLE */
+
+    .jv-hero-title {
+
+        font-size:
+            clamp(45px, 13vw, 64px);
+
+        line-height: .97;
+    }
+
+
+    /* DESCRIPTION */
+
+    .jv-hero-description {
+
+        max-width: 100%;
+
+        margin-top: 22px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    /* BUTTONS */
+
+    .jv-hero-buttons {
+
+        margin-top: 27px;
+
+        gap: 9px;
+    }
+
+
+    .jv-button {
+
+        min-height: 45px;
+
+        padding:
+            0 17px;
+
+        font-size: 8px;
+
+        letter-spacing: .12em;
+    }
+
+
+    /* HERO FOOTER */
+
+    .jv-hero-inner::after {
+
+        margin-top: 42px;
+
+        font-size: 7px;
+
+        letter-spacing: .16em;
+    }
+
+
+    /* MARQUEE */
+
+    .jv-marquee-track span {
+
+        padding:
+            19px 14px;
+
+        font-size: 8px;
+
+        gap: 25px;
+
+        letter-spacing: .16em;
+    }
+
+
+    /* APPROACH */
+
+    .jv-section-pad {
+
+        padding:
+            75px 0 80px;
+    }
+
+
+    .jv-section-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+    }
+
+
+    .jv-quote {
+
+        margin-top: 32px;
+    }
+
+
+    .jv-quote p {
+
+        font-size:
+            clamp(39px, 11.5vw, 58px);
+
+        line-height: .98;
+    }
+
+
+    /* SERVICE GRID */
+
+    .jv-service-grid {
+
+        grid-template-columns: 1fr;
+
+        margin-top: 48px;
+    }
+
+
+    .jv-service-tile {
+
+        min-height: 250px;
+
+        padding:
+            28px 24px;
+    }
+
+
+    .jv-service-title {
+
+        margin-top: 55px;
+
+        font-size: 28px;
+    }
+
+
+    .jv-service-description {
+
+        font-size: 11.5px;
+    }
+
+
+    /* CTA */
+
+    .jv-cta-band {
+
+        min-height: 350px;
+
+        padding:
+            65px 18px;
+    }
+
+
+    .jv-cta-band-inner {
+
+        width: 100%;
+
+        gap: 35px;
+    }
+
+
+    .jv-cta-text {
+
+        font-size:
+            clamp(42px, 12vw, 57px);
+    }
+
+
+    .jv-cta-button {
+
+        min-height: 52px;
+
+        padding:
+            0 21px;
+
+        font-size: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .jv-site-shell {
+
+        width:
+            calc(100% - 30px);
+    }
+
+
+    .jv-hero-inner {
+
+        width:
+            calc(100% - 30px);
+
+        padding-top: 112px;
+    }
+
+
+    .jv-hero-title {
+
+        font-size: 44px;
+    }
+
+
+    .jv-hero-description {
+
+        font-size: 12.5px;
+    }
+
+
+    .jv-button {
+
+        width: 100%;
+    }
+
+
+    .jv-service-title {
+
+        font-size: 27px;
+    }
+
+
+    .jv-cta-text {
+
+        font-size: 43px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .jv-hero,
+    .jv-hero-eyebrow,
+    .jv-hero-title,
+    .jv-hero-line,
+    .jv-hero-description,
+    .jv-hero-buttons,
+    .jv-hero-inner::after {
+
+        animation: none !important;
+
+        opacity: 1;
+
+        transform: none;
+    }
+
+
+    .jv-marquee-track {
+
+        animation: none !important;
+    }
+
+
+    .jv-button,
+    .jv-cta-button,
+    .jv-service-tile {
+
+        transition: none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="jv-page">
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="jv-hero">
+
+    <div class="jv-hero-inner">
+
+
+        <!-- EYEBROW -->
+
+        <p class="jv-hero-eyebrow">
+            JOINT VENTURES (JV)
+        </p>
+
+
+        <!-- TITLE -->
+
+        <h1 class="jv-hero-title">
+
+            Unlock Strategic<br>
+
+            <em>Real Estate Opportunities.</em>
+
+        </h1>
+
+
+        <!-- LINE -->
+
+        <div class="jv-hero-line"></div>
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="jv-hero-description">
+
+            Unlock strategic real estate opportunities
+            through structured partnerships, shared
+            expertise and aligned investment objectives.
+
+        </p>
+
+
+        <!-- BUTTONS -->
+
+        <div class="jv-hero-buttons">
+
+
+            <a
+                href="{% url 'contact' %}"
+                class="jv-button jv-button-primary"
+            >
+
+                START A CONVERSATION
+
+                <span class="jv-button-arrow">
+                    ↗
+                </span>
+
+            </a>
+
+
+            <a
+                href=""
+                class="jv-button jv-button-outline"
+            >
+
+                PROPERTY ADVISORY
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MARQUEE
+====================================================== -->
+
+<div class="jv-marquee">
+
+    <div class="jv-marquee-track">
+
+
+        <span>
+
+            <i></i>
+
+            STRUCTURED PARTNERSHIPS
+
+            <i></i>
+
+            SHARED EXPERTISE
+
+            <i></i>
+
+            ALIGNED INVESTMENT OBJECTIVES
+
+            <i></i>
+
+            STRATEGIC OPPORTUNITIES
+
+        </span>
+
+
+        <span>
+
+            <i></i>
+
+            STRUCTURED PARTNERSHIPS
+
+            <i></i>
+
+            SHARED EXPERTISE
+
+            <i></i>
+
+            ALIGNED INVESTMENT OBJECTIVES
+
+            <i></i>
+
+            STRATEGIC OPPORTUNITIES
+
+        </span>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     JV APPROACH
+====================================================== -->
+
+<section class="jv-approach">
+
+    <div class="jv-site-shell jv-section-pad">
+
+
+        <!-- EYEBROW -->
+
+        <p class="jv-section-eyebrow">
+
+            THE JV APPROACH
+
+        </p>
+
+
+        <!-- QUOTE -->
+
+        <div class="jv-quote">
+
+            <p>
+
+                Unlock strategic real estate
+                opportunities through
+
+                <em>
+                    structured partnerships
+                </em>,
+
+                shared expertise and aligned
+                investment objectives.
+
+            </p>
+
+        </div>
+
+
+        <!-- SERVICE GRID -->
+
+        <div class="jv-service-grid">
+
+
+            <!-- 01 -->
+
+            <div class="jv-service-tile">
+
+                <span class="jv-service-number">
+                    01
+                </span>
+
+
+                <h3 class="jv-service-title">
+                    STRUCTURED<br>
+                    PARTNERSHIPS
+                </h3>
+
+
+                <p class="jv-service-description">
+
+                    Unlock strategic real estate
+                    opportunities through structured
+                    partnerships, shared expertise and
+                    aligned investment objectives.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 02 -->
+
+            <div class="jv-service-tile">
+
+                <span class="jv-service-number">
+                    02
+                </span>
+
+
+                <h3 class="jv-service-title">
+                    SHARED<br>
+                    EXPERTISE
+                </h3>
+
+
+                <p class="jv-service-description">
+
+                    Unlock strategic real estate
+                    opportunities through structured
+                    partnerships, shared expertise and
+                    aligned investment objectives.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 03 -->
+
+            <div class="jv-service-tile">
+
+                <span class="jv-service-number">
+                    03
+                </span>
+
+
+                <h3 class="jv-service-title">
+                    ALIGNED INVESTMENT<br>
+                    OBJECTIVES
+                </h3>
+
+
+                <p class="jv-service-description">
+
+                    Unlock strategic real estate
+                    opportunities through structured
+                    partnerships, shared expertise and
+                    aligned investment objectives.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+====================================================== -->
+
+<section class="jv-cta-band">
+
+    <div class="jv-cta-band-inner">
+
+
+        <p class="jv-cta-text">
+
+            Your next opportunity may start<br>
+            with the right partner.
+
+        </p>
+
+
+        <a
+            href="{% url 'contact' %}"
+            class="jv-cta-button"
+        >
+
+            SPEAK TO AN EXPERT
+
+            <span class="jv-cta-arrow">
+                ↗
+            </span>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}

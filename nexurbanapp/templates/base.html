@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+    {% block extra_css %}
+  
+    <style>
+        body {
+            margin: 0;
+          
+            
+        }
+     p {
+    font-family: "Manrope", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+  
+    margin: 0;
+}
+
+    </style>
+      {% endblock %}
+    
+<body>
+
+    {% include 'components/header.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% include 'components/footer.html' %}
+
+</body>
+</html>

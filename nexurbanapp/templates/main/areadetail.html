@@ -1,0 +1,1498 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — AREA DETAIL PAGE
+   (dark theme from area.html + filter/card system from buy.html)
+========================================================= */
+
+.nx-areadetail-page {
+    --nx-black: #080808;
+    --nx-dark: #111111;
+    --nx-card: #151515;
+    --nx-white: #f7f4ed;
+    --nx-muted: rgba(247,244,237,.58);
+    --nx-line: rgba(247,244,237,.14);
+    --nx-red: #ff1d0c;
+    --nx-soft: #e4d8c8;
+
+    background: var(--nx-black);
+    color: var(--nx-white);
+    overflow: hidden;
+    font-family: "Manrope", sans-serif;
+}
+
+.nx-ad-shell {
+    width: min(1400px, calc(100% - 100px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.nx-ad-hero {
+    position: relative;
+    width: 100%;
+    min-height: 480px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+.nx-ad-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(17,17,17,.97) 0%,
+            rgba(17,17,17,.90) 35%,
+            rgba(17,17,17,.62) 68%,
+            rgba(17,17,17,.48) 100%
+        ),
+        url("{% static 'img/area-hero.jpg' %}");
+
+    background-size: cover;
+    background-position: center;
+
+    z-index: 0;
+}
+
+.nx-ad-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.94) 0%,
+            rgba(8,8,8,.2) 55%,
+            rgba(8,8,8,.14) 100%
+        );
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.nx-ad-hero-panel {
+    position: absolute;
+    top: -10%;
+    right: 0;
+    width: 26%;
+    height: 120%;
+
+    background: rgba(255,29,12,.075);
+    border-left: 1px solid rgba(255,29,12,.18);
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+.nx-ad-hero-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    padding: 165px 0 85px;
+    margin-left: 4%;
+}
+
+.nx-ad-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 26px;
+
+    color: rgba(247,244,237,.5);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.nx-ad-breadcrumb a {
+    color: rgba(247,244,237,.5);
+    text-decoration: none;
+    transition: color .3s ease;
+}
+
+.nx-ad-breadcrumb a:hover {
+    color: var(--nx-red);
+}
+
+.nx-ad-breadcrumb span {
+    color: var(--nx-red);
+}
+
+.nx-ad-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 24px;
+
+    color: var(--nx-red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+}
+
+.nx-ad-eyebrow::before {
+    content: "";
+    width: 30px;
+    height: 1px;
+    background: var(--nx-red);
+    flex-shrink: 0;
+}
+
+.nx-ad-title {
+    margin: 0;
+    max-width: 1050px;
+
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(52px, 6.4vw, 92px);
+    font-weight: 400;
+    line-height: .96;
+    letter-spacing: -.045em;
+}
+
+.nx-ad-title em {
+    color: var(--nx-soft);
+    font-style: italic;
+    font-weight: 400;
+}
+
+.nx-ad-subline {
+    margin: 22px 0 0;
+    max-width: 560px;
+
+    color: rgba(247,244,237,.62);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   FILTER BAR (structure from buy.html, dark theme)
+========================================================= */
+
+.nx-ad-filter-wrap {
+    position: relative;
+    z-index: 10;
+    margin-top: -34px;
+}
+
+.nx-ad-filter-row {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+}
+
+.nx-ad-filter-row .nx-ad-filter-bar {
+    flex: 1;
+}
+
+.nx-ad-filter-bar {
+    width: 100%;
+    min-height: 78px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 155px;
+
+    background: rgba(10,10,10,.96);
+    border: 1px solid rgba(247,244,237,.16);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.nx-ad-filter-item {
+    position: relative;
+    min-height: 78px;
+    padding: 0 27px;
+
+    display: flex;
+    align-items: center;
+
+    border-right: 1px solid rgba(247,244,237,.13);
+    color: rgba(247,244,237,.72);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+
+    transition: background .3s ease, color .3s ease;
+}
+
+.nx-ad-filter-item:hover {
+    background: rgba(255,29,12,.06);
+    color: var(--nx-red);
+}
+
+.nx-ad-filter-select,
+.nx-ad-filter-input {
+    width: 100%;
+    height: 78px;
+    padding: 0 32px 0 0;
+
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.nx-ad-filter-input {
+    cursor: text;
+    color: #fff;
+}
+
+.nx-ad-filter-input::placeholder {
+    color: rgba(247,244,237,.42);
+    opacity: 1;
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+}
+
+.nx-ad-filter-select option {
+    background: #151515;
+    color: #fff;
+}
+
+.nx-ad-filter-arrow {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -5px;
+
+    border-right: 1.5px solid var(--nx-red);
+    border-bottom: 1.5px solid var(--nx-red);
+    transform: rotate(45deg);
+    pointer-events: none;
+    transition: transform .3s ease;
+}
+
+.nx-ad-filter-item:hover .nx-ad-filter-arrow {
+    transform: rotate(45deg) translate(2px,2px);
+}
+
+.nx-ad-search-button {
+    min-height: 78px;
+    padding: 0 20px;
+    border: 0;
+
+    background: var(--nx-red);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    cursor: pointer;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+
+    transition: background .3s ease, letter-spacing .3s ease;
+}
+
+.nx-ad-search-button:hover {
+    background: #d9180b;
+    letter-spacing: .22em;
+}
+
+.nx-ad-search-icon {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border: 1.3px solid #fff;
+    border-radius: 50%;
+}
+
+.nx-ad-search-icon::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 1.3px;
+    right: -5px;
+    bottom: -2px;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+/* ADVANCED TOGGLE + PANEL */
+
+.nx-ad-advanced-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 165px;
+    padding: 0 22px;
+
+    background: #fff;
+    color: #111;
+    border: 1px solid #fff;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: background .3s ease, color .3s ease;
+}
+
+.nx-ad-advanced-toggle:hover {
+    background: var(--nx-red);
+    color: #fff;
+    border-color: var(--nx-red);
+}
+
+.nx-ad-advanced-toggle svg {
+    width: 15px;
+    height: 15px;
+    transition: transform .3s ease;
+}
+
+.nx-ad-advanced-toggle.active svg {
+    transform: rotate(45deg);
+}
+
+.nx-ad-clear-filters {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    padding: 0 18px;
+
+    color: var(--nx-red);
+    background: transparent;
+    border: 1px solid rgba(255,29,12,.4);
+    border-left: 0;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition: background .3s ease, color .3s ease;
+}
+
+.nx-ad-clear-filters:hover {
+    background: var(--nx-red);
+    color: #fff;
+}
+
+.nx-ad-advanced-panel {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+
+    background: rgba(10,10,10,.96);
+    border: 1px solid rgba(247,244,237,.16);
+    border-top: 0;
+
+    transition: max-height .4s ease;
+}
+
+.nx-ad-advanced-panel.open {
+    max-height: 400px;
+}
+
+.nx-ad-advanced-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.nx-ad-advanced-item {
+    position: relative;
+    min-height: 68px;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+
+    border-right: 1px solid rgba(247,244,237,.1);
+    border-bottom: 1px solid rgba(247,244,237,.1);
+}
+
+.nx-ad-advanced-item:nth-child(3n) {
+    border-right: 0;
+}
+
+.nx-ad-advanced-select {
+    width: 100%;
+    height: 68px;
+    padding: 0 26px 0 0;
+
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: rgba(247,244,237,.72);
+
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.nx-ad-advanced-select option {
+    background: #151515;
+    color: #fff;
+}
+
+@media (max-width: 1100px) {
+
+    .nx-ad-filter-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nx-ad-filter-item {
+        border-bottom: 1px solid rgba(247,244,237,.13);
+    }
+
+    .nx-ad-filter-row {
+        flex-direction: column;
+    }
+
+    .nx-ad-advanced-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nx-ad-advanced-item:nth-child(3n) {
+        border-right: 1px solid rgba(247,244,237,.1);
+    }
+
+    .nx-ad-advanced-item:nth-child(2n) {
+        border-right: 0;
+    }
+
+    .nx-ad-clear-filters {
+        border-left: 1px solid rgba(255,29,12,.4);
+        margin-top: 8px;
+    }
+
+    .nx-ad-advanced-toggle {
+        margin-top: 8px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .nx-ad-filter-bar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nx-ad-filter-item,
+    .nx-ad-filter-select,
+    .nx-ad-filter-input {
+        height: auto;
+        min-height: 66px;
+    }
+
+    .nx-ad-search-button {
+        min-height: 62px;
+    }
+
+    .nx-ad-advanced-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nx-ad-advanced-item {
+        border-right: 0 !important;
+    }
+
+    .nx-ad-advanced-panel.open {
+        max-height: 600px;
+    }
+}
+
+
+/* =========================================================
+   LISTING HEADING
+========================================================= */
+
+.nx-ad-listing {
+    padding: 100px 0 130px;
+}
+
+.nx-ad-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 60px;
+    margin-bottom: 55px;
+}
+
+.nx-ad-heading-left {
+    max-width: 750px;
+}
+
+.nx-ad-heading-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 0 20px;
+
+    color: var(--nx-red);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .19em;
+    text-transform: uppercase;
+}
+
+.nx-ad-heading-eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 1px;
+    background: var(--nx-red);
+}
+
+.nx-ad-heading-title {
+    margin: 0;
+    color: var(--nx-white);
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(38px, 4.4vw, 58px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -.04em;
+}
+
+.nx-ad-heading-title em {
+    color: var(--nx-soft);
+    font-style: italic;
+}
+
+.nx-ad-heading-copy {
+    max-width: 340px;
+    margin: 0;
+
+    color: var(--nx-muted);
+    font-size: 12.5px;
+    line-height: 1.8;
+}
+
+.nx-ad-count {
+    margin: 6px 0 0;
+    color: rgba(247,244,237,.4);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PROPERTY GRID (from buy.html, adapted to dark theme)
+========================================================= */
+
+.nx-ad-property-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    column-gap: 24px;
+    row-gap: 60px;
+}
+
+.nx-ad-property-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+
+    background: var(--nx-card);
+    border: 1px solid rgba(247,244,237,.13);
+    overflow: hidden;
+
+    transition: transform .5s cubic-bezier(.2,.65,.3,1), border-color .4s ease;
+}
+
+.nx-ad-property-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,29,12,.55);
+}
+
+.nx-ad-property-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.nx-ad-property-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.34 / 1;
+    overflow: hidden;
+    background: #1c1c1c;
+}
+
+.nx-ad-property-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 1.2s cubic-bezier(.2,.65,.3,1), filter .7s ease;
+}
+
+.nx-ad-property-card:hover .nx-ad-property-image {
+    transform: scale(1.045);
+    filter: brightness(.85);
+}
+
+.nx-ad-property-image-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0,0,0,.5), transparent 45%);
+}
+
+.nx-ad-property-tag {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 3;
+    padding: 11px 16px;
+
+    background: var(--nx-red);
+    color: #fff;
+
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.nx-ad-property-content {
+    padding: 24px 22px 26px;
+}
+
+.nx-ad-property-location {
+    margin: 0;
+    color: var(--nx-red);
+
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.nx-ad-property-title {
+    margin: 12px 0 0;
+    color: #fff;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+
+    transition: color .3s ease;
+}
+
+.nx-ad-property-card:hover .nx-ad-property-title {
+    color: var(--nx-soft);
+}
+
+.nx-ad-property-details {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(247,244,237,.12);
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: nowrap;  
+}
+
+.nx-ad-property-detail-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: nowrap;
+    flex: 1;
+    min-width: 0;                    /* required for ellipsis inside flex */
+    overflow: hidden;
+}
+.nx-ad-property-detail {
+    min-width: 0;
+}
+.nx-ad-detail-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 80px;                 /* tune to taste */
+    vertical-align: middle;
+}
+
+.nx-ad-whatsapp-button {
+    margin-left: auto;
+    flex-shrink: 0;
+    /* keep the rest of your existing .nx-ad-whatsapp-button rules */
+}
+
+.nx-ad-property-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: rgba(247,244,237,.55);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.nx-ad-detail-icon {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    color: var(--nx-red);
+    border: 1px solid rgba(255,29,12,.3);
+    border-radius: 50%;
+    background: rgba(255,29,12,.05);
+}
+
+.nx-ad-detail-icon svg {
+    width: 11px;
+    height: 11px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.nx-ad-whatsapp-button {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border: 1px solid rgba(255,29,12,.3);
+    border-radius: 50%;
+    background: rgba(255,29,12,.05);
+    color: var(--nx-red);
+    text-decoration: none;
+
+    transition: background .3s ease, color .3s ease, transform .3s ease;
+}
+
+.nx-ad-whatsapp-button svg {
+    width: 11px;
+    height: 11px;
+    fill: currentColor;
+}
+
+.nx-ad-whatsapp-button:hover {
+    background: var(--nx-red);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.nx-ad-property-bottom {
+    margin: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(247,244,237,.12);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    
+}
+
+.nx-ad-property-price {
+    margin: 0;
+    color: #fff;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.nx-ad-property-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    color: rgba(247,244,237,.7);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: color .3s ease;
+}
+
+.nx-ad-property-view a {
+    font-size: 16px;
+    transition: transform .3s ease;
+}
+
+.nx-ad-property-card:hover .nx-ad-property-view {
+    color: var(--nx-red);
+}
+
+.nx-ad-property-card:hover .nx-ad-property-view span {
+    transform: translate(3px,-3px);
+}
+
+.nx-ad-no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #1c1c1c;
+    color: rgba(247,244,237,.35);
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.nx-ad-empty-properties {
+    grid-column: 1 / -1;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    border: 1px solid rgba(247,244,237,.13);
+}
+
+.nx-ad-empty-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    border: 1px solid rgba(255,29,12,.35);
+    border-radius: 50%;
+    color: var(--nx-red);
+    font-size: 18px;
+}
+
+.nx-ad-empty-properties h3 {
+    margin: 0;
+    color: #fff;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.nx-ad-empty-properties p {
+    max-width: 450px;
+    margin: 12px 20px 0;
+
+    color: rgba(247,244,237,.5);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   PAGINATION (same system as area.html / buy.html)
+========================================================= */
+
+.nx-pagination {
+    margin-top: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.nx-page-button {
+    min-width: 43px;
+    height: 43px;
+    padding: 0 13px;
+    border: 1px solid rgba(247,244,237,.18);
+    background: transparent;
+    color: rgba(255,255,255,.7);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.nx-page-number {
+    width: 43px;
+    padding: 0;
+}
+
+.nx-page-button.active {
+    background: var(--nx-red);
+    color: #fff;
+    border-color: var(--nx-red);
+}
+
+.nx-page-button:hover:not(.active) {
+    background: #fff;
+    color: #111;
+    border-color: #fff;
+}
+
+.nx-page-prev,
+.nx-page-next {
+    min-width: 82px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+.nx-page-disabled {
+    opacity: .35;
+    pointer-events: none;
+}
+
+.nx-page-dots {
+    width: 30px;
+    height: 43px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,.45);
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+/* =========================================================
+   MOBILE — SEARCH + ADVANCED FILTERS SAME ROW
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-ad-advanced-toggle,
+    .nx-ad-search-button {
+        width: 50%;
+        min-width: 0;
+        height: 62px;
+        min-height: 62px;
+        padding: 0 12px;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        box-sizing: border-box;
+    }
+
+    .nx-ad-advanced-toggle {
+        gap: 7px;
+        font-size: 9px;
+        letter-spacing: .10em;
+    }
+
+    .nx-ad-search-button {
+        gap: 9px;
+        font-size: 9px;
+        letter-spacing: .12em;
+    }
+
+}
+@media (max-width: 1100px) {
+
+    .nx-ad-shell {
+        width: min(calc(100% - 70px), 1400px);
+    }
+
+    .nx-ad-property-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        column-gap: 24px;
+        row-gap: 55px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .nx-ad-shell {
+        width: calc(100% - 36px);
+    }
+
+    .nx-ad-hero {
+        min-height: 420px;
+    }
+
+    .nx-ad-hero-content {
+        padding: 130px 0 65px;
+    }
+
+    .nx-ad-title {
+        font-size: clamp(42px, 12vw, 60px);
+    }
+
+    .nx-ad-filter-wrap {
+        margin-top: -26px;
+    }
+
+    .nx-ad-listing {
+        padding: 70px 0 90px;
+    }
+
+    .nx-ad-heading {
+        display: block;
+        margin-bottom: 42px;
+    }
+
+    .nx-ad-heading-copy {
+        margin-top: 22px;
+        max-width: 100%;
+    }
+
+    .nx-ad-property-grid {
+        grid-template-columns: 1fr;
+        row-gap: 50px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+
+
+<div class="nx-areadetail-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="nx-ad-hero">
+
+        <div class="nx-ad-hero-panel"></div>
+
+        <div class="nx-ad-shell nx-ad-hero-content">
+
+            <p class="nx-ad-breadcrumb">
+                <a href="{% url 'area' %}">DUBAI AREAS</a>
+                <span>/</span>
+                {{ area_display_name }}
+            </p>
+
+            <p class="nx-ad-eyebrow">
+                {% if area_city %}{{ area_city }} · {% endif %}NEIGHBOURHOOD GUIDE
+            </p>
+
+            <h1 class="nx-ad-title">
+                Properties in<br>
+                <em>{{ area_display_name }}.</em>
+            </h1>
+
+            <p class="nx-ad-subline">
+                Explore every available residence in
+                {{ area_display_name }} — refine by type,
+                budget, developer, bedrooms and handover
+                to find the right fit.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FILTER
+    ====================================================== -->
+
+    <div class="nx-ad-filter-wrap">
+
+        <div class="nx-ad-shell">
+
+            <form
+                method="GET"
+                action="{% url 'area_detail' area_name %}"
+                id="nx-area-detail-filter-form"
+            >
+
+                <div class="nx-ad-filter-row">
+
+                    <div class="nx-ad-filter-bar">
+
+                        <!-- PROPERTY NAME -->
+                        <div class="nx-ad-filter-item">
+                            <input
+                                type="text"
+                                name="property_name"
+                                value="{{ filters.property_name|default:'' }}"
+                                placeholder="PROPERTY NAME"
+                                class="nx-ad-filter-input"
+                                autocomplete="off"
+                                list="nx-ad-property-suggestions"
+                            >
+                            <datalist id="nx-ad-property-suggestions">
+                                {% for name in property_names %}
+                                    <option value="{{ name }}"></option>
+                                {% endfor %}
+                            </datalist>
+                        </div>
+
+                        <!-- PROPERTY STATUS -->
+                        <div class="nx-ad-filter-item">
+                            <select name="property_status" class="nx-ad-filter-select">
+                                <option value="">PROPERTY TYPE</option>
+                                {% for status in property_statuses %}
+                                    <option value="{{ status }}" {% if filters.property_status == status %}selected{% endif %}>
+                                        {{ status }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <span class="nx-ad-filter-arrow"></span>
+                        </div>
+
+                        <!-- BUDGET (dynamic, built from actual prices in this area) -->
+                        <div class="nx-ad-filter-item">
+                            <select name="budget" class="nx-ad-filter-select">
+                                <option value="">ANY BUDGET</option>
+                                {% for value, label in budget_options %}
+                                    <option value="{{ value }}" {% if filters.budget == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <span class="nx-ad-filter-arrow"></span>
+                        </div>
+
+                        <!-- SEARCH -->
+                        <button type="submit" class="nx-ad-search-button">
+                            <span>SEARCH</span>
+                            <span class="nx-ad-search-icon"></span>
+                        </button>
+
+                    </div>
+
+                    <!-- ADVANCED TOGGLE -->
+                    <button type="button" id="nx-ad-advanced-toggle" class="nx-ad-advanced-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>ADVANCED FILTERS</span>
+                    </button>
+
+                    <!-- CLEAR -->
+                    {% if filters.property_name or filters.property_status or filters.budget or filters.developer or filters.bedrooms or filters.handover %}
+                        <a href="{% url 'area_detail' area_name %}" class="nx-ad-clear-filters">CLEAR</a>
+                    {% endif %}
+
+                </div>
+
+                <!-- ADVANCED PANEL -->
+                <div id="nx-ad-advanced-panel" class="nx-ad-advanced-panel">
+                    <div class="nx-ad-advanced-grid">
+
+                        <!-- DEVELOPER -->
+                        <div class="nx-ad-advanced-item">
+                            <select name="developer" class="nx-ad-advanced-select">
+                                <option value="">DEVELOPER</option>
+                                {% for dev in developers %}
+                                    <option value="{{ dev }}" {% if filters.developer == dev %}selected{% endif %}>{{ dev }}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="nx-ad-filter-arrow"></span>
+                        </div>
+
+                        <!-- BEDROOMS -->
+                        <div class="nx-ad-advanced-item">
+                            <select name="bedrooms" class="nx-ad-advanced-select">
+                                <option value="">BEDROOMS</option>
+                                {% for b in bedroom_options %}
+                                    <option value="{{ b }}" {% if filters.bedrooms == b %}selected{% endif %}>
+                                        {% if b == "Studio" %}Studio{% else %}{{ b }} BR{% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <span class="nx-ad-filter-arrow"></span>
+                        </div>
+
+                        <!-- HANDOVER -->
+                        <div class="nx-ad-advanced-item">
+                            <select name="handover" class="nx-ad-advanced-select">
+                                <option value="">HANDOVER</option>
+                                {% for code, label in handover_options %}
+                                    <option value="{{ code }}" {% if filters.handover == code %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <span class="nx-ad-filter-arrow"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         LISTING
+    ====================================================== -->
+
+    <main>
+
+        <section class="nx-ad-shell nx-ad-listing">
+
+            <!-- HEADING -->
+            <div class="nx-ad-heading">
+
+                <div class="nx-ad-heading-left">
+
+                    <p class="nx-ad-heading-eyebrow">
+                        {{ area_display_name }}
+                    </p>
+
+                    <h2 class="nx-ad-heading-title">
+                        Available residences<br>
+                        <em>in {{ area_display_name }}.</em>
+                    </h2>
+
+                    <p class="nx-ad-count">
+                        {{ total_properties }} propert{{ total_properties|pluralize:"y,ies" }} found
+                    </p>
+
+                </div>
+
+                <p class="nx-ad-heading-copy">
+                    Every listing below is located in
+                    {{ area_display_name }}{% if area_city %}, {{ area_city }}{% endif %} —
+                    refine using the filters above to narrow
+                    down by type, budget or handover date.
+                </p>
+
+            </div>
+
+
+            <!-- PROPERTY GRID -->
+            <div class="nx-ad-property-grid">
+
+                {% for property in properties %}
+<article class="nx-ad-property-card">
+
+    {% if property.slug %}
+        <a href="{% url 'propertydetail' slug=property.slug %}"
+           class="nx-ad-property-card-link">
+
+            <div class="nx-ad-property-image-wrap">
+
+                {% if property.cover %}
+                    <img
+                        class="nx-ad-property-image"
+                        src="{{ property.cover }}"
+                        alt="{{ property.title|default:'Property' }}"
+                        loading="lazy"
+                    >
+                {% else %}
+                    <div class="nx-ad-no-image">
+                        <span>IMAGE UNAVAILABLE</span>
+                    </div>
+                {% endif %}
+
+                <span class="nx-ad-property-tag">
+                    {{ property.property_status_name|default:"FOR SALE" }}
+                </span>
+
+            </div>
+
+            <div class="nx-ad-property-content">
+
+                <p class="nx-ad-property-location">
+                    {% if property.city %}
+                        {{ property.city }}
+                    {% else %}
+                        LOCATION UNAVAILABLE
+                    {% endif %}
+
+                    {% if property.district %}
+                        · {{ property.district }}
+                    {% endif %}
+                </p>
+
+                <h3 class="nx-ad-property-title">
+                    {{ property.title|default:"Property details unavailable" }}
+                </h3>
+
+            </div>
+
+        </a>
+    {% endif %}
+
+    <div class="nx-ad-property-bottom">
+
+        <p class="nx-ad-property-price">
+            {% if property.price_from and property.price_from != 0 %}
+                AED {{ property.price_from|floatformat:0|intcomma  }}
+            {% else %}
+                Price on request
+            {% endif %}
+        </p>
+
+        {% if property.slug %}
+            <a href="{% url 'propertydetail' slug=property.slug %}"
+               class="nx-ad-property-view">
+                VIEW PROPERTY
+                <span>↗</span>
+            </a>
+        {% endif %}
+
+    </div>
+
+</article>
+                {% empty %}
+
+                    <div class="nx-ad-empty-properties">
+                        <div class="nx-ad-empty-icon">⌂</div>
+                        <h3>No properties found</h3>
+                        <p>
+                            We couldn't find properties in
+                            {{ area_display_name }} matching your
+                            current selection. Please try another filter.
+                        </p>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PAGINATION -->
+            {% if total_pages > 1 %}
+
+                <div class="nx-pagination">
+
+                    {% if previous_page %}
+                        <a href="?{% if filters.property_name %}property_name={{ filters.property_name|urlencode }}&{% endif %}{% if filters.property_status %}property_status={{ filters.property_status|urlencode }}&{% endif %}{% if filters.budget %}budget={{ filters.budget|urlencode }}&{% endif %}{% if filters.developer %}developer={{ filters.developer|urlencode }}&{% endif %}{% if filters.bedrooms %}bedrooms={{ filters.bedrooms|urlencode }}&{% endif %}{% if filters.handover %}handover={{ filters.handover|urlencode }}&{% endif %}page={{ current_page|add:'-1' }}"
+                           class="nx-page-button nx-page-prev">
+                            ← PREV
+                        </a>
+                    {% endif %}
+
+                    {% for page in page_numbers %}
+                        {% if page == "..." %}
+                            <span class="nx-page-dots">…</span>
+                        {% else %}
+                            <a href="?{% if filters.property_name %}property_name={{ filters.property_name|urlencode }}&{% endif %}{% if filters.property_status %}property_status={{ filters.property_status|urlencode }}&{% endif %}{% if filters.budget %}budget={{ filters.budget|urlencode }}&{% endif %}{% if filters.developer %}developer={{ filters.developer|urlencode }}&{% endif %}{% if filters.bedrooms %}bedrooms={{ filters.bedrooms|urlencode }}&{% endif %}{% if filters.handover %}handover={{ filters.handover|urlencode }}&{% endif %}page={{ page }}"
+                               class="nx-page-button nx-page-number {% if page == current_page %}active{% endif %}">
+                                {{ page }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if next_page %}
+                        <a href="?{% if filters.property_name %}property_name={{ filters.property_name|urlencode }}&{% endif %}{% if filters.property_status %}property_status={{ filters.property_status|urlencode }}&{% endif %}{% if filters.budget %}budget={{ filters.budget|urlencode }}&{% endif %}{% if filters.developer %}developer={{ filters.developer|urlencode }}&{% endif %}{% if filters.bedrooms %}bedrooms={{ filters.bedrooms|urlencode }}&{% endif %}{% if filters.handover %}handover={{ filters.handover|urlencode }}&{% endif %}page={{ current_page|add:'1' }}"
+                           class="nx-page-button nx-page-next">
+                            NEXT →
+                        </a>
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    var toggle = document.getElementById('nx-ad-advanced-toggle');
+    var panel = document.getElementById('nx-ad-advanced-panel');
+
+    if (toggle && panel) {
+        var hasAdvanced = panel.querySelectorAll('select option[selected]').length > 0;
+        if (hasAdvanced) {
+            panel.classList.add('open');
+            toggle.classList.add('active');
+        }
+        toggle.addEventListener('click', function () {
+            panel.classList.toggle('open');
+            toggle.classList.toggle('active');
+        });
+    }
+
+});
+</script>
+
+{% endblock %}

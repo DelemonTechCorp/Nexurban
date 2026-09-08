@@ -1,0 +1,7287 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- =========================================================
+     NEXURBAN ABOUT HERO
+========================================================= -->
+
+<style>
+
+/* =========================================================
+   NEXURBAN ABOUT HERO
+========================================================= */
+
+.nx-about-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* =========================================================
+   HERO BACKGROUND IMAGE
+========================================================= */
+
+.nx-about-hero-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 120%;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: 0.25;
+
+    transform: translateY(0);
+
+    z-index: 0;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   DARK GRADIENT
+========================================================= */
+
+.nx-about-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(17, 17, 17, 0.98) 0%,
+            rgba(17, 17, 17, 0.90) 45%,
+            rgba(17, 17, 17, 0.45) 100%
+        );
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   RIGHT RED PANEL
+   SCROLL PARALLAX
+========================================================= */
+
+.nx-about-accent-panel {
+    position: absolute;
+
+    top: -10%;
+    right: 0;
+
+    width: 33.333%;
+    height: 120%;
+
+    background: rgba(255, 29, 12, 0.08);
+
+    border-left: 1px solid rgba(255, 29, 12, 0.20);
+
+    z-index: 2;
+
+    /*
+       JavaScript controls this transform
+       when the page scrolls.
+    */
+
+    transform: translate3d(0, 0, 0);
+
+    will-change: transform;
+
+    transition: none;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO CONTAINER
+========================================================= */
+
+.nx-about-hero-container {
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 120px 80px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.nx-about-hero-content {
+    width: 100%;
+    max-width: 1150px;
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.nx-about-eyebrow {
+    margin: 0 0 40px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.nx-about-title {
+    margin: 24px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(44px, 5vw, 72px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -0.035em;
+
+    max-width: 1100px;
+}
+
+
+/* =========================================================
+   HEADING LINES
+========================================================= */
+
+.nx-about-title span {
+    display: block;
+}
+
+
+/* =========================================================
+   ITALIC HEADING
+========================================================= */
+
+.nx-about-title em {
+    display: block;
+
+    color: #e4d8c8;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    margin-top: 4px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-about-description {
+    max-width: 600px;
+
+    margin: 32px 0 0;
+
+    color: rgba(247, 244, 237, 0.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   BUTTON AREA
+========================================================= */
+
+.nx-about-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 36px;
+}
+
+
+/* =========================================================
+   BUTTON BASE
+========================================================= */
+
+.nx-about-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 50px;
+
+    padding: 0 28px;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    text-decoration: none;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.nx-about-btn-primary {
+    color: #ffffff;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+}
+
+
+/* =========================================================
+   PRIMARY HOVER
+========================================================= */
+
+.nx-about-btn-primary:hover {
+    background: #ffffff;
+
+    color: #111;
+
+    border: 1px solid #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   OUTLINE BUTTON
+========================================================= */
+
+.nx-about-btn-outline {
+    color: #ffffff;
+
+    background: transparent;
+
+    border: 1px solid #ffffff;
+}
+
+
+/* =========================================================
+   OUTLINE HOVER
+========================================================= */
+
+.nx-about-btn-outline:hover {
+    color: #ffffff;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SCROLL INDICATOR
+========================================================= */
+
+.nx-about-scroll {
+    position: absolute;
+
+    left: 80px;
+    bottom: 48px;
+
+    z-index: 6;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   SCROLL LINE
+========================================================= */
+
+.nx-about-scroll-line {
+    display: block;
+
+    width: 48px;
+
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   SCROLL TEXT
+========================================================= */
+
+.nx-about-scroll-text {
+    color: rgba(247, 244, 237, 0.50);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .nx-about-hero {
+        min-height: 90vh;
+    }
+
+
+    .nx-about-accent-panel {
+        width: 40%;
+
+        height: 120%;
+
+        top: -10%;
+    }
+
+
+    .nx-about-hero-container {
+        padding: 100px 50px;
+    }
+
+
+    .nx-about-title {
+        font-size: clamp(44px, 7vw, 64px);
+
+        max-width: 900px;
+    }
+
+
+    .nx-about-scroll {
+        left: 50px;
+
+        bottom: 36px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-about-hero {
+        min-height: 100svh;
+
+        align-items: center;
+    }
+
+
+    .nx-about-accent-panel {
+
+        width: 100%;
+
+        height: 120%;
+
+        top: -10%;
+
+        border-left: none;
+
+        background: rgba(255, 29, 12, 0.06);
+    }
+
+
+    .nx-about-hero-overlay {
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(17, 17, 17, 0.76) 0%,
+                rgba(17, 17, 17, 0.82) 55%,
+                rgba(17, 17, 17, 0.96) 100%
+            );
+    }
+
+
+    .nx-about-hero-container {
+        padding: 100px 24px 120px;
+    }
+
+
+    .nx-about-hero-content {
+        max-width: 100%;
+    }
+
+
+    /* Tagline */
+
+    .nx-about-eyebrow {
+        margin-bottom: 28px;
+
+        font-size: 10px;
+
+        letter-spacing: 0.16em;
+    }
+
+
+    /* Heading */
+
+    .nx-about-title {
+        margin-top: 18px;
+
+        font-size: clamp(42px, 12vw, 58px);
+
+        line-height: 1.03;
+
+        letter-spacing: -0.035em;
+    }
+
+
+    .nx-about-title em {
+        margin-top: 8px;
+    }
+
+
+    /* Paragraph */
+
+    .nx-about-description {
+        margin-top: 26px;
+
+        max-width: 100%;
+
+        font-size: 14px;
+
+        line-height: 1.75;
+    }
+
+
+    /* Buttons */
+
+      .nx-about-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+
+        width: 100%;
+        max-width: 100%;
+
+        gap: 10px;
+        margin-top: 30px;
+
+        box-sizing: border-box;
+    }
+
+    .nx-about-actions .nx-about-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        max-width: 100%;
+
+        min-width: 0;
+        box-sizing: border-box;
+
+        margin: 0;
+    }
+
+
+    /* Scroll */
+
+    .nx-about-scroll {
+        left: 24px;
+
+        bottom: 28px;
+
+        gap: 12px;
+    }
+
+
+    .nx-about-scroll-line {
+        width: 32px;
+    }
+
+
+    .nx-about-scroll-text {
+        font-size: 9px;
+
+        letter-spacing: 0.12em;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-about-hero-container {
+        padding-left: 20px;
+
+        padding-right: 20px;
+    }
+
+
+    .nx-about-title {
+        font-size: 42px;
+    }
+
+
+    .nx-about-eyebrow {
+        font-size: 9px;
+    }
+
+
+    .nx-about-description {
+        font-size: 13px;
+    }
+
+
+    .nx-about-scroll {
+        left: 20px;
+    }
+    .nx-about-actions {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .nx-about-actions .nx-about-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+</style>
+
+
+<!-- =========================================================
+     ABOUT HERO HTML
+========================================================= -->
+
+<section class="nx-about-hero">
+
+    <!-- Background Image -->
+    <img
+        src="{% static 'img/about-hero.jpg' %}"
+        alt="Dubai skyline at dusk"
+        class="nx-about-hero-image"
+    >
+
+
+    <!-- Dark Gradient -->
+    <div class="nx-about-hero-overlay"></div>
+
+
+    <!-- Right Red Parallax Panel -->
+    <div class="nx-about-accent-panel"></div>
+
+
+    <!-- Main Content -->
+    <div class="nx-about-hero-container">
+
+        <div class="nx-about-hero-content">
+
+            <!-- Tagline -->
+            <p class="nx-about-eyebrow">
+                ABOUT US — ESTABLISHING EXCELLENCE
+            </p>
+
+
+            <!-- Heading -->
+            <h1 class="nx-about-title">
+
+                <span>
+                    Real estate is not just
+                </span>
+
+                <span>
+                    about finding a property.
+                </span>
+
+                <em>
+                    It's about finding the right opportunity.
+                </em>
+
+            </h1>
+
+
+            <!-- Description -->
+            <p class="nx-about-description">
+                We combine market intelligence, local expertise and a
+                curated approach to help you make better real estate
+                decisions in Dubai.
+            </p>
+
+
+            <!-- Buttons -->
+            <div class="nx-about-actions">
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="nx-about-btn nx-about-btn-primary"
+                >
+                    Speak With Us
+                </a>
+
+
+                <a
+                    href="#discover"
+                    class="nx-about-btn nx-about-btn-outline"
+                >
+                    Discover More
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Scroll Hint -->
+    <div class="nx-about-scroll">
+
+        <span class="nx-about-scroll-line"></span>
+
+        <span class="nx-about-scroll-text">
+            Scroll to explore
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NEXURBAN — DUBAI OPPORTUNITY SECTION
+========================================================= -->
+
+<section class="nx-dubai-section" id="discover">
+
+    <div class="nx-dubai-container">
+
+        <!-- =================================================
+             LEFT IMAGE
+        ================================================= -->
+
+        <div class="nx-dubai-image-wrap">
+
+            <div class="nx-dubai-image-box">
+
+                <img
+                    src="{% static 'img/about-2.jpg' %}"
+                    alt="Aerial view of Palm Jumeirah, Dubai"
+                    loading="lazy"
+                    class="nx-dubai-image"
+                >
+
+            </div>
+
+
+            <!-- Orange Floating Box -->
+
+            <div class="nx-dubai-floating-box">
+
+                <p>
+                    One of the world's most dynamic markets.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT CONTENT WITH BACKGROUND IMAGE
+        ================================================= -->
+
+        <div class="nx-dubai-content">
+
+            <!-- Background Image -->
+
+            <img
+                src="{% static 'img/about-2.jpg' %}"
+                alt=""
+                class="nx-dubai-content-bg"
+                aria-hidden="true"
+            >
+
+
+            <!-- Dark Overlay -->
+
+            <div class="nx-dubai-content-overlay"></div>
+
+
+            <!-- Content -->
+
+            <div class="nx-dubai-content-inner">
+
+                <!-- Tagline -->
+
+                <p class="nx-dubai-eyebrow">
+                    DUBAI
+                </p>
+
+
+                <!-- Heading -->
+
+                <h2 class="nx-dubai-title">
+                    Where
+                    <em>opportunity</em>
+                    meets complexity.
+                </h2>
+
+
+                <!-- Paragraphs -->
+
+                <div class="nx-dubai-text">
+
+                    <p>
+                        Dubai is one of the world's most dynamic real estate
+                        markets — offering exceptional opportunities across
+                        residential, luxury, off-plan, investment, land and
+                        development ventures.
+                    </p>
+
+
+                    <p>
+                        But with opportunity comes complexity. Thousands of
+                        properties, hundreds of developments, different payment
+                        structures, different locations, different investment
+                        strategies.
+                    </p>
+
+
+                    <p>
+                        Nexurban Properties exists to simplify that complexity.
+                    </p>
+
+
+                    <p>
+                        We combine market intelligence, local expertise,
+                        strategic advisory and access to curated opportunities
+                        to help investors, homeowners, developers, landowners
+                        and strategic partners make better real estate
+                        decisions.
+                    </p>
+
+                </div>
+
+
+                <!-- Bottom Accent Line -->
+
+                <div class="nx-dubai-accent-line"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN DUBAI SECTION
+========================================================= */
+
+.nx-dubai-section {
+
+    width: 100%;
+
+    padding: 112px 0 140px;
+
+    background: #111;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-dubai-container {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 0 80px;
+
+    display: grid;
+
+    grid-template-columns: 0.9fr 1.1fr;
+
+    align-items: center;
+
+    gap: 90px;
+}
+
+
+/* =========================================================
+   LEFT IMAGE WRAPPER
+========================================================= */
+
+.nx-dubai-image-wrap {
+
+    position: relative;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   IMAGE BOX
+========================================================= */
+
+.nx-dubai-image-box {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 5;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.nx-dubai-image {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    opacity: 0.70;
+
+    filter: grayscale(100%);
+
+    transition:
+        opacity 0.7s ease,
+        filter 0.7s ease,
+        transform 1s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* Image Hover */
+
+.nx-dubai-image-box:hover .nx-dubai-image {
+
+    opacity: 0.90;
+
+    filter: grayscale(0%);
+
+    transform: scale(1.025);
+}
+
+
+/* =========================================================
+   FLOATING RED BOX
+========================================================= */
+
+.nx-dubai-floating-box {
+
+    position: absolute;
+
+    right: -40px;
+
+    bottom: -32px;
+
+    width: 150px;
+        height: 150px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 32px;
+
+    background: #ff1d0c;
+
+    z-index: 3;
+
+    animation: nxDubaiFloat 5s ease-in-out infinite;
+}
+
+
+.nx-dubai-floating-box p {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 18px;
+
+    font-weight: 400;
+
+    line-height: 1.35;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   FLOATING BOX ANIMATION
+========================================================= */
+
+@keyframes nxDubaiFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT CONTENT
+========================================================= */
+
+.nx-dubai-content {
+
+    position: relative;
+
+    min-height: 620px;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* =========================================================
+   CONTENT BACKGROUND IMAGE
+========================================================= */
+
+.nx-dubai-content-bg {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    opacity: 0.35;
+
+    filter: grayscale(20%);
+
+    transition:
+        transform 1.2s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.7s ease;
+
+    z-index: 0;
+}
+
+
+/* Subtle image movement on hover */
+
+.nx-dubai-content:hover .nx-dubai-content-bg {
+
+    transform: scale(1.035);
+
+    opacity: 0.42;
+}
+
+
+/* =========================================================
+   CONTENT OVERLAY
+========================================================= */
+
+.nx-dubai-content-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(17, 17, 17, 0.96) 0%,
+            rgba(17, 17, 17, 0.88) 45%,
+            rgba(17, 17, 17, 0.68) 100%
+        );
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   CONTENT INNER
+========================================================= */
+
+.nx-dubai-content-inner {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    padding: 70px 65px;
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.nx-dubai-eyebrow {
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-dubai-title {
+
+    margin: 24px 0 0;
+
+    max-width: 700px;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(44px, 5vw, 72px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================================
+   HEADING ITALIC
+========================================================= */
+
+.nx-dubai-title em {
+
+    color: #e4d8c8;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.nx-dubai-text {
+
+    max-width: 600px;
+
+    margin-top: 32px;
+}
+
+
+.nx-dubai-text p {
+
+    margin: 0 0 20px;
+
+    color: rgba(247, 244, 237, 0.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+.nx-dubai-text p:last-child {
+
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   ACCENT LINE
+========================================================= */
+
+.nx-dubai-accent-line {
+
+    width: 80px;
+
+    height: 1px;
+
+    margin-top: 40px;
+
+    background: #ff1d0c;
+
+    transform-origin: left;
+
+    animation: nxDubaiLine 1.2s ease forwards;
+}
+
+
+@keyframes nxDubaiLine {
+
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-dubai-container {
+
+        padding: 0 50px;
+
+        gap: 60px;
+    }
+
+
+    .nx-dubai-floating-box {
+
+        right: -25px;
+
+        bottom: -25px;
+    }
+
+
+    .nx-dubai-content-inner {
+
+        padding: 55px 45px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .nx-dubai-section {
+
+        padding: 90px 0 110px;
+    }
+
+
+    .nx-dubai-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 70px;
+
+        max-width: 850px;
+    }
+
+
+    .nx-dubai-image-box {
+
+        aspect-ratio: 4 / 5;
+    }
+
+
+    .nx-dubai-content {
+
+        min-height: auto;
+    }
+
+
+    .nx-dubai-content-inner {
+
+        padding: 65px 50px;
+    }
+
+
+    .nx-dubai-title {
+
+        font-size: clamp(44px, 7vw, 64px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-dubai-section {
+
+        padding: 75px 0 90px;
+    }
+
+
+    .nx-dubai-container {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 55px;
+
+        padding: 0 24px;
+    }
+
+
+    /* Image */
+
+    .nx-dubai-image-box {
+
+        aspect-ratio: 4 / 5;
+    }
+
+
+    /* Floating box */
+
+    .nx-dubai-floating-box {
+
+        right: -10px;
+
+        bottom: -20px;
+
+        width: 145px;
+
+        height: 145px;
+
+        padding: 22px;
+    }
+
+
+    .nx-dubai-floating-box p {
+
+        font-size: 15px;
+    }
+
+
+    /* Content */
+
+    .nx-dubai-content {
+
+        min-height: auto;
+    }
+
+
+    .nx-dubai-content-inner {
+
+        padding: 55px 28px;
+    }
+
+
+    /* Tagline */
+
+    .nx-dubai-eyebrow {
+
+        font-size: 10px;
+
+        letter-spacing: 0.16em;
+    }
+
+
+    /* Heading */
+
+    .nx-dubai-title {
+
+        margin-top: 18px;
+
+        font-size: clamp(42px, 12vw, 58px);
+
+        line-height: 1.03;
+    }
+
+
+    /* Paragraph */
+
+    .nx-dubai-text {
+
+        margin-top: 26px;
+    }
+
+
+    .nx-dubai-text p {
+
+        font-size: 14px;
+
+        line-height: 1.75;
+
+        margin-bottom: 18px;
+    }
+
+
+    .nx-dubai-accent-line {
+
+        margin-top: 32px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-dubai-container {
+
+        padding: 0 20px;
+    }
+
+
+    .nx-dubai-content-inner {
+
+        padding: 45px 22px;
+    }
+
+
+    .nx-dubai-title {
+
+        font-size: 42px;
+    }
+
+
+    .nx-dubai-floating-box {
+
+        width: 135px;
+
+        height: 135px;
+
+        right: -5px;
+    }
+
+
+    .nx-dubai-floating-box p {
+
+        font-size: 14px;
+    }
+
+}
+
+</style>
+
+<!-- =========================================================
+     NEXURBAN — VISION & MISSION
+========================================================= -->
+
+<section class="nx-vision-section">
+
+<div class="nx-vision-container">
+
+    <!-- =================================================
+         SECTION TAGLINE
+    ================================================= -->
+
+    <div class="nx-vision-heading nx-fade-up">
+
+        <p class="nx-vision-eyebrow">
+            VISION & MISSION
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         VISION / MISSION GRID
+    ================================================= -->
+
+    <div class="nx-vision-grid">
+
+
+        <!-- =================================================
+             CORPORATE VISION
+        ================================================= -->
+
+        <div
+            class="nx-vision-card nx-vision-only nx-fade-up"
+            style="--nx-delay: 0s;"
+        >
+
+            <div class="nx-vision-card-content">
+
+                <h3 class="nx-vision-card-label">
+                    CORPORATE VISION
+                </h3>
+
+
+                <p class="nx-vision-card-text">
+
+                    We envision a real estate ecosystem where clients
+                    don't simply have access to more properties —
+                    they have access to
+
+                    <em>
+                        better information, better opportunities
+                        and better decisions.
+                    </em>
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CORPORATE MISSION
+        ================================================= -->
+
+        <div
+            class="nx-vision-card nx-mission-card nx-fade-up"
+            style="--nx-delay: 0.14s;"
+        >
+
+            <!-- =================================================
+                 REAL BUILDING IMAGE
+            ================================================= -->
+
+            <div class="nx-mission-building"></div>
+
+
+            <!-- =================================================
+                 DARK IMAGE FADE
+            ================================================= -->
+
+            <div class="nx-mission-image-fade"></div>
+
+
+            <!-- =================================================
+                 MISSION CONTENT
+            ================================================= -->
+
+            <div class="nx-vision-card-content">
+
+                <h3 class="nx-vision-card-label">
+                    CORPORATE MISSION
+                </h3>
+
+
+                <p class="nx-vision-card-text">
+
+                    Turning Real Estate Opportunities Into
+
+                    <em>
+                        Long-Term Value.
+                    </em>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         BOTTOM STATEMENT
+    ================================================= -->
+
+    <div
+        class="nx-vision-statement nx-fade-up"
+        style="--nx-delay: 0.20s;"
+    >
+
+        <p>
+
+            We Don't Just Show You Properties.
+            <br>
+
+            <em>
+                We Help You Understand Them.
+            </em>
+
+        </p>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<style>
+
+/* =========================================================
+   VISION SECTION
+========================================================= */
+
+.nx-vision-section {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 112px 0 128px;
+
+    background: #111111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-vision-container {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 0 80px;
+}
+
+
+/* =========================================================
+   SECTION TAGLINE
+========================================================= */
+
+.nx-vision-heading {
+
+    text-align: center;
+}
+
+
+.nx-vision-eyebrow {
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   VISION / MISSION GRID
+========================================================= */
+
+.nx-vision-grid {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 1px;
+
+    margin-top: 56px;
+
+    padding: 1px;
+
+    background: rgba(255, 29, 12, 0.20);
+}
+
+
+/* =========================================================
+   BASE CARD
+========================================================= */
+
+.nx-vision-card {
+
+    position: relative;
+
+    min-height: 420px;
+
+    padding: 64px;
+
+    background: #111111;
+
+    overflow: hidden;
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   VISION CARD
+   NO IMAGE / NO PATTERN
+========================================================= */
+
+.nx-vision-only {
+
+    background: #111111;
+}
+
+
+/* =========================================================
+   MISSION CARD
+========================================================= */
+
+.nx-mission-card {
+
+    position: relative;
+
+    background: #111111;
+
+    overflow: hidden;
+
+    isolation: isolate;
+}
+
+
+/* =========================================================
+   REAL BUILDING IMAGE
+   RIGHT + BOTTOM
+========================================================= */
+
+.nx-mission-building {
+
+    position: absolute;
+
+    right: -4%;
+
+    bottom: -8%;
+
+    width: 72%;
+
+    height: 86%;
+
+    background-image:
+        url("{% static 'img/realestate.avif' %}");
+
+    background-repeat: no-repeat;
+
+    background-size: cover;
+
+    background-position: center bottom;
+
+    opacity: 0.42;
+
+    z-index: 0;
+
+    filter:
+        grayscale(100%)
+        contrast(1.05)
+        brightness(0.90);
+
+    transform: scale(1.02);
+
+    transition:
+        transform 1.3s cubic-bezier(.22, 1, .36, 1),
+        opacity 0.8s ease;
+}
+
+
+/* =========================================================
+   IMAGE FADE
+   BLACK → BUILDING
+========================================================= */
+
+.nx-mission-image-fade {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #111111 0%,
+            rgba(17, 17, 17, 0.99) 22%,
+            rgba(17, 17, 17, 0.91) 38%,
+            rgba(17, 17, 17, 0.65) 56%,
+            rgba(17, 17, 17, 0.25) 78%,
+            rgba(17, 17, 17, 0.08) 100%
+        ),
+
+        linear-gradient(
+            to top,
+            rgba(17, 17, 17, 0.05) 0%,
+            rgba(17, 17, 17, 0.18) 55%,
+            rgba(17, 17, 17, 0.70) 100%
+        );
+}
+
+
+/* =========================================================
+   MISSION IMAGE HOVER
+========================================================= */
+
+.nx-mission-card:hover .nx-mission-building {
+
+    opacity: 0.50;
+
+    transform:
+        scale(1.055)
+        translateX(-8px);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.nx-vision-card-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    max-width: 700px;
+}
+
+
+/* =========================================================
+   CARD LABEL
+========================================================= */
+
+.nx-vision-card-label {
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.nx-vision-card-text {
+
+    max-width: 680px;
+
+    margin: 32px 0 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(27px, 3vw, 42px);
+
+    font-weight: 400;
+
+    line-height: 1.18;
+
+    letter-spacing: -0.025em;
+
+    transition:
+        color 0.5s ease;
+}
+
+
+/* =========================================================
+   ITALIC TEXT
+========================================================= */
+
+.nx-vision-card-text em {
+
+    color: #ff4c3fd3;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   BOTTOM STATEMENT
+========================================================= */
+
+.nx-vision-statement {
+
+    margin-top: 80px;
+
+    text-align: center;
+}
+
+
+.nx-vision-statement p {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(34px, 4vw, 56px);
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================================
+   STATEMENT ITALIC
+========================================================= */
+
+.nx-vision-statement em {
+
+    color: #ff4c3fd3;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   FADE UP ANIMATION
+========================================================= */
+
+.nx-fade-up {
+
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+
+        opacity 0.9s
+        cubic-bezier(.22, 1, .36, 1),
+
+        transform 0.9s
+        cubic-bezier(.22, 1, .36, 1);
+
+    transition-delay:
+        var(--nx-delay, 0s);
+}
+
+
+/* =========================================================
+   VISIBLE STATE
+========================================================= */
+
+.nx-fade-up.nx-visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-vision-container {
+
+        padding: 0 50px;
+    }
+
+
+    .nx-vision-card {
+
+        padding: 50px;
+    }
+
+
+    .nx-vision-card-text {
+
+        font-size:
+            clamp(26px, 3.5vw, 38px);
+    }
+
+
+    .nx-mission-building {
+
+        width: 75%;
+
+        height: 82%;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-vision-section {
+
+        padding:
+            80px 0 90px;
+    }
+
+
+    .nx-vision-container {
+
+        padding: 0 24px;
+    }
+
+
+    /* Stack cards */
+
+    .nx-vision-grid {
+
+        grid-template-columns: 1fr;
+
+        margin-top: 45px;
+    }
+
+
+    /* Cards */
+
+    .nx-vision-card {
+
+        min-height: 350px;
+
+        padding: 42px 30px;
+    }
+
+
+    /* Mission image */
+
+    .nx-mission-building {
+
+        right: -12%;
+
+        bottom: -5%;
+
+        width: 92%;
+
+        height: 68%;
+
+        opacity: 0.30;
+
+        background-position:
+            center bottom;
+    }
+
+
+    /* Mission fade */
+
+    .nx-mission-image-fade {
+
+        background:
+
+            linear-gradient(
+                90deg,
+                #111111 0%,
+                rgba(17, 17, 17, 0.96) 30%,
+                rgba(17, 17, 17, 0.72) 55%,
+                rgba(17, 17, 17, 0.20) 100%
+            ),
+
+            linear-gradient(
+                to top,
+                rgba(17, 17, 17, 0.08) 0%,
+                rgba(17, 17, 17, 0.65) 100%
+            );
+    }
+
+
+    /* Label */
+
+    .nx-vision-card-label {
+
+        font-size: 10px;
+
+        letter-spacing: 0.16em;
+    }
+
+
+    /* Text */
+
+    .nx-vision-card-text {
+
+        margin-top: 25px;
+
+        font-size: 28px;
+
+        line-height: 1.16;
+    }
+
+
+    /* Bottom statement */
+
+    .nx-vision-statement {
+
+        margin-top: 60px;
+    }
+
+
+    .nx-vision-statement p {
+
+        font-size: 34px;
+
+        line-height: 1.08;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-vision-container {
+
+        padding: 0 20px;
+    }
+
+
+    .nx-vision-card {
+
+        min-height: 320px;
+
+        padding: 36px 24px;
+    }
+
+
+    .nx-vision-card-text {
+
+        font-size: 26px;
+    }
+
+
+    .nx-mission-building {
+
+        width: 105%;
+
+        height: 62%;
+
+        right: -18%;
+
+        bottom: -3%;
+
+        opacity: 0.25;
+    }
+
+
+    .nx-vision-statement p {
+
+        font-size: 31px;
+    }
+
+}
+
+</style>
+
+
+
+<!-- =========================================================
+     NEXURBAN — FIVE PRINCIPLES
+========================================================= -->
+
+
+<!-- =========================================================
+     NEXURBAN — FIVE PRINCIPLES
+========================================================= -->
+
+<section class="nx-principles-section">
+
+    <div class="nx-principles-container">
+
+        <!-- SECTION HEADING -->
+        <div class="nx-principles-heading">
+
+            <p class="nx-principles-eyebrow">
+                OUR APPROACH
+            </p>
+
+            <h2 class="nx-principles-title">
+                Our approach is built on
+                <em>five principles.</em>
+            </h2>
+
+        </div>
+
+
+        <!-- PRINCIPLES -->
+        <div class="nx-principles-list">
+
+            <!-- 01 -->
+            <div class="nx-principle">
+
+                <div class="nx-principle-number">
+                    01
+                </div>
+
+                <div class="nx-principle-content">
+
+                    <h3>
+                        Intelligence
+                    </h3>
+
+                    <p>
+                        We believe better decisions begin with better
+                        information. We combine market intelligence,
+                        data and local knowledge to create clarity.
+                    </p>
+
+                </div>
+
+                <div class="nx-principle-arrow">
+                    ↗
+                </div>
+
+            </div>
+
+
+            <!-- 02 -->
+            <div class="nx-principle">
+
+                <div class="nx-principle-number">
+                    02
+                </div>
+
+                <div class="nx-principle-content">
+
+                    <h3>
+                        Strategy
+                    </h3>
+
+                    <p>
+                        Every property decision should serve a larger
+                        objective. We approach every opportunity with
+                        strategy, context and long-term thinking.
+                    </p>
+
+                </div>
+
+                <div class="nx-principle-arrow">
+                    ↗
+                </div>
+
+            </div>
+
+
+            <!-- 03 -->
+            <div class="nx-principle">
+
+                <div class="nx-principle-number">
+                    03
+                </div>
+
+                <div class="nx-principle-content">
+
+                    <h3>
+                        Transparency
+                    </h3>
+
+                    <p>
+                        No unnecessary complexity. No pressure.
+                        We provide honest insights so our clients can
+                        understand opportunities clearly.
+                    </p>
+
+                </div>
+
+                <div class="nx-principle-arrow">
+                    ↗
+                </div>
+
+            </div>
+
+
+            <!-- 04 -->
+            <div class="nx-principle">
+
+                <div class="nx-principle-number">
+                    04
+                </div>
+
+                <div class="nx-principle-content">
+
+                    <h3>
+                        Curation
+                    </h3>
+
+                    <p>
+                        More choice does not always mean better choice.
+                        We carefully filter opportunities to focus on
+                        what genuinely matters.
+                    </p>
+
+                </div>
+
+                <div class="nx-principle-arrow">
+                    ↗
+                </div>
+
+            </div>
+
+
+            <!-- 05 -->
+            <div class="nx-principle">
+
+                <div class="nx-principle-number">
+                    05
+                </div>
+
+                <div class="nx-principle-content">
+
+                    <h3>
+                        Long-Term Value
+                    </h3>
+
+                    <p>
+                        We look beyond the transaction. Our focus is on
+                        creating decisions and relationships that deliver
+                        lasting value.
+                    </p>
+
+                </div>
+
+                <div class="nx-principle-arrow">
+                    ↗
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.nx-principles-section {
+
+    position: relative;
+    width: 100%;
+
+    padding: 130px 0 150px;
+
+    background: #ffffff;
+    color: #111111;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-principles-container {
+
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-principles-heading {
+
+    max-width: 850px;
+
+    margin-bottom: 85px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-principles-eyebrow {
+
+    margin: 0 0 22px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-principles-title {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(42px, 5vw, 68px);
+
+    font-weight: 400;
+
+    line-height: 1.03;
+
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================================
+   TITLE ITALIC
+========================================================= */
+
+.nx-principles-title em {
+
+    /* color: #ff1d0c; */
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   LIST
+========================================================= */
+
+.nx-principles-list {
+
+    width: 100%;
+
+    border-top: 1px solid #dedede;
+}
+
+
+/* =========================================================
+   PRINCIPLE ROW
+========================================================= */
+
+.nx-principle {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 120px 1fr 50px;
+
+    align-items: start;
+
+    gap: 45px;
+
+    padding: 42px 0 46px;
+
+    border-bottom: 1px solid #dedede;
+
+    overflow: hidden;
+
+    transition:
+        padding 0.5s ease,
+        border-color 0.5s ease;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.nx-principle-number {
+
+    position: relative;
+
+    color: rgba(17, 17, 17, 0.22);
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 54px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -0.04em;
+
+    transition:
+        color 0.5s ease,
+        transform 0.5s ease;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-principle-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 650px;
+}
+
+
+/* =========================================================
+   CONTENT TITLE
+========================================================= */
+
+.nx-principle-content h3 {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(27px, 3vw, 38px);
+
+    font-weight: 400;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
+
+    transition:
+        color 0.4s ease,
+        transform 0.4s ease;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-principle-content p {
+
+    max-width: 580px;
+
+    margin: 13px 0 0;
+
+    color: #666666;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.75;
+
+    opacity: 1;
+
+    visibility: visible;
+}
+
+
+/* =========================================================
+   ARROW BUTTON
+========================================================= */
+
+.nx-principle-arrow {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin-top: 3px;
+
+    color: #111111;
+
+    background: transparent;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 50%;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    /*
+       Keep the button in its original position.
+       Only the arrow itself rotates on hover.
+    */
+
+    transform: rotate(0deg);
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        border-color 0.4s ease,
+        transform 0.55s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   HOVER — ROW
+========================================================= */
+
+.nx-principle:hover {
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    border-color: #cfcfcf;
+}
+
+
+/* =========================================================
+   HOVER — NUMBER
+========================================================= */
+
+.nx-principle:hover .nx-principle-number {
+
+    color: #ff1d0c;
+
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   HOVER — CONTENT TITLE
+========================================================= */
+
+.nx-principle:hover .nx-principle-content h3 {
+
+    color: #ff1d0c;
+
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   HOVER — ARROW
+   Circle stays on the right.
+   Arrow rotates toward the content.
+========================================================= */
+
+.nx-principle:hover .nx-principle-arrow {
+
+    color: #ffffff;
+
+    background: #ff1d0c;
+
+    border-color: #ff1d0c;
+
+    /*
+       ↗  →  ↖
+       Rotates the arrow toward the content.
+    */
+
+    transform: rotate(220deg);
+}
+
+
+/* =========================================================
+   SUBTLE BACKGROUND HOVER
+========================================================= */
+
+.nx-principle::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 0;
+    height: 100%;
+
+    background: rgba(255, 29, 12, 0.025);
+
+    transition:
+        width 0.6s cubic-bezier(.22, 1, .36, 1);
+
+    pointer-events: none;
+}
+
+
+.nx-principle:hover::before {
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .nx-principles-section {
+
+        padding: 100px 0 120px;
+    }
+
+
+    .nx-principles-container {
+
+        padding: 0 45px;
+    }
+
+
+    .nx-principles-heading {
+
+        margin-bottom: 65px;
+    }
+
+
+    .nx-principle {
+
+        grid-template-columns: 90px 1fr 45px;
+
+        gap: 30px;
+    }
+
+
+    .nx-principle-number {
+
+        font-size: 46px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-principles-section {
+
+        padding: 80px 0 90px;
+    }
+
+
+    .nx-principles-container {
+
+        padding: 0 24px;
+    }
+
+
+    .nx-principles-heading {
+
+        margin-bottom: 50px;
+    }
+
+
+    .nx-principles-eyebrow {
+
+        margin-bottom: 17px;
+
+        font-size: 10px;
+
+        letter-spacing: 0.16em;
+    }
+
+
+    .nx-principles-title {
+
+        font-size: clamp(40px, 11vw, 54px);
+
+        line-height: 1.04;
+    }
+
+
+    .nx-principle {
+
+        display: grid;
+
+        grid-template-columns: 58px 1fr;
+
+        gap: 20px;
+
+        padding: 32px 0 35px;
+    }
+
+
+    .nx-principle-number {
+
+        font-size: 35px;
+
+        padding-top: 2px;
+    }
+
+
+    .nx-principle-content h3 {
+
+        font-size: 28px;
+    }
+
+
+    .nx-principle-content p {
+
+        margin-top: 10px;
+
+        font-size: 13px;
+
+        line-height: 1.7;
+    }
+
+
+    /* Hide arrow on mobile */
+
+    .nx-principle-arrow {
+
+        display: none;
+    }
+
+
+    .nx-principle:hover {
+
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+
+    .nx-principle:hover .nx-principle-content h3 {
+
+        transform: none;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-principles-container {
+
+        padding: 0 20px;
+    }
+
+
+    .nx-principles-title {
+
+        font-size: 39px;
+    }
+
+
+    .nx-principle {
+
+        grid-template-columns: 48px 1fr;
+
+        gap: 16px;
+    }
+
+
+    .nx-principle-number {
+
+        font-size: 30px;
+    }
+
+
+    .nx-principle-content h3 {
+
+        font-size: 25px;
+    }
+
+}
+
+</style>
+<script>
+
+/* =========================================================
+   PRINCIPLE REVEAL ANIMATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const principles =
+        document.querySelectorAll(".nx-principle");
+
+
+    if (!principles.length) {
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "nx-principle-visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12,
+
+                rootMargin: "0px 0px -50px 0px"
+            }
+
+        );
+
+
+    principles.forEach(function (item) {
+
+        observer.observe(item);
+
+    });
+
+});
+
+</script>
+
+<!-- =========================================================
+     NEXURBAN — WHY NEXURBAN
+========================================================= -->
+
+<section class="nx-why-section">
+
+    <div class="nx-why-container">
+
+        <!-- =================================================
+             SECTION HEADING
+        ================================================= -->
+
+        <div class="nx-why-heading nx-why-reveal">
+
+            <h2 class="nx-why-title">
+                Why <span>Nexurban</span>?
+            </h2>
+
+            <p class="nx-why-eyebrow">
+                Six reasons clients keep coming back to us
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             WHY NEXURBAN CARDS
+        ================================================= -->
+
+        <div class="nx-why-grid">
+
+
+            <!-- 01 -->
+            <div class="nx-why-card nx-why-reveal">
+
+                <span class="nx-why-number">
+                    01
+                </span>
+
+                <div class="nx-why-card-content">
+
+                    <h3>
+                        Intelligence
+                    </h3>
+
+                    <p>
+                        We believe better decisions begin with better
+                        information. We combine market intelligence,
+                        data and local knowledge to create clarity.
+                    </p>
+
+                </div>
+
+                
+
+                <div class="nx-why-line"></div>
+
+            </div>
+
+
+            <!-- 02 -->
+            <div class="nx-why-card nx-why-reveal">
+
+                <span class="nx-why-number">
+                    02
+                </span>
+
+                <div class="nx-why-card-content">
+
+                    <h3>
+                        Strategy
+                    </h3>
+
+                    <p>
+                        Every property decision should serve a larger
+                        objective. We approach every opportunity with
+                        strategy, context and long-term thinking.
+                    </p>
+
+                </div>
+
+
+                <div class="nx-why-line"></div>
+
+            </div>
+
+
+            <!-- 03 -->
+            <div class="nx-why-card nx-why-reveal">
+
+                <span class="nx-why-number">
+                    03
+                </span>
+
+                <div class="nx-why-card-content">
+
+                    <h3>
+                        Transparency
+                    </h3>
+
+                    <p>
+                        No unnecessary complexity. No pressure.
+                        We provide honest insights so our clients can
+                        understand opportunities clearly.
+                    </p>
+
+                </div>
+
+               
+                <div class="nx-why-line"></div>
+
+            </div>
+
+
+            <!-- 04 -->
+            <div class="nx-why-card nx-why-reveal">
+
+                <span class="nx-why-number">
+                    04
+                </span>
+
+                <div class="nx-why-card-content">
+
+                    <h3>
+                        Curation
+                    </h3>
+
+                    <p>
+                        More choice does not always mean better choice.
+                        We carefully filter opportunities to focus on
+                        what genuinely matters.
+                    </p>
+
+                </div>
+
+                
+
+                <div class="nx-why-line"></div>
+
+            </div>
+
+
+            <!-- 05 -->
+            <div class="nx-why-card nx-why-reveal">
+
+                <span class="nx-why-number">
+                    05
+                </span>
+
+                <div class="nx-why-card-content">
+
+                    <h3>
+                        Long-Term Value
+                    </h3>
+
+                    <p>
+                        We look beyond the transaction. Our focus is on
+                        creating decisions and relationships that deliver
+                        lasting value.
+                    </p>
+
+                </div>
+
+             
+
+                <div class="nx-why-line"></div>
+
+            </div>
+
+
+            <!-- 06 -->
+            <div class="nx-why-card nx-why-reveal">
+
+                <span class="nx-why-number">
+                    06
+                </span>
+
+                <div class="nx-why-card-content">
+
+                    <h3>
+                        Client Focus
+                    </h3>
+
+                    <p>
+                        We put our clients at the centre of every
+                        decision, creating a thoughtful and personalised
+                        real estate experience.
+                    </p>
+
+                </div>
+
+               
+                <div class="nx-why-line"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   WHY NEXURBAN SECTION
+========================================================= */
+
+.nx-why-section {
+
+    position: relative;
+    width: 100%;
+
+    padding: 70px 0 150px;
+
+    background: #111111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-why-container {
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 0 80px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-why-heading {
+
+    text-align: center;
+
+    margin-bottom: 80px;
+}
+
+
+/* =========================================================
+   MAIN TITLE
+========================================================= */
+
+.nx-why-title {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(48px, 6vw, 78px);
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -0.045em;
+}
+
+
+/* =========================================================
+   RED TITLE
+========================================================= */
+
+.nx-why-title span {
+
+        color: #e4d8c8;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-why-eyebrow {
+
+    margin: 25px 0 0;
+
+    color: rgba(247, 244, 237, 0.48);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.nx-why-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.nx-why-card {
+
+    position: relative;
+
+    min-height: 200px;
+
+    padding: 42px 40px 48px;
+
+    background: #171717;
+
+    border: 1px solid rgba(255, 29, 12, 0.20);
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    transition:
+        transform 0.6s cubic-bezier(.22, 1, .36, 1),
+        border-color 0.5s ease,
+        background 0.5s ease;
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.nx-why-card:hover {
+
+    transform: translateY(-8px);
+
+    background: #191919;
+
+    border-color: rgba(255, 29, 12, 0.45);
+}
+
+
+/* =========================================================
+   LARGE BACKGROUND NUMBER
+========================================================= */
+
+.nx-why-number {
+
+    position: absolute;
+
+    right: -8px;
+
+    bottom: -32px;
+
+    z-index: 0;
+
+    color: rgba(255, 29, 12, 0.055);
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 150px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -0.07em;
+
+    pointer-events: none;
+
+    transition:
+        color 0.6s ease,
+        transform 0.7s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   NUMBER HOVER
+========================================================= */
+
+.nx-why-card:hover .nx-why-number {
+
+    color: rgba(255, 29, 12, 0.13);
+
+    transform: translate(-8px, -5px);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-why-card-content {
+
+    position: relative;
+
+    z-index: 3;
+
+    max-width: 470px;
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.nx-why-card-content h3 {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(28px, 2.5vw, 38px);
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -0.025em;
+
+    transition:
+        color 0.4s ease,
+        transform 0.5s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   TITLE HOVER
+========================================================= */
+
+.nx-why-card:hover .nx-why-card-content h3 {
+
+    color: #ff1d0c;
+
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-why-card-content p {
+
+    max-width: 430px;
+
+    margin: 20px 0 0;
+
+    color: rgba(247, 244, 237, 0.58);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 1.75;
+
+    transition:
+        color 0.4s ease;
+}
+
+
+/* =========================================================
+   DESCRIPTION HOVER
+========================================================= */
+
+.nx-why-card:hover .nx-why-card-content p {
+
+    color: rgba(247, 244, 237, 0.76);
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.nx-why-arrow {
+
+    position: absolute;
+
+    top: 40px;
+
+    right: 38px;
+
+    z-index: 4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    color: #f7f4ed;
+
+    border: 1px solid rgba(247, 244, 237, 0.20);
+
+    border-radius: 50%;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    transition:
+        background 0.45s ease,
+        color 0.45s ease,
+        border-color 0.45s ease,
+        transform 0.6s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   ARROW HOVER
+   Moves/rotates toward the content
+========================================================= */
+
+.nx-why-card:hover .nx-why-arrow {
+
+    color: #ffffff;
+
+    background: #ff1d0c;
+
+    border-color: #ff1d0c;
+
+    transform:
+        translateX(-12px)
+        rotate(-45deg);
+}
+
+
+/* =========================================================
+   BOTTOM RED LINE
+========================================================= */
+
+.nx-why-line {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    height: 2px;
+
+    background: #ff1d0c;
+
+    transform:
+        scaleX(0);
+
+    transform-origin: left center;
+
+    transition:
+        transform 0.8s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   LINE HOVER
+========================================================= */
+
+.nx-why-card:hover .nx-why-line {
+
+    transform: scaleX(1);
+}
+
+
+/* =========================================================
+   SUBTLE LIGHT EFFECT
+========================================================= */
+
+.nx-why-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: -20%;
+
+    bottom: -50%;
+
+    width: 70%;
+
+    height: 100%;
+
+    z-index: 1;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255, 29, 12, 0.07) 0%,
+            rgba(255, 29, 12, 0) 70%
+        );
+
+    opacity: 0;
+
+    transform: scale(0.8);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.8s ease;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LIGHT HOVER
+========================================================= */
+
+.nx-why-card:hover::before {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+.nx-why-reveal {
+
+    opacity: 0;
+
+    transform: translateY(45px);
+
+    transition:
+        opacity 0.9s cubic-bezier(.22, 1, .36, 1),
+        transform 0.9s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   ACTIVE REVEAL
+========================================================= */
+
+.nx-why-reveal.nx-why-visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   STAGGER
+========================================================= */
+
+.nx-why-card:nth-child(1) {
+    transition-delay: 0.05s;
+}
+
+.nx-why-card:nth-child(2) {
+    transition-delay: 0.12s;
+}
+
+.nx-why-card:nth-child(3) {
+    transition-delay: 0.19s;
+}
+
+.nx-why-card:nth-child(4) {
+    transition-delay: 0.26s;
+}
+
+.nx-why-card:nth-child(5) {
+    transition-delay: 0.33s;
+}
+
+.nx-why-card:nth-child(6) {
+    transition-delay: 0.40s;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .nx-why-container {
+
+        padding: 0 50px;
+    }
+
+    .nx-why-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 16px;
+    }
+
+    .nx-why-card {
+
+        min-height: 310px;
+
+        padding: 38px 34px 45px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+     .nx-why-section {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    .nx-why-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
+
+
+    .nx-why-heading {
+
+        margin-bottom: 55px;
+    }
+
+    .nx-why-title {
+
+        font-size:
+            clamp(43px, 12vw, 58px);
+
+        line-height: 1.02;
+    }
+
+    .nx-why-eyebrow {
+
+        margin-top: 19px;
+
+        font-size: 10px;
+
+        line-height: 1.5;
+
+        letter-spacing: 0.15em;
+    }
+
+    
+      .nx-why-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        gap: 14px;
+        box-sizing: border-box;
+    }
+ 
+    .nx-why-card {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        min-height: 285px;
+        margin: 0;
+        padding: 34px 24px 42px;
+
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+   
+
+    .nx-why-card p,
+    .nx-why-card h3 {
+        overflow-wrap: break-word;
+    }
+    .nx-why-number {
+
+        font-size: 120px;
+
+        right: -5px;
+
+        bottom: -25px;
+    }
+
+    .nx-why-arrow {
+
+        top: 32px;
+
+        right: 28px;
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 16px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+        .nx-why-container {
+        width: 100%;
+        max-width: 100vw;
+        padding-left: 16px;
+        padding-right: 16px;
+        box-sizing: border-box;
+    }
+
+    .nx-why-grid {
+        width: 100%;
+        max-width: 100%;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .nx-why-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 28px 20px 34px;
+        box-sizing: border-box;
+    }
+    .nx-why-card-content h3 {
+
+        font-size: 27px;
+    }
+
+    .nx-why-card-content p {
+
+        font-size: 12.5px;
+
+        line-height: 1.7;
+    }
+
+    .nx-why-number {
+
+        font-size: 105px;
+    }
+
+    .nx-why-arrow {
+
+        top: 27px;
+
+        right: 23px;
+    }
+
+   
+
+  
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-why-reveal {
+
+        opacity: 1;
+
+        transform: none;
+
+        transition: none;
+    }
+
+    .nx-why-card,
+    .nx-why-arrow,
+    .nx-why-number,
+    .nx-why-line {
+
+        transition: none;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     NEXURBAN — STORY FLIP BOOK
+========================================================= -->
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — COMPANY PROFILE PDF FLIP BOOK
+   Pages are the client's actual PDF pages (images), nothing
+   fabricated. Landscape 16:9 pages -> single page turning,
+   not a two-page spread (a 16:9 spread would be ~32:9 wide
+   and unreadable).
+========================================================= */
+
+.nx-flip-section {
+    width: 100%;
+    padding: 120px 0 130px;
+    background: #111;
+    overflow: hidden;
+}
+
+.nx-flip-container {
+    width: min(1280px, calc(100% - 80px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   TEASER — LEFT CONTENT / RIGHT COVER TRIGGER
+========================================================= */
+
+.nx-flip-teaser {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    align-items: center;
+    gap: 64px;
+}
+
+.nx-flip-eyebrow {
+    margin: 0 0 18px;
+    color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+}
+
+.nx-flip-title {
+    margin: 0;
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 400;
+    line-height: .98;
+    letter-spacing: -.035em;
+}
+
+.nx-flip-title em {
+    color: #e4d8c8;
+    font-style: italic;
+}
+
+.nx-flip-subtitle {
+    max-width: 460px;
+    margin: 24px 0 0;
+    color: rgba(247,244,237,.58);
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.nx-flip-open-cta {
+    margin-top: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 28px;
+    border: 1px solid rgba(247,244,237,.28);
+    border-radius: 999px;
+    background: transparent;
+    color: #f7f4ed;
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+
+.nx-flip-open-cta:hover {
+    background: #f7f4ed;
+    color: #111;
+    transform: translateY(-2px);
+}
+
+.nx-flip-cover-trigger {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    margin-left: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    background: #151515;
+    transform: perspective(1200px) rotateY(-8deg);
+    transition: transform .4s ease, box-shadow .4s ease;
+    box-shadow: -22px 24px 60px rgba(0,0,0,.55);
+}
+
+.nx-flip-cover-trigger:hover {
+    transform: perspective(1200px) rotateY(-3deg) translateY(-4px);
+}
+
+.nx-flip-cover-trigger img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.nx-flip-cover-trigger-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 4;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.4);
+    border: 1px solid rgba(255,255,255,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    backdrop-filter: blur(4px);
+}
+
+
+/* =========================================================
+   MODAL SHELL
+========================================================= */
+
+.nx-flip-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8,8,8,.94);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.nx-flip-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+body.nx-flip-modal-open {
+    overflow: hidden;
+}
+
+/*
+ * Everything below must fit inside the viewport as a whole.
+ * Content taller than the screen, centered, overflows equally
+ * top and bottom — which is exactly what pushed the close
+ * button off the top and the prev/next controls off the bottom
+ * before. Fixed height budget + flex column solves that.
+ */
+.nx-flip-modal-inner {
+    position: relative;
+    width: min(1200px, 100%);
+    height: 100%;
+    max-height: calc(100vh - 32px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.nx-flip-modal-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+}
+
+.nx-flip-modal-title {
+    color: rgba(255,255,255,.55);
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.nx-flip-modal-close {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(0,0,0,.4);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s ease, color .2s ease;
+}
+
+.nx-flip-modal-close:hover {
+    background: #fff;
+    color: #111;
+}
+
+
+/* =========================================================
+   BOOK STAGE
+========================================================= */
+.nx-flip-stage {
+    position: relative;
+
+    width: 100%;
+
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 2400px;
+
+    overflow: visible;
+
+    background: transparent;
+}
+.nx-flip-book-wrap {
+    position: relative;
+
+    width: 100%;
+
+    /* MORE HEIGHT FOR THE FLIP BOOK */
+    height: calc(100vh - 25px);
+
+    max-height: 1000px;
+
+    max-width: calc((100vh - 135px) * 16 / 9);
+
+    aspect-ratio: 16 / 9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+
+    background: #000;
+
+    overflow: hidden;
+
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
+#nxFlipBook {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transform: translateZ(0);
+}
+
+/*
+ * backface-visibility only on the actual page face. Stacking
+ * transform-style:preserve-3d across nested wrapper levels that
+ * don't need it (.stf__parent/.stf__wrapper/.stf__block) is a
+ * known cause of ghosting/flattening glitches in Chrome/Safari —
+ * keep this minimal and it stays correct.
+ */
+.nx-flip-page {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.nx-flip-page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.nx-flip-controls {
+    position: relative;
+    z-index: 10;
+    flex: 0 0 auto;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.nx-flip-btn {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 50%;
+    background: rgba(0,0,0,.38);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease, transform .25s ease, opacity .25s ease;
+}
+
+.nx-flip-btn:hover {
+    background: #fff;
+    color: #111;
+    transform: translateY(-2px);
+}
+
+.nx-flip-btn:disabled {
+    opacity: .28;
+    pointer-events: none;
+}
+
+.nx-flip-counter {
+    min-width: 70px;
+    text-align: center;
+    color: rgba(255,255,255,.58);
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+
+.nx-flip-hint {
+    flex: 0 0 auto;
+    margin-top: 10px;
+    text-align: center;
+    color: rgba(255,255,255,.34);
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+    transition: opacity .3s ease;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+    .nx-flip-teaser { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .nx-flip-cover-trigger { margin: 0 auto; transform: none; }
+    .nx-flip-cover-trigger:hover { transform: translateY(-4px); }
+    .nx-flip-section { padding: 95px 0 110px; }
+    .nx-flip-container { width: calc(100% - 60px); }
+}
+
+@media (max-width: 767px) {
+    .nx-flip-section { padding: 78px 0 92px; }
+    .nx-flip-container { width: calc(100% - 32px); }
+    .nx-flip-title { font-size: 36px; }
+    .nx-flip-subtitle { font-size: 12px; line-height: 1.7; }
+    .nx-flip-modal-inner { width: 100%; height: 100%; max-height: calc(100vh - 24px); }
+    .nx-flip-book-wrap { max-width: 100%; }
+}
+
+</style>
+
+
+<!-- =========================================================
+     TEASER — LEFT CONTENT / RIGHT COVER TRIGGER
+========================================================= -->
+<style>
+
+/* =========================================================
+   NEXURBAN — COMPANY PROFILE PDF FLIP BOOK
+   Pages are the client's actual PDF pages (images), nothing
+   fabricated. Landscape 16:9 pages -> single page turning,
+   not a two-page spread (a 16:9 spread would be ~32:9 wide
+   and unreadable).
+========================================================= */
+
+.nx-flip-section {
+    width: 100%;
+    padding: 68px 0 72px;
+    background: #f8f7f4;
+    color: #111;
+    overflow: hidden;
+    position: relative;
+}
+
+/* =========================================================
+   SUBTLE LIGHT PATTERN — NO SPOTLIGHT
+========================================================= */
+.nx-flip-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: .30;
+    background-image:
+        linear-gradient(115deg, transparent 0 72%, rgba(0,0,0,.035) 72.1%, transparent 72.25%),
+        repeating-radial-gradient(
+            ellipse at 0% 0%,
+            transparent 0 45px,
+            rgba(0,0,0,.022) 46px,
+            transparent 47px 66px
+        );
+}
+
+/* RIGHT-SIDE IMAGE AREA ONLY */
+.nx-flip-section::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    width: 47%;
+    height: 100%;
+    pointer-events: none;
+    background-image:
+        linear-gradient(90deg, #f8f7f4 0%, rgba(248,247,244,.76) 8%, rgba(248,247,244,.10) 36%, rgba(248,247,244,0) 62%),
+        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,0)),
+        url("{% static 'img/profile-page-01.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: .34;
+}
+
+.nx-flip-container {
+    position: relative;
+    z-index: 2;
+    width: min(1420px, calc(100% - 100px));
+    margin: 0 auto;
+}
+
+/* =========================================================
+   COMPACT EDITORIAL HERO
+========================================================= */
+.nx-flip-teaser {
+    display: grid;
+    grid-template-columns: minmax(380px, .74fr) minmax(650px, 1.26fr);
+    align-items: center;
+    gap: 48px;
+    min-height: 470px;
+}
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+.nx-flip-copy {
+    position: relative;
+    padding-left: 32px;
+}
+
+.nx-flip-copy::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 74px;
+    background: #ff4c3f;
+}
+
+.nx-flip-topline {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 0 22px;
+    color: #697078;
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+}
+
+.nx-flip-topline span {
+    width: 32px;
+    height: 1px;
+    background: #bfc2c3;
+}
+
+.nx-flip-eyebrow {
+    margin: 0 0 12px;
+    color: #f04435;
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+.nx-flip-title {
+    max-width: 530px;
+    margin: 0;
+    color: #101112;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(49px, 5vw, 76px);
+    font-weight: 400;
+    line-height: .88;
+    letter-spacing: -.055em;
+}
+
+.nx-flip-title em {
+      color: #ff1d0c;
+    font-style: italic;
+}
+
+.nx-flip-title::after {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 2px;
+    margin-top: 21px;
+    background: #ff4c3f;
+}
+
+.nx-flip-subtitle {
+    max-width: 435px;
+    margin: 20px 0 0;
+    color: #626970;
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   RELATED CONTENT
+========================================================= */
+.nx-flip-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 530px;
+    margin-top: 25px;
+    border-top: 1px solid #d7d7d4;
+    border-bottom: 1px solid #d7d7d4;
+}
+
+.nx-flip-highlight {
+    position: relative;
+    min-height: 82px;
+    padding: 13px 14px 12px 0;
+}
+
+.nx-flip-highlight + .nx-flip-highlight {
+    padding-left: 14px;
+    border-left: 1px solid #d7d7d4;
+}
+
+.nx-flip-highlight-icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 7px;
+    color: #f04435;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nx-flip-highlight-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+}
+
+.nx-flip-highlight strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #18191a;
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+}
+
+.nx-flip-highlight span {
+    display: block;
+    color: #858a8e;
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    line-height: 1.45;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+.nx-flip-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 22px;
+}
+
+.nx-flip-open-cta {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    min-height: 44px;
+    padding: 0 21px;
+    border: 1px solid #111;
+    border-radius: 0;
+    background: #111;
+    color: #fff;
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .17em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .3s ease, color .3s ease, transform .3s ease;
+}
+
+.nx-flip-open-cta::after {
+    content: "→";
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.nx-flip-open-cta:hover {
+    background: #ff4c3f;
+    border-color: #ff4c3f;
+    transform: translateY(-2px);
+}
+
+.nx-flip-preview-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #333;
+    color: #111;
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.nx-flip-preview-label::after {
+    content: "◉";
+    font-size: 8px;
+}
+
+/* =========================================================
+   RIGHT FLIPBOOK — LARGER + SIMPLE
+   No card/background behind the cover itself.
+========================================================= */
+.nx-flip-cover-stage {
+    position: relative;
+    width: 100%;
+    max-width: 920px;
+    margin-left: auto;
+    padding: 0;
+}
+
+.nx-flip-cover-stage::before {
+    content: "NEXURBAN  /  COMPANY PROFILE";
+    position: absolute;
+    left: 3px;
+    top: -22px;
+    color: #8f9498;
+    font-family: "Manrope", sans-serif;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .22em;
+}
+
+.nx-flip-cover-stage::after {
+    content: "2026  •  OPEN PROFILE";
+    position: absolute;
+    right: 0;
+    bottom: -22px;
+    color: #8f9498;
+    font-family: "Manrope", sans-serif;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: .18em;
+}
+
+.nx-flip-cover-trigger {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    background: transparent;
+    box-shadow: 0 25px 50px rgba(0,0,0,.19);
+    transition: transform .45s cubic-bezier(.22,.9,.32,1), box-shadow .45s ease;
+}
+
+.nx-flip-cover-trigger:hover {
+    transform: translateY(-5px) scale(1.008);
+    box-shadow: 0 32px 62px rgba(0,0,0,.23);
+}
+
+.nx-flip-cover-trigger img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+    display: block;
+    transition: transform .55s ease;
+}
+
+.nx-flip-cover-trigger:hover img {
+    transform: scale(1.015);
+}
+
+.nx-flip-cover-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 48%, rgba(0,0,0,.42) 100%);
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+.nx-flip-cover-trigger:hover::after {
+    opacity: 1;
+}
+
+.nx-flip-cover-caption {
+    position: absolute;
+    left: 27px;
+    right: 27px;
+    bottom: 22px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+}
+
+.nx-flip-cover-trigger-icon {
+    position: absolute;
+    top: 19px;
+    right: 19px;
+    z-index: 4;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #f04435;
+    border: 1px solid rgba(255,255,255,.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    transition: none;
+}
+
+/* =========================================================
+   RESPONSIVE — FIRST SECTION ONLY
+========================================================= */
+/* =========================================================
+   MOBILE ONLY — CENTER CONTENT / REMOVE RIGHT OVERFLOW
+   DESKTOP IS NOT CHANGED
+========================================================= */
+
+@media (max-width: 767px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Prevent padding from increasing element width */
+    .nx-about-hero-container,
+    .nx-dubai-container,
+    .nx-vision-container,
+    .nx-principles-container,
+    .nx-team-container,
+    .nx-flip-container {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+
+    /* Main content stays inside screen */
+    .nx-about-hero-content,
+    .nx-dubai-content,
+    .nx-dubai-content-inner,
+    .nx-vision-grid,
+    .nx-vision-card,
+    .nx-principle,
+    .nx-principle-content,
+    .nx-team-intro,
+    .nx-team-grid {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    /* Text cannot create horizontal overflow */
+    .nx-about-title,
+    .nx-dubai-title,
+    .nx-principles-title,
+    .nx-team-title,
+    .nx-principle-content h3,
+    .nx-principle-content p {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    /* Images */
+    .nx-about-hero-image,
+    .nx-dubai-image,
+    .nx-dubai-content-bg,
+    .nx-team-image {
+        max-width: 100%;
+    }
+
+    /* Keep mobile content centered */
+    .nx-about-hero-content,
+    .nx-dubai-content-inner {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-about-hero-container,
+    .nx-dubai-container,
+    .nx-vision-container,
+    .nx-principles-container,
+    .nx-team-container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
+
+    .nx-dubai-content-inner {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .nx-principle {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+@media (max-width: 1180px) {
+    .nx-flip-container {
+        width: min(1280px, calc(100% - 70px));
+    }
+
+    .nx-flip-teaser {
+        grid-template-columns: .75fr 1.25fr;
+        gap: 38px;
+    }
+
+    .nx-flip-title {
+        font-size: clamp(47px, 5vw, 68px);
+    }
+
+    .nx-flip-cover-stage {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 991px) {
+    .nx-flip-section {
+        padding: 70px 0 82px;
+    }
+
+    .nx-flip-teaser {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        min-height: auto;
+    }
+
+    .nx-flip-copy {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .nx-flip-cover-stage {
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .nx-flip-section::after {
+        width: 70%;
+        opacity: .18;
+    }
+}
+
+@media (max-width: 767px) {
+    .nx-flip-section {
+        padding: 58px 0 70px;
+    }
+
+    .nx-flip-container {
+        width: calc(100% - 32px);
+    }
+
+    .nx-flip-copy {
+        padding-left: 22px;
+    }
+
+    .nx-flip-copy::before {
+        height: 62px;
+    }
+
+    .nx-flip-topline {
+        margin-bottom: 20px;
+        font-size: 7px;
+    }
+
+    .nx-flip-eyebrow {
+        font-size: 8px;
+    }
+
+    .nx-flip-title {
+        font-size: 42px;
+    }
+
+    .nx-flip-subtitle {
+        font-size: 10px;
+        line-height: 1.75;
+    }
+
+    .nx-flip-highlights {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        margin-top: 23px;
+    }
+
+    .nx-flip-highlight {
+        min-height: auto;
+        padding: 13px 0;
+        display: grid;
+        grid-template-columns: 30px 1fr;
+        column-gap: 8px;
+        align-items: start;
+    }
+
+    .nx-flip-highlight + .nx-flip-highlight {
+        padding-left: 0;
+        border-left: 0;
+        border-top: 1px solid #d7d7d4;
+    }
+
+    .nx-flip-highlight-icon {
+        grid-row: span 2;
+        margin: 0;
+    }
+
+    .nx-flip-highlight strong,
+    .nx-flip-highlight span {
+        grid-column: 2;
+    }
+
+    /* add justify-content */
+.nx-flip-actions {
+    gap: 19px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 21px;
+}
+
+    .nx-flip-open-cta {
+        min-height: 44px;
+        padding: 0 18px;
+    }
+
+    .nx-flip-cover-stage {
+        padding: 0;
+    }
+
+    .nx-flip-cover-stage::before {
+        left: 0;
+        top: -20px;
+        font-size: 6px;
+    }
+
+    .nx-flip-cover-stage::after {
+        right: 0;
+        bottom: -20px;
+        font-size: 6px;
+    }
+
+    .nx-flip-cover-trigger {
+        box-shadow: 0 17px 34px rgba(0,0,0,.17);
+    }
+
+    .nx-flip-cover-trigger-icon {
+        top: 13px;
+        right: 13px;
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+    }
+}
+
+/* =========================================================
+   MODAL SHELL
+========================================================= */
+
+.nx-flip-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8,8,8,.94);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .3s ease;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.nx-flip-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+body.nx-flip-modal-open {
+    overflow: hidden;
+}
+
+/*
+ * Everything below must fit inside the viewport as a whole.
+ * Content taller than the screen, centered, overflows equally
+ * top and bottom — which is exactly what pushed the close
+ * button off the top and the prev/next controls off the bottom
+ * before. Fixed height budget + flex column solves that.
+ */
+.nx-flip-modal-inner {
+    position: relative;
+    width: min(1280px, 100%);
+    height: 100%;
+    max-height: calc(100vh - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.nx-flip-modal-header {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 6px;
+}
+
+.nx-flip-modal-title {
+    color: rgba(255,255,255,.55);
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.nx-flip-modal-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(0,0,0,.4);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .2s ease, color .2s ease;
+}
+
+.nx-flip-modal-close:hover {
+    background: #fff;
+    color: #111;
+}
+
+
+/* =========================================================
+   BOOK STAGE
+========================================================= */
+.nx-flip-stage {
+    position: relative;
+
+    width: 100%;
+
+    flex: 1 1 auto;
+
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 2400px;
+
+    overflow: visible;
+
+    background: transparent;
+}
+.nx-flip-book-wrap {
+    position: relative;
+
+    width: 100%;
+
+    /* Height is driven by max-width below (locked to the stage's
+       available height through the 16:9 aspect-ratio), so this is
+       just a generous upper bound, not the controlling value. */
+    height: 100%;
+
+    max-height: 1300px;
+
+    /* Controls the actual rendered size: (available viewport
+       height minus header/controls/hint chrome) converted to a
+       width via the 16:9 ratio, then aspect-ratio locks the
+       height back to that same available space. Smaller
+       subtracted value = taller book. */
+    max-width: calc((100vh - 58px) * 16 / 9);
+
+    aspect-ratio: 16 / 9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2;
+
+    background: #000;
+
+    overflow: hidden;
+
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
+#nxFlipBook {
+    position: relative;
+    /* Intentionally NOT 100%/100% here. StPageFlip decides
+       single-page vs. two-page spread by comparing THIS
+       element's real rendered size against double the
+       configured page width, regardless of any JS settings we
+       pass. If this box is left at the wrap's full (large)
+       size, it always measures over that threshold and StPageFlip
+       opens as a two-page spread. Keeping it fixed to the exact
+       logical page size (set inline by JS, matching
+       NX_LOGICAL_WIDTH/HEIGHT) guarantees single-page mode; the
+       JS then scales this whole box up visually to fill the
+       real, larger wrap. */
+    width: 480px;
+    height: 270px;
+    background: #000;
+    transform: translateZ(0);
+}
+
+/*
+ * backface-visibility only on the actual page face. Stacking
+ * transform-style:preserve-3d across nested wrapper levels that
+ * don't need it (.stf__parent/.stf__wrapper/.stf__block) is a
+ * known cause of ghosting/flattening glitches in Chrome/Safari —
+ * keep this minimal and it stays correct.
+ */
+.nx-flip-page {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.nx-flip-page img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.nx-flip-controls {
+    position: relative;
+    z-index: 10;
+    flex: 0 0 auto;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.nx-flip-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 50%;
+    background: rgba(0,0,0,.38);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease, transform .25s ease, opacity .25s ease;
+}
+
+.nx-flip-btn:hover {
+    background: #fff;
+    color: #111;
+    transform: translateY(-2px);
+}
+
+.nx-flip-btn:disabled {
+    opacity: .28;
+    pointer-events: none;
+}
+
+.nx-flip-counter {
+    min-width: 70px;
+    text-align: center;
+    color: rgba(255,255,255,.58);
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+
+.nx-flip-hint {
+    flex: 0 0 auto;
+    margin-top: 6px;
+    text-align: center;
+    color: rgba(255,255,255,.34);
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+    transition: opacity .3s ease;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+    .nx-flip-teaser { grid-template-columns: 1fr; gap: 44px; text-align: center; }
+    .nx-flip-cover-stage { margin: 0 auto; }
+    .nx-flip-stats { justify-content: center; }
+    .nx-flip-section { padding: 95px 0 110px; }
+    .nx-flip-container { width: calc(100% - 60px); }
+}
+
+@media (max-width: 767px) {
+    .nx-flip-section { padding: 78px 0 92px; }
+    .nx-flip-container { width: calc(100% - 32px); }
+    .nx-flip-title { font-size: 36px; }
+    .nx-flip-subtitle { font-size: 12px; line-height: 1.7; }
+    .nx-flip-modal-inner { width: 100%; height: 100%; max-height: calc(100vh - 16px); }
+    .nx-flip-book-wrap { max-width: 100%; max-height: none; }
+}
+
+</style>
+
+
+<!-- =========================================================
+     TEASER — LEFT CONTENT / RIGHT COVER TRIGGER
+========================================================= -->
+
+<section class="nx-flip-section" aria-label="Nexurban company profile">
+    <div class="nx-flip-container">
+
+        <div class="nx-flip-teaser">
+
+            <div class="nx-flip-copy">
+
+                <div class="nx-flip-topline">
+                    <span></span>
+                    NEXURBAN PROPERTIES
+                </div>
+
+                <p class="nx-flip-eyebrow">Company Profile / 2026</p>
+
+                <h2 class="nx-flip-title">
+                    Discover the<br>
+                    <em>Nexurban</em><br>
+                    Perspective.
+                </h2>
+
+                <p class="nx-flip-subtitle">
+                    A visual journey through our identity, values and property
+                    expertise — crafted to build trust, inspire partnerships
+                    and shape the future.
+                </p>
+
+                <div class="nx-flip-highlights">
+
+                    <div class="nx-flip-highlight">
+                        <div class="nx-flip-highlight-icon">
+                            <svg viewBox="0 0 32 32" aria-hidden="true">
+                                <circle cx="12" cy="9" r="4"></circle>
+                                <circle cx="22" cy="11" r="3"></circle>
+                                <path d="M4 27c0-5 3.4-8 8-8s8 3 8 8"></path>
+                                <path d="M18 20c1.3-1.7 3-2.5 5-2.5 3.2 0 5 2.2 5 6"></path>
+                            </svg>
+                        </div>
+                        <strong>Our People</strong>
+                        <span>Built on trust,<br>driven by values.</span>
+                    </div>
+
+                    <div class="nx-flip-highlight">
+                        <div class="nx-flip-highlight-icon">
+                            <svg viewBox="0 0 32 32" aria-hidden="true">
+                                <path d="M4 27h24"></path>
+                                <path d="M7 27V12h9v15"></path>
+                                <path d="M16 27V6h9v21"></path>
+                                <path d="M10 16h2M10 20h2M19 10h2M19 14h2M19 18h2M19 22h2"></path>
+                            </svg>
+                        </div>
+                        <strong>Our Expertise</strong>
+                        <span>Decades of experience<br>in real estate.</span>
+                    </div>
+
+                    <div class="nx-flip-highlight">
+                        <div class="nx-flip-highlight-icon">
+                            <svg viewBox="0 0 32 32" aria-hidden="true">
+                                <circle cx="15" cy="15" r="8"></circle>
+                                <circle cx="15" cy="15" r="3"></circle>
+                                <path d="M21 9l7-6M24 4h4v4"></path>
+                                <path d="M15 7v5M15 18v5M7 15h5M18 15h5"></path>
+                            </svg>
+                        </div>
+                        <strong>Our Vision</strong>
+                        <span>Creating sustainable<br>value for tomorrow.</span>
+                    </div>
+
+                </div>
+
+                <div class="nx-flip-actions">
+                    <button
+                        type="button"
+                        class="nx-flip-open-cta"
+                        id="nxFlipOpenBtn2"
+                    >
+                        Explore the profile
+                    </button>
+
+
+
+                    <span class="nx-flip-preview-label">
+                        View preview
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="nx-flip-cover-stage">
+
+                <button
+                    type="button"
+                    class="nx-flip-cover-trigger"
+                    id="nxFlipOpenBtn"
+                    aria-haspopup="dialog"
+                    aria-label="Open the Nexurban Properties company profile flip book"
+                >
+                    <img
+                        src="{% static 'img/profile-page-01.jpg' %}"
+                        alt="Nexurban Properties company profile cover"
+                    >
+
+                    <div class="nx-flip-cover-trigger-icon">↗</div>
+
+                    <div class="nx-flip-cover-caption">
+                        <span>Nexurban Properties</span>
+                        <span>Open Profile</span>
+                    </div>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- =========================================================
+     MODAL — FLIP BOOK (PDF PAGES ONLY)
+========================================================= -->
+
+<div class="nx-flip-modal" id="nxFlipModal" role="dialog" aria-modal="true" aria-label="Nexurban company profile flip book">
+    <div class="nx-flip-modal-inner">
+
+        <div class="nx-flip-modal-header">
+            <span class="nx-flip-modal-title">Company Profile</span>
+            <button type="button" class="nx-flip-modal-close" id="nxFlipCloseBtn" aria-label="Close">✕</button>
+        </div>
+
+        <div class="nx-flip-stage">
+            <div class="nx-flip-book-wrap">
+
+                <div id="nxFlipBook">
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-01.jpg' %}" alt="Page 1"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-02.jpg' %}" alt="Page 2"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-03.jpg' %}" alt="Page 3"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-04.jpg' %}" alt="Page 4"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-05.jpg' %}" alt="Page 5"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-06.jpg' %}" alt="Page 6"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-07.jpg' %}" alt="Page 7"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-08.jpg' %}" alt="Page 8"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-09.jpg' %}" alt="Page 9"></div>
+                    <div class="nx-flip-page"><img src="{% static 'img/profile-page-10.jpg' %}" alt="Page 10"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="nx-flip-controls">
+            <button type="button" class="nx-flip-btn" id="nxFlipPrev" aria-label="Previous page">←</button>
+            <div class="nx-flip-counter"><span id="nxFlipCurrent">1</span> / <span id="nxFlipTotal">10</span></div>
+            <button type="button" class="nx-flip-btn" id="nxFlipNext" aria-label="Next page">→</button>
+        </div>
+
+        <div class="nx-flip-hint" id="nxFlipHint">Click arrows · Drag the page · Use ← → keys</div>
+
+    </div>
+</div>
+
+
+<!-- =========================================================
+     PAGE FLIP LIBRARY
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+
+<script>
+(function () {
+    "use strict";
+
+    const modal = document.getElementById("nxFlipModal");
+    const openBtn = document.getElementById("nxFlipOpenBtn");
+    const openBtn2 = document.getElementById("nxFlipOpenBtn2");
+    const closeBtn = document.getElementById("nxFlipCloseBtn");
+    const bookElement = document.getElementById("nxFlipBook");
+    const prevButton = document.getElementById("nxFlipPrev");
+    const nextButton = document.getElementById("nxFlipNext");
+    const currentElement = document.getElementById("nxFlipCurrent");
+    const totalElement = document.getElementById("nxFlipTotal");
+    const hintElement = document.getElementById("nxFlipHint");
+
+    let flipBook = null;
+    let pageElements = null;
+
+    // Small synthesized "paper" sound for each page turn — no
+    // external audio file, so nothing to fail to load. Built from
+    // filtered noise with a quick decay, played on every flip.
+    let audioCtx = null;
+
+    function ensureAudioCtx() {
+        if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return null;
+            try { audioCtx = new Ctx(); } catch (e) { audioCtx = null; }
+        }
+        if (audioCtx && audioCtx.state === "suspended") {
+            audioCtx.resume().catch(function () {});
+        }
+        return audioCtx;
+    }
+
+    function playFlipSound() {
+        const ctx = ensureAudioCtx();
+        if (!ctx) return;
+
+        const duration = 0.26;
+        const sampleCount = Math.floor(ctx.sampleRate * duration);
+        const buffer = ctx.createBuffer(1, sampleCount, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < sampleCount; i++) {
+            const t = i / sampleCount;
+            const envelope = Math.pow(1 - t, 2.4);
+            data[i] = (Math.random() * 2 - 1) * envelope;
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const bandpass = ctx.createBiquadFilter();
+        bandpass.type = "bandpass";
+        bandpass.frequency.value = 2000;
+        bandpass.Q.value = 0.6;
+
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0.4, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+        noise.connect(bandpass);
+        bandpass.connect(gain);
+        gain.connect(ctx.destination);
+
+        noise.start();
+        noise.stop(ctx.currentTime + duration);
+    }
+
+    // StPageFlip decides single-page vs. two-page "spread" mode by
+    // comparing the box it's handed against its own internal
+    // landscape threshold. Handing it our real (wide, tall) box
+    // directly is what made it flip open into a two-page spread —
+    // page 1 and page 2 side by side with a spine/gap down the
+    // middle — instead of turning one page at a time. Fix: always
+    // hand StPageFlip a modest, fixed, comfortably-single-page size
+    // (well under that threshold), then CSS-scale the whole book
+    // up to fill the real, larger box. The scale is purely visual,
+    // so it never affects StPageFlip's own single/spread decision.
+    const NX_LOGICAL_WIDTH = 480;
+    const NX_LOGICAL_HEIGHT = Math.round(NX_LOGICAL_WIDTH * 9 / 16); // 270, 16:9
+
+    function buildFlipBook() {
+        if (!window.St || !window.St.PageFlip) return;
+
+        pageElements = bookElement.querySelectorAll(":scope > .nx-flip-page");
+        if (totalElement) totalElement.textContent = String(pageElements.length);
+
+        // Lock the container to the small logical size FIRST. This
+        // is what StPageFlip actually measures to pick single vs.
+        // spread mode — it ignores our transform:scale() entirely
+        // for that decision, since the scale is applied afterward.
+        bookElement.style.width = NX_LOGICAL_WIDTH + "px";
+        bookElement.style.height = NX_LOGICAL_HEIGHT + "px";
+        bookElement.style.transform = "none";
+
+        flipBook = new St.PageFlip(bookElement, {
+            width: NX_LOGICAL_WIDTH,
+            height: NX_LOGICAL_HEIGHT,
+            // Fixed (not "stretch") so nothing about the real,
+            // large container ever feeds into StPageFlip's own
+            // sizing/orientation math.
+            size: "fixed",
+            minWidth: NX_LOGICAL_WIDTH,
+            maxWidth: NX_LOGICAL_WIDTH,
+            minHeight: NX_LOGICAL_HEIGHT,
+            maxHeight: NX_LOGICAL_HEIGHT,
+            // Landscape 16:9 pages: show ONE page at a time, not a
+            // two-page spread (a 16:9 spread would be ~32:9 and
+            // unreadable). showCover:false since there's no
+            // separate cover page — page 1 IS the cover slide.
+            showCover: false,
+            usePortrait: true,
+            autoSize: false,
+            // A soft, natural paper shadow while a page turns —
+            // this is what makes the flip read as a real page
+            // lifting and settling, rather than a flat swap.
+            drawShadow: true,
+            maxShadowOpacity: 0.45,
+            flippingTime: 900,
+            useMouseEvents: true,
+            mobileScrollSupport: false,
+            swipeDistance: 18,
+            startPage: 0,
+            startZIndex: 0
+        });
+
+        flipBook.loadFromHTML(pageElements);
+        scaleFlipBookToContainer();
+
+        flipBook.on("flip", function () {
+            hideHint();
+            updateControls();
+            playFlipSound();
+        });
+
+        updateControls();
+    }
+
+    // Visually stretches the (fixed-size) book up to fill the real
+    // box StPageFlip is sitting inside, keeping it centred.
+    function scaleFlipBookToContainer() {
+        const wrap = bookElement.parentElement;
+        if (!wrap) return;
+        const wrapRect = wrap.getBoundingClientRect();
+        const scale = Math.max(0.01, wrapRect.width / NX_LOGICAL_WIDTH);
+        bookElement.style.transformOrigin = "center center";
+        bookElement.style.transform = "scale(" + scale + ")";
+    }
+
+    function hideHint() {
+        if (hintElement) hintElement.style.opacity = "0";
+    }
+
+    function updateControls() {
+        if (!flipBook || !pageElements) return;
+        const index = flipBook.getCurrentPageIndex();
+        if (prevButton) prevButton.disabled = index <= 0;
+        if (nextButton) nextButton.disabled = index >= pageElements.length - 1;
+        if (currentElement) currentElement.textContent = String(index + 1);
+    }
+
+    function openModal() {
+        modal.classList.add("is-open");
+        document.body.classList.add("nx-flip-modal-open");
+
+        // Build StPageFlip only ONCE, the first time the modal is
+        // shown, and only once it's actually visible (so it
+        // measures real dimensions instead of a hidden 0x0 box).
+        // Destroying and recreating it on every open was the cause
+        // of "pages not showing after close/reopen" — StPageFlip's
+        // destroy() doesn't reliably hand the original page
+        // elements back as direct children of the container, so a
+        // second loadFromHTML() call was finding nothing to load.
+        // On every later open we just re-show and re-scale it.
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                if (!flipBook) {
+                    buildFlipBook();
+                } else {
+                    scaleFlipBookToContainer();
+                    updateControls();
+                }
+            });
+        });
+    }
+
+    function closeModal() {
+        modal.classList.remove("is-open");
+        document.body.classList.remove("nx-flip-modal-open");
+    }
+
+    [openBtn, openBtn2].forEach(function (btn) {
+        if (btn) btn.addEventListener("click", ensureAudioCtx);
+        if (btn) btn.addEventListener("click", openModal);
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (!modal.classList.contains("is-open")) return;
+        if (event.key === "Escape") closeModal();
+        if (event.key === "ArrowRight" && flipBook) { flipBook.flipNext(); hideHint(); }
+        if (event.key === "ArrowLeft" && flipBook) { flipBook.flipPrev(); hideHint(); }
+    });
+
+    if (nextButton) nextButton.addEventListener("click", function () {
+        if (flipBook) flipBook.flipNext();
+        hideHint();
+    });
+
+    if (prevButton) prevButton.addEventListener("click", function () {
+        if (flipBook) flipBook.flipPrev();
+        hideHint();
+    });
+
+    if (bookElement) {
+        bookElement.addEventListener("touchmove", function (event) {
+            event.preventDefault();
+        }, { passive: false });
+    }
+
+    let resizeTimer = null;
+    window.addEventListener("resize", function () {
+        if (!modal.classList.contains("is-open")) return;
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(scaleFlipBookToContainer, 150);
+    });
+
+})();
+</script>
+<!-- =========================================================
+     END FLIP BOOK SECTION
+========================================================= -->
+
+
+<section class="nx-team-section">
+
+    <div class="nx-team-container">
+
+        <!-- =================================================
+             TEAM INTRO
+        ================================================= -->
+
+        <div class="nx-team-intro">
+
+            <div class="nx-team-intro-left">
+
+                <p class="nx-team-eyebrow">
+                    OUR TEAM
+                </p>
+
+                <h2 class="nx-team-title">
+                    A strong real estate company is built on
+                    <em>strong people.</em>
+                </h2>
+
+            </div>
+
+
+            <div class="nx-team-intro-right">
+
+                <p>
+                    Our team brings together market expertise,
+                    investment insight, industry relationships and
+                    a client-first mindset to help turn Dubai's
+                    real estate opportunities into informed decisions
+                    and lasting value.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TEAM GRID
+        ================================================= -->
+
+        <div class="nx-team-grid">
+
+
+            <!-- TEAM MEMBER 01 -->
+
+            <div class="nx-team-member">
+
+                <div class="nx-team-image-wrap">
+
+                    <img
+                        src="{% static 'img/Hitesh Thakur.webp' %}"
+                        alt="Hitesh Thakur, Founder at Nexurban Properties"
+                        loading="lazy"
+                        class="nx-team-image"
+                    >
+
+                    <div class="nx-team-image-overlay"></div>
+
+                    <span class="nx-team-number">
+                        01
+                    </span>
+
+                    <span class="nx-team-bottom-line"></span>
+
+                </div>
+
+
+                <div class="nx-team-info">
+
+                    <h3>
+                        Hitesh Thakur
+                    </h3>
+
+                    <p>
+                        Founder
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM MEMBER 02 -->
+
+            <div class="nx-team-member nx-team-offset">
+
+                <div class="nx-team-image-wrap">
+
+                    <img
+                        src="{% static 'img/HARYUG SINGH.webp' %}"
+                        alt="Haryug Singh, Vice President Business Development and Growth"
+                        loading="lazy"
+                        class="nx-team-image"
+                    >
+
+                    <div class="nx-team-image-overlay"></div>
+
+                    <span class="nx-team-number">
+                        02
+                    </span>
+
+                    <span class="nx-team-bottom-line"></span>
+
+                </div>
+
+
+                <div class="nx-team-info">
+
+                    <h3>
+                        Haryug Singh
+                    </h3>
+
+                    <p>
+                        Vice President Business Development &amp; Growth
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM MEMBER 03 -->
+
+            <div class="nx-team-member">
+
+                <div class="nx-team-image-wrap">
+
+                    <img
+                        src="{% static 'img/Aparna Rastogi.webp' %}"
+                        alt="Aparna Rastogi, Managing Director"
+                        loading="lazy"
+                        class="nx-team-image"
+                    >
+
+                    <div class="nx-team-image-overlay"></div>
+
+                    <span class="nx-team-number">
+                        03
+                    </span>
+
+                    <span class="nx-team-bottom-line"></span>
+
+                </div>
+
+
+                <div class="nx-team-info">
+
+                    <h3>
+                        Aparna Rastogi
+                    </h3>
+
+                    <p>
+                        Managing Director
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TEAM MEMBER 04 -->
+
+            <div class="nx-team-member nx-team-offset">
+
+                <div class="nx-team-image-wrap">
+
+                    <img
+                        src="{% static 'img/SHIVAM1.webp' %}"
+                        alt="Shivam Gupta, Senior Manager Sale"
+                        loading="lazy"
+                        class="nx-team-image"
+                    >
+
+                    <div class="nx-team-image-overlay"></div>
+
+                    <span class="nx-team-number">
+                        04
+                    </span>
+
+                    <span class="nx-team-bottom-line"></span>
+
+                </div>
+
+
+                <div class="nx-team-info">
+
+                    <h3>
+                        Shivam Gupta
+                    </h3>
+
+                    <p>
+                        Senior Manager Sale
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   OUR TEAM SECTION
+========================================================= */
+
+.nx-team-section {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 50px 0 150px;
+
+    background: #111111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-team-container {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 0 80px;
+
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.nx-team-intro {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    gap: 80px;
+
+    margin-bottom: 90px;
+
+}
+
+
+/* =========================================================
+   LEFT INTRO
+========================================================= */
+
+.nx-team-intro-left {
+
+    max-width: 760px;
+
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-team-eyebrow {
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-team-title {
+
+    margin: 25px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(44px, 5vw, 68px);
+
+    font-weight: 400;
+
+    line-height: 1.04;
+
+    letter-spacing: -0.04em;
+
+}
+
+
+/* =========================================================
+   TITLE ITALIC
+========================================================= */
+
+.nx-team-title em {
+
+    color: #e4d8c8;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+}
+
+
+/* =========================================================
+   RIGHT DESCRIPTION
+========================================================= */
+
+.nx-team-intro-right {
+
+    max-width: 390px;
+
+    padding-bottom: 5px;
+
+}
+
+
+.nx-team-intro-right p {
+
+    margin: 0;
+
+    color: rgba(247, 244, 237, 0.58);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   TEAM GRID
+========================================================= */
+
+.nx-team-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    column-gap: 28px;
+
+    row-gap: 70px;
+
+}
+
+
+/* =========================================================
+   TEAM MEMBER
+========================================================= */
+
+.nx-team-member {
+
+    position: relative;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   OFFSET MEMBERS
+========================================================= */
+
+.nx-team-offset {
+
+    margin-top: 48px;
+
+}
+
+
+/* =========================================================
+   IMAGE WRAPPER
+========================================================= */
+
+.nx-team-image-wrap {
+
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 3 / 4;
+
+    overflow: hidden;
+
+    background: #191919;
+
+    isolation: isolate;
+
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.nx-team-image {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    filter: grayscale(100%);
+
+    transform: scale(1);
+
+    transition:
+        filter 0.8s cubic-bezier(.22, 1, .36, 1),
+        transform 1.1s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+/* =========================================================
+   IMAGE HOVER
+========================================================= */
+
+.nx-team-member:hover .nx-team-image {
+
+    filter: grayscale(0%);
+
+    transform: scale(1.055);
+
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.nx-team-image-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(17, 17, 17, 0.88) 0%,
+            rgba(17, 17, 17, 0.25) 35%,
+            rgba(17, 17, 17, 0) 70%
+        );
+
+    pointer-events: none;
+
+    transition: opacity 0.6s ease;
+
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.nx-team-number {
+
+    position: absolute;
+
+    top: 22px;
+
+    left: 22px;
+
+    z-index: 4;
+
+    color: rgba(247, 244, 237, 0.55);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    transition:
+        color 0.4s ease,
+        transform 0.5s ease;
+
+}
+
+
+/* =========================================================
+   NUMBER HOVER
+========================================================= */
+
+.nx-team-member:hover .nx-team-number {
+
+    color: #ff1d0c;
+
+    transform: translateX(5px);
+
+}
+
+
+/* =========================================================
+   BOTTOM RED LINE
+========================================================= */
+
+.nx-team-bottom-line {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    z-index: 5;
+
+    height: 2px;
+
+    background: #ff1d0c;
+
+    transform: scaleX(0);
+
+    transform-origin: left center;
+
+    transition:
+        transform 0.7s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+/* =========================================================
+   LINE HOVER
+========================================================= */
+
+.nx-team-member:hover .nx-team-bottom-line {
+
+    transform: scaleX(1);
+
+}
+
+
+/* =========================================================
+   TEAM INFO
+========================================================= */
+
+.nx-team-info {
+
+    padding-top: 20px;
+
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.nx-team-info h3 {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(24px, 2vw, 30px);
+
+    font-weight: 400;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
+
+    transition:
+        color 0.4s ease,
+        transform 0.5s cubic-bezier(.22, 1, .36, 1);
+
+}
+
+
+/* =========================================================
+   NAME HOVER
+========================================================= */
+
+.nx-team-member:hover .nx-team-info h3 {
+
+    color: #ff1d0c;
+
+    transform: translateX(5px);
+
+}
+
+
+/* =========================================================
+   ROLE
+========================================================= */
+
+.nx-team-info p {
+
+    margin: 9px 0 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.17em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-team-container {
+
+        padding: 0 50px;
+
+    }
+
+
+    .nx-team-intro {
+
+        gap: 50px;
+
+    }
+
+
+    .nx-team-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        column-gap: 24px;
+
+        row-gap: 60px;
+
+    }
+
+
+    .nx-team-offset {
+
+        margin-top: 35px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-team-section {
+
+        padding: 85px 0 100px;
+
+    }
+
+
+    .nx-team-container {
+
+        padding: 0 24px;
+
+    }
+
+
+    .nx-team-intro {
+
+        display: block;
+
+        margin-bottom: 60px;
+
+    }
+
+
+    .nx-team-intro-left {
+
+        max-width: 100%;
+
+    }
+
+
+    .nx-team-title {
+
+        margin-top: 20px;
+
+        font-size:
+            clamp(40px, 11vw, 55px);
+
+        line-height: 1.05;
+
+    }
+
+
+    .nx-team-intro-right {
+
+        max-width: 100%;
+
+        margin-top: 30px;
+
+    }
+
+
+    .nx-team-intro-right p {
+
+        font-size: 13px;
+
+        line-height: 1.75;
+
+    }
+
+
+    .nx-team-grid {
+
+        grid-template-columns: 1fr 1fr;
+
+        column-gap: 15px;
+
+        row-gap: 45px;
+
+    }
+
+
+    .nx-team-offset {
+
+        margin-top: 25px;
+
+    }
+
+
+    .nx-team-info {
+
+        padding-top: 15px;
+
+    }
+
+
+    .nx-team-info h3 {
+
+        font-size: 22px;
+
+    }
+
+
+    .nx-team-info p {
+
+        margin-top: 7px;
+
+        font-size: 8px;
+
+        letter-spacing: 0.13em;
+
+    }
+
+
+    .nx-team-number {
+
+        top: 15px;
+
+        left: 15px;
+
+        font-size: 9px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-team-container {
+
+        padding: 0 20px;
+
+    }
+
+
+    .nx-team-section {
+
+        padding: 75px 0 90px;
+
+    }
+
+
+    .nx-team-grid {
+
+        grid-template-columns: 1fr;
+
+        row-gap: 45px;
+
+    }
+
+
+    .nx-team-offset {
+
+        margin-top: 0;
+
+    }
+
+
+    .nx-team-title {
+
+        font-size: 39px;
+
+    }
+
+
+    .nx-team-info h3 {
+
+        font-size: 26px;
+
+    }
+
+
+    .nx-team-info p {
+
+        font-size: 9px;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-team-image,
+    .nx-team-info h3,
+    .nx-team-number,
+    .nx-team-bottom-line {
+
+        transition: none;
+
+    }
+
+}
+
+</style>
+
+<section class="nx-partner-section">
+
+    <div class="nx-partner-container">
+
+        <div class="nx-partner-content">
+
+            <h2 class="nx-partner-title">
+                We Don't Want to Be Your Property Broker.
+                <br>
+                <em>We Want to Be Your Real Estate Partner.</em>
+            </h2>
+
+            <div class="nx-partner-buttons">
+
+                <a href="{% url 'buy' %}" class="nx-partner-btn nx-partner-btn-primary">
+                    EXPLORE PROPERTIES
+                </a>
+
+                <a href="{% url 'contact' %}" class="nx-partner-btn nx-partner-btn-outline">
+                    BOOK A CONSULTATION
+                </a>
+
+            </div>
+
+            <p class="nx-partner-contact">
+                055 902 5646
+                <span>·</span>
+                sales@nexurbanproperties.com
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   PARTNER CTA SECTION
+========================================================= */
+
+.nx-partner-section {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 96px 0 112px;
+
+    background: #111111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-partner-container {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 78px 80px 0;
+
+    border-top: 1px solid rgba(255, 29, 12, 0.30);
+
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-partner-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-partner-title {
+
+    max-width: 950px;
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(42px, 5vw, 68px);
+
+    font-weight: 400;
+
+    line-height: 1.04;
+
+    letter-spacing: -0.04em;
+
+}
+
+
+/* =========================================================
+   ITALIC RED TEXT
+========================================================= */
+
+.nx-partner-title em {
+
+    color: #ff1d0c;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.nx-partner-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 16px;
+
+    margin-top: 48px;
+
+}
+
+
+/* =========================================================
+   BUTTON BASE
+========================================================= */
+
+.nx-partner-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 58px;
+
+    padding: 0 40px;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        border-color 0.4s ease,
+        transform 0.4s ease;
+
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.nx-partner-btn-primary {
+
+    color: #ffffff;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+
+}
+
+
+.nx-partner-btn-primary:hover {
+
+    color: #ffffff;
+
+    background: #c91408;
+
+    border-color: #c91408;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================================================
+   OUTLINE BUTTON
+========================================================= */
+
+.nx-partner-btn-outline {
+
+    color: #f7f4ed;
+
+    background: transparent;
+
+    border: 1px solid rgba(247, 244, 237, 0.40);
+
+}
+
+
+.nx-partner-btn-outline:hover {
+
+    color: #ff1d0c;
+
+    background: transparent;
+
+    border-color: #ff1d0c;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.nx-partner-contact {
+
+    margin: 40px 0 0;
+
+    color: rgba(247, 244, 237, 0.60);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 1.6;
+
+}
+
+
+.nx-partner-contact span {
+
+    display: inline-block;
+
+    margin: 0 8px;
+
+    color: #ff1d0c;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .nx-partner-section {
+
+        padding: 80px 0 95px;
+
+    }
+
+
+    .nx-partner-container {
+
+        padding: 65px 45px 0;
+
+    }
+
+
+    .nx-partner-title {
+
+        font-size: clamp(40px, 6vw, 58px);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-partner-section {
+
+        padding: 70px 0 85px;
+
+    }
+
+
+    .nx-partner-container {
+
+        padding: 55px 24px 0;
+
+    }
+
+
+    .nx-partner-title {
+
+        max-width: 100%;
+
+        font-size: clamp(37px, 10vw, 52px);
+
+        line-height: 1.06;
+
+    }
+
+
+    .nx-partner-title br {
+
+        display: none;
+
+    }
+
+   .nx-partner-buttons {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        width: 100%;
+        max-width: 100%;
+
+        align-items: stretch;
+        justify-content: center;
+
+        gap: 12px;
+        margin-top: 38px;
+
+        box-sizing: border-box;
+    }
+
+        .nx-partner-buttons .nx-partner-btn {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+
+        box-sizing: border-box;
+    }
+    .nx-partner-btn {
+
+        width: 100%;
+
+        min-height: 56px;
+
+        padding: 0 25px;
+
+    }
+
+
+    .nx-partner-contact {
+
+        margin-top: 30px;
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+      .nx-partner-container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+
+
+    .nx-partner-title {
+
+        font-size: 36px;
+
+    }
+
+
+    .nx-partner-contact {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 3px;
+
+    }
+
+
+    .nx-partner-contact span {
+
+        margin: 0 5px;
+
+    }
+        .nx-partner-buttons {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 12px;
+    }
+
+    .nx-partner-buttons .nx-partner-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+
+}
+
+</style>
+
+<script>
+
+/* =========================================================
+   WHY NEXURBAN — SCROLL REVEAL
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const elements =
+        document.querySelectorAll(".nx-why-reveal");
+
+
+    if (!elements.length) {
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "nx-why-visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12,
+
+                rootMargin:
+                    "0px 0px -60px 0px"
+            }
+
+        );
+
+
+    elements.forEach(function (element) {
+
+        observer.observe(element);
+
+    });
+
+});
+
+</script>
+
+
+<!-- =========================================================
+     FADE-UP SCROLL SCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const elements =
+            document.querySelectorAll(
+                ".nx-fade-up"
+            );
+
+
+        if (!elements.length) {
+            return;
+        }
+
+
+        const observer =
+            new IntersectionObserver(
+
+                function (entries) {
+
+                    entries.forEach(
+                        function (entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "nx-visible"
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.12,
+
+                    rootMargin:
+                        "0px 0px -60px 0px"
+                }
+
+            );
+
+
+        elements.forEach(
+            function (element) {
+
+                observer.observe(
+                    element
+                );
+
+            }
+        );
+
+    }
+
+);
+
+</script>
+
+
+<!-- =========================================================
+     RIGHT PANEL SCROLL PARALLAX
+========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const hero =
+        document.querySelector(".nx-about-hero");
+
+    const panel =
+        document.querySelector(".nx-about-accent-panel");
+
+
+    if (!hero || !panel) {
+        return;
+    }
+
+
+    let ticking = false;
+
+
+    function updatePanel() {
+
+        const rect =
+            hero.getBoundingClientRect();
+
+
+        /*
+         * Amount the hero has moved
+         * relative to the viewport.
+         */
+
+        const scrolled =
+            -rect.top;
+
+
+        /*
+         * Panel movement speed.
+         *
+         * 0.45 = visible premium parallax
+         *
+         * Increase to 0.60 for stronger movement.
+         */
+
+        const movement =
+            scrolled * 0.45;
+
+
+        panel.style.transform =
+            "translate3d(0, " +
+            movement +
+            "px, 0)";
+
+
+        ticking = false;
+    }
+
+
+    function requestUpdate() {
+
+        if (!ticking) {
+
+            window.requestAnimationFrame(
+                updatePanel
+            );
+
+            ticking = true;
+        }
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        requestUpdate,
+        {
+            passive: true
+        }
+    );
+
+
+    window.addEventListener(
+        "resize",
+        updatePanel
+    );
+
+
+    updatePanel();
+
+});
+
+</script>
+
+
+{% endblock %}

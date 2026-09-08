@@ -1,0 +1,1422 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN CONTACT PAGE
+========================================================= */
+
+.nx-contact-page {
+    background: #111111;
+    color: #f7f4ed;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.nx-contact-hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 150px 0 120px;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(10, 10, 10, 0.94) 0%,
+            rgba(10, 10, 10, 0.78) 42%,
+            rgba(10, 10, 10, 0.42) 72%,
+            rgba(10, 10, 10, 0.72) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(17, 17, 17, 0.92) 0%,
+            rgba(17, 17, 17, 0.15) 55%,
+            rgba(17, 17, 17, 0.30) 100%
+        ),
+        url("{% static 'img/contact-hero.jpg' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* subtle red glow */
+
+.nx-contact-hero::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    right: -160px;
+    top: 5%;
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(255, 29, 12, 0.16),
+        transparent 68%
+    );
+
+    pointer-events: none;
+}
+
+
+/* large background word */
+
+.nx-contact-hero::after {
+    content: "CONTACT";
+    position: absolute;
+
+    right: -35px;
+    bottom: -65px;
+
+    color: rgba(255, 255, 255, 0.055);
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(150px, 21vw, 340px);
+    font-weight: 400;
+    line-height: 1;
+
+    letter-spacing: -0.07em;
+    white-space: nowrap;
+
+    pointer-events: none;
+}
+
+
+.nx-contact-container {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+
+/* =========================================================
+   HERO GRID
+========================================================= */
+
+.nx-contact-hero-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.35fr)
+        minmax(300px, 0.65fr);
+
+    gap: 90px;
+    align-items: center;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-contact-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+
+    margin: 0 0 28px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+}
+
+
+.nx-contact-eyebrow::before {
+    content: "";
+
+    width: 38px;
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.nx-contact-title {
+    max-width: 980px;
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(58px, 7.5vw, 110px);
+
+    font-weight: 400;
+    line-height: 0.93;
+
+    letter-spacing: -0.055em;
+}
+
+
+.nx-contact-title em {
+      color: #e4d8c8;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.nx-contact-hero-copy {
+    position: relative;
+
+    max-width: 390px;
+
+    margin-left: auto;
+
+    padding: 40px 0 40px 42px;
+}
+
+
+.nx-contact-hero-copy::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 1px;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(255, 29, 12, 0.75),
+        transparent
+    );
+}
+
+
+.nx-contact-hero-copy::after {
+    content: "";
+
+    position: absolute;
+
+    width: 210px;
+    height: 210px;
+
+    right: -45px;
+    top: -55px;
+
+    border: 1px solid rgba(255, 29, 12, 0.22);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.nx-contact-hero-copy p {
+    position: relative;
+    z-index: 2;
+
+    margin: 0;
+
+    color: rgba(247, 244, 237, 0.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   HERO BOTTOM
+========================================================= */
+
+.nx-contact-scroll {
+    position: absolute;
+
+    left: 80px;
+    bottom: 45px;
+
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    color: rgba(247, 244, 237, 0.55);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+
+.nx-contact-scroll-line {
+    width: 55px;
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   CONTACT CHANNELS
+========================================================= */
+
+.nx-contact-channels {
+    padding: 0 0 130px;
+
+    background: #111111;
+}
+
+
+.nx-contact-channel-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1px;
+
+    background: rgba(247, 244, 237, 0.14);
+}
+
+
+.nx-contact-channel {
+    position: relative;
+
+    min-height: 285px;
+
+    padding: 42px;
+
+    background: #171717;
+
+    color: #f7f4ed;
+
+    text-decoration: none;
+
+    overflow: hidden;
+
+    transition:
+        background 0.5s ease,
+        transform 0.5s cubic-bezier(.22,1,.36,1);
+}
+
+
+.nx-contact-channel::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 0;
+    height: 3px;
+
+    background: #ff1d0c;
+
+    transition:
+        width 0.6s cubic-bezier(.22,1,.36,1);
+}
+
+
+.nx-contact-channel:hover {
+    background: #1d1d1d;
+
+    transform: translateY(-5px);
+}
+
+
+.nx-contact-channel:hover::before {
+    width: 100%;
+}
+
+
+/* =========================================================
+   CHANNEL ICON
+========================================================= */
+
+.nx-contact-channel-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 68px;
+
+    border: 1px solid rgba(247, 244, 237, 0.25);
+
+    border-radius: 50%;
+
+    color: #ff1d0c;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        transform 0.5s ease;
+}
+
+
+.nx-contact-channel:hover .nx-contact-channel-icon {
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    transform: rotate(8deg);
+}
+
+
+/* =========================================================
+   CHANNEL LABEL
+========================================================= */
+
+.nx-contact-channel-label {
+    margin: 0 0 10px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.18em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CHANNEL VALUE
+========================================================= */
+
+.nx-contact-channel-value {
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(22px, 2vw, 29px);
+
+    line-height: 1.15;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   CONSULTATION
+========================================================= */
+
+.nx-contact-consultation {
+    padding: 80px 0 100px;
+
+    border-top: 1px solid rgba(247, 244, 237, 0.13);
+
+    background: #111111;
+}
+
+
+.nx-contact-consultation-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 100px;
+}
+
+
+/* =========================================================
+   SECTION EYEBROW
+========================================================= */
+
+.nx-contact-section-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CONSULTATION TITLE
+========================================================= */
+
+.nx-contact-consultation-title {
+    max-width: 650px;
+
+    margin: 25px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(43px, 5vw, 70px);
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -0.04em;
+}
+
+
+.nx-contact-consultation-title em {
+    color: #e4d8c8;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-contact-description {
+    max-width: 570px;
+
+    margin: 30px 0 0;
+
+    color: rgba(247, 244, 237, 0.55);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   CONTACT DETAILS
+========================================================= */
+
+.nx-contact-details {
+    margin-top: 55px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 23px;
+}
+
+
+.nx-contact-detail {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 18px;
+
+    color: rgba(247, 244, 237, 0.72);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+.nx-contact-detail-icon {
+    flex-shrink: 0;
+
+    width: 20px;
+
+    color: #ff1d0c;
+
+    text-align: center;
+
+    font-size: 17px;
+}
+
+
+.nx-contact-detail a {
+    color: inherit;
+
+    text-decoration: none;
+
+    transition: color 0.3s ease;
+}
+
+
+.nx-contact-detail a:hover {
+    color: #ff1d0c;
+}
+
+
+/* =========================================================
+   SOCIAL
+========================================================= */
+
+.nx-contact-social {
+    margin-top: 50px;
+
+    padding-top: 30px;
+
+    border-top: 1px solid rgba(247, 244, 237, 0.12);
+}
+
+
+.nx-contact-social-label {
+    margin: 0 0 12px;
+
+    color: rgba(247, 244, 237, 0.4);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-contact-social a {
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 25px;
+
+    text-decoration: none;
+
+    transition: color 0.3s ease;
+}
+
+
+.nx-contact-social a:hover {
+    color: #ff1d0c;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.nx-contact-form {
+    padding: 48px;
+
+    background: #171717;
+
+    border: 1px solid rgba(247, 244, 237, 0.12);
+
+    position: relative;
+}
+
+
+
+
+
+.nx-contact-form-title {
+    margin: 0 0 35px;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 38px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.nx-contact-form-group {
+    margin-bottom: 22px;
+}
+
+
+.nx-contact-form-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: rgba(247, 244, 237, 0.45);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.nx-contact-form-input,
+.nx-contact-form-textarea {
+    width: 100%;
+
+    padding: 15px 0;
+
+    color: #f7f4ed;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 1px solid rgba(247, 244, 237, 0.18);
+
+    outline: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    transition: border-color 0.3s ease;
+}
+
+
+.nx-contact-form-input::placeholder,
+.nx-contact-form-textarea::placeholder {
+    color: rgba(247, 244, 237, 0.30);
+}
+
+
+.nx-contact-form-input:focus,
+.nx-contact-form-textarea:focus {
+    border-color: #ff1d0c;
+}
+
+
+.nx-contact-form-textarea {
+    min-height: 110px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.nx-contact-form-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    margin-top: 15px;
+
+    padding: 18px 32px;
+
+    color: #ffffff;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.15em;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease;
+}
+
+
+.nx-contact-form-button:hover {
+    background: transparent;
+
+    color: #ff1d0c;
+}
+
+
+.nx-contact-form-button span {
+    font-size: 17px;
+
+    transition: transform 0.3s ease;
+}
+
+
+.nx-contact-form-button:hover span {
+    transform: translate(4px, -4px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-contact-container {
+        padding: 0 50px;
+    }
+
+
+    .nx-contact-hero-grid {
+        gap: 50px;
+    }
+
+
+    .nx-contact-title {
+        font-size: clamp(55px, 8vw, 90px);
+    }
+
+
+    .nx-contact-scroll {
+        left: 50px;
+    }
+
+
+    .nx-contact-consultation-grid {
+        gap: 60px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-contact-hero {
+        min-height: auto;
+
+        padding: 130px 0 120px;
+
+        background-position: 62% center;
+
+        background-image:
+            linear-gradient(
+                to bottom,
+                rgba(10, 10, 10, 0.88),
+                rgba(10, 10, 10, 0.70),
+                rgba(10, 10, 10, 0.94)
+            ),
+            url("{% static 'img/contact-hero.jpg' %}");
+    }
+
+
+    .nx-contact-container {
+        padding: 0 24px;
+    }
+
+
+    .nx-contact-hero-grid {
+        display: block;
+    }
+
+
+    .nx-contact-title {
+        font-size: clamp(52px, 14vw, 76px);
+
+        line-height: 0.96;
+    }
+
+
+    .nx-contact-hero-copy {
+        max-width: 100%;
+
+        margin: 45px 0 0;
+
+        padding: 30px 0 0;
+    }
+
+
+    .nx-contact-hero-copy::before {
+        top: 0;
+        left: 0;
+        right: 0;
+
+        width: 100%;
+        height: 1px;
+
+        bottom: auto;
+
+        background: linear-gradient(
+            to right,
+            #ff1d0c,
+            transparent
+        );
+    }
+
+
+    .nx-contact-hero-copy::after {
+        display: none;
+    }
+
+
+    .nx-contact-scroll {
+        display: none;
+    }
+
+
+    .nx-contact-hero::after {
+        font-size: 120px;
+
+        right: -25px;
+
+        bottom: -15px;
+    }
+
+
+    .nx-contact-channels {
+        padding-bottom: 90px;
+    }
+
+
+    .nx-contact-channel-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .nx-contact-channel {
+        min-height: 240px;
+
+        padding: 30px;
+    }
+
+
+    .nx-contact-channel-icon {
+        margin-bottom: 50px;
+    }
+
+
+    .nx-contact-consultation {
+        padding: 90px 0 100px;
+    }
+
+
+    .nx-contact-consultation-grid {
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+    }
+
+
+    .nx-contact-consultation-title {
+        font-size: clamp(42px, 11vw, 58px);
+    }
+
+
+    .nx-contact-form {
+        padding: 30px 24px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-contact-container {
+        padding: 0 20px;
+    }
+
+
+    .nx-contact-hero {
+        padding: 120px 0 105px;
+
+        background-position: 65% center;
+    }
+
+
+    .nx-contact-title {
+        font-size: 49px;
+    }
+
+
+    .nx-contact-channel-value {
+        font-size: 23px;
+    }
+
+
+    .nx-contact-form-title {
+        font-size: 32px;
+    }
+
+
+    .nx-contact-detail {
+        font-size: 12px;
+    }
+
+}
+
+</style>
+
+
+<div class="nx-contact-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="nx-contact-hero">
+
+        <div class="nx-contact-container">
+
+            <div class="nx-contact-hero-grid">
+
+
+                <!-- HERO LEFT -->
+
+                <div>
+
+                    <p class="nx-contact-eyebrow">
+                        CONTACT US
+                    </p>
+
+                    <h1 class="nx-contact-title">
+                        The right opportunity
+                        starts with
+                        <em>one conversation.</em>
+                    </h1>
+
+                </div>
+
+
+                <!-- HERO RIGHT -->
+
+                <div class="nx-contact-hero-copy">
+
+                    <p>
+                        Tell us what you want to achieve.
+                        Our advisory team brings clarity to your
+                        next move in Dubai — whether you're buying,
+                        selling, investing or exploring strategic
+                        opportunities.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO BOTTOM -->
+
+        <div class="nx-contact-scroll">
+
+            <span class="nx-contact-scroll-line"></span>
+
+            GET IN TOUCH
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONTACT CHANNELS
+    ====================================================== -->
+
+    <section class="nx-contact-channels">
+
+        <div class="nx-contact-container">
+
+            <div class="nx-contact-channel-grid">
+
+
+                <!-- PHONE -->
+
+                <a
+                    href="tel:+971509445799"
+                    class="nx-contact-channel"
+                >
+
+                    <div class="nx-contact-channel-icon">
+                        ☎
+                    </div>
+
+                    <p class="nx-contact-channel-label">
+                        PHONE
+                    </p>
+
+                    <p class="nx-contact-channel-value">
+                        +971 509445799
+                    </p>
+
+                </a>
+
+
+
+                <!-- EMAIL -->
+
+                <a
+                    href="mailto:info@nexurbanproperties.com"
+                    class="nx-contact-channel"
+                >
+
+                    <div class="nx-contact-channel-icon">
+                        @
+                    </div>
+
+                    <p class="nx-contact-channel-label">
+                        EMAIL
+                    </p>
+
+                    <p class="nx-contact-channel-value">
+                        info@nexurbanproperties.com
+                    </p>
+
+                </a>
+
+
+
+                <!-- SOCIAL -->
+
+                <a
+                    href="#social"
+                    class="nx-contact-channel"
+                >
+
+                    <div class="nx-contact-channel-icon">
+                        ◎
+                    </div>
+
+                    <p class="nx-contact-channel-label">
+                        SOCIAL MEDIA
+                    </p>
+
+                    <p class="nx-contact-channel-value">
+                        @nexurbanpropertie
+                    </p>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CONSULTATION
+    ====================================================== -->
+
+    <section class="nx-contact-consultation">
+
+        <div class="nx-contact-container">
+
+            <div class="nx-contact-consultation-grid">
+
+
+                <!-- =================================================
+                     LEFT CONTENT
+                ================================================= -->
+
+                <div>
+
+                    <p class="nx-contact-section-eyebrow">
+                        BOOK A CONSULTATION
+                    </p>
+
+
+                    <h2 class="nx-contact-consultation-title">
+
+                        Bring us your objective.
+                        <em>We'll bring perspective.</em>
+
+                    </h2>
+
+
+                    <p class="nx-contact-description">
+
+                        A focused conversation with an advisor is the
+                        beginning of every Nexurban relationship.
+                        Share a few details and we'll respond with
+                        a considered next step.
+
+                    </p>
+
+
+                    <!-- CONTACT DETAILS -->
+
+                    <div class="nx-contact-details">
+
+
+                        <!-- PHONE -->
+
+                        <div class="nx-contact-detail">
+
+                            <span class="nx-contact-detail-icon">
+                                ☎
+                            </span>
+
+                            <span>
+
+                                Phone :
+                                <a href="tel:+971509445799">
+                                    +971 509445799
+                                </a>
+
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- EMAIL -->
+
+                        <div class="nx-contact-detail">
+
+                            <span class="nx-contact-detail-icon">
+                                @
+                            </span>
+
+                            <span>
+
+                                Email :
+                                <a href="mailto:info@nexurbanproperties.com">
+                                    info@nexurbanproperties.com
+                                </a>
+
+                            </span>
+
+                        </div>
+
+
+
+                        <!-- ADDRESS -->
+
+                        <div class="nx-contact-detail">
+
+                            <span class="nx-contact-detail-icon">
+                                ⌖
+                            </span>
+
+                            <span>
+
+                                Address :
+                                2205, Iris Bay Tower,
+                                Business Bay, Dubai, UAE
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- SOCIAL -->
+
+                    <div
+                        id="social"
+                        class="nx-contact-social"
+                    >
+
+                        <p class="nx-contact-social-label">
+                            SOCIAL MEDIA
+                        </p>
+
+                        <a href="#">
+                            @nexurbanpropertie
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RIGHT FORM
+                ================================================= -->
+
+                <div class="nx-contact-form">
+
+                    <h3 class="nx-contact-form-title">
+                        How can we help?
+                    </h3>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <!-- NAME -->
+
+                        <div class="nx-contact-form-group">
+
+                            <label class="nx-contact-form-label">
+                                Your Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="nx-contact-form-input"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- EMAIL -->
+
+                        <div class="nx-contact-form-group">
+
+                            <label class="nx-contact-form-label">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="nx-contact-form-input"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- PHONE -->
+
+                        <div class="nx-contact-form-group">
+
+                            <label class="nx-contact-form-label">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                name="phone"
+                                class="nx-contact-form-input"
+                                placeholder="+971"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- MESSAGE -->
+
+                        <div class="nx-contact-form-group">
+
+                            <label class="nx-contact-form-label">
+                                How can we help?
+                            </label>
+
+                            <textarea
+                                name="message"
+                                class="nx-contact-form-textarea"
+                                placeholder="Tell us about your requirements"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+
+                        <!-- SUBMIT -->
+
+                        <button
+                            type="submit"
+                            class="nx-contact-form-button"
+                        >
+
+                            SEND ENQUIRY
+
+                            <span>
+                                ↗
+                            </span>
+
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,1686 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — DUBAI AREAS PAGE
+========================================================= */
+
+.nx-areas-page {
+    --nx-black: #080808;
+    --nx-dark: #111111;
+    --nx-card: #151515;
+    --nx-white: #f7f4ed;
+    --nx-muted: rgba(247,244,237,.58);
+    --nx-line: rgba(247,244,237,.14);
+    --nx-red: #ff1d0c;
+    --nx-soft: #e4d8c8;
+
+    background: var(--nx-black);
+    color: var(--nx-white);
+    overflow: hidden;
+    font-family: "Manrope", sans-serif;
+}
+
+.nx-areas-shell {
+    width: min(1400px, calc(100% - 100px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.nx-area-hero {
+    position: relative;
+    width: 100%;
+    min-height: 690px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* =========================================================
+   HERO BACKGROUND
+========================================================= */
+
+.nx-area-hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(17,17,17,.97) 0%,
+            rgba(17,17,17,.90) 35%,
+            rgba(17,17,17,.62) 68%,
+            rgba(17,17,17,.48) 100%
+        ),
+        url("{% static 'img/area-hero.jpg' %}");
+
+    background-size: cover;
+    background-position: center;
+
+    z-index: 0;
+}
+
+
+/* =========================================================
+   DARK OVERLAY
+========================================================= */
+
+.nx-area-hero::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.92) 0%,
+            rgba(8,8,8,.15) 48%,
+            rgba(8,8,8,.12) 100%
+        );
+
+    z-index: 1;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   RIGHT RED PANEL
+========================================================= */
+
+.nx-area-hero-panel {
+    position: absolute;
+
+    top: -10%;
+    right: 0;
+
+    width: 31%;
+    height: 120%;
+
+    background: rgba(255,29,12,.075);
+
+    border-left: 1px solid rgba(255,29,12,.18);
+
+    z-index: 2;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.nx-hero-content {
+    position: relative;
+
+    margin-left: 6vw;
+
+    z-index: 5;
+
+    width: 100%;
+
+    padding: 120px 0 110px;
+}
+
+
+/* =========================================================
+   HERO GRID
+========================================================= */
+
+.nx-hero-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(260px, .55fr);
+
+    gap: 80px;
+
+    align-items: end;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-hero-eyebrow {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 0 0 30px;
+
+    color: var(--nx-red);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+.nx-hero-eyebrow::before {
+    content: "";
+
+    width: 30px;
+    height: 1px;
+
+    background: var(--nx-red);
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.nx-hero-title {
+    margin: 0;
+
+    max-width: 1050px;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(58px, 7vw, 100px);
+
+    font-weight: 400;
+
+    line-height: .94;
+
+    letter-spacing: -.045em;
+}
+
+
+.nx-hero-title .nx-title-line-one {
+    display: block;
+}
+
+
+.nx-hero-title em {
+    display: block;
+
+    margin-top: 8px;
+
+    margin-left: 9vw;
+
+    color: var(--nx-soft);
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.nx-hero-description {
+    max-width: 390px;
+
+    margin: 0 0 8px auto;
+
+    color: rgba(247,244,237,.67);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.nx-area-filter-wrap {
+    position: relative;
+
+    z-index: 10;
+
+    margin-top: -42px;
+}
+
+
+/* =========================================================
+   FILTER — SINGLE SEARCH FIELD (REDESIGNED)
+========================================================= */
+
+.nx-area-filter {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    min-height: 88px;
+    background: rgba(10,10,10,.96);
+    border: 1px solid rgba(247,244,237,.16);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.nx-filter-item {
+    position: relative;
+    min-height: 88px;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-right: 1px solid rgba(247,244,237,.13);
+    transition: background .35s ease;
+}
+
+.nx-filter-item:focus-within {
+    background: rgba(255,29,12,.05);
+}
+
+.nx-filter-item::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--nx-red);
+    transition: width .4s cubic-bezier(.22,1,.36,1);
+}
+
+.nx-filter-item:focus-within::after {
+    width: 100%;
+}
+
+.nx-filter-label {
+    flex-shrink: 0;
+    margin: 0;
+    color: rgba(255,255,255,.4);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.nx-filter-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+}
+
+.nx-filter-search-icon {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+}
+
+.nx-filter-search-icon::before {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    left: 0;
+    top: 0;
+    border: 1.5px solid var(--nx-red);
+    border-radius: 50%;
+}
+
+.nx-filter-search-icon::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 1.5px;
+    left: 8px;
+    top: 11px;
+    background: var(--nx-red);
+    transform: rotate(45deg);
+    transform-origin: left center;
+}
+
+.nx-filter-input {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+}
+
+.nx-filter-input::placeholder {
+    color: rgba(255,255,255,.35);
+    font-style: italic;
+}
+
+.nx-filter-button {
+    min-height: 88px;
+    border: 0;
+    background: var(--nx-red);
+    color: #fff;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: background .35s ease, letter-spacing .35s ease;
+}
+
+.nx-filter-button::after {
+    content: "→";
+    font-size: 16px;
+    font-weight: 400;
+    transition: transform .35s ease;
+}
+
+.nx-filter-button:hover {
+    background: #d91406;
+    letter-spacing: .22em;
+}
+
+.nx-filter-button:hover::after {
+    transform: translateX(4px);
+}
+
+@media (max-width: 767px) {
+    .nx-area-filter {
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
+    }
+    .nx-filter-item {
+        min-height: 72px;
+        padding: 0 22px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(247,244,237,.13);
+    }
+    .nx-filter-input {
+        font-size: 16px;
+    }
+    .nx-filter-button {
+        min-height: 62px;
+    }
+}
+
+
+/* =========================================================
+   AREA LISTING
+========================================================= */
+
+.nx-area-listing {
+    padding: 115px 0 130px;
+}
+
+
+.nx-area-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: end;
+
+    gap: 60px;
+
+    margin-bottom: 55px;
+}
+
+
+.nx-area-heading-left {
+    max-width: 750px;
+}
+
+
+.nx-area-eyebrow {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 0 0 20px;
+
+    color: var(--nx-red);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .19em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-area-eyebrow::before {
+    content: "";
+
+    width: 26px;
+    height: 1px;
+
+    background: var(--nx-red);
+}
+
+
+.nx-area-title {
+    margin: 0;
+
+    color: var(--nx-white);
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(45px, 5vw, 72px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.045em;
+}
+
+
+.nx-area-title em {
+    color: var(--nx-soft);
+
+    font-style: italic;
+}
+
+
+.nx-area-heading-copy {
+    max-width: 400px;
+
+    margin: 0;
+
+    color: var(--nx-muted);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   AREA GRID
+========================================================= */
+
+.nx-area-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+.nx-area-card {
+    position: relative;
+
+    min-height: 480px;
+
+    overflow: hidden;
+
+    background: var(--nx-card);
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    text-decoration: none;
+
+    color: #fff;
+
+    transition:
+        transform .6s cubic-bezier(.22,1,.36,1),
+        border-color .4s ease;
+}
+
+
+.nx-area-card:hover {
+    transform: translateY(-8px);
+
+    border-color:
+        rgba(255,29,12,.6);
+}
+
+
+/* =========================================================
+   CARD IMAGE
+========================================================= */
+
+.nx-area-card-image {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 1s cubic-bezier(.22,1,.36,1),
+        filter .7s ease;
+}
+
+
+.nx-area-card:hover .nx-area-card-image {
+    transform: scale(1.07);
+
+    filter: brightness(.85);
+}
+
+
+/* =========================================================
+   CARD OVERLAY
+========================================================= */
+
+.nx-area-card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(5,5,5,.98) 0%,
+            rgba(5,5,5,.78) 32%,
+            rgba(5,5,5,.12) 70%,
+            rgba(5,5,5,.05) 100%
+        );
+}
+
+
+.nx-area-card-number {
+    position: absolute;
+
+    top: 24px;
+    left: 25px;
+
+    z-index: 3;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    color: rgba(255,255,255,.7);
+}
+
+
+.nx-area-card-content {
+    position: absolute;
+
+    left: 28px;
+    right: 28px;
+
+    bottom: 27px;
+
+    z-index: 3;
+}
+
+
+.nx-area-card-title {
+    margin: 0;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 32px;
+
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+
+.nx-area-card-description {
+    max-width: 340px;
+
+    margin: 15px 0 22px;
+
+    color: rgba(255,255,255,.62);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+.nx-area-card-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    color: #fff;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .15em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-area-card-link span {
+    color: var(--nx-red);
+
+    font-size: 17px;
+
+    transition: transform .4s ease;
+}
+
+
+.nx-area-card:hover .nx-area-card-link span {
+    transform: translateX(6px);
+}
+
+
+/* =========================================================
+   NO RESULTS
+========================================================= */
+
+.nx-area-no-results {
+    padding: 80px 30px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    text-align: center;
+
+    background: #111;
+}
+
+
+.nx-area-no-results h3 {
+    margin: 0 0 12px;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 34px;
+
+    font-weight: 400;
+}
+
+
+.nx-area-no-results p {
+    margin: 0;
+
+    color: rgba(255,255,255,.55);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PAGINATION — MATCHES BUY/OFFPLAN/READY STYLE
+========================================================= */
+
+.nx-pagination {
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.nx-page-button {
+    min-width: 43px;
+    height: 43px;
+    padding: 0 13px;
+    border: 1px solid rgba(247,244,237,.18);
+    background: transparent;
+    color: rgba(255,255,255,.7);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+}
+
+.nx-page-number {
+    width: 43px;
+    padding: 0;
+}
+
+.nx-page-button.active {
+    background: var(--nx-red);
+    color: #fff;
+    border-color: var(--nx-red);
+}
+
+.nx-page-button:hover:not(.active) {
+    background: #fff;
+    color: #111;
+    border-color: #fff;
+}
+
+.nx-page-prev,
+.nx-page-next {
+    min-width: 82px;
+    padding-left: 17px;
+    padding-right: 17px;
+}
+
+.nx-page-dots {
+    width: 30px;
+    height: 43px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,.45);
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+}
+
+@media (max-width: 480px) {
+    .nx-page-button {
+        min-width: 39px;
+        height: 39px;
+        font-size: 8px;
+    }
+    .nx-page-number {
+        width: 39px;
+    }
+    .nx-page-prev,
+    .nx-page-next {
+        min-width: 70px;
+    }
+    .nx-page-dots {
+        width: 22px;
+        height: 39px;
+    }
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.nx-area-cta {
+    padding: 0 0 100px;
+}
+
+
+.nx-area-cta-box {
+    position: relative;
+
+    overflow: hidden;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    align-items: center;
+
+    gap: 70px;
+
+    padding: 65px;
+
+    border: 1px solid rgba(247,244,237,.16);
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(255,29,12,.08),
+            transparent 35%
+        ),
+        #101010;
+}
+
+
+.nx-area-cta-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    left: -100px;
+    bottom: -120px;
+
+    border: 1px solid rgba(255,29,12,.25);
+
+    border-radius: 50%;
+}
+
+
+.nx-cta-eyebrow {
+    margin: 0 0 18px;
+
+    color: var(--nx-red);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-cta-title {
+    max-width: 780px;
+
+    margin: 0;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(37px, 4vw, 58px);
+
+    font-weight: 400;
+
+    line-height: 1.03;
+
+    letter-spacing: -.035em;
+}
+
+
+.nx-cta-title em {
+    color: var(--nx-soft);
+
+    font-style: italic;
+}
+
+
+.nx-cta-actions {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    min-width: 260px;
+}
+
+
+.nx-cta-button {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 18px 22px;
+
+    border: 1px solid var(--nx-red);
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .14em;
+
+    text-transform: uppercase;
+
+    transition: .4s ease;
+}
+
+
+.nx-cta-button:first-child {
+    background: var(--nx-red);
+}
+
+
+.nx-cta-button:hover {
+    background: transparent;
+
+    color: var(--nx-red);
+}
+
+
+.nx-cta-button span {
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes nxFadeUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+.nx-hero-eyebrow,
+.nx-hero-title,
+.nx-hero-description {
+    animation:
+        nxFadeUp .9s
+        cubic-bezier(.22,1,.36,1)
+        both;
+}
+
+
+.nx-hero-title {
+    animation-delay: .08s;
+}
+
+
+.nx-hero-description {
+    animation-delay: .18s;
+}
+
+
+.nx-area-card {
+    animation:
+        nxFadeUp .8s
+        cubic-bezier(.22,1,.36,1)
+        both;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .nx-area-hero {
+        min-height: 650px;
+    }
+
+    .nx-areas-shell {
+        width: min(100% - 50px, 1400px);
+    }
+
+    .nx-hero-content {
+        padding: 100px 0 100px;
+    }
+
+    .nx-hero-grid {
+        gap: 35px;
+    }
+
+    .nx-hero-title {
+        font-size: clamp(48px, 7vw, 72px);
+    }
+
+    .nx-hero-description {
+        max-width: 340px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-areas-shell {
+        width: calc(100% - 36px);
+    }
+
+    .nx-area-hero {
+        min-height: 680px;
+
+        align-items: center;
+    }
+
+    .nx-area-hero::before {
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(17,17,17,.72) 0%,
+                rgba(17,17,17,.82) 50%,
+                rgba(17,17,17,.96) 100%
+            ),
+            url("{% static 'img/area-hero.jpg' %}");
+
+        background-size: cover;
+
+        background-position: center;
+    }
+
+    .nx-area-hero-panel {
+        width: 100%;
+
+        height: 120%;
+
+        top: -10%;
+
+        border-left: 0;
+
+        background:
+            rgba(255,29,12,.055);
+    }
+
+    .nx-hero-content {
+        padding: 110px 0 95px;
+    }
+
+    .nx-hero-grid {
+        display: block;
+    }
+
+    .nx-hero-eyebrow {
+        margin-bottom: 25px;
+
+        font-size: 9px;
+
+        letter-spacing: .15em;
+
+        gap: 9px;
+    }
+
+    .nx-hero-eyebrow::before {
+        width: 22px;
+    }
+
+    .nx-hero-title {
+        max-width: 100%;
+
+        font-size: clamp(42px, 12vw, 60px);
+
+        line-height: 1;
+
+        letter-spacing: -.04em;
+    }
+
+    .nx-hero-title em {
+        margin-top: 8px;
+
+        margin-left: 4vw;
+    }
+
+    .nx-hero-description {
+        max-width: 100%;
+
+        margin-top: 28px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    /* FILTER */
+
+    .nx-area-filter-wrap {
+        margin-top: -30px;
+    }
+
+
+    /* LISTING */
+
+    .nx-area-listing {
+        padding: 85px 0 90px;
+    }
+
+    .nx-area-heading {
+        display: block;
+
+        margin-bottom: 42px;
+    }
+
+    .nx-area-heading-copy {
+        margin-top: 25px;
+    }
+
+    .nx-area-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .nx-area-card {
+        min-height: 460px;
+    }
+
+
+    /* CTA */
+
+    .nx-area-cta {
+        padding-bottom: 60px;
+    }
+
+    .nx-area-cta-box {
+        padding: 35px 25px;
+
+        gap: 40px;
+    }
+
+    .nx-cta-actions {
+        min-width: 100%;
+
+        flex-direction: column;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-areas-shell {
+        width: calc(100% - 30px);
+    }
+
+    .nx-area-hero {
+        min-height: 650px;
+    }
+
+    .nx-hero-title {
+        font-size: 42px;
+    }
+
+    .nx-area-title {
+        font-size: 43px;
+    }
+
+    .nx-area-card {
+        min-height: 430px;
+    }
+
+    .nx-area-card-title {
+        font-size: 29px;
+    }
+
+    .nx-page-button,
+    .nx-page-dots {
+        width: 40px;
+
+        height: 40px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation: none !important;
+
+        transition: none !important;
+    }
+
+}
+
+</style>
+
+
+<div class="nx-areas-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="nx-area-hero">
+
+        <div class="nx-area-hero-panel"></div>
+
+        <div class="nx-areas-shell nx-hero-content">
+
+            <div class="nx-hero-grid">
+
+                <div>
+
+                    <p class="nx-hero-eyebrow">
+                        DUBAI AREAS
+                    </p>
+
+                    <h1 class="nx-hero-title">
+
+                        <span class="nx-title-line-one">
+                            Find Your Place in Dubai
+                        </span>
+
+                        <em>
+                            Live Where It Matters.
+                        </em>
+
+                    </h1>
+
+                </div>
+
+
+                <div>
+
+                    <p class="nx-hero-description">
+                        Explore Dubai's most sought-after
+                        neighbourhoods. Compare lifestyle,
+                        amenities and investment potential —
+                        all in one place.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FILTER
+    ====================================================== -->
+
+    <div class="nx-area-filter-wrap">
+
+        <div class="nx-areas-shell">
+
+            <form
+                class="nx-area-filter"
+                method="GET"
+                action="{% url 'area' %}"
+            >
+
+                <!-- SEARCH AREA -->
+                <div class="nx-filter-item">
+
+                    <span class="nx-filter-label">
+                        SEARCH AREA
+                    </span>
+
+                    <div class="nx-filter-search-wrap">
+
+                        <span class="nx-filter-search-icon"></span>
+
+                        <input
+                            type="text"
+                            name="search_area"
+                            class="nx-filter-input"
+                            placeholder="Search neighbourhood"
+                            value="{{ search_area }}"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTON -->
+                <button
+                    type="submit"
+                    class="nx-filter-button"
+                >
+                    EXPLORE AREAS
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         AREAS
+    ====================================================== -->
+
+    <section
+        class="nx-area-listing"
+        id="areas"
+    >
+
+        <div class="nx-areas-shell">
+
+
+            <!-- HEADING -->
+
+            <div class="nx-area-heading">
+
+                <div class="nx-area-heading-left">
+
+                    <p class="nx-area-eyebrow">
+                        DUBAI NEIGHBOURHOODS
+                    </p>
+
+                    <h2 class="nx-area-title">
+
+                        Dubai's Most
+                        <br>
+
+                        <em>
+                            Desirable Areas.
+                        </em>
+
+                    </h2>
+
+                </div>
+
+
+                <p class="nx-area-heading-copy">
+
+                    From waterfront living to urban luxury
+                    and serene communities, find the area
+                    that matches your lifestyle and goals.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 AREA GRID
+            ================================================== -->
+
+            {% if areas %}
+
+                <div class="nx-area-grid">
+
+                    {% for area in areas %}
+<a
+                        
+                            href="{% url 'area_detail' area.name %}"
+                            class="nx-area-card"
+                        >
+
+                            {% if area.image %}
+
+                                <img
+                                    src="{{ area.image }}"
+                                    alt="{{ area.name }}"
+                                    class="nx-area-card-image"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <img
+                                    src="{% static 'img/area-default.jpg' %}"
+                                    alt="{{ area.name }}"
+                                    class="nx-area-card-image"
+                                    loading="lazy"
+                                >
+
+                            {% endif %}
+
+
+                            <span class="nx-area-card-number">
+
+                                {% if forloop.counter < 10 %}
+                                    0{{ forloop.counter }}
+                                {% else %}
+                                    {{ forloop.counter }}
+                                {% endif %}
+
+                            </span>
+
+
+                            <div class="nx-area-card-content">
+
+                                <h3 class="nx-area-card-title">
+
+                                    {{ area.name }}
+
+                                </h3>
+
+
+                                <p class="nx-area-card-description">
+
+                                    Explore properties, lifestyle,
+                                    amenities and investment
+                                    opportunities in {{ area.name }}.
+
+                                </p>
+
+
+                                <span class="nx-area-card-link">
+
+                                    VIEW AREA
+
+                                    <span>
+                                        →
+                                    </span>
+
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+                <div class="nx-area-no-results">
+
+                    <h3>
+                        No Areas Found
+                    </h3>
+
+                    <p>
+                        Try changing your search or filter options.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- =================================================
+                 PAGINATION
+            ================================================== -->
+
+            {% if total_pages > 1 %}
+
+                <div class="nx-pagination">
+
+                    <!-- PREVIOUS -->
+
+                    {% if previous_page %}
+
+                        <a
+                            class="nx-page-button nx-page-prev"
+                            href="?search_area={{ search_area|urlencode }}&page={{ previous_page }}"
+                        >
+                            ← PREV
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- PAGE NUMBERS -->
+
+                    {% for page in page_numbers %}
+
+                        {% if page == "..." %}
+
+                            <span class="nx-page-dots">
+                                …
+                            </span>
+
+                        {% else %}
+<a
+                            
+                                class="nx-page-button nx-page-number {% if page == current_page %}active{% endif %}"
+                                href="?search_area={{ search_area|urlencode }}&page={{ page }}"
+                            >
+
+                                {{ page }}
+
+                            </a>
+
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    <!-- NEXT -->
+
+                    {% if next_page %}
+
+                        <a
+                            class="nx-page-button nx-page-next"
+                            href="?search_area={{ search_area|urlencode }}&page={{ next_page }}"
+                        >
+                            NEXT →
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+
+    <section class="nx-area-cta">
+
+        <div class="nx-areas-shell">
+
+            <div class="nx-area-cta-box">
+
+
+                <div>
+
+                    <p class="nx-cta-eyebrow">
+                        LET'S FIND YOUR NEXT MOVE
+                    </p>
+
+
+                    <h2 class="nx-cta-title">
+
+                        We Don't Want to Be Your
+                        Property Broker.
+
+                        <br>
+
+                        We Want to Be Your Real Estate
+                        <em>Partner.</em>
+
+                    </h2>
+
+                </div>
+
+
+                <div class="nx-cta-actions">
+
+
+                    <a
+                        href="/buy"
+                        class="nx-cta-button"
+                    >
+
+                        EXPLORE PROPERTIES
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+<a
+
+                    
+                        href="{% url 'contact' %}"
+                        class="nx-cta-button"
+                    >
+
+                        BOOK A CONSULTATION
+
+                        <span>
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

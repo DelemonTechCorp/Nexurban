@@ -1,0 +1,9210 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block extra_css %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+
+<style>
+/* =========================================================
+   HERO SECTION ONLY
+========================================================= */
+
+.nx-hero,
+.nx-hero * {
+  box-sizing: border-box;
+}
+
+.nx-hero {
+  width: 100%;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  background: #111;
+}
+
+.nx-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.nx-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 8, 8, 0.90) 0%,
+      rgba(8, 8, 8, 0.68) 35%,
+      rgba(8, 8, 8, 0.27) 70%,
+      rgba(8, 8, 8, 0.14) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 42%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
+}
+
+.nx-hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 125px 60px 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.nx-hero-content {
+  max-width: 850px;
+}
+
+.nx-hero-eyebrow {
+  margin: 0;
+  color: #ff1d0c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1.5;
+}
+
+.nx-hero-title {
+  margin: 22px 0 0;
+  color: #f7f4ed;
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.nx-hero-title em {
+  color: #e8dfd1;
+  font-weight: 400;
+}
+
+.nx-hero-tagline {
+  margin: 30px 0 0;
+  color: #ff4c3fd3;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+  font-family: "Manrope", sans-serif;
+}
+
+.nx-hero-description {
+  max-width: 580px;
+  margin: 12px 0 0;
+  color: rgba(247, 244, 237, 0.68);
+  font-family: "Manrope", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.nx-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: "Manrope", sans-serif;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.nx-hero-primary ,
+.nx-hero-secondary {
+  min-height: 54px;
+  padding: 0 28px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.nx-hero-primary a{
+  text-decoration: none;
+    color: #151515;
+}
+
+.nx-hero-primary {
+  background: #F7F7F7;
+  color: #151515;
+  border: 1px solid #f7f4ed;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.18);
+}
+
+.nx-hero-primary:hover {
+  background: #ff1d0c;
+  color: #ffffff;
+  border-color: #ff1d0c;
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 30px rgba(255, 29, 12, 0.25);
+}
+
+.nx-hero-primary svg {
+  width: 18px;
+  height: 18px;
+}
+.nx-hero-secondary  a{
+  text-decoration: none;
+    color: #ffffff;
+}
+.nx-hero-secondary {
+  background: rgba(10, 10, 10, 0.20);
+  color: #ffffff;
+  border: 1px solid #e21b09;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.nx-hero-secondary:hover {
+  background: #ff1d0c;
+  color: #ffffff;
+  border-color: #ff1d0c;
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 28px rgba(255, 29, 12, 0.25);
+}
+
+.nx-hero-search {
+  position: relative;
+  z-index: 10;
+  font-family: "Manrope", sans-serif;
+
+  width: 100%;
+  min-height: 80px;
+  margin-top: 60px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1.35fr
+    1.15fr
+    1fr
+    155px;
+
+  align-items: stretch;
+
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.30);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.nx-hero-search-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+
+  padding: 15px 24px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.nx-hero-search-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nx-hero-search-item small {
+  color: rgba(247, 244, 237, 0.45);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  line-height: 1.2;
+}
+
+.nx-hero-search-item b {
+  color: #f7f4ed;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.nx-hero-search-button {
+  height: 100%;
+  min-height: 78px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  background: #ff1d0c;
+  color: #ffffff;
+  border: none;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.nx-hero-search-button:hover {
+  background: #e51b0b;
+}
+
+.nx-hero-search-button svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* =========================================================
+   INPUT + SELECT BASE STYLING (property name text input)
+========================================================= */
+
+.nx-hero-search-item input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 20px 0 0;
+  color: #fff;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.nx-hero-search-item input::placeholder {
+  color: #ffff;
+}
+
+/* Native selects stay hidden — replaced by custom dropdown below */
+.nx-hero-search-item select.nx-hero-custom-select {
+  display: none;
+}
+
+/* =========================================================
+   CUSTOM DROPDOWN (replaces native <select> popups)
+========================================================= */
+
+.nx-hero-select-wrap {
+  position: relative;
+}
+
+.nx-hero-select-trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 20px 0 0;
+  text-align: left;
+  color: #f7f4ed;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.nx-hero-select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -5px;
+  border-right: 1.5px solid #ff1d0c;
+  border-bottom: 1.5px solid #ff1d0c;
+  transform: rotate(45deg);
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+.nx-hero-select-wrap.open::after {
+  transform: rotate(225deg);
+  margin-top: -2px;
+}
+
+.nx-hero-select-list {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -24px;
+  right: -24px;
+  z-index: 50;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #151515;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.nx-hero-select-wrap.open .nx-hero-select-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nx-hero-select-option {
+  padding: 12px 24px;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgba(247, 244, 237, 0.72);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nx-hero-select-option:hover {
+  background: rgba(255, 29, 12, 0.14);
+  color: #ffffff;
+}
+
+.nx-hero-select-option.active {
+  color: #ff1d0c;
+  font-weight: 700;
+}
+
+.nx-hero-select-list::-webkit-scrollbar { width: 5px; }
+.nx-hero-select-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); }
+
+
+/* =========================
+   HERO TABLET
+========================= */
+
+@media (max-width: 1000px) {
+
+  .nx-hero-container {
+    padding: 110px 40px 90px;
+  }
+
+  .nx-hero-title {
+    font-size: clamp(46px, 7vw, 70px);
+  }
+
+  .nx-hero-search {
+    margin-top: 50px;
+
+    grid-template-columns:
+      1fr
+      1.2fr
+      1fr
+      1fr
+      130px;
+  }
+
+  .nx-hero-search-item {
+    padding: 14px 16px;
+  }
+}
+
+
+/* =========================
+   HERO MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+  .nx-hero {
+    align-items: flex-start;
+  }
+
+  .nx-hero-image {
+    object-position: 62% center;
+  }
+
+  .nx-hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8, 8, 8, 0.50) 0%,
+        rgba(8, 8, 8, 0.67) 45%,
+        rgba(8, 8, 8, 0.94) 100%
+      );
+  }
+
+  .nx-hero-container {
+    padding: 140px 22px 60px;
+  }
+
+  .nx-hero-content {
+    max-width: 100%;
+  }
+
+  .nx-hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+  }
+
+  .nx-hero-title {
+    margin-top: 18px;
+    font-size: clamp(42px, 12vw, 58px);
+    line-height: 1;
+  }
+
+  .nx-hero-tagline {
+    margin-top: 25px;
+    font-size: 22px;
+  }
+
+  .nx-hero-description {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .nx-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .nx-hero-primary,
+  .nx-hero-secondary {
+    width: 100%;
+    min-height: 54px;
+  }
+
+  .nx-hero-search {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nx-hero-search-item {
+    min-height: 68px;
+    padding: 13px 16px;
+  }
+
+  .nx-hero-search-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .nx-hero-search-item:nth-child(3),
+  .nx-hero-search-item:nth-child(4) {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .nx-hero-search-item:nth-child(4) {
+    border-right: none;
+  }
+
+  .nx-hero-search-button {
+    grid-column: 1 / -1;
+    min-height: 58px;
+  }
+}
+
+
+/* =========================
+   HERO SMALL MOBILE
+========================= */
+
+@media (max-width: 420px) {
+
+  .nx-hero-container {
+    padding: 125px 18px 50px;
+  }
+
+  .nx-hero-title {
+    font-size: 40px;
+  }
+
+  .nx-hero-search-item b {
+    font-size: 10px;
+  }
+}
+</style>
+
+<section class="nx-hero">
+
+  <img
+    class="nx-hero-image"
+    src="{% static 'img/hero.jpg' %}"
+    alt="Luxury Dubai waterfront residence and skyline"
+    fetchpriority="high"
+  >
+
+  <div class="nx-hero-overlay"></div>
+
+
+  <!-- HERO CONTENT -->
+
+  <div class="nx-hero-container">
+
+    <div class="nx-hero-content">
+
+      <p class="nx-hero-tagline">
+        INVEST. LIVE .GROW IN DUBAI
+      </p>
+
+      <h1 class="nx-hero-title">
+        Dubai Real Estate,
+        <br>
+        <em>
+          With a Smarter Perspective.
+        </em>
+      </h1>
+
+      <p class="nx-hero-description">
+        At Nexurban Properties, we help investors, homeowners and businesses navigate Dubai's dynamic real estate market with the right properties, the right opportunities and the right strategy.<br>
+      </p>
+
+      <!-- BUTTONS -->
+
+      <div class="nx-hero-actions">
+
+        <Button
+          variant="bronze"
+          size="lg"
+          asChild
+          class="nx-hero-primary"
+        >
+          <a href="{% url 'buy' %}">
+            EXPLORE PROPERTIES
+            <ArrowUpRight />
+          </a>
+        </Button>
+
+        <Button
+          variant="outlineIvory"
+          size="lg"
+          asChild
+          class="nx-hero-secondary"
+        >
+          <a href="{% url 'contact' %}">
+            SPEAK TO AN EXPERT
+      </a>
+        </Button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =======================================================
+         PROPERTY FILTER
+         SITS DIRECTLY BELOW THE BUTTON ROW, IN NORMAL FLOW
+    ======================================================== -->
+
+    <form method="get" action="{% url 'buy' %}" class="nx-hero-search">
+
+      <div class="nx-hero-search-item">
+        <small>PROPERTY NAME</small>
+        <input
+          type="text"
+          name="property_name"
+          value="{{ filters.property_name|default:'' }}"
+          placeholder="Search property"
+          autocomplete="off"
+          list="nx-home-property-suggestions"
+        >
+        <datalist id="nx-home-property-suggestions">
+          {% for name in property_names %}
+            <option value="{{ name }}"></option>
+          {% endfor %}
+        </datalist>
+      </div>
+
+      <div class="nx-hero-search-item">
+        <small>PROPERTY TYPE</small>
+        <select name="property_status" class="nx-hero-custom-select">
+          <option value="">ALL TYPES</option>
+          {% for status in property_statuses %}
+            <option value="{{ status|lower }}" {% if filters.property_status == status|lower %}selected{% endif %}>
+              {{ status }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="nx-hero-search-item">
+        <small>BUDGET</small>
+        <select name="budget" class="nx-hero-custom-select">
+          <option value="">ANY BUDGET</option>
+          <option value="0-1000000" {% if filters.budget == "0-1000000" %}selected{% endif %}>Up to 1M AED</option>
+          <option value="1000000-5000000" {% if filters.budget == "1000000-5000000" %}selected{% endif %}>1M - 5M AED</option>
+          <option value="5000000-10000000" {% if filters.budget == "5000000-10000000" %}selected{% endif %}>5M - 10M AED</option>
+          <option value="10000000-" {% if filters.budget == "10000000-" %}selected{% endif %}>10M+ AED</option>
+        </select>
+      </div>
+
+      <div class="nx-hero-search-item">
+        <small>LOCATION</small>
+        <select name="location" class="nx-hero-custom-select">
+          <option value="">ALL LOCATION</option>
+          {% for loc in locations %}
+            <option value="{{ loc|lower }}" {% if filters.location == loc|lower %}selected{% endif %}>
+              {{ loc }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <Button variant="bronze" class="nx-hero-search-button" type="submit">
+        SEARCH
+        <Search />
+      </Button>
+
+    </form>
+
+  </div>
+
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+  function closeAll(except) {
+    document.querySelectorAll('.nx-hero-select-wrap.open').forEach(function (w) {
+      if (w !== except) w.classList.remove('open');
+    });
+  }
+
+  document.querySelectorAll('select.nx-hero-custom-select').forEach(function (select) {
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'nx-hero-select-wrap';
+
+    var trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'nx-hero-select-trigger';
+    var current = select.options[select.selectedIndex];
+    trigger.textContent = current ? current.text.trim() : '';
+
+    var list = document.createElement('ul');
+    list.className = 'nx-hero-select-list';
+
+    Array.from(select.options).forEach(function (opt) {
+      var li = document.createElement('li');
+      li.className = 'nx-hero-select-option' + (opt.selected ? ' active' : '');
+      li.textContent = opt.text.trim();
+
+      li.addEventListener('click', function () {
+        select.value = opt.value;
+        select.dispatchEvent(new Event('change'));
+        trigger.textContent = opt.text.trim();
+        list.querySelectorAll('.nx-hero-select-option').forEach(function (o) {
+          o.classList.remove('active');
+        });
+        li.classList.add('active');
+        wrapper.classList.remove('open');
+      });
+
+      list.appendChild(li);
+    });
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeAll(wrapper);
+      wrapper.classList.toggle('open');
+    });
+
+    select.parentNode.insertBefore(wrapper, select);
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(list);
+    wrapper.appendChild(select);
+  });
+
+  document.addEventListener('click', function () {
+    closeAll();
+  });
+
+});
+
+/* Reset the hero search whenever the page is restored
+   from back/forward cache (e.g. clicking Back from /buy) */
+window.addEventListener('pageshow', function (event) {
+  if (!event.persisted) return;
+
+  var form = document.querySelector('.nx-hero-search');
+  if (form) form.reset();
+
+  document.querySelectorAll('.nx-hero-select-wrap').forEach(function (wrap) {
+    var select = wrap.querySelector('select.nx-hero-custom-select');
+    var trigger = wrap.querySelector('.nx-hero-select-trigger');
+    if (!select || !trigger) return;
+
+    select.selectedIndex = 0;
+    var current = select.options[select.selectedIndex];
+    trigger.textContent = current ? current.text.trim() : '';
+
+    wrap.querySelectorAll('.nx-hero-select-option').forEach(function (li, idx) {
+      li.classList.toggle('active', idx === select.selectedIndex);
+    });
+  });
+});
+</script>
+
+<!-- =========================================================
+     NEXURBAN DIFFERENCE
+
+========================================================= -->
+
+<section class="nx-difference">
+
+    <div class="nx-difference-container">
+
+        <!-- LEFT CONTENT -->
+        <div class="nx-difference-intro">
+
+            <p class="nx-difference-eyebrow">
+                THE NEXURBAN DIFFERENCE
+            </p>
+
+            <h2 class="nx-difference-title">
+                Don't Just Buy Property.
+                <br>
+                <em>Buy the Right Opportunity.</em>
+            </h2>
+
+            <div class="nx-difference-description">
+
+                <p>
+                    Dubai offers thousands of properties.
+                    But the right property is not simply the one
+                    with the best view, the biggest discount or the
+                    most attractive brochure.
+                </p>
+
+                <p>
+                    Nexurban brings together market intelligence,
+                    property expertise and personalised advisory
+                    to help you make decisions with greater clarity
+                    and confidence.
+                </p>
+
+                <h3>
+                    We don't sell everything.
+                    <br>
+                    We help you choose better.
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT CONTENT -->
+        <div class="nx-difference-list">
+
+            <!-- 01 -->
+            <div class="nx-difference-row">
+
+                <span class="nx-difference-number">
+                    01
+                </span>
+
+                <div class="nx-difference-content">
+
+                    <h3>
+                        YOUR OBJECTIVE
+                    </h3>
+
+                    <p>
+                        Investment, lifestyle or portfolio growth.
+                    </p>
+
+                </div>
+
+                <span class="nx-difference-arrow">
+                    ↗
+                </span>
+
+            </div>
+
+
+            <!-- 02 -->
+            <div class="nx-difference-row">
+
+                <span class="nx-difference-number">
+                    02
+                </span>
+
+                <div class="nx-difference-content">
+
+                    <h3>
+                        YOUR CAPITAL
+                    </h3>
+
+                    <p>
+                        Opportunities aligned with your financial strategy.
+                    </p>
+
+                </div>
+
+                <span class="nx-difference-arrow">
+                    ↗
+                </span>
+
+            </div>
+
+
+            <!-- 03 -->
+            <div class="nx-difference-row">
+
+                <span class="nx-difference-number">
+                    03
+                </span>
+
+                <div class="nx-difference-content">
+
+                    <h3>
+                        YOUR TIMELINE
+                    </h3>
+
+                    <p>
+                        Ready today or positioned for tomorrow.
+                    </p>
+
+                </div>
+
+                <span class="nx-difference-arrow">
+                    ↗
+                </span>
+
+            </div>
+
+
+            <!-- 04 -->
+            <div class="nx-difference-row">
+
+                <span class="nx-difference-number">
+                    04
+                </span>
+
+                <div class="nx-difference-content">
+
+                    <h3>
+                        YOUR VISION
+                    </h3>
+
+                    <p>
+                        Decisions designed for long-term value.
+                    </p>
+
+                </div>
+
+                <span class="nx-difference-arrow">
+                    ↗
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DIFFERENCE SECTION STYLE ONLY
+========================================================= -->
+
+<style>
+
+/* =========================================================
+   DIFFERENCE SECTION
+========================================================= */
+
+.nx-difference,
+.nx-difference * {
+    box-sizing: border-box;
+}
+
+.nx-difference {
+    position: relative;
+
+    width: 100%;
+
+    margin: 0;
+
+    /* Increased top + bottom spacing */
+    padding:
+        90px
+        30px
+        130px;
+
+    background: #17120f;
+
+    color: #f7f4ed;
+}
+
+
+/* =========================================================
+   DIFFERENCE CONTAINER
+   INCREASED WIDTH
+========================================================= */
+
+.nx-difference-container {
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 100px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   LEFT INTRO
+========================================================= */
+
+.nx-difference-intro {
+    width: 100%;
+
+    max-width: 650px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-difference-eyebrow {
+    margin: 0;
+
+           color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-difference-title {
+    margin:
+        24px
+        0
+        0;
+
+    color: #f7f4ed;
+
+    font-size:
+        clamp(44px, 5vw, 72px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -0.035em;
+}
+
+.nx-difference-title em {
+    color: #e4d8c8;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-difference-description {
+    max-width: 600px;
+
+    margin:
+        32px
+        0
+        0;
+
+    color:
+        rgba(247, 244, 237, 0.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* Separate paragraphs */
+
+.nx-difference-description p {
+    margin:
+        0
+        0
+        14px;
+}
+
+
+/* =========================================================
+   FINAL STATEMENT
+========================================================= */
+
+.nx-difference-description h3 {
+    margin:
+        28px
+        0
+        0;
+
+    color: #f7f4ed;
+
+    font-family: "Manrope", sans-serif;
+font-style: italic;
+    font-size: 18px;
+
+    font-weight: 500;
+
+    line-height: 1.5;
+
+    letter-spacing: -0.01em;
+}
+
+
+/* =========================================================
+   RIGHT LIST
+========================================================= */
+
+.nx-difference-list {
+    width: 100%;
+
+    padding-top: 8px;
+}
+
+
+/* =========================================================
+   DIFFERENCE ROW
+========================================================= */
+
+.nx-difference-row {
+    position: relative;
+
+    min-height: 125px;
+
+    display: grid;
+
+    grid-template-columns:
+        60px
+        minmax(0, 1fr)
+        38px;
+
+    align-items: center;
+
+    gap: 24px;
+
+    border-top:
+        1px solid
+        rgba(247, 244, 237, 0.13);
+
+    transition:
+        background 0.3s ease,
+        padding 0.3s ease;
+}
+
+.nx-difference-row:last-child {
+    border-bottom:
+        1px solid
+        rgba(247, 244, 237, 0.13);
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.nx-difference-number {
+    align-self: start;
+
+    padding-top: 35px;
+
+          color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+}
+
+
+/* =========================================================
+   ROW CONTENT
+========================================================= */
+
+.nx-difference-content {
+    padding:
+        30px
+        0;
+}
+
+.nx-difference-content h3 {
+    margin: 0;
+
+    color:
+        rgba(247, 244, 237, 0.90);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.10em;
+
+    line-height: 1.4;
+}
+
+.nx-difference-content p {
+    margin:
+        9px
+        0
+        0;
+
+    color:
+        rgba(247, 244, 237, 0.60);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.nx-difference-arrow {
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 300;
+
+    border:
+        1px solid
+        rgba(232, 232, 232, 0.35);
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.nx-difference-row:hover {
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    padding-left: 14px;
+
+    padding-right: 14px;
+}
+
+.nx-difference-row:hover
+.nx-difference-arrow {
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border-color: #ff1d0c;
+
+    transform:
+        translate(3px, -3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .nx-difference {
+        padding:
+            80px
+            30px
+            110px;
+    }
+
+    .nx-difference-container {
+        gap: 60px;
+    }
+
+    .nx-difference-title {
+        font-size:
+            clamp(42px, 6vw, 62px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .nx-difference {
+        padding:
+            75px
+            20px
+            90px;
+    }
+
+    .nx-difference-container {
+        grid-template-columns: 1fr;
+
+        gap: 50px;
+    }
+
+    .nx-difference-intro {
+        max-width: 100%;
+    }
+
+    .nx-difference-title {
+        margin-top: 18px;
+
+        font-size: 39px;
+
+        line-height: 1.04;
+    }
+
+    .nx-difference-description {
+        margin-top: 24px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+    .nx-difference-description h3 {
+        margin-top: 24px;
+
+        font-size: 16px;
+    }
+
+    .nx-difference-list {
+        padding-top: 0;
+    }
+
+    .nx-difference-row {
+        grid-template-columns:
+            38px
+            minmax(0, 1fr)
+            32px;
+
+        gap: 12px;
+
+        min-height: 108px;
+    }
+
+    .nx-difference-number {
+        padding-top: 28px;
+
+        font-size: 9px;
+    }
+
+    .nx-difference-content {
+        padding:
+            24px
+            0;
+    }
+
+    .nx-difference-content h3 {
+        font-size: 10px;
+    }
+
+    .nx-difference-content p {
+        font-size: 12px;
+
+        line-height: 1.55;
+    }
+
+    .nx-difference-arrow {
+        width: 29px;
+
+        height: 29px;
+
+        font-size: 17px;
+    }
+
+    .nx-difference-row:hover {
+        padding-left: 6px;
+
+        padding-right: 6px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .nx-difference {
+        padding:
+            65px
+            18px
+            80px;
+    }
+
+    .nx-difference-title {
+        font-size: 36px;
+    }
+
+    .nx-difference-description h3 {
+        font-size: 15px;
+    }
+}
+
+</style>
+
+
+<style>
+/* =========================================
+   NEXURBAN WHY DUBAI
+   Typography matched to Difference section
+   Content + design unchanged
+========================================= */
+
+.nx-dubai-section,
+.nx-dubai-section * {
+  box-sizing: border-box;
+}
+
+.nx-dubai-section {
+  position: relative;
+  width: 100%;
+  min-height: 820px;
+  overflow: hidden;
+
+  background: #0b0a09;
+  color: #f7f4ed;
+
+  display: flex;
+  align-items: stretch;
+}
+
+
+/* =========================================
+   BACKGROUND IMAGE
+========================================= */
+
+.nx-dubai-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 0;
+
+  transform: scale(1.01);
+}
+
+
+/* =========================================
+   IMAGE SHADE
+========================================= */
+
+.nx-dubai-shade {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 5, 0.82) 0%,
+      rgba(5, 5, 5, 0.66) 45%,
+      rgba(5, 5, 5, 0.35) 100%
+    );
+}
+
+.nx-dubai-shade::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.15) 0%,
+      rgba(0, 0, 0, 0.05) 45%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+}
+
+
+/* =========================================
+   CONTENT CONTAINER
+========================================= */
+
+.nx-dubai-container {
+  position: relative;
+  z-index: 2;
+
+  width: min(100% - 96px, 1800px);
+
+  margin: 0 auto;
+
+  padding: 120px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/* =========================================
+   EYEBROW
+   Same typography as Difference
+========================================= */
+
+.nx-dubai-eyebrow {
+  margin: 0;
+    color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.20em;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================
+   MAIN HEADING
+   Same typography as Difference title
+========================================= */
+
+.nx-dubai-title {
+  margin: 24px 0 0;
+
+  max-width: 1100px;
+
+  color: #f7f4ed;
+
+  font-family: inherit;
+
+  font-size: clamp(44px, 5vw, 72px);
+
+  font-weight: 400;
+
+  line-height: 1.02;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* =========================================
+   DESCRIPTION
+   Same body typography as Difference
+========================================= */
+
+.nx-dubai-container > p:not(.nx-dubai-eyebrow) {
+  max-width: 680px;
+
+  margin: 28px 0 0;
+
+  color: rgba(247, 244, 237, 0.68);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 15px;
+
+  font-weight: 400;
+
+  line-height: 1.85;
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.nx-dubai-stats {
+  width: 100%;
+
+  max-width: 1050px;
+
+  margin-top: 70px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  border-top:
+    1px solid
+    rgba(247, 247, 247, 0.25);
+}
+
+
+/* =========================================
+   STAT ITEM
+========================================= */
+
+.nx-dubai-stat {
+  min-height: 145px;
+
+  padding:
+    28px
+    35px
+    20px
+    0;
+
+  border-right:
+    1px solid
+    rgba(247, 247, 247, 0.2);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: flex-start;
+}
+
+.nx-dubai-stat:not(:first-child) {
+  padding-left: 35px;
+}
+
+.nx-dubai-stat:last-child {
+  border-right: none;
+}
+
+
+/* =========================================
+   STAT NUMBER
+   More closely matched to Difference heading
+========================================= */
+
+.nx-dubai-stat b {
+  display: block;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size:
+    clamp(38px, 4vw, 58px);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* =========================================
+   STAT LABEL
+========================================= */
+
+.nx-dubai-stat span {
+  display: block;
+
+  margin-top: 18px;
+
+  color:
+    rgba(247, 247, 247, 0.60);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   SOURCE
+========================================= */
+
+.nx-dubai-source {
+  display: block;
+
+  margin-top: 30px;
+
+  color:
+    rgba(247, 247, 247, 0.35);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 400;
+
+  line-height: 1.5;
+
+  letter-spacing: 0.01em;
+}
+
+
+/* =========================================
+   IMAGE MOTION
+========================================= */
+
+.nx-dubai-section:hover
+.nx-dubai-image {
+  transform: scale(1.025);
+
+  transition:
+    transform 1.2s
+    cubic-bezier(.2, .65, .3, 1);
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (max-width: 1400px) {
+
+  .nx-dubai-container {
+    width: calc(100% - 80px);
+  }
+
+  .nx-dubai-title {
+    max-width: 1000px;
+  }
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .nx-dubai-section {
+    min-height: 750px;
+  }
+
+  .nx-dubai-container {
+    width: calc(100% - 50px);
+
+    padding: 90px 0;
+  }
+
+  .nx-dubai-title {
+    font-size:
+      clamp(48px, 7vw, 72px);
+  }
+
+  .nx-dubai-container > p:not(.nx-dubai-eyebrow) {
+    font-size: 14px;
+
+    line-height: 1.8;
+  }
+
+  .nx-dubai-stats {
+    margin-top: 60px;
+  }
+
+  .nx-dubai-stat {
+    padding-right: 22px;
+  }
+
+  .nx-dubai-stat:not(:first-child) {
+    padding-left: 22px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .nx-dubai-section {
+    min-height: auto;
+  }
+
+  .nx-dubai-image {
+    object-position: 60% center;
+  }
+
+  .nx-dubai-shade {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5, 5, 5, 0.78),
+        rgba(5, 5, 5, 0.58)
+      );
+  }
+
+  .nx-dubai-container {
+    width: calc(100% - 32px);
+
+    padding:
+      75px
+      0
+      75px;
+  }
+
+  .nx-dubai-eyebrow {
+    font-size: 10px;
+  }
+
+  .nx-dubai-title {
+    margin-top: 20px;
+
+    font-size:
+      clamp(43px, 11vw, 62px);
+
+    line-height: 0.98;
+  }
+
+  .nx-dubai-container > p:not(.nx-dubai-eyebrow) {
+    margin-top: 22px;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+  }
+
+  .nx-dubai-stats {
+    margin-top: 55px;
+
+    grid-template-columns: 1fr;
+
+    border-top:
+      1px solid
+      rgba(247, 247, 247, 0.25);
+  }
+
+  .nx-dubai-stat,
+  .nx-dubai-stat:not(:first-child) {
+
+    min-height: auto;
+
+    padding:
+      24px
+      0;
+
+    border-right: none;
+
+    border-bottom:
+      1px solid
+      rgba(247, 247, 247, 0.2);
+  }
+
+  .nx-dubai-stat:last-child {
+    border-bottom: none;
+  }
+
+  .nx-dubai-stat b {
+    font-size: 43px;
+  }
+
+  .nx-dubai-stat span {
+    margin-top: 10px;
+
+    font-size: 9px;
+  }
+
+  .nx-dubai-source {
+    margin-top: 25px;
+
+    font-size: 9px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+  .nx-dubai-container {
+    width: calc(100% - 28px);
+
+    padding:
+      60px
+      0
+      65px;
+  }
+
+  .nx-dubai-title {
+    font-size: 42px;
+  }
+
+  .nx-dubai-stat b {
+    font-size: 38px;
+  }
+}
+
+</style>
+
+
+<section class="nx-dubai-section">
+
+  <!-- Background Image -->
+
+  <img
+    class="nx-dubai-image"
+    src="{% static 'img/skynight.jpg' %}"
+    alt="Dubai skyline at night"
+    loading="lazy"
+  >
+
+  <!-- Dark Gradient Overlay -->
+
+  <div class="nx-dubai-shade"></div>
+
+
+  <!-- Content -->
+
+  <div class="nx-dubai-container">
+
+    <p class="nx-dubai-eyebrow">
+      WHY DUBAI
+    </p>
+
+    <h2 class="nx-dubai-title">
+      Dubai Isn't Just A Property Market.<br>
+      It's A Global Investment Destination.
+    </h2>
+
+    <p>
+      Dubai continues to attract capital, businesses, entrepreneurs and global talent — creating sustained demand across residential, luxury and investment real estate.Opportunity without strategy can become expensive. That's where Nexurban comes in.
+    </p>
+
+
+    <!-- Statistics -->
+
+    <div class="nx-dubai-stats">
+
+      <div class="nx-dubai-stat">
+
+        <b>AED 252B</b>
+
+        <span>
+          REAL ESTATE TRANSACTIONS
+        </span>
+
+      </div>
+
+
+      <div class="nx-dubai-stat">
+
+        <b>31%</b>
+
+        <span>
+          YEAR-ON-YEAR GROWTH
+        </span>
+
+      </div>
+
+
+      <div class="nx-dubai-stat">
+
+        <b>GLOBAL</b>
+
+        <span>
+          INVESTMENT DESTINATION
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- Source -->
+
+    <small class="nx-dubai-source">
+      Source: Dubai Land Department · Demo presentation data
+    </small>
+
+  </div>
+
+</section>
+
+
+<!-- serivices------------------------------------------------------- section -->
+<style>
+
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.lux-goal-section,
+.lux-goal-section * {
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+.lux-goal-title {
+  margin: 24px 0 0;
+
+  color: #f7f4ed;
+
+  /* Reduced heading width */
+  max-width: 850px;
+
+  font-size: clamp(44px, 5vw, 72px);
+
+  font-weight: 400;
+
+  line-height: 1.02;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* Italic heading portion */
+.lux-goal-title em {
+  color: #e4d8c8;
+
+  font-style: italic;
+
+  font-weight: 400;
+}
+
+/* =========================================
+   SERVICES EYEBROW
+   SAME TAGLINE COLOR
+========================================= */
+
+.lux-goal-section .lux-eyebrow {
+  margin: 0;
+
+  color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.20em;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================
+   SERVICES GRID
+========================================= */
+
+.lux-goal-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 2px;
+
+  margin-top: 52px;
+}
+
+
+/* =========================================
+   SERVICE CARD
+========================================= */
+
+.lux-goal-card {
+  position: relative;
+
+  display: block;
+
+  min-height: 520px;
+
+  overflow: hidden;
+
+  color: #f5f0e6;
+
+  text-decoration: none;
+
+  background: #292929;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.lux-goal-image {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.9s cubic-bezier(.2,.7,.2,1),
+    filter 0.6s ease;
+}
+
+
+.lux-goal-card:hover
+.lux-goal-image {
+  transform: scale(1.06);
+}
+
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.lux-goal-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(3, 2, 2, 0.92) 0%,
+      rgba(0, 0, 0, 0.68) 48%,
+      rgba(10, 10, 10, 0.18) 100%
+    );
+}
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.lux-goal-content {
+  position: absolute;
+
+  z-index: 2;
+
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+}
+
+
+/* =========================================
+   CARD NUMBER
+   SAME ORANGE/TAGLINE COLOR
+========================================= */
+
+.lux-goal-number {
+  display: block;
+
+  margin-bottom: 13px;
+
+  color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================
+   CARD HEADING
+========================================= */
+
+.lux-goal-content h3 {
+  margin: 0;
+
+  color: #f5f0e6;
+
+  font-family: inherit;
+
+  font-size: clamp(29px, 3vw, 30px);
+
+  font-weight: 400;
+
+  letter-spacing: -0.035em;
+
+  line-height: 1.02;
+}
+
+
+/* =========================================
+   CARD DESCRIPTION
+   SAME BODY STYLE AS DIFFERENCE
+========================================= */
+
+.lux-goal-content p {
+  max-width: 300px;
+
+  margin: 14px 0 0;
+
+  color:
+    rgba(247, 244, 237, 0.68);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 15px;
+
+  font-weight: 400;
+
+  line-height: 1.8;
+
+  letter-spacing: 0;
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.lux-goal-arrow {
+  display: inline-block;
+
+  margin-top: 24px;
+
+  color: #f5f0e6;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 24px;
+
+  font-weight: 300;
+
+  line-height: 1;
+
+  transition:
+    transform 0.3s ease;
+}
+
+
+.lux-goal-card:hover
+.lux-goal-arrow {
+  transform:
+    translate(5px, -5px);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .lux-goal-title {
+    font-size:
+      clamp(42px, 6vw, 62px);
+  }
+
+  .lux-goal-grid {
+    margin-top: 45px;
+  }
+
+  .lux-goal-card {
+    min-height: 480px;
+  }
+
+  .lux-goal-content {
+    right: 24px;
+    bottom: 26px;
+    left: 24px;
+  }
+
+  .lux-goal-content h3 {
+    font-size: 26px;
+  }
+
+  .lux-goal-content p {
+    font-size: 13px;
+
+    line-height: 1.7;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .lux-goal-title {
+    margin-top: 20px;
+
+    font-size:
+      clamp(40px, 10vw, 58px);
+
+    line-height: 1.04;
+  }
+
+
+  .lux-goal-section .lux-eyebrow {
+    font-size: 10px;
+  }
+
+
+  .lux-goal-grid {
+    grid-template-columns: 1fr;
+
+    gap: 2px;
+
+    margin-top: 38px;
+  }
+
+
+  .lux-goal-card {
+    min-height: 500px;
+  }
+
+
+  .lux-goal-content {
+    right: 24px;
+
+    bottom: 26px;
+
+    left: 24px;
+  }
+
+
+  .lux-goal-number {
+    margin-bottom: 11px;
+
+    font-size: 9px;
+  }
+
+
+  .lux-goal-content h3 {
+    font-size: 28px;
+
+    line-height: 1.02;
+  }
+
+
+  .lux-goal-content p {
+    max-width: 320px;
+
+    margin-top: 13px;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+  }
+
+
+  .lux-goal-arrow {
+    margin-top: 20px;
+
+    font-size: 22px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+  .lux-goal-title {
+    font-size: 37px;
+  }
+
+
+  .lux-goal-card {
+    min-height: 460px;
+  }
+
+
+  .lux-goal-content {
+    right: 20px;
+
+    bottom: 22px;
+
+    left: 20px;
+  }
+
+
+  .lux-goal-content h3 {
+    font-size: 25px;
+  }
+
+
+  .lux-goal-content p {
+    font-size: 12px;
+
+    line-height: 1.7;
+  }
+
+}
+.lux-goal-section {
+  background: #151515;
+  color: #f5f0e6;
+}
+.lux-site-shell {
+  width: min(1380px, calc(100% - 80px));
+  margin: 0 auto;
+}
+ 
+.lux-section-padding {
+  padding:50px 0px;
+}
+  
+/* -----------------------------------------
+   GOAL SECTION
+
+/* -----------------------------------------
+   RESPONSIVE
+----------------------------------------- */
+ 
+@media (max-width: 1000px) {
+ 
+  .lux-site-shell {
+    width: min(100% - 48px, 1380px);
+  }
+ 
+  .lux-section-padding {
+    padding: 85px 0;
+  }
+ 
+  .lux-property-grid {
+    gap: 24px;
+  }
+ 
+  .lux-goal-card {
+    min-height: 430px;
+  }
+}
+ 
+ 
+@media (max-width: 700px) {
+ 
+  .lux-site-shell {
+    width: calc(100% - 36px);
+  }
+ 
+  .lux-section-padding {
+    padding: 70px 0;
+  }
+ 
+  .lux-display-title {
+    font-size: clamp(38px, 11vw, 58px);
+  }
+ 
+  .lux-curated-heading {
+    display: block;
+  }
+ 
+  .lux-desktop-link {
+    display: none;
+  }
+ 
+  .lux-property-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    margin-top: 40px;
+  }
+ 
+  .lux-property-image-wrap {
+    aspect-ratio: 1 / 1.1;
+  }
+ 
+  .lux-goal-grid {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-top: 38px;
+  }
+ 
+  .lux-goal-card {
+    min-height: 480px;
+  }
+}
+ 
+ 
+@media (max-width: 420px) {
+ 
+  .lux-site-shell {
+    width: calc(100% - 28px);
+  }
+ 
+  .lux-section-padding {
+    padding: 58px 0;
+  }
+ 
+  .lux-goal-card {
+    min-height: 420px;
+  }
+ 
+  .lux-goal-content {
+    right: 22px;
+    bottom: 22px;
+    left: 22px;
+  }
+}
+ 
+ 
+/* -----------------------------------------
+   ADDED: hover-only paragraph reveal
+   (everything above this is untouched —
+   this is the only new rule, and it only
+   affects .lux-goal-content p)
+----------------------------------------- */
+ 
+.lux-goal-content p {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.35s ease,
+    max-height 0.35s ease,
+    margin-top 0.35s ease;
+}
+ 
+.lux-goal-card:hover .lux-goal-content p {
+  opacity: 1;
+  max-height: 200px;
+  margin-top: 14px;
+}
+
+</style>
+
+
+
+<section class="lux-goal-section" id="services">
+  <div class="lux-site-shell lux-section-padding">
+ 
+    <p class="lux-eyebrow lux-sand-text">
+      OUR SERVICES
+    </p>
+ 
+    <h2 class="lux-display-title lux-goal-title">
+      One Property Partner.  <em>Multiple Real Estate Solutions.</em>
+    </h2>
+ 
+    <div class="lux-goal-grid">
+ 
+      <!-- 01 — BUY -->
+      <a href="{% url 'buy' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/buy.jpg' %}"
+          alt="Buy"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">01</span>
+ 
+          <h3>BUY</h3>
+ 
+          <p>
+            Find a home that matches your lifestyle, location
+            preferences and budget.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 02 — INVEST -->
+      <a href="{% url 'buy' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/invest.jpg' %}"
+          alt="Invest"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">02</span>
+ 
+          <h3>INVEST</h3>
+ 
+          <p>
+            Identify properties with compelling potential for
+            capital appreciation, rental income and long-term
+            wealth creation.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 03 — SELL -->
+      <a href="{% url 'sell' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/sell.jpg' %}"
+          alt="Sell"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">03</span>
+ 
+          <h3>SELL</h3>
+ 
+          <p>
+            Position your property strategically, reach
+            qualified buyers and maximise your selling
+            opportunity.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 04 — OFF-PLAN -->
+      <a href="{% url 'offplan' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/offplan.jpg' %}"
+          alt="Off-Plan"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">04</span>
+ 
+          <h3>OFF-PLAN</h3>
+ 
+          <p>
+            Access carefully selected projects from Dubai's
+            leading developers with attractive payment
+            structures and future-growth potential.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 05 — READY PROPERTIES -->
+      <a href="{% url 'ready' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/ready.jpg' %}"
+          alt="Ready Properties"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">05</span>
+ 
+          <h3>READY PROPERTIES</h3>
+ 
+          <p>
+            Explore completed properties for immediate
+            occupancy, rental income or portfolio
+            diversification.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 06 — LUXURY REAL ESTATE -->
+      <a href="{% url 'luxury' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/luxury.jpg' %}"
+          alt="Luxury Real Estate"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">06</span>
+ 
+          <h3>LUXURY REAL ESTATE</h3>
+ 
+          <p>
+            Private access to premium residences, branded
+            residences, villas, penthouses and high-value
+            properties across Dubai.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 07 — JOINT VENTURES (JV) -->
+      <a href="{% url 'joint-ventures' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/join.jpg' %}"
+          alt="Joint Ventures"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">07</span>
+ 
+          <h3>JOINT VENTURES (JV)</h3>
+ 
+          <p>
+            Unlock strategic real estate opportunities through
+            structured partnerships, shared expertise and
+            aligned investment objectives.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 08 — JOINT DEVELOPMENTS (JD) -->
+      <a href="{% url 'joint-development' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/jd.jpg' %}"
+          alt="Joint Developments"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">08</span>
+ 
+          <h3>JOINT DEVELOPMENTS (JD)</h3>
+ 
+          <p>
+            Partner with the right stakeholders to transform
+            land and development opportunities into
+            high-value, commercially viable real estate
+            projects.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+ 
+      <!-- 09 — LAND DEALS -->
+      <a href="{% url 'land-deals' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/land.jpg' %}"
+          alt="Land Deals"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          
+        
+          <span class="lux-goal-number">09</span>
+   
+          <h3>LAND DEALS</h3>
+ <span class="lux-goal-arrow">↗</span>
+          <p>
+            Identify, evaluate and structure strategic land
+            opportunities across Dubai with a focus on
+            location, development potential and long-term
+            value creation.
+          </p>
+ 
+        </div>
+      </a>
+ 
+ 
+     
+      <a href="{% url 'property-advisory' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/propertyadvisor.jpg' %}"
+          alt="Property Advisory"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+          <span class="lux-goal-number">10</span>
+ 
+          <h3>PROPERTY ADVISORY</h3>
+ 
+          <p>
+            Go beyond listings with market intelligence,
+            location analysis, investment assessment and
+            personalised property strategy.
+          </p>
+ 
+          <span class="lux-goal-arrow">↗</span>
+        </div>
+      </a>
+ 
+      
+
+
+       <a href="{% url 'property-advisory' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/property2.jpg' %}"
+          alt="Property Advisory"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+ 
+         
+ 
+        </div>
+      </a>
+      
+       <a href="{% url 'property-advisory' %}" class="lux-goal-card">
+        <img
+          src="{% static 'img/property3.avif' %}"
+          alt="Property Advisory"
+          loading="lazy"
+          class="lux-goal-image"
+        >
+ 
+        <div class="lux-goal-overlay"></div>
+ 
+        <div class="lux-goal-content">
+ 
+         
+ 
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- =========================
+     CURATED PROPERTIES
+========================= -->
+
+
+<section class="nx-curated-section">
+
+    <div class="nx-curated-shell nx-curated-padding">
+
+        <p class="nx-curated-eyebrow">
+            CURATED FOR YOU
+        </p>
+
+        <div class="nx-curated-heading">
+
+            <h2 class="nx-curated-title">
+                Exceptional <em>Properties</em>
+            </h2>
+
+            <a
+                href="/buy"
+                class="nx-curated-view-link"
+            >
+                VIEW ALL PROPERTIES
+
+                <span class="nx-curated-arrow-icon">
+                    ↗
+                </span>
+
+            </a>
+
+        </div>
+
+
+
+            <div class="nx-curated-property-grid">
+
+                {% for property in home_properties %}
+
+                    <article class="nx-curated-property-card">
+
+
+                        <!-- =================================
+                             PROPERTY IMAGE
+                        ================================== -->
+
+                        <a
+                            href="{% if property.slug %}/property/{{ property.slug }}/{% elif property.external_id %}/property/{{ property.external_id }}/{% else %}#{% endif %}"
+                            class="nx-curated-image-wrap"
+                        >
+
+                                  <!-- <span class="nx-curated-badge">
+                                      {{ property.sales_status_name }}
+                                  </span> -->
+
+
+
+                            {% if property.cover %}
+
+                                <img
+                                    src="{{ property.cover }}"
+                                    alt="{{ property.title }}"
+                                    class="nx-curated-property-image"
+                                    loading="lazy"
+                                    onerror="this.onerror=null;this.src='{% static 'img/area-default.jpg' %}';"
+                                >
+
+                            {% else %}
+
+                                <img
+                                    src="{% static 'img/area-default.jpg' %}"
+                                    alt="{{ property.title }}"
+                                    class="nx-curated-property-image"
+                                    loading="lazy"
+                                >
+
+                            {% endif %}
+
+                        </a>
+
+
+                        <!-- =================================
+                             PROPERTY CONTENT
+                        ================================== -->
+
+                        <div class="nx-curated-property-content">
+
+
+                            <!-- LOCATION -->
+
+                            <p class="nx-curated-location">
+
+                                {% if property.area_from %}
+
+                                    DUBAI · {{ property.area_from|upper }}
+
+                                {% else %}
+
+                                    DUBAI
+
+                                {% endif %}
+
+                            </p>
+
+
+                            <!-- TITLE -->
+
+                            <h3 class="nx-curated-property-title">
+
+                                {{ property.title }}
+
+                            </h3>
+
+
+                            <!-- META -->
+
+                            <div class="nx-curated-property-meta">
+
+                                {% if property.bedroom_labels %}
+
+                                    <span>
+                                        {{ property.bedroom_labels }} BED
+                                    </span>
+
+                                {% endif %}
+
+
+                                {% if property.bathrooms %}
+
+                                    <span>
+                                        {{ property.bathrooms }} BATH
+                                    </span>
+
+                                {% endif %}
+
+
+                                {% if property.area_from %}
+
+                                    <span>
+                                        {{ property.area_from}} SQ FT
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+                            <!-- FOOTER -->
+
+                            <div class="nx-curated-property-footer">
+
+
+                                {% if property.price_from %}
+
+                                    <strong>
+                                        AED {{ property.price_from|floatformat:0|intcomma  }}
+                                    </strong>
+
+                                {% else %}
+
+                                    <strong>
+                                        PRICE ON REQUEST
+                                    </strong>
+
+                                {% endif %}
+
+
+                                <a
+                                    href="{% if property.slug %}/property/{{ property.slug }}/{% elif property.external_id %}/property/{{ property.external_id }}/{% else %}#{% endif %}"
+                                    class="nx-curated-card-arrow"
+                                >
+                                    ↗
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+
+       
+    </div>
+
+</section>
+
+<style>
+
+/* =========================================================
+   NEXURBAN — CURATED PROPERTIES
+   UNIQUE COMPONENT CLASSES
+   No dependency on .lux-* or other sections
+========================================================= */
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.nx-curated-section {
+  width: 100%;
+  background: #ffffff;
+  color: #151515;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-curated-shell {
+  width: min(1500px, calc(100% - 96px));
+  margin: 0 auto;
+}
+
+.nx-curated-padding {
+  padding: 70px 0;
+}
+
+
+/* =========================================================
+   EYEBROW / TAGLINE
+========================================================= */
+
+.nx-curated-eyebrow {
+  margin: 0;
+
+    color: #ff4c3fd3;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   HEADING AREA
+========================================================= */
+
+.nx-curated-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 40px;
+
+  margin-top: 24px;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.nx-curated-title {
+  margin: 0;
+
+  max-width: 760px;
+
+  color: #151515;
+
+  font-size: clamp(44px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+
+/* Italic highlighted word */
+
+.nx-curated-title em {
+  color: #111;
+  font-style: italic;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   VIEW ALL LINK
+========================================================= */
+
+.nx-curated-view-link {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 5px;
+
+
+    color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+
+  white-space: nowrap;
+  text-decoration: none;
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.nx-curated-view-link:hover {
+  opacity: 0.55;
+}
+
+
+/* =========================================================
+   VIEW ALL ARROW
+========================================================= */
+
+.nx-curated-arrow-icon {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+
+  transition: transform 0.3s ease;
+}
+
+.nx-curated-view-link:hover .nx-curated-arrow-icon {
+  transform: translate(3px, -3px);
+}
+
+
+/* =========================================================
+   PROPERTY GRID
+========================================================= */
+
+.nx-curated-property-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 40px;
+
+  margin-top: 60px;
+}
+
+
+/* =========================================================
+   PROPERTY CARD
+========================================================= */
+
+.nx-curated-property-card {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   IMAGE WRAPPER
+========================================================= */
+
+.nx-curated-image-wrap {
+  position: relative;
+
+  display: block;
+
+  overflow: hidden;
+
+  background: #eeeeee;
+
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   PROPERTY IMAGE
+========================================================= */
+
+.nx-curated-property-image {
+  display: block;
+
+  width: 100%;
+  height: 320px;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.9s cubic-bezier(.2,.7,.2,1);
+}
+
+.nx-curated-property-card:hover .nx-curated-property-image {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   FOR SALE BADGE
+========================================================= */
+
+.nx-curated-badge {
+  position: absolute;
+
+  top: 18px;
+  left: 18px;
+
+  z-index: 3;
+
+  padding: 8px 12px;
+
+  background: rgba(255,255,255,0.92);
+
+ 
+    color: #ff4c3fd3;
+  font-family: "Manrope", sans-serif;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PROPERTY CONTENT
+========================================================= */
+
+.nx-curated-property-content {
+  padding-top: 22px;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.nx-curated-location {
+  margin: 0 0 10px;
+
+  color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   PROPERTY TITLE
+========================================================= */
+
+.nx-curated-property-title {
+  margin: 0;
+
+  color: #151515;
+
+  font-size: 27px;
+
+  font-weight: 400;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.02em;
+}
+
+
+/* =========================================================
+   PROPERTY META
+========================================================= */
+
+.nx-curated-property-meta {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 18px;
+
+  margin-top: 18px;
+
+  color: #777269;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.13em;
+}
+
+
+/* =========================================================
+   PROPERTY FOOTER
+========================================================= */
+
+.nx-curated-property-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-top: 22px;
+
+  padding-top: 16px;
+
+  border-top: 1px solid rgba(21,21,21,0.15);
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.nx-curated-property-footer strong {
+  color: #151515;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 17px;
+
+  font-weight: 500;
+
+  letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   CARD ARROW
+========================================================= */
+
+.nx-curated-card-arrow {
+  color: #151515;
+
+  font-size: 21px;
+
+  line-height: 1;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.nx-curated-property-card:hover .nx-curated-card-arrow {
+  transform: translate(4px, -4px);
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (max-width: 1400px) {
+
+  .nx-curated-shell {
+    width: calc(100% - 80px);
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .nx-curated-shell {
+    width: calc(100% - 50px);
+  }
+
+  .nx-curated-padding {
+    padding: 70px 0;
+  }
+
+  .nx-curated-property-grid {
+    gap: 24px;
+  }
+
+  .nx-curated-property-image {
+    height: 290px;
+  }
+
+  .nx-curated-title {
+    max-width: 680px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .nx-curated-shell {
+    width: calc(100% - 36px);
+  }
+
+  .nx-curated-padding {
+    padding: 65px 0;
+  }
+
+  .nx-curated-heading {
+    display: block;
+
+    margin-top: 22px;
+  }
+
+  .nx-curated-title {
+    font-size: clamp(44px, 11vw, 62px);
+
+    line-height: 0.98;
+  }
+
+  .nx-curated-view-link {
+    display: none;
+  }
+
+  .nx-curated-property-grid {
+    grid-template-columns: 1fr;
+
+    gap: 48px;
+
+    margin-top: 42px;
+  }
+
+  .nx-curated-image-wrap {
+    aspect-ratio: 1 / 1.05;
+  }
+
+  .nx-curated-property-image {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .nx-curated-shell {
+    width: calc(100% - 28px);
+  }
+
+  .nx-curated-padding {
+    padding: 58px 0;
+  }
+
+  .nx-curated-title {
+    font-size: 42px;
+  }
+
+  .nx-curated-property-grid {
+    gap: 42px;
+  }
+
+  .nx-curated-property-content {
+    padding-top: 18px;
+  }
+
+  .nx-curated-property-title {
+    font-size: 25px;
+  }
+
+}
+
+</style>
+
+
+
+
+
+<style>
+/* =========================================
+   NEXURBAN INVESTMENT ANALYSIS
+   TEXT STYLE UPDATED ONLY
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.investment-analysis {
+  width: 100%;
+  background: #F7F7F7;
+  color: #080808;
+  padding: 23px 48px 0;
+}
+
+.investment-container {
+  width: 100%;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.investment-heading {
+  padding-bottom: 65px;
+  margin-top: 50px;
+}
+
+.investment-eyebrow {
+  margin: 0;
+  color: #ff754d;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+  font-family: "Manrope", sans-serif;
+}
+
+.investment-title {
+  margin: 24px 0 0;
+
+  /* Reduced width */
+  max-width: 820px;
+
+  color: #080808;
+  font-size: clamp(44px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+/* Italic heading portion */
+.investment-title em {
+  color: #080808;
+  font-style: italic;
+  font-weight: 400;
+}
+
+
+/* =========================================
+   GRID AREA
+========================================= */
+
+.investment-grid {
+  position: relative;
+
+  width: 100%;
+  height: 710px;
+
+  border: 1px solid #d5d5d5;
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.075) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.075) 1px,
+      transparent 1px
+    );
+
+  background-size: 59px 59px;
+}
+
+
+/* =========================================
+   CENTER CIRCLE
+========================================= */
+
+.analysis-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 238px;
+  height: 238px;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid #ff1d0c;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  background: transparent;
+
+  z-index: 5;
+}
+
+.brand-name {
+  font-size: 28px;
+  font-weight: 400;
+
+  line-height: 1;
+  letter-spacing: -0.04em;
+
+  color: #080808;
+}
+
+.brand-subtitle {
+  margin-top: 17px;
+
+  font-size: 10px;
+  font-weight: 400;
+
+  line-height: 1.55;
+  letter-spacing: 0.18em;
+
+  text-align: center;
+
+  color: #080808;
+}
+
+
+/* =========================================
+   ANALYSIS ITEMS
+========================================= */
+
+.analysis-item {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  line-height: 1;
+  letter-spacing: 0.025em;
+
+  white-space: nowrap;
+}
+
+.number {
+  color: #ff1d0c;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  letter-spacing: 0;
+}
+
+.label {
+  color: #090909;
+}
+
+
+/* =========================================
+   EXACT POSITIONS
+========================================= */
+
+.item-01 {
+  left: 10%;
+  top: 11%;
+}
+
+.item-02 {
+  right: 10%;
+  top: 11%;
+}
+
+.item-03 {
+  left: 4%;
+  top: 36%;
+}
+
+.item-04 {
+  right: 4%;
+  top: 36%;
+}
+
+.item-05 {
+  left: 4%;
+  top: 63%;
+}
+
+.item-06 {
+  right: 4%;
+  top: 63%;
+}
+
+.item-07 {
+  left: 10%;
+  bottom: 10%;
+}
+
+.item-08 {
+  right: 10%;
+  bottom: 10%;
+}
+
+
+/* =========================================
+   CTA
+========================================= */
+
+.investment-cta {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  margin: 14px 0 28px 18px;
+
+  color: #ff754d;
+
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 400;
+
+  line-height: 1;
+  letter-spacing: -0.015em;
+
+  transition: opacity 0.25s ease;
+}
+
+.cta-arrow {
+  font-size: 21px;
+
+  line-height: 1;
+
+  position: relative;
+  top: -1px;
+}
+
+.investment-cta:hover {
+  opacity: 0.65;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1200px) {
+
+  .investment-analysis {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .investment-grid {
+    height: 650px;
+    background-size: 55px 55px;
+  }
+
+  .analysis-center {
+    width: 210px;
+    height: 210px;
+  }
+
+  .brand-name {
+    font-size: 25px;
+  }
+
+  .item-01,
+  .item-07 {
+    left: 9%;
+  }
+
+  .item-02,
+  .item-08 {
+    right: 9%;
+  }
+
+  .investment-title {
+    max-width: 760px;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .investment-analysis {
+    padding: 16px 16px 0;
+  }
+
+  .investment-heading {
+    margin-top: 35px;
+    padding-bottom: 45px;
+  }
+
+  .investment-grid {
+    height: 600px;
+    background-size: 45px 45px;
+  }
+
+  .analysis-center {
+    width: 175px;
+    height: 175px;
+  }
+
+  .brand-name {
+    font-size: 21px;
+  }
+
+  .brand-subtitle {
+    margin-top: 12px;
+    font-size: 8px;
+  }
+
+  .investment-eyebrow {
+    font-size: 11px;
+  }
+
+  .investment-title {
+    max-width: 650px;
+    font-size: clamp(40px, 9vw, 60px);
+  }
+
+  .analysis-item {
+    gap: 7px;
+    font-size: 9px;
+  }
+
+  .number {
+    font-size: 9px;
+  }
+
+  .item-01 {
+    left: 7%;
+    top: 10%;
+  }
+
+  .item-02 {
+    right: 7%;
+    top: 10%;
+  }
+
+  .item-03 {
+    left: 4%;
+    top: 32%;
+  }
+
+  .item-04 {
+    right: 4%;
+    top: 32%;
+  }
+
+  .item-05 {
+    left: 4%;
+    top: 66%;
+  }
+
+  .item-06 {
+    right: 4%;
+    top: 66%;
+  }
+
+  .item-07 {
+    left: 7%;
+    bottom: 10%;
+  }
+
+  .item-08 {
+    right: 7%;
+    bottom: 10%;
+  }
+
+  .investment-cta {
+    margin-left: 5px;
+    font-size: 13px;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .investment-heading {
+    margin-top: 30px;
+    padding-bottom: 35px;
+  }
+
+  .investment-grid {
+    height: 520px;
+    background-size: 38px 38px;
+  }
+
+  .analysis-center {
+    width: 145px;
+    height: 145px;
+  }
+
+  .brand-name {
+    font-size: 17px;
+  }
+
+  .brand-subtitle {
+    font-size: 7px;
+    letter-spacing: 0.14em;
+  }
+
+  .investment-title {
+    max-width: 100%;
+    font-size: clamp(38px, 10vw, 52px);
+  }
+
+  .investment-eyebrow {
+    font-size: 9px;
+  }
+
+  .analysis-item {
+    font-size: 7px;
+    gap: 5px;
+  }
+
+  .number {
+    font-size: 8px;
+  }
+
+  .item-01,
+  .item-07 {
+    left: 5%;
+  }
+
+  .item-02,
+  .item-08 {
+    right: 5%;
+  }
+
+  .item-03,
+  .item-05 {
+    left: 3%;
+  }
+
+  .item-04,
+  .item-06 {
+    right: 3%;
+  }
+
+  .investment-cta {
+    font-size: 11px;
+    margin-top: 13px;
+  }
+
+  .cta-arrow {
+    font-size: 17px;
+  }
+}
+</style>
+
+
+<section class="investment-analysis">
+
+  <div class="investment-container">
+
+    <!-- HEADING -->
+    <div class="investment-heading">
+
+      <p class="investment-eyebrow">
+        NEXURBAN INVESTMENT APPROACH
+      </p>
+
+      <h2 class="investment-title">
+        Where Others See a Property,<br>
+        <em>We See the Numbers Behind It.</em>
+      </h2>
+
+    </div>
+
+
+    <!-- INVESTMENT GRID -->
+    <div class="investment-grid">
+
+      <!-- Center -->
+      <div class="analysis-center">
+
+        <div class="brand-name">
+          NEXURBAN
+        </div>
+
+        <div class="brand-subtitle">
+          INVESTMENT<br>
+          ANALYSIS
+        </div>
+
+      </div>
+
+
+      <!-- 01 -->
+      <div class="analysis-item item-01">
+        <span class="number">01</span>
+        <span class="label">ENTRY PRICE</span>
+      </div>
+
+
+      <!-- 02 -->
+      <div class="analysis-item item-02">
+        <span class="number">02</span>
+        <span class="label">PAYMENT STRUCTURE</span>
+      </div>
+
+
+      <!-- 03 -->
+      <div class="analysis-item item-03">
+        <span class="number">03</span>
+        <span class="label">RENTAL POTENTIAL</span>
+      </div>
+
+
+      <!-- 04 -->
+      <div class="analysis-item item-04">
+        <span class="number">04</span>
+        <span class="label">CAPITAL APPRECIATION</span>
+      </div>
+
+
+      <!-- 05 -->
+      <div class="analysis-item item-05">
+        <span class="number">05</span>
+        <span class="label">SERVICE CHARGES</span>
+      </div>
+
+
+      <!-- 06 -->
+      <div class="analysis-item item-06">
+        <span class="number">06</span>
+        <span class="label">LOCATION DYNAMICS</span>
+      </div>
+
+
+      <!-- 07 -->
+      <div class="analysis-item item-07">
+        <span class="number">07</span>
+        <span class="label">DEVELOPER TRACK RECORD</span>
+      </div>
+
+
+      <!-- 08 -->
+      <div class="analysis-item item-08">
+        <span class="number">08</span>
+        <span class="label">EXIT POTENTIAL</span>
+      </div>
+
+    </div>
+
+
+    <!-- CTA -->
+    <a href="/investment-advisory" class="investment-cta">
+
+      <span>
+        EXPLORE INVESTMENT ADVISORY
+      </span>
+
+      <span class="cta-arrow">
+        ↗
+      </span>
+
+    </a>
+
+  </div>
+
+</section>
+
+
+
+<style>
+/* =========================================
+   NEXURBAN OFF-PLAN FEATURE
+   Typography matched to investment section
+   Unique classes: nx-offplan-*
+========================================= */
+
+.nx-offplan-feature {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 680px;
+  overflow: hidden;
+}
+
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.nx-offplan-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 680px;
+  overflow: hidden;
+}
+
+.nx-offplan-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.nx-offplan-content {
+  background: #141210;
+  color: #f7f7f7;
+
+  padding: 40px 80px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.nx-offplan-eyebrow {
+  margin: 0;
+
+    color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.nx-offplan-title {
+  margin: 24px 0 0;
+
+  max-width: 1300px;
+
+  color: #f7f4ed;
+
+  font-size: clamp(44px, 5vw, 72px);
+  font-weight: 400;
+
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+/* Italic highlighted part */
+.nx-offplan-title em {
+  color: #e4d8c8;
+  font-style: italic;
+  font-weight: 400;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.nx-offplan-description {
+  max-width: 560px;
+
+  margin: 28px 0 0;
+
+  color: rgba(247, 247, 247, 0.52);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 15px;
+  font-weight: 400;
+
+  line-height: 1.65;
+  letter-spacing: 0;
+}
+
+
+/* =========================================
+   FACTORS GRID
+========================================= */
+
+.nx-offplan-factors {
+  width: 100%;
+  max-width: 620px;
+
+  margin-top: 42px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 0 24px;
+}
+
+.nx-offplan-factors p {
+  margin: 0;
+
+  padding: 13px 0 12px;
+
+  border-top: 1px solid #b4604859;
+
+  color: rgba(247, 247, 247, 0.72);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 11px;
+  font-weight: 400;
+
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   CLOSING STATEMENT
+========================================= */
+
+.nx-offplan-closing {
+  max-width: 560px;
+
+  margin: 34px 0 0;
+
+  color: rgba(247, 247, 247, 0.72);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 15px;
+  font-weight: 400;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.nx-offplan-button {
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-top: 40px;
+
+  padding: 15px 22px;
+
+  color: #ffffff;
+  background: #ff1d0c;
+
+  text-decoration: none;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  line-height: 1;
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.nx-offplan-arrow {
+  font-size: 18px;
+  line-height: 0.8;
+
+  transition: transform 0.25s ease;
+}
+
+.nx-offplan-button:hover {
+  background: #ff1d0c;
+  transform: translateY(-2px);
+}
+
+.nx-offplan-button:hover .nx-offplan-arrow {
+  transform: translate(3px, -3px);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+  .nx-offplan-content {
+    padding: 60px;
+  }
+
+  .nx-offplan-title {
+    font-size: clamp(42px, 5vw, 64px);
+  }
+
+  .nx-offplan-description {
+    font-size: 14px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .nx-offplan-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .nx-offplan-image {
+    min-height: 420px;
+    height: 420px;
+  }
+
+  .nx-offplan-content {
+    min-height: auto;
+
+    padding: 60px 28px 65px;
+  }
+
+  .nx-offplan-title {
+    margin-top: 22px;
+
+    font-size: clamp(44px, 11vw, 60px);
+
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .nx-offplan-description {
+    margin-top: 26px;
+
+    font-size: 14px;
+    line-height: 1.65;
+
+    color: rgba(247, 247, 247, 0.52);
+  }
+
+  .nx-offplan-factors {
+    margin-top: 32px;
+
+    gap: 0 18px;
+  }
+
+  .nx-offplan-factors p {
+    font-size: 9px;
+    font-weight: 400;
+
+    padding: 12px 0;
+
+    color: rgba(247, 247, 247, 0.72);
+  }
+
+  .nx-offplan-closing {
+    margin-top: 28px;
+
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .nx-offplan-button {
+    margin-top: 32px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .nx-offplan-image {
+    min-height: 330px;
+    height: 330px;
+  }
+
+  .nx-offplan-content {
+    padding: 50px 20px 55px;
+  }
+
+  .nx-offplan-title {
+    font-size: 42px;
+
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  .nx-offplan-description {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .nx-offplan-factors {
+    grid-template-columns: 1fr;
+  }
+
+  .nx-offplan-factors p {
+    font-size: 9px;
+  }
+
+}
+</style>
+
+
+<section class="nx-offplan-feature">
+
+  <div class="nx-offplan-image">
+    <img
+      src="{% static 'img/bussinesbay.jpg' %}"
+      alt="Dubai off-plan development"
+      loading="lazy"
+    >
+  </div>
+
+
+  <div class="nx-offplan-content">
+
+    <p class="nx-offplan-eyebrow">
+      SECTION 06 — OFF-PLAN
+    </p>
+
+
+    <h2 class="nx-offplan-title">
+      Get In Early.<br>
+      <em>    Position Yourself for Tomorrow.</em>
+  
+    </h2>
+
+
+    <p class="nx-offplan-description">
+      Dubai's residential market has seen strong growth in off-plan
+      activity, making developer launches an important part of the city's
+      investment landscape.
+      But every off-plan project is not created equal.
+      Nexurban evaluates opportunities across:
+    </p>
+
+
+    <div class="nx-offplan-factors">
+
+      <p>Developer Credibility</p>
+      <p>Location Fundamentals</p>
+      <p>Entry Pricing</p>
+      <p>Payment Plans</p>
+      <p>Project Positioning</p>
+      <p>Supply Pipeline</p>
+      <p>Rental Demand</p>
+      <p>Capital Appreciation Potential</p>
+      <p>Future Connectivity & Infrastructure</p>
+      <p>Exit Strategy</p>
+
+    </div>
+
+
+    <p class="nx-offplan-closing">
+      Because buying early is only valuable when you're buying right.
+    </p>
+
+
+    <a href="{% url 'offplan' %}" class="nx-offplan-button">
+      <span>EXPLORE OFF-PLAN OPPORTUNITIES</span>
+      <span class="nx-offplan-arrow">↗</span>
+    </a>
+
+  </div>
+
+</section>
+
+
+
+<!-- READY PROPERTY SECTION -->
+
+<section class="nx-ready-property-section">
+
+    <div class="nx-ready-property-shell">
+
+        <!-- CONTENT -->
+        <div class="nx-ready-property-content">
+
+            <p class="nx-ready-property-eyebrow">
+                READY PROPERTY
+            </p>
+
+            <h2 class="nx-ready-property-title">
+                Live Today.<br>
+                <em>Earn Today.</em>
+            </h2>
+
+            <p class="nx-ready-property-description">
+                For clients seeking immediate occupancy or rental income, ready properties can offer a different proposition. From sophisticated city apartments to waterfront residences and family villas.
+            </p>
+
+            <p class="nx-ready-property-tagline">
+                Lifestyle. Location. Income. Value.
+            </p>
+
+            <p class="nx-ready-property-description nx-ready-property-description-second">
+                Whether you're relocating to Dubai or expanding your investment portfolio, we'll help you find a property that works beyond the brochure.
+            </p>
+
+            <a href="{% url 'ready' %}" class="nx-ready-property-button">
+                <span>EXPLORE READY PROPERTIES</span>
+
+                <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M7 17L17 7"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+
+                    <path
+                        d="M8 7H17V16"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </a>
+
+        </div>
+
+
+        <!-- IMAGE -->
+        <div class="nx-ready-property-image-frame">
+
+            <img
+                src="{% static 'img/ready-sec.jpg' %}"
+                alt="Ready Dubai residence"
+                loading="lazy"
+                class="nx-ready-property-image"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — READY PROPERTY
+   Unique classes: nx-ready-property-*
+========================================================= */
+
+.nx-ready-property-section {
+    width: 100%;
+    background: #f5f1e8;
+    color: #151515;
+}
+
+
+/* =========================================================
+   MAIN SHELL
+========================================================= */
+
+.nx-ready-property-shell {
+    width: min(1380px, calc(100% - 80px));
+    margin: 0 auto;
+
+    padding: 85px 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-ready-property-content {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-ready-property-eyebrow {
+    margin: 0;
+    color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing: 0.20em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-ready-property-title {
+    margin: 24px 0 0;
+
+    max-width: 850px;
+
+    color: #151515;
+
+    font-size: clamp(42px, 5vw, 68px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -0.035em;
+}
+
+.nx-ready-property-title em {
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-ready-property-description {
+    max-width: 560px;
+
+    margin: 26px 0 0;
+
+    color: rgba(21, 21, 21, 0.55);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.65;
+
+    letter-spacing: 0;
+}
+
+.nx-ready-property-description-second {
+    margin-top: 16px;
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.nx-ready-property-tagline {
+    margin: 20px 0 0;
+
+    color: #151515;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    letter-spacing: 0.01em;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.nx-ready-property-button {
+    width: fit-content;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    margin-top: 40px;
+
+    padding: 15px 22px;
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease;
+}
+
+.nx-ready-property-button svg {
+    flex-shrink: 0;
+
+    transition: transform 0.3s ease;
+}
+
+.nx-ready-property-button:hover {
+    background: #ff1d0c;
+
+    transform: translateY(-2px);
+}
+
+.nx-ready-property-button:hover svg {
+    transform: translate(3px, -3px);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.nx-ready-property-image-frame {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    background: #ddd;
+}
+
+.nx-ready-property-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    transition:
+        transform 1.2s cubic-bezier(.2, .65, .3, 1);
+}
+
+.nx-ready-property-image-frame:hover
+.nx-ready-property-image {
+    transform: scale(1.025);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-ready-property-shell {
+        width: min(100% - 60px, 1380px);
+
+        gap: 45px;
+
+        padding: 70px 0;
+    }
+
+    .nx-ready-property-title {
+        font-size: clamp(40px, 5vw, 58px);
+    }
+
+    .nx-ready-property-description {
+        font-size: 14px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .nx-ready-property-shell {
+        width: calc(100% - 36px);
+
+        grid-template-columns: 1fr;
+
+        gap: 48px;
+
+        padding: 65px 0;
+    }
+
+    .nx-ready-property-title {
+        margin-top: 20px;
+
+        font-size: clamp(40px, 11vw, 58px);
+
+        line-height: 0.98;
+    }
+
+    .nx-ready-property-description {
+        margin-top: 24px;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+    .nx-ready-property-tagline {
+        margin-top: 18px;
+
+        font-size: 15px;
+    }
+
+    .nx-ready-property-description-second {
+        margin-top: 16px;
+    }
+
+    .nx-ready-property-button {
+        margin-top: 32px;
+    }
+
+    .nx-ready-property-image-frame {
+        aspect-ratio: 4 / 3;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-ready-property-shell {
+        width: calc(100% - 28px);
+
+        gap: 36px;
+
+        padding: 52px 0;
+    }
+
+    .nx-ready-property-title {
+        font-size: 40px;
+    }
+
+    .nx-ready-property-description {
+        font-size: 13px;
+    }
+
+    .nx-ready-property-tagline {
+        font-size: 14px;
+    }
+
+    .nx-ready-property-button {
+        width: 100%;
+
+        padding: 15px 18px;
+    }
+
+}
+
+</style>
+<style>
+/* =========================================================
+   NEXURBAN PRIVATE COLLECTION
+   Clean / Matching Typography
+   Unique classes: nx-luxury-*
+========================================================= */
+
+.nx-luxury-feature {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    overflow: hidden;
+
+    background: #0b0a09;
+    color: #f7f7f7;
+}
+
+
+/* =========================================================
+   BACKGROUND IMAGE
+========================================================= */
+
+.nx-luxury-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    z-index: 0;
+
+    transition: transform 1.2s cubic-bezier(.2, .65, .3, 1);
+}
+
+.nx-luxury-feature:hover .nx-luxury-image {
+    transform: scale(1.025);
+}
+
+
+/* =========================================================
+   DARK GRADIENT
+   Keeps image visible while making content area darker
+========================================================= */
+
+.nx-luxury-shade {
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.88) 0%,
+            rgba(0, 0, 0, 0.70) 25%,
+            rgba(0, 0, 0, 0.40) 52%,
+            rgba(0, 0, 0, 0.12) 100%
+        );
+}
+
+
+/* =========================================================
+   CONTENT CONTAINER
+========================================================= */
+
+.nx-luxury-container {
+    position: relative;
+    z-index: 2;
+
+    width: min(100% - 96px, 1800px);
+    min-height: 80vh;
+
+    margin: 0 auto;
+    padding: 80px 0;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-luxury-content {
+    max-width: 1000px;
+}
+
+
+/* =========================================================
+   EYEBROW
+   Same style as previous sections
+========================================================= */
+
+.nx-luxury-eyebrow {
+    margin: 0;
+
+       color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.4;
+    letter-spacing: 0.20em;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+   Same heading style as previous sections
+========================================================= */
+
+.nx-luxury-title {
+    margin: 24px 0 0;
+
+    max-width: 1000px;
+
+    color: #f7f7f7;
+
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 400;
+
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================================
+   SUBTITLE
+   Lighter / elegant text
+========================================================= */
+
+.nx-luxury-subtitle {
+    margin: 24px 0 0;
+
+    color: rgba(247, 247, 247, 0.62);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    line-height: 1.65;
+    letter-spacing: 0;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.nx-luxury-button {
+    width: fit-content;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    margin-top: 32px;
+
+    padding: 15px 22px;
+
+    border: 1px solid rgba(247, 247, 247, 0.65);
+
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.12);
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1;
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.nx-luxury-arrow {
+    font-size: 18px;
+    line-height: 0.8;
+
+    transition: transform 0.25s ease;
+}
+
+.nx-luxury-button:hover {
+    background: #ff1d0c;
+    border-color: #ff1d0c;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+.nx-luxury-button:hover .nx-luxury-arrow {
+    transform: translate(3px, -3px);
+}
+.nx-strategic-title em{
+  
+    color: #e4d8c8;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-luxury-container {
+        width: calc(100% - 60px);
+
+        min-height: 75vh;
+
+        padding: 70px 0;
+    }
+
+    .nx-luxury-title {
+        font-size: clamp(42px, 5.5vw, 62px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .nx-luxury-feature {
+        min-height: 680px;
+    }
+
+    .nx-luxury-container {
+        width: calc(100% - 36px);
+
+        min-height: 680px;
+
+        padding: 55px 0;
+    }
+
+    .nx-luxury-shade {
+        background:
+            linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.92) 0%,
+                rgba(0, 0, 0, 0.75) 35%,
+                rgba(0, 0, 0, 0.35) 65%,
+                rgba(0, 0, 0, 0.10) 100%
+            );
+    }
+
+    .nx-luxury-title {
+        margin-top: 20px;
+
+        font-size: clamp(40px, 11vw, 58px);
+
+        line-height: 0.98;
+    }
+
+    .nx-luxury-subtitle {
+        margin-top: 22px;
+
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .nx-luxury-button {
+        margin-top: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-luxury-feature {
+        min-height: 600px;
+    }
+
+    .nx-luxury-container {
+        width: calc(100% - 28px);
+
+        min-height: 600px;
+
+        padding: 50px 0;
+    }
+
+    .nx-luxury-title {
+        font-size: 42px;
+    }
+
+    .nx-luxury-subtitle {
+        font-size: 13px;
+    }
+
+    .nx-luxury-button {
+        padding: 15px 18px;
+
+        font-size: 10px;
+    }
+
+}
+</style>
+
+
+<section class="nx-luxury-feature">
+
+    <!-- Background Image -->
+    <img
+        class="nx-luxury-image"
+        src="{% static 'img/luxury.jpg' %}"
+        alt="Nexurban private luxury collection"
+        loading="lazy"
+    >
+
+
+    <!-- Dark Gradient Overlay -->
+    <div class="nx-luxury-shade"></div>
+
+
+    <!-- Content -->
+    <div class="nx-luxury-container">
+
+        <div class="nx-luxury-content">
+
+            <p class="nx-luxury-eyebrow">
+                NEXURBAN PRIVATE COLLECTION
+            </p>
+
+
+            <h2 class="nx-luxury-title">
+                For Those Who<br>
+                Expect More.
+            </h2>
+
+
+            <p class="nx-luxury-subtitle">
+                Address. Architecture. Privacy. Scarcity.
+            </p>
+
+
+            <a
+                href="{% url 'luxury' %}"
+                class="nx-luxury-button"
+            >
+                <span>EXPLORE LUXURY</span>
+                <span class="nx-luxury-arrow">↗</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="nx-strategic-section">
+
+    <div class="nx-strategic-image">
+        <img
+            src="{%  static 'img/hero.jpg' %}"
+            alt="Joint Ventures"
+            loading="lazy"
+        >
+    </div>
+
+    <div class="nx-strategic-content">
+        <div class="nx-strategic-inner">
+
+            <p class="nx-strategic-eyebrow">
+                JOINT VENTURES (JV)
+            </p>
+
+            <h2 class="nx-strategic-title">
+                Build Together.<br>
+                <em>Create Greater Value.</em>
+            </h2>
+
+            <p class="nx-strategic-copy">
+                Dubai's real estate market creates opportunities that become significantly more powerful when the right capital, land, expertise and execution come together.
+            </p>
+
+            <p class="nx-strategic-copy">
+                Nexurban facilitates strategic Joint Venture opportunities between landowners, investors, developers and strategic partners to structure commercially viable real estate ventures.
+            </p>
+
+            <p class="nx-strategic-subtitle">
+                We evaluate opportunities across:
+            </p>
+
+            <div class="nx-strategic-points">
+
+                <div class="nx-strategic-point">
+                    Strategic partner alignment
+                </div>
+
+                <div class="nx-strategic-point">
+                    Land and asset potential
+                </div>
+
+                <div class="nx-strategic-point">
+                    Capital requirements
+                </div>
+
+                <div class="nx-strategic-point">
+                    Development feasibility
+                </div>
+
+                <div class="nx-strategic-point">
+                    Market demand
+                </div>
+
+                <div class="nx-strategic-point">
+                    Project positioning
+                </div>
+
+                <div class="nx-strategic-point">
+                    Commercial structure
+                </div>
+
+                <div class="nx-strategic-point">
+                    Risk and return potential
+                </div>
+
+                <div class="nx-strategic-point">
+                    Exit strategy
+                </div>
+
+            </div>
+
+            <h3 class="nx-strategic-tagline">
+                The right partnership can turn opportunity into an asset.
+            </h3>
+
+            <a href="{% url 'joint-ventures' %}" class="nx-strategic-button">
+                EXPLORE JV OPPORTUNITIES
+
+                <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M7 17L17 7"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8 7H17V16"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </a>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     JOINT DEVELOPMENT (JD)
+     ========================================================= -->
+
+<section class="nx-strategic-section">
+
+    <div class="nx-strategic-image">
+        <img
+            src="{%  static 'img/jointdev.jpg' %}"
+            alt="Joint Development"
+            loading="lazy"
+        >
+    </div>
+
+    <div class="nx-strategic-content">
+        <div class="nx-strategic-inner">
+
+            <p class="nx-strategic-eyebrow">
+                JOINT DEVELOPMENT (JD)
+            </p>
+
+            <h2 class="nx-strategic-title">
+                Turn Land Into
+                <br><em>Landmark Developments.</em>
+            </h2>
+
+            <p class="nx-strategic-copy">
+                Great real estate begins with the right land — but value is created through the right development strategy, capital and execution.
+            </p>
+
+            <p class="nx-strategic-copy">
+                Nexurban connects landowners, developers, investors and strategic partners to identify and structure Joint Development opportunities across Dubai.
+            </p>
+
+            <p class="nx-strategic-subtitle">
+                We focus on:
+            </p>
+
+            <div class="nx-strategic-points">
+
+                <div class="nx-strategic-point">
+                    Land acquisition &amp; development potential
+                </div>
+
+                <div class="nx-strategic-point">
+                    Developer selection
+                </div>
+
+                <div class="nx-strategic-point">
+                    Project feasibility
+                </div>
+
+                <div class="nx-strategic-point">
+                    Development economics
+                </div>
+
+                <div class="nx-strategic-point">
+                    Capital structuring
+                </div>
+
+                <div class="nx-strategic-point">
+                    Revenue-sharing models
+                </div>
+
+                <div class="nx-strategic-point">
+                    Market positioning
+                </div>
+
+                <div class="nx-strategic-point">
+                    Development strategy
+                </div>
+
+                <div class="nx-strategic-point">
+                    Exit and monetisation opportunities
+                </div>
+
+            </div>
+
+            <h3 class="nx-strategic-tagline">
+                We don't just identify land. We help unlock what it can become.
+            </h3>
+
+            <a href="{% url 'joint-development' %}" class="nx-strategic-button">
+                EXPLORE JD OPPORTUNITIES
+
+                <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M7 17L17 7"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8 7H17V16"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </a>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     LAND DEALS
+     ========================================================= -->
+
+<section class="nx-strategic-section">
+
+    <div class="nx-strategic-image">
+        <img
+            src="{% static 'img/landdeals.jpg' %}"
+            alt="Land Deals"
+            loading="lazy"
+        >
+    </div>
+
+    <div class="nx-strategic-content">
+        <div class="nx-strategic-inner">
+
+            <p class="nx-strategic-eyebrow">
+                LAND DEALS
+            </p>
+
+            <h2 class="nx-strategic-title">
+                The Right Land Can Create
+                the <br><em>Next Big Opportunity.</em>
+            </h2>
+
+            <p class="nx-strategic-copy">
+                In Dubai, land is more than an asset.
+            </p>
+
+            <p class="nx-strategic-copy">
+                It is the foundation of value creation.
+            </p>
+
+            <p class="nx-strategic-copy">
+                Nexurban connects qualified investors, developers and strategic buyers with carefully identified land opportunities across high-potential locations.
+            </p>
+
+            <p class="nx-strategic-subtitle">
+                We evaluate opportunities based on:
+            </p>
+
+            <div class="nx-strategic-points">
+
+                <div class="nx-strategic-point">
+                    Location &amp; connectivity
+                </div>
+
+                <div class="nx-strategic-point">
+                    Plot size and configuration
+                </div>
+
+                <div class="nx-strategic-point">
+                    Zoning &amp; development potential
+                </div>
+
+                <div class="nx-strategic-point">
+                    Permitted use
+                </div>
+
+                <div class="nx-strategic-point">
+                    Market demand
+                </div>
+
+                <div class="nx-strategic-point">
+                    Development feasibility
+                </div>
+
+                <div class="nx-strategic-point">
+                    Acquisition value
+                </div>
+
+                <div class="nx-strategic-point">
+                    Highest &amp; best use
+                </div>
+
+                <div class="nx-strategic-point">
+                    Development potential
+                </div>
+
+                <div class="nx-strategic-point">
+                    Exit strategy
+                </div>
+
+            </div>
+
+            <h3 class="nx-strategic-tagline">
+                Buy the land. Understand the potential. Build the value.
+            </h3>
+
+            <a href="{% url 'land-deals' %}" class="nx-strategic-button">
+                EXPLORE LAND OPPORTUNITIES
+
+                <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M7 17L17 7"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8 7H17V16"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </a>
+
+        </div>
+    </div>
+
+</section>
+<style>
+  /* =========================================================
+   NEXURBAN STRATEGIC SECTIONS
+   LEFT FULL IMAGE + RIGHT CONTENT
+   FONTS UPDATED TO MATCH "NEXURBAN DIFFERENCE" SECTION (Manrope)
+   HEIGHT REDUCED FROM FULL-SCREEN TO CONTENT-DRIVEN
+   ========================================================= */
+
+.nx-strategic-section {
+    width: 100%;
+    min-height: auto;
+
+    display: grid;
+    grid-template-columns: 55% 45%;
+
+    background: #1c1818;
+    color: #f5f2ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LEFT IMAGE
+   ========================================================= */
+
+.nx-strategic-image {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+    min-height: 560px;
+
+    overflow: hidden;
+}
+
+.nx-strategic-image img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 1.2s cubic-bezier(.2, .65, .3, 1);
+}
+
+.nx-strategic-section:hover .nx-strategic-image img {
+    transform: scale(1.02);
+}
+
+
+/* =========================================================
+   RIGHT DARK PANEL
+   ========================================================= */
+
+.nx-strategic-content {
+    width: 100%;
+    min-width: 0;
+
+    background: #1c1818;
+
+    display: flex;
+    align-items: center;
+}
+
+.nx-strategic-inner {
+    width: 100%;
+
+    padding: 50px 9%;
+}
+
+
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
+.nx-strategic-eyebrow {
+    margin: 0 0 30px;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+    line-height: 1.2;
+
+    font-weight: 600;
+
+    letter-spacing: .16em;
+
+    text-transform: uppercase;
+
+    color: #f04432;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.nx-strategic-title {
+    margin: 0;
+
+    max-width:700px;
+
+    font-size: clamp(40px, 3.6vw, 60px);
+
+    line-height: 1.05;
+
+    font-weight: 400;
+
+    letter-spacing: -0.035em;
+
+    color: #f5f2ed;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.nx-strategic-copy {
+    max-width: 600px;
+
+    margin: 26px 0 0;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    font-weight: 400;
+
+    color: rgba(190, 185, 183, .78);
+}
+
+.nx-strategic-copy + .nx-strategic-copy {
+    margin-top: 16px;
+}
+
+
+/* =========================================================
+   "WE EVALUATE..."
+   ========================================================= */
+
+.nx-strategic-subtitle {
+    margin: 26px 0 0;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    font-weight: 500;
+
+    color: rgba(245, 242, 237, .92);
+}
+
+
+/* =========================================================
+   POINTS GRID
+   ========================================================= */
+
+.nx-strategic-points {
+    width: 100%;
+
+    margin-top: 14px;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 26px;
+
+    row-gap: 0;
+}
+
+
+/* =========================================================
+   INDIVIDUAL POINT
+   ========================================================= */
+
+.nx-strategic-point {
+    min-width: 0;
+
+    padding: 12px 0 11px;
+
+      border-top: 1px solid #b4604859;
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.4;
+
+    color: #f2eeee;
+}
+
+
+/* =========================================================
+   TAGLINE
+   ========================================================= */
+
+.nx-strategic-tagline {
+    max-width: 650px;
+
+    margin: 26px 0 0;
+
+    font-family: "Manrope", sans-serif;
+    font-style: italic;
+
+    font-size: 22px;
+
+    line-height: 1.35;
+
+    font-weight: 400;
+
+    letter-spacing: -.015em;
+
+    color: #f5f2ed;
+}
+
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
+.nx-strategic-button {
+    margin-top: 26px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 11px;
+
+    padding: 15px 22px;
+
+    background: #f04432;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    letter-spacing: .1em;
+
+    transition:
+        background-color .3s ease,
+        transform .3s ease;
+}
+
+.nx-strategic-button svg {
+    flex-shrink: 0;
+
+    transition: transform .3s ease;
+}
+
+.nx-strategic-button:hover {
+    background: #d93627;
+
+    transform: translateY(-2px);
+}
+
+.nx-strategic-button:hover svg {
+    transform: translate(2px, -2px);
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
+@media (min-width: 1500px) {
+
+    .nx-strategic-inner {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .nx-strategic-title {
+        font-size: 62px;
+    }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .nx-strategic-section {
+        grid-template-columns: 54% 46%;
+    }
+
+    .nx-strategic-image {
+        min-height: 480px;
+    }
+
+    .nx-strategic-inner {
+        padding: 44px 8%;
+    }
+
+    .nx-strategic-title {
+        font-size: clamp(38px, 4.4vw, 52px);
+    }
+
+    .nx-strategic-copy {
+        font-size: 14px;
+    }
+
+    .nx-strategic-point {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .nx-strategic-section {
+        grid-template-columns: 50% 50%;
+    }
+
+    .nx-strategic-image {
+        min-height: 420px;
+    }
+
+    .nx-strategic-inner {
+        padding: 38px 7%;
+    }
+
+    .nx-strategic-eyebrow {
+        margin-bottom: 18px;
+    }
+
+    .nx-strategic-title {
+        font-size: 38px;
+    }
+
+    .nx-strategic-copy {
+        margin-top: 20px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .nx-strategic-subtitle {
+        margin-top: 20px;
+    }
+
+    .nx-strategic-point {
+        font-size: 12px;
+        padding: 11px 0;
+    }
+
+    .nx-strategic-tagline {
+        margin-top: 20px;
+        font-size: 19px;
+    }
+
+    .nx-strategic-button {
+        margin-top: 20px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .nx-strategic-section {
+        display: flex;
+        flex-direction: column;
+
+        min-height: auto;
+    }
+
+    .nx-strategic-image {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+
+        aspect-ratio: 16 / 9;
+
+        flex-shrink: 0;
+    }
+
+    .nx-strategic-content {
+        width: 100%;
+    }
+
+    .nx-strategic-inner {
+        padding: 40px 24px 45px;
+    }
+
+    .nx-strategic-eyebrow {
+        font-size: 11px;
+        margin-bottom: 18px;
+    }
+
+    .nx-strategic-title {
+        font-size: clamp(34px, 9vw, 46px);
+        line-height: 1.05;
+    }
+
+    .nx-strategic-copy {
+        max-width: none;
+
+        margin-top: 20px;
+
+        font-size: 14px;
+
+        line-height: 1.65;
+    }
+
+    .nx-strategic-copy + .nx-strategic-copy {
+        margin-top: 14px;
+    }
+
+    .nx-strategic-subtitle {
+        margin-top: 22px;
+    }
+
+    .nx-strategic-points {
+        grid-template-columns: 1fr;
+
+        margin-top: 13px;
+    }
+
+    .nx-strategic-point {
+        font-size: 14px;
+        padding: 12px 0;
+    }
+
+    .nx-strategic-tagline {
+        margin-top: 22px;
+        font-size: 19px;
+    }
+
+    .nx-strategic-button {
+        margin-top: 22px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-strategic-image {
+        aspect-ratio: 4 / 3;
+    }
+
+    .nx-strategic-inner {
+        padding: 36px 20px 40px;
+    }
+
+    .nx-strategic-title {
+        font-size: 34px;
+    }
+
+    .nx-strategic-copy {
+        font-size: 13px;
+    }
+
+    .nx-strategic-point {
+        font-size: 13px;
+    }
+
+    .nx-strategic-tagline {
+        font-size: 18px;
+    }
+
+    .nx-strategic-button {
+        width: 100%;
+    }
+}
+</style>
+
+
+
+
+<!-- =========================================================
+     JOINT VENTURES (JV)
+     ========================================================= -->
+
+
+
+
+<style>
+/* =========================================
+   NEXURBAN DUBAI COMMUNITIES
+   Unique classes: nx-community-*
+========================================= */
+
+.nx-community-section {
+  width: 100%;
+
+  background: #080808;
+  color: #f7f7f7;
+
+  overflow: hidden;
+}
+
+
+.nx-community-container {
+  width: min(1400px, calc(100% - 80px));
+
+  margin: 0 auto;
+
+  padding: 95px 0;
+}
+
+
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.nx-community-heading {
+  width: 100%;
+}
+
+
+.nx-community-eyebrow {
+  margin: 0;
+
+  color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.20em;
+  line-height: 1.4;
+
+  text-transform: uppercase;
+}
+
+
+.nx-community-title {
+  margin: 24px 0 0;
+
+  max-width: 850px;
+
+  color: #f7f7f7;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(42px, 5vw, 68px);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.035em;
+}
+
+
+/* Italic editorial emphasis */
+
+.nx-community-title em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+
+/* =========================================
+   COMMUNITY GRID
+========================================= */
+
+.nx-community-grid {
+  margin-top: 52px;
+
+  display: grid;
+
+  grid-template-columns: repeat(12, 1fr);
+
+  gap: 14px;
+}
+
+
+/* =========================================
+   COMMUNITY CARD
+========================================= */
+
+.nx-community-card {
+  position: relative;
+
+  display: block;
+
+  height: 500px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  background: #222;
+}
+
+
+/*
+  First 2 cards
+*/
+
+.nx-community-card:nth-child(1),
+.nx-community-card:nth-child(2) {
+  grid-column: span 6;
+}
+
+
+/*
+  Last 3 cards
+*/
+
+.nx-community-card:nth-child(3),
+.nx-community-card:nth-child(4),
+.nx-community-card:nth-child(5) {
+  grid-column: span 4;
+}
+
+
+/* =========================================
+   CARD IMAGE
+========================================= */
+
+.nx-community-card img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.7s cubic-bezier(.2,.65,.3,1),
+    filter 0.5s ease;
+}
+
+
+.nx-community-card:hover img {
+  transform: scale(1.06);
+
+  filter: brightness(0.85);
+}
+
+
+/* =========================================
+   DARK IMAGE SHADE
+========================================= */
+
+.nx-community-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.02) 20%,
+      rgba(0, 0, 0, 0.15) 45%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
+
+  z-index: 1;
+
+  transition: background 0.4s ease;
+}
+
+
+.nx-community-card:hover .nx-community-overlay {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.25) 15%,
+      rgba(0, 0, 0, 0.50) 45%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+}
+
+
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.nx-community-info {
+  position: absolute;
+
+  left: 30px;
+  right: 30px;
+  bottom: 28px;
+
+  z-index: 2;
+}
+
+
+.nx-community-info small {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: rgba(247, 247, 247, 0.62);
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 9px;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   CARD TITLE
+========================================= */
+
+.nx-community-info h3 {
+  margin: 0;
+
+  color: #f7f7f7;
+
+  font-family:
+    "Cormorant Garamond",
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(28px, 3vw, 34px);
+
+  font-weight: 400;
+
+  letter-spacing: -0.025em;
+
+  line-height: 1;
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.nx-community-arrow {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  color: #ffffff;
+
+  font-family: "Manrope", sans-serif;
+
+  font-size: 17px;
+
+  line-height: 1;
+
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+.nx-community-card:hover .nx-community-arrow {
+  background: #ff1d0c;
+
+  border-color: #ff1d0c;
+
+  color: #ffffff;
+
+  transform: translate(2px, -2px);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .nx-community-container {
+    width: min(100% - 50px, 900px);
+
+    padding: 80px 0;
+  }
+
+
+  .nx-community-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+  }
+
+
+  .nx-community-card:nth-child(n) {
+    grid-column: span 1;
+
+    height: 440px;
+  }
+
+
+  .nx-community-card:nth-child(5) {
+    grid-column: span 2;
+  }
+
+
+  .nx-community-title {
+    font-size: clamp(42px, 5vw, 60px);
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .nx-community-container {
+    width: calc(100% - 32px);
+
+    padding: 65px 0;
+  }
+
+
+  .nx-community-title {
+    margin-top: 20px;
+
+    font-size: clamp(42px, 12vw, 60px);
+
+    line-height: 0.96;
+  }
+
+
+  .nx-community-grid {
+    margin-top: 38px;
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+
+  .nx-community-card:nth-child(n) {
+    grid-column: span 1;
+
+    height: 410px;
+  }
+
+
+  .nx-community-info {
+    left: 22px;
+    right: 22px;
+    bottom: 22px;
+  }
+
+
+  .nx-community-info h3 {
+    font-size: 28px;
+  }
+
+
+  .nx-community-info small {
+    font-size: 8px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+  .nx-community-container {
+    padding: 55px 0;
+  }
+
+
+  .nx-community-card:nth-child(n) {
+    height: 350px;
+  }
+
+
+  .nx-community-info h3 {
+    font-size: 25px;
+  }
+
+
+  .nx-community-info small {
+    font-size: 8px;
+  }
+
+
+  .nx-community-arrow {
+    width: 32px;
+    height: 32px;
+
+    font-size: 16px;
+  }
+}
+.nx-global-location-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 28px;
+}
+
+.nx-global-location-list span {
+    position: relative;
+    padding-left: 16px;
+}
+
+.nx-global-location-list span::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: #ff4c3fd3;
+}
+</style>
+<!-- 
+
+<section class="nx-community-section">
+
+  <div class="nx-community-container">
+
+    <div class="nx-community-heading">
+
+      <p class="nx-community-eyebrow">
+        DUBAI COMMUNITIES
+      </p>
+
+      <h2 class="nx-community-title">
+        Explore Dubai.<br>
+        <em>Find Your Place.</em>
+      </h2>
+
+    </div>
+
+
+    <div class="nx-community-grid">
+
+      <a href="/dubai-communities" class="nx-community-card">
+
+        <img
+          src="{% static 'img/palm.jpg' %}"
+          alt="Palm Jumeirah"
+          loading="lazy"
+        >
+
+        <div class="nx-community-overlay"></div>
+
+        <div class="nx-community-info">
+
+          <small>
+            STARTING FROM AED 3.5M
+          </small>
+
+          <h3>
+            PALM JUMEIRAH
+          </h3>
+
+          <span class="nx-community-arrow">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <a href="/dubai-communities" class="nx-community-card">
+
+        <img
+          src="{% static 'img/Downtown.jpg' %}"
+          alt="Downtown Dubai"
+          loading="lazy"
+        >
+
+        <div class="nx-community-overlay"></div>
+
+        <div class="nx-community-info">
+
+          <small>
+            STARTING FROM AED 4.5M
+          </small>
+
+          <h3>
+            DOWNTOWN DUBAI
+          </h3>
+
+          <span class="nx-community-arrow">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <a href="/dubai-communities" class="nx-community-card">
+
+        <img
+          src="{% static 'img/dubaihills.jpg' %}"
+          alt="Dubai Hills Estate"
+          loading="lazy"
+        >
+
+        <div class="nx-community-overlay"></div>
+
+        <div class="nx-community-info">
+
+          <small>
+            STARTING FROM AED 5.5M
+          </small>
+
+          <h3>
+            DUBAI HILLS ESTATE
+          </h3>
+
+          <span class="nx-community-arrow">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <a href="/dubai-communities" class="nx-community-card">
+
+        <img
+          src="{% static 'img/dubaimarina.jpg' %}"
+          alt="Dubai Marina"
+          loading="lazy"
+        >
+
+        <div class="nx-community-overlay"></div>
+
+        <div class="nx-community-info">
+
+          <small>
+            STARTING FROM AED 6.5M
+          </small>
+
+          <h3>
+            DUBAI MARINA
+          </h3>
+
+          <span class="nx-community-arrow">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <a href="/dubai-communities" class="nx-community-card">
+
+        <img
+          src="{% static 'img/bussinesbay.jpg' %}"
+          alt="Business Bay"
+          loading="lazy"
+        >
+
+        <div class="nx-community-overlay"></div>
+
+        <div class="nx-community-info">
+
+          <small>
+            STARTING FROM AED 7.5M
+          </small>
+
+          <h3>
+            BUSINESS BAY
+          </h3>
+
+          <span class="nx-community-arrow">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section> -->
+
+
+
+
+<section class="nx-global-section">
+
+    <div class="nx-global-container">
+
+        <!-- LEFT CONTENT -->
+        <div class="nx-global-content">
+
+            <p class="nx-global-eyebrow">
+                GLOBAL CAPITAL. DUBAI OPPORTUNITIES.
+            </p>
+
+            <h2 class="nx-global-title">
+                Dubai Doesn't Need to Be Your Home<br>
+                <em>to Become Part of Your Portfolio.</em>
+            </h2>
+
+      <div class="nx-global-description nx-global-location-list">
+    <span>India to the UK.</span>
+    <span>Europe to Asia.</span>
+    <span>GCC to Africa.</span>
+</div>
+            <p class="nx-global-description nx-global-description-main">
+                Dubai continues to attract international capital.
+                Nexurban simplifies the process for overseas investors by
+                providing a single point of coordination across property
+                discovery, investment evaluation, transaction support and
+                post-purchase requirements.
+            </p>
+
+            <div class="nx-global-regions">
+                <span>INDIA</span>
+                <span>GCC</span>
+                <span>UK</span>
+                <span>EUROPE</span>
+                <span>AFRICA</span>
+                <span>ASIA</span>
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT MAP VISUAL -->
+        <div class="nx-global-map">
+
+            <div class="nx-global-oval">
+
+                <div class="nx-global-map-grid"></div>
+
+                <div class="nx-global-map-line nx-global-line-a"></div>
+                <div class="nx-global-map-line nx-global-line-b"></div>
+                <div class="nx-global-map-line nx-global-line-c"></div>
+
+                <div class="nx-global-map-center">
+                    <span class="nx-global-dxb">DXB</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================
+   GLOBAL SECTION
+========================================= */
+
+.nx-global-section {
+    width: 100%;
+    background: #f3f3f4;
+    color: #111111;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.nx-global-container {
+    width: calc(100% - 80px);
+    max-width: 1900px;
+
+    min-height: 650px;
+
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+
+    gap: 60px;
+
+    align-items: center;
+}
+
+
+/* =========================================
+   LEFT CONTENT
+========================================= */
+
+.nx-global-content {
+    max-width: 850px;
+    margin: 40px 0px;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.nx-global-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   MAIN TITLE
+========================================= */
+
+.nx-global-title {
+    margin: 22px 0 0;
+
+    max-width: 900px;
+
+    color: #080808;
+
+    font-size: clamp(42px, 5vw, 68px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -0.035em;
+}
+
+
+/* Elegant italic emphasis
+   Same style as earlier sections
+========================================= */
+
+.nx-global-title em {
+    font-family:
+        "Cormorant Garamond",
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    color: #080808;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.nx-global-description {
+    max-width: 620px;
+
+    margin: 28px 0 0;
+
+    color: rgba(8, 8, 8, 0.58);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+
+    letter-spacing: 0;
+}
+
+
+/* Main paragraph slightly separated */
+
+.nx-global-description-main {
+    margin-top: 20px;
+}
+
+
+/* =========================================
+   REGIONS
+========================================= */
+
+.nx-global-regions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 32px;
+
+    margin-top: 34px;
+}
+
+
+.nx-global-regions span {
+    color: #161616;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 1;
+
+    letter-spacing: 0.08em;
+}
+
+
+/* =========================================
+   RIGHT MAP AREA
+========================================= */
+
+.nx-global-map {
+    position: relative;
+
+    width: 100%;
+
+    height: 530px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================
+   OVAL
+========================================= */
+
+.nx-global-oval {
+    position: relative;
+
+    width: 92%;
+    height: 78%;
+
+    border: 1px solid rgba(17, 17, 17, 0.12);
+
+    border-radius: 50%;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   LIGHT GRID
+========================================= */
+
+.nx-global-map-grid {
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(17, 17, 17, 0.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(17, 17, 17, 0.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+    opacity: 0.8;
+
+    pointer-events: none;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 20%,
+            rgba(0, 0, 0, 0.7) 55%,
+            transparent 100%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 20%,
+            rgba(0, 0, 0, 0.7) 55%,
+            transparent 100%
+        );
+}
+
+
+/* =========================================
+   DXB CENTER
+========================================= */
+
+.nx-global-map-center {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 5;
+}
+
+
+/* =========================================
+   DXB TEXT
+========================================= */
+
+.nx-global-dxb {
+    display: block;
+
+    color: #FF1D0C;
+
+    font-family:
+        "Cormorant Garamond",
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-size: clamp(48px, 4vw, 64px);
+
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+
+/* =========================================
+   RED CONNECTION LINES
+========================================= */
+
+.nx-global-map-line {
+    position: absolute;
+
+    height: 1px;
+
+    background: #FF1D0C;
+
+    transform-origin: left center;
+
+    z-index: 3;
+}
+
+
+/* =========================================
+   LINE A
+========================================= */
+
+.nx-global-line-a {
+    width: 42%;
+
+    top: 18%;
+    left: 13%;
+
+    transform: rotate(27deg);
+}
+
+
+/* =========================================
+   LINE B
+========================================= */
+
+.nx-global-line-b {
+    width: 44%;
+
+    top: 24%;
+    left: 58%;
+
+    transform: rotate(19deg);
+}
+
+
+/* =========================================
+   LINE C
+========================================= */
+
+.nx-global-line-c {
+    width: 46%;
+
+    top: 78%;
+    left: 61%;
+
+    transform: rotate(-31deg);
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media (min-width: 1500px) {
+
+    .nx-global-container {
+        min-height: 650px;
+    }
+
+    .nx-global-map {
+        height: 540px;
+    }
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-global-container {
+        width: calc(100% - 60px);
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+
+        padding: 80px 0;
+    }
+
+
+    .nx-global-map {
+        height: 480px;
+    }
+
+
+    .nx-global-oval {
+        width: 90%;
+        height: 80%;
+    }
+
+
+    .nx-global-title {
+        font-size: clamp(42px, 7vw, 64px);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .nx-global-container {
+        width: calc(100% - 32px);
+
+        min-height: auto;
+
+        padding: 65px 0;
+
+        gap: 30px;
+    }
+
+
+    .nx-global-eyebrow {
+        font-size: 9px;
+
+        letter-spacing: 0.16em;
+    }
+
+
+    .nx-global-title {
+        margin-top: 20px;
+
+        font-size: clamp(42px, 12vw, 60px);
+
+        line-height: 0.97;
+    }
+
+
+    .nx-global-description {
+        margin-top: 25px;
+
+        font-size: 14px;
+
+        line-height: 1.65;
+    }
+
+
+    .nx-global-description-main {
+        margin-top: 17px;
+    }
+
+
+    .nx-global-regions {
+        gap: 18px;
+
+        margin-top: 28px;
+    }
+
+
+    .nx-global-regions span {
+        font-size: 9px;
+    }
+
+
+    /* MAP */
+
+    .nx-global-map {
+        height: 280px;
+    }
+
+
+    .nx-global-oval {
+        width: 100%;
+        height: 78%;
+    }
+
+
+    .nx-global-map-grid {
+        background-size: 30px 30px;
+    }
+
+
+    .nx-global-dxb {
+        font-size: 40px;
+    }
+
+
+    /* LINES */
+
+    .nx-global-line-a {
+        width: 42%;
+
+        top: 18%;
+        left: 10%;
+    }
+
+
+    .nx-global-line-b {
+        width: 42%;
+
+        top: 25%;
+        left: 57%;
+    }
+
+
+    .nx-global-line-c {
+        width: 45%;
+
+        top: 77%;
+        left: 58%;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+    .nx-global-container {
+        width: calc(100% - 28px);
+
+        padding: 55px 0;
+    }
+
+
+    .nx-global-title {
+        font-size: 43px;
+    }
+
+
+    .nx-global-description {
+        font-size: 13px;
+    }
+
+
+    .nx-global-map {
+        height: 240px;
+    }
+
+
+    .nx-global-map-grid {
+        background-size: 25px 25px;
+    }
+
+}
+
+</style>
+
+
+<style>
+
+/* =========================================
+   WHY NEXURBAN SECTION
+========================================= */
+
+.nx-why-section {
+    width: 100%;
+
+    background: #f5f3ee;
+    color: #151515;
+
+    border-top: 1px solid rgba(21, 21, 21, 0.12);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.nx-why-container {
+    width: min(100% - 48px, 1280px);
+    width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 78px 0 8px;
+}
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.nx-why-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   MAIN TITLE
+========================================= */
+
+.nx-why-title {
+    margin: 18px 0 0;
+
+    color: #151515;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(42px, 4.5vw, 68px);
+
+    font-weight: 400;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================
+   GRID
+========================================= */
+
+.nx-why-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 70px;
+
+    row-gap: 0;
+
+    margin-top: 62px;
+}
+
+
+/* =========================================
+   EACH ROW
+========================================= */
+
+.nx-why-row {
+    display: grid;
+
+    grid-template-columns: 48px 1fr;
+
+    gap: 20px;
+
+    padding: 25px 0 24px;
+
+    border-top: 1px solid rgba(21, 21, 21, 0.14);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* Bottom borders */
+
+.nx-why-row:nth-last-child(-n+2) {
+    border-bottom: 1px solid rgba(21, 21, 21, 0.14);
+}
+
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.nx-why-number {
+    padding-top: 3px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    line-height: 1;
+}
+
+
+/* =========================================
+   CONTENT TITLE
+========================================= */
+
+.nx-why-content h3 {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.nx-why-content p {
+    max-width: 520px;
+
+    margin: 12px 0 0;
+
+    color: rgba(21, 21, 21, 0.62);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   HOVER EFFECT
+========================================= */
+
+.nx-why-grid:hover .nx-why-row {
+    opacity: 0.5;
+}
+
+.nx-why-grid .nx-why-row:hover {
+    opacity: 1;
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .nx-why-container {
+        width: calc(100% - 50px);
+
+        padding: 68px 0 72px;
+    }
+
+
+    .nx-why-grid {
+        grid-template-columns: 1fr;
+
+        margin-top: 52px;
+
+        column-gap: 0;
+    }
+
+
+    .nx-why-row:nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+
+
+    .nx-why-row:last-child {
+        border-bottom: 1px solid rgba(21, 21, 21, 0.14);
+    }
+
+
+    .nx-why-title {
+        font-size: clamp(42px, 6vw, 60px);
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .nx-why-container {
+        width: calc(100% - 32px);
+
+        padding: 58px 0 62px;
+    }
+
+
+    .nx-why-eyebrow {
+        font-size: 10px;
+
+        letter-spacing: 0.18em;
+    }
+
+
+    .nx-why-title {
+        margin-top: 18px;
+
+        font-size: clamp(42px, 11vw, 58px);
+
+        line-height: 0.98;
+    }
+
+
+    .nx-why-grid {
+        margin-top: 42px;
+    }
+
+
+    .nx-why-row {
+        grid-template-columns: 40px 1fr;
+
+        gap: 14px;
+
+        padding: 23px 0;
+    }
+
+
+    .nx-why-number {
+        font-size: 10px;
+    }
+
+
+    .nx-why-content h3 {
+        font-size: 10px;
+
+        letter-spacing: 0.12em;
+    }
+
+
+    .nx-why-content p {
+        margin-top: 10px;
+
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .nx-why-container {
+        width: calc(100% - 28px);
+
+        padding: 50px 0 54px;
+    }
+
+
+    .nx-why-title {
+        font-size: 40px;
+    }
+
+
+    .nx-why-grid {
+        margin-top: 38px;
+    }
+
+
+    .nx-why-row {
+        grid-template-columns: 35px 1fr;
+
+        gap: 12px;
+
+        padding: 21px 0;
+    }
+
+
+    .nx-why-content h3 {
+        font-size: 9px;
+    }
+
+
+    .nx-why-content p {
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+}
+
+</style>
+
+
+<section class="nx-why-section">
+
+    <div class="nx-why-container">
+
+        <p class="nx-why-eyebrow">
+            WHY NEXURBAN?
+        </p>
+
+        <h2 class="nx-why-title">
+            Why Nexurban?
+        </h2>
+
+
+        <div class="nx-why-grid">
+
+            <!-- 01 -->
+            <div class="nx-why-row">
+
+                <span class="nx-why-number">01</span>
+
+                <div class="nx-why-content">
+                    <h3>LOCAL EXPERTISE</h3>
+
+                    <p>
+                        Deep understanding of Dubai's communities, developers and transaction environment.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- 02 -->
+            <div class="nx-why-row">
+
+                <span class="nx-why-number">02</span>
+
+                <div class="nx-why-content">
+                    <h3>MARKET INTELLIGENCE</h3>
+
+                    <p>
+                        Decisions supported by market data, not just sales narratives.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- 03 -->
+            <div class="nx-why-row">
+
+                <span class="nx-why-number">03</span>
+
+                <div class="nx-why-content">
+                    <h3>CURATED OPPORTUNITIES</h3>
+
+                    <p>
+                        A focused selection rather than an overwhelming catalogue.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- 04 -->
+            <div class="nx-why-row">
+
+                <span class="nx-why-number">04</span>
+
+                <div class="nx-why-content">
+                    <h3>PERSONALISED ADVISORY</h3>
+
+                    <p>
+                        Every client has a different objective. Our recommendations reflect that.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- 05 -->
+            <div class="nx-why-row">
+
+                <span class="nx-why-number">05</span>
+
+                <div class="nx-why-content">
+                    <h3>END-TO-END SUPPORT</h3>
+
+                    <p>
+                        From first conversation to transaction completion and beyond.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- 06 -->
+            <div class="nx-why-row">
+
+                <span class="nx-why-number">06</span>
+
+                <div class="nx-why-content">
+                    <h3>LONG-TERM RELATIONSHIPS</h3>
+
+                    <p>
+                        We don't measure success by one transaction. We build relationships that grow with our clients' portfolios.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<style>
+  /* =========================================================
+   OUR PROMISE SECTION
+========================================================= */
+
+.nx-offplan-promise {
+    width: 100%;
+    background: #1d1817;
+    color: #f7f4ed;
+    overflow: hidden;
+}
+
+.nx-offplan-container {
+    width: 100%;
+    max-width: 1400px;
+  
+
+    padding: 120px 50px 110px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-offplan-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-offplan-title {
+    margin: 24px 0 0;
+    max-width: 1300px;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+}
+
+.nx-offplan-title em {
+    color: #e4d8c8;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-offplan-description {
+    max-width: 560px;
+
+    margin: 28px 0 0;
+
+    color: rgba(247, 247, 247, 0.52);
+
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+
+    line-height: 1.65;
+    letter-spacing: 0;
+}
+
+
+/* =========================================================
+   STRAIGHT LINE TIMELINE
+========================================================= */
+
+.nx-offplan-timeline {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    width: 100%;
+
+    margin-top: 82px;
+
+    padding-top: 0;
+
+    box-sizing: border-box;
+}
+
+
+/*
+   THE STRAIGHT RED LINE
+*/
+
+.nx-offplan-timeline::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 1px;
+
+    background: #ff2114;
+}
+
+
+/* =========================================================
+   EACH TIMELINE ITEM
+========================================================= */
+
+.nx-offplan-timeline-item {
+    position: relative;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   RED DOT
+========================================================= */
+
+.nx-offplan-dot {
+    position: relative;
+
+    width: 12px;
+    height: 12px;
+
+    margin-top: -6px;
+
+    border-radius: 50%;
+
+    background: #ff2114;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   TIMELINE CONTENT
+========================================================= */
+
+.nx-offplan-timeline-content {
+    padding-top: 38px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nx-offplan-timeline-item:first-child
+.nx-offplan-timeline-content {
+    padding-left: 20px;
+}
+
+.nx-offplan-timeline-content span {
+    display: block;
+
+    color: #ff4c3f;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 21px;
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+
+.nx-offplan-timeline-content p {
+    max-width: 270px;
+
+    margin: 68px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    letter-spacing: 0.04em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   DESKTOP POSITIONING
+========================================================= */
+
+.nx-offplan-timeline-item:nth-child(1) {
+    text-align: left;
+}
+
+.nx-offplan-timeline-item:nth-child(2),
+.nx-offplan-timeline-item:nth-child(3),
+.nx-offplan-timeline-item:nth-child(4) {
+    text-align: left;
+}
+
+.nx-offplan-timeline-item:nth-child(5) {
+    text-align: left;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .nx-offplan-container {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    .nx-offplan-title {
+        max-width: 800px;
+    }
+
+    .nx-offplan-timeline-content {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .nx-offplan-timeline-content p {
+        margin-top: 55px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-offplan-container {
+        width: 100%;
+        max-width: 100%;
+
+        padding: 70px 20px 75px;
+    }
+
+
+    /* Heading */
+
+    .nx-offplan-eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.16em;
+    }
+
+    .nx-offplan-title {
+        width: 100%;
+        max-width: 100%;
+
+        margin-top: 20px;
+
+        font-size: 42px;
+        line-height: 1.05;
+    }
+
+    .nx-offplan-title br {
+        display: none;
+    }
+
+
+    /* Description */
+
+    .nx-offplan-description {
+        width: 100%;
+        max-width: 100%;
+
+        margin-top: 24px;
+
+        font-size: 13px;
+    }
+
+
+    /* =====================================================
+       MOBILE TIMELINE
+    ===================================================== */
+
+    .nx-offplan-timeline {
+        grid-template-columns: 1fr;
+
+        margin-top: 55px;
+
+        padding-left: 0;
+    }
+
+
+    /*
+       MOBILE LINE BECOMES VERTICAL
+    */
+
+    .nx-offplan-timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 5px;
+        right: auto;
+
+        width: 1px;
+        height: auto;
+    }
+
+
+    .nx-offplan-timeline-item {
+        display: grid;
+
+        grid-template-columns: 12px minmax(0, 1fr);
+
+        min-height: 105px;
+
+        text-align: left !important;
+    }
+
+
+    /* Dot */
+
+    .nx-offplan-dot {
+        width: 11px;
+        height: 11px;
+
+        margin-top: 0;
+    }
+
+
+    /* Content */
+
+    .nx-offplan-timeline-content,
+    .nx-offplan-timeline-item:first-child
+    .nx-offplan-timeline-content {
+        padding: 0 0 0 25px;
+    }
+
+
+    .nx-offplan-timeline-content span {
+        font-size: 19px;
+    }
+
+
+    .nx-offplan-timeline-content p {
+        max-width: 100%;
+
+        margin: 22px 0 0;
+
+        font-size: 9px;
+        line-height: 1.6;
+
+        letter-spacing: 0.08em;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-offplan-container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .nx-offplan-title {
+        font-size: 37px;
+    }
+
+    .nx-offplan-description {
+        font-size: 12px;
+    }
+
+    .nx-offplan-timeline {
+        margin-top: 48px;
+    }
+
+}
+</style>
+
+
+<section class="nx-offplan-promise">
+
+    <div class="nx-offplan-container">
+
+        <p class="nx-offplan-eyebrow">
+            OUR PROMISE
+        </p>
+
+        <h2 class="nx-offplan-title">
+            We Don't Want to Be Your Property Broker.
+            <br>
+            We Want to Be Your <em>Real Estate Partner.</em>
+        </h2>
+
+        <p class="nx-offplan-description">
+            Because the relationship shouldn't end when the transaction closes.
+        </p>
+
+
+        <!-- STRAIGHT LINE TIMELINE -->
+        <div class="nx-offplan-timeline">
+
+            <div class="nx-offplan-timeline-item">
+                <div class="nx-offplan-dot"></div>
+
+                <div class="nx-offplan-timeline-content">
+                    <span>01</span>
+                    <p>YOUR NEXT INVESTMENT MAY BE BIGGER</p>
+                </div>
+            </div>
+
+
+            <div class="nx-offplan-timeline-item">
+                <div class="nx-offplan-dot"></div>
+
+                <div class="nx-offplan-timeline-content">
+                    <span>02</span>
+                    <p>YOUR PORTFOLIO MAY EXPAND</p>
+                </div>
+            </div>
+
+
+            <div class="nx-offplan-timeline-item">
+                <div class="nx-offplan-dot"></div>
+
+                <div class="nx-offplan-timeline-content">
+                    <span>03</span>
+                    <p>YOUR FAMILY MAY NEED A NEW HOME</p>
+                </div>
+            </div>
+
+
+            <div class="nx-offplan-timeline-item">
+                <div class="nx-offplan-dot"></div>
+
+                <div class="nx-offplan-timeline-content">
+                    <span>04</span>
+                    <p>YOUR STRATEGY MAY CHANGE</p>
+                </div>
+            </div>
+
+
+            <div class="nx-offplan-timeline-item">
+                <div class="nx-offplan-dot"></div>
+
+                <div class="nx-offplan-timeline-content">
+                    <span>05</span>
+                    <p>NEXURBAN GROWS WITH YOU</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+  /* =========================================================
+   NEXURBAN — SOCIAL PROOF / STATS
+========================================================= */
+
+.nx-stats-section {
+    width: 100%;
+    background-color: #fff;
+    color: #222;
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+
+    background-size: 50px 50px;
+}
+
+.nx-stats-container {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 85px 50px 95px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-stats-eyebrow {
+    margin: 0;
+    color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.20em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-stats-title {
+    margin: 28px 0 0;
+
+    max-width: 1100px;
+
+
+
+    color: #080808;
+  
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(44px, 5vw, 70px);
+    font-weight: 400;
+
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+}
+
+.nx-stats-title em {
+      color: #080808;
+
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   STATS GRID
+========================================================= */
+
+.nx-stats-grid {
+    display: grid;
+
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    width: 100%;
+
+    margin-top: 68px;
+
+    background: #080808;
+
+    gap: 1px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   STAT CARD
+========================================================= */
+
+.nx-stat-card {
+    min-width: 0;
+
+    min-height: 192px;
+
+    padding: 42px 25px 38px;
+
+    background: #0b0b0b;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.nx-stat-value {
+      color: #ff4c3f;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(36px, 3vw, 44px);
+    font-weight: 400;
+
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.nx-stat-card p {
+    max-width: 190px;
+
+    margin: 27px auto 0;
+
+    color: #aaa4a1;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    line-height: 1.7;
+
+    letter-spacing: 0.22em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .nx-stats-container {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    .nx-stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .nx-stat-card:nth-child(4),
+    .nx-stat-card:nth-child(5) {
+        border-top: 1px solid #292929;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-stats-section {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .nx-stats-container {
+        width: 100%;
+        max-width: 100%;
+
+        margin: 0;
+
+        padding: 70px 20px 75px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* Eyebrow */
+
+    .nx-stats-eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.16em;
+    }
+
+
+    /* Heading */
+
+    .nx-stats-title {
+        width: 100%;
+        max-width: 100%;
+
+        margin-top: 20px;
+
+        font-size: 40px;
+        line-height: 1.05;
+        letter-spacing: -0.035em;
+    }
+
+
+    /* Grid */
+
+    .nx-stats-grid {
+        grid-template-columns: 1fr 1fr;
+
+        width: 100%;
+
+        margin-top: 45px;
+    }
+
+
+    /* Cards */
+
+    .nx-stat-card {
+        min-height: 145px;
+
+        padding: 30px 12px 28px;
+    }
+
+
+    .nx-stat-value {
+        font-size: 32px;
+
+        white-space: normal;
+    }
+
+
+    .nx-stat-card p {
+        max-width: 140px;
+
+        margin-top: 18px;
+
+        font-size: 8px;
+        line-height: 1.6;
+
+        letter-spacing: 0.15em;
+    }
+
+
+    /* Last card full width */
+
+    .nx-stat-card:last-child {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-stats-container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .nx-stats-title {
+        font-size: 36px;
+    }
+
+    .nx-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nx-stat-card {
+        min-height: auto;
+
+        padding: 28px 18px;
+    }
+
+    .nx-stat-card:last-child {
+        grid-column: auto;
+    }
+
+    .nx-stat-value {
+        font-size: 38px;
+    }
+
+    .nx-stat-card p {
+        max-width: 100%;
+    }
+
+}
+</style>
+<section class="nx-stats-section">
+
+    <div class="nx-stats-container">
+
+        <p class="nx-stats-eyebrow">
+            SOCIAL PROOF
+        </p>
+
+        <h2 class="nx-stats-title">
+            Built Around Trust.
+            <em>Driven by Results.</em>
+        </h2>
+
+        <div class="nx-stats-grid">
+
+            <div class="nx-stat-card">
+                <div class="nx-stat-value">XX+</div>
+                <p>PROPERTIES TRANSACTED</p>
+            </div>
+
+            <div class="nx-stat-card">
+                <div class="nx-stat-value">AED XX+</div>
+                <p>TRANSACTION VALUE</p>
+            </div>
+
+            <div class="nx-stat-card">
+                <div class="nx-stat-value">XX+</div>
+                <p>CLIENTS SERVED</p>
+            </div>
+
+            <div class="nx-stat-card">
+                <div class="nx-stat-value">XX+</div>
+                <p>DEVELOPER PARTNERSHIPS</p>
+            </div>
+
+            <div class="nx-stat-card">
+                <div class="nx-stat-value">XX+</div>
+                <p>YEARS OF COMBINED EXPERIENCE</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<style>
+/* =========================================
+   FINAL CTA SECTION
+========================================= */
+
+.nx-final-cta {
+    width: 100%;
+    background: #111;
+    color: #f5f3ee;
+    overflow: hidden;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.nx-final-container {
+    width: calc(100% - 80px);
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 120px 0;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   EYEBROW
+========================================= */
+
+.nx-final-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   MAIN TITLE
+   SAME EDITORIAL STYLE AS OTHER SECTIONS
+========================================= */
+
+.nx-final-title {
+    max-width: 1100px;
+
+    margin: 24px auto 0;
+
+    max-width: 1100px;
+    color: #f7f4ed;
+    font-family: inherit;
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+}
+.nx-final-title em {
+        color: #e4d8c8;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.nx-final-description {
+    max-width: 700px;
+
+    margin: 30px auto 0;
+
+    color: rgba(247, 244, 237, 0.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.75;
+
+    letter-spacing: -0.01em;
+}
+
+
+/* =========================================
+   BUTTON WRAPPER
+========================================= */
+
+.nx-final-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 38px;
+}
+
+
+/* =========================================
+   BUTTON BASE
+========================================= */
+
+.nx-final-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 52px;
+
+    padding: 0 26px;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.nx-final-btn-primary {
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+}
+
+.nx-final-btn-primary:hover {
+    background: #f5f3ee;
+
+    border-color: #f5f3ee;
+
+    color: #151515;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   OUTLINE BUTTON
+========================================= */
+
+.nx-final-btn-outline {
+    background: transparent;
+
+    color: #f5f3ee;
+
+    border: 1px solid rgba(245, 243, 238, 0.45);
+}
+
+.nx-final-btn-outline:hover {
+    background: #f5f3ee;
+
+    border-color: #f5f3ee;
+
+    color: #151515;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   CONTACT DETAILS
+========================================= */
+
+.nx-final-contact {
+    margin: 5px 0 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.02em;
+
+    line-height: 1.6;
+}
+
+.nx-final-contact span {
+    margin: 0 8px;
+
+    opacity: 0.7;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .nx-final-container {
+        width: calc(100% - 50px);
+
+        padding: 100px 0;
+    }
+
+    .nx-final-title {
+        font-size: clamp(55px, 8vw, 82px);
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+    .nx-final-container {
+        width: calc(100% - 32px);
+
+        padding: 80px 0;
+    }
+
+    .nx-final-eyebrow {
+        font-size: 9px;
+
+        line-height: 1.5;
+
+        letter-spacing: 0.17em;
+    }
+
+    .nx-final-title {
+        margin-top: 20px;
+
+        font-size: clamp(46px, 12vw, 65px);
+
+        line-height: 0.94;
+    }
+
+    .nx-final-description {
+        margin-top: 24px;
+
+        font-size: 14px;
+
+        line-height: 1.65;
+    }
+
+    .nx-final-buttons {
+        flex-direction: column;
+
+        margin-top: 32px;
+
+        gap: 10px;
+    }
+
+    .nx-final-btn {
+        width: 100%;
+
+        min-height: 52px;
+    }
+
+    .nx-final-contact {
+        margin-top: 38px;
+
+        font-size: 12px;
+
+        line-height: 1.8;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+
+    .nx-final-container {
+        width: calc(100% - 28px);
+
+        padding: 68px 0;
+    }
+
+    .nx-final-title {
+        font-size: 44px;
+    }
+
+    .nx-final-description {
+        font-size: 13px;
+    }
+}
+.contact-text{
+  
+    font-family: "Manrope", sans-serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 400;
+    letter-spacing: -.015em;
+    color: #f5f2ed;
+  margin-top: 20px;}
+  
+</style>
+
+
+
+
+
+
+
+<section class="nx-final-cta">
+
+    <div class="nx-final-container">
+
+        <p class="nx-final-eyebrow">
+            LET'S FIND THE RIGHT OPPORTUNITY
+        </p>
+
+        <h2 class="nx-final-title">
+            Your Next Property Decision<br>
+          <em>Starts With One Conversation.</em>  
+        </h2>
+
+        <p class="nx-final-description">
+            Whether you are looking for a home, exploring Dubai as an
+            investment destination or building a larger portfolio,
+            Nexurban is ready to understand your objective.
+        </p>
+
+<!-- BUTTONS -->
+<div class="nx-final-buttons">
+
+    <a href="{% url 'contact' %}" class="nx-final-btn nx-final-btn-primary">
+        BOOK A CONSULTATION
+    </a>
+
+    <a href="{% url 'buy' %}" class="nx-final-btn nx-final-btn-outline">
+        EXPLORE PROPERTIES
+    </a>
+
+</div>
+     
+<h3 class="contact-text">Tell us what you're looking for.
+We'll help you find where to look.
+</h3>
+        <!-- CONTACT -->
+        <p class="nx-final-contact">
+            055 902 5646
+            <span>·</span>
+            sales@nexurbanproperties.com
+        </p>
+
+    </div>
+
+</section>
+{% endblock %}

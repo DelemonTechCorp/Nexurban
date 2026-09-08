@@ -1,0 +1,1720 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — PROPERTY ADVISORY
+   Same editorial typography/style as OFF-PLAN / JV pages
+========================================================= */
+
+.pa-page {
+    width: 100%;
+    background: #f7f4ed;
+    color: #111111;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.pa-hero {
+    position: relative;
+
+    width: 100%;
+    min-height: 720px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    color: #f7f4ed;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.91) 0%,
+            rgba(8,8,8,.72) 34%,
+            rgba(8,8,8,.36) 65%,
+            rgba(8,8,8,.18) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.94) 0%,
+            rgba(8,8,8,.18) 55%,
+            rgba(8,8,8,.384) 100%
+        ),
+        url("{% static 'img/pahero.jpg' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    isolation: isolate;
+
+    animation: nxPAHeroReveal 1.2s ease-out both;
+}
+
+
+@keyframes nxPAHeroReveal {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT SIDE PANEL
+========================================================= */
+
+.pa-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 24%;
+    height: 100%;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,29,12,.025),
+            rgba(255,29,12,.10)
+        );
+
+    border-left:
+        1px solid rgba(255,29,12,.12);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO INNER
+========================================================= */
+
+.pa-hero-inner {
+
+    position: relative;
+
+    z-index: 3;
+
+    width:
+        min(
+            1400px,
+            calc(100% - 100px)
+        );
+
+    margin: 0 auto;
+
+    padding:
+        155px 0 90px;
+}
+
+
+/* =========================================================
+   HERO EYEBROW
+========================================================= */
+
+.pa-hero-eyebrow {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        0 0 22px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxPAFade .8s cubic-bezier(.22,1,.36,1)
+        .1s forwards;
+}
+
+
+.pa-hero-eyebrow::before {
+
+    content: "";
+
+    width: 32px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+.pa-hero-eyebrow::after {
+
+    content: "";
+
+    width: 5px;
+
+    height: 5px;
+
+    margin-left: -5px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 0 5px rgba(255,29,12,.08),
+        0 0 13px rgba(255,29,12,.45);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.pa-hero-title {
+
+    max-width: 920px;
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(52px, 6.3vw, 90px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.045em;
+
+    opacity: 0;
+
+    animation:
+        nxPAFade 1s cubic-bezier(.22,1,.36,1)
+        .22s forwards;
+}
+
+
+.pa-hero-title em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO LINE
+========================================================= */
+
+.pa-hero-line {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    height: 1px;
+
+    margin-top: 32px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff1d0c,
+            rgba(255,29,12,.12)
+        );
+
+    opacity: 0;
+
+    animation:
+        nxPAFade .8s ease
+        .32s forwards;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.pa-hero-description {
+
+    max-width: 580px;
+
+    margin:
+        27px 0 0;
+
+    color:
+        rgba(247,244,237,.66);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+
+    opacity: 0;
+
+    animation:
+        nxPAFade .9s cubic-bezier(.22,1,.36,1)
+        .38s forwards;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.pa-hero-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 32px;
+
+    opacity: 0;
+
+    animation:
+        nxPAFade .9s cubic-bezier(.22,1,.36,1)
+        .48s forwards;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.pa-button {
+
+    min-height: 48px;
+
+    padding:
+        0 22px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    border: 1px solid transparent;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .15em;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+
+/* PRIMARY */
+
+.pa-button-primary {
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border-color: #ff1d0c;
+}
+
+
+.pa-button-primary:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* SECONDARY */
+
+.pa-button-outline {
+
+    background: transparent;
+
+    color: #f7f4ed;
+
+    border-color:
+        rgba(247,244,237,.35);
+}
+
+
+.pa-button-outline:hover {
+
+    background: #f7f4ed;
+
+    color: #111111;
+
+    border-color: #f7f4ed;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ARROW */
+
+.pa-button-arrow {
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.pa-button:hover
+.pa-button-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   HERO BOTTOM DETAIL
+========================================================= */
+
+.pa-hero-inner::after {
+
+    content:
+        "NEXURBAN · DUBAI · PROPERTY ADVISORY";
+
+    display: block;
+
+    margin-top: 52px;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxPAFade .8s ease
+        .58s forwards;
+}
+
+
+/* =========================================================
+   FADE
+========================================================= */
+
+@keyframes nxPAFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.pa-marquee {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #111111;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    white-space: nowrap;
+}
+
+
+.pa-marquee-track {
+
+    width: max-content;
+
+    display: flex;
+
+    align-items: center;
+
+    animation:
+        paMarquee 28s linear infinite;
+}
+
+
+.pa-marquee-track span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 34px;
+
+    padding:
+        23px 17px;
+
+    color:
+        rgba(247,244,237,.72);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.pa-marquee-track i {
+
+    width: 5px;
+
+    height: 5px;
+
+    flex-shrink: 0;
+
+    display: inline-block;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 10px rgba(255,29,12,.5);
+}
+
+
+@keyframes paMarquee {
+
+    from {
+        transform:
+            translateX(0);
+    }
+
+    to {
+        transform:
+            translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   APPROACH SECTION
+========================================================= */
+
+.pa-approach {
+
+    width: 100%;
+
+    background: #111111;
+
+    color: #f7f4ed;
+}
+
+
+.pa-site-shell {
+
+    width:
+        min(
+            calc(100% - 100px),
+            1400px
+        );
+
+    margin: 0 auto;
+}
+
+
+.pa-section-pad {
+
+    padding:
+        120px 0 130px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.pa-section-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.pa-section-eyebrow::before {
+
+    content: "";
+
+    width: 28px;
+
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   APPROACH QUOTE
+========================================================= */
+
+.pa-quote {
+
+    max-width: 1100px;
+
+    margin-top: 48px;
+}
+
+
+.pa-quote p {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(38px, 4.7vw, 67px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -.04em;
+}
+
+
+.pa-quote em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   SERVICE GRID
+========================================================= */
+
+.pa-service-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0,1fr));
+
+    margin-top: 75px;
+
+    border-top:
+        1px solid rgba(247,244,237,.14);
+
+    border-left:
+        1px solid rgba(247,244,237,.14);
+}
+
+
+/* =========================================================
+   SERVICE TILE
+========================================================= */
+
+.pa-service-tile {
+
+    min-height: 310px;
+
+    padding:
+        36px 30px;
+
+    border-right:
+        1px solid rgba(247,244,237,.14);
+
+    border-bottom:
+        1px solid rgba(247,244,237,.14);
+
+    transition:
+        background .4s ease;
+}
+
+
+.pa-service-tile:hover {
+
+    background:
+        rgba(247,244,237,.035);
+}
+
+
+.pa-service-number {
+
+    display: block;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+}
+
+
+.pa-service-title {
+
+    margin:
+        70px 0 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 26px;
+
+    font-weight: 400;
+
+    line-height: 1.08;
+
+    letter-spacing: -.025em;
+}
+
+
+.pa-service-description {
+
+    max-width: 300px;
+
+    margin:
+        20px 0 0;
+
+    color:
+        rgba(247,244,237,.53);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CTA BAND
+========================================================= */
+
+.pa-cta-band {
+
+    width: 100%;
+
+    min-height: 360px;
+
+    padding:
+        75px 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+
+    background: #f7f4ed;
+
+    color: #111111;
+
+    border-top:
+        1px solid rgba(17,17,17,.12);
+}
+
+
+.pa-cta-band-inner {
+
+    width:
+        min(
+            1400px,
+            100%
+        );
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.pa-cta-text {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(42px, 5vw, 70px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.045em;
+}
+
+
+/* =========================================================
+   CTA BUTTON
+========================================================= */
+
+.pa-cta-button {
+
+    min-height: 56px;
+
+    padding:
+        0 26px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+
+    color: #ffffff;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+.pa-cta-button:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-3px);
+}
+
+
+.pa-cta-arrow {
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.pa-cta-button:hover
+.pa-cta-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .pa-site-shell {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .pa-hero-inner {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .pa-hero {
+
+        min-height: 650px;
+    }
+
+
+    .pa-service-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+    }
+
+
+    .pa-cta-band-inner {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .pa-site-shell {
+
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .pa-hero-inner {
+
+        width:
+            calc(100% - 36px);
+
+        padding:
+            125px 0 65px;
+    }
+
+
+    .pa-hero {
+
+        min-height: 620px;
+
+        align-items: flex-end;
+
+        background-position:
+            60% center;
+    }
+
+
+    .pa-hero::after {
+
+        width: 100%;
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(255,29,12,.015),
+                rgba(255,29,12,.055)
+            );
+
+        border-left: 0;
+
+        border-top:
+            1px solid rgba(255,29,12,.06);
+    }
+
+
+    /* HERO EYEBROW */
+
+    .pa-hero-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+
+        gap: 8px;
+    }
+
+
+    .pa-hero-eyebrow::before {
+
+        width: 22px;
+    }
+
+
+    /* HERO TITLE */
+
+    .pa-hero-title {
+
+        font-size:
+            clamp(45px, 13vw, 64px);
+
+        line-height: .97;
+    }
+
+
+    /* DESCRIPTION */
+
+    .pa-hero-description {
+
+        max-width: 100%;
+
+        margin-top: 22px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    /* BUTTONS */
+
+    .pa-hero-buttons {
+
+        margin-top: 27px;
+
+        gap: 9px;
+    }
+
+
+    .pa-button {
+
+        min-height: 45px;
+
+        padding:
+            0 17px;
+
+        font-size: 8px;
+
+        letter-spacing: .12em;
+    }
+
+
+    /* HERO FOOTER */
+
+    .pa-hero-inner::after {
+
+        margin-top: 42px;
+
+        font-size: 7px;
+
+        letter-spacing: .16em;
+    }
+
+
+    /* MARQUEE */
+
+    .pa-marquee-track span {
+
+        padding:
+            19px 14px;
+
+        font-size: 8px;
+
+        gap: 25px;
+
+        letter-spacing: .16em;
+    }
+
+
+    /* APPROACH */
+
+    .pa-section-pad {
+
+        padding:
+            75px 0 80px;
+    }
+
+
+    .pa-section-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+    }
+
+
+    .pa-quote {
+
+        margin-top: 32px;
+    }
+
+
+    .pa-quote p {
+
+        font-size:
+            clamp(39px, 11.5vw, 58px);
+
+        line-height: .98;
+    }
+
+
+    /* SERVICE GRID */
+
+    .pa-service-grid {
+
+        grid-template-columns: 1fr;
+
+        margin-top: 48px;
+    }
+
+
+    .pa-service-tile {
+
+        min-height: 250px;
+
+        padding:
+            28px 24px;
+    }
+
+
+    .pa-service-title {
+
+        margin-top: 55px;
+
+        font-size: 26px;
+    }
+
+
+    .pa-service-description {
+
+        font-size: 11.5px;
+    }
+
+
+    /* CTA */
+
+    .pa-cta-band {
+
+        min-height: 350px;
+
+        padding:
+            65px 18px;
+    }
+
+
+    .pa-cta-band-inner {
+
+        width: 100%;
+
+        gap: 35px;
+    }
+
+
+    .pa-cta-text {
+
+        font-size:
+            clamp(42px, 12vw, 57px);
+    }
+
+
+    .pa-cta-button {
+
+        min-height: 52px;
+
+        padding:
+            0 21px;
+
+        font-size: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .pa-site-shell {
+
+        width:
+            calc(100% - 30px);
+    }
+
+
+    .pa-hero-inner {
+
+        width:
+            calc(100% - 30px);
+
+        padding-top: 112px;
+    }
+
+
+    .pa-hero-title {
+
+        font-size: 44px;
+    }
+
+
+    .pa-hero-description {
+
+        font-size: 12.5px;
+    }
+
+
+    .pa-button {
+
+        width: 100%;
+    }
+
+
+    .pa-service-title {
+
+        font-size: 25px;
+    }
+
+
+    .pa-cta-text {
+
+        font-size: 43px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .pa-hero,
+    .pa-hero-eyebrow,
+    .pa-hero-title,
+    .pa-hero-line,
+    .pa-hero-description,
+    .pa-hero-buttons,
+    .pa-hero-inner::after {
+
+        animation: none !important;
+
+        opacity: 1;
+
+        transform: none;
+    }
+
+
+    .pa-marquee-track {
+
+        animation: none !important;
+    }
+
+
+    .pa-button,
+    .pa-cta-button,
+    .pa-service-tile {
+
+        transition: none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="pa-page">
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="pa-hero">
+
+    <div class="pa-hero-inner">
+
+
+        <!-- EYEBROW -->
+
+        <p class="pa-hero-eyebrow">
+            PROPERTY ADVISORY
+        </p>
+
+
+        <!-- TITLE -->
+
+        <h1 class="pa-hero-title">
+
+            Go Beyond Listings<br>
+
+            <em>With Market Intelligence.</em>
+
+        </h1>
+
+
+        <!-- LINE -->
+
+        <div class="pa-hero-line"></div>
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="pa-hero-description">
+
+            Go beyond listings with market intelligence,
+            location analysis, investment assessment
+            and personalised property strategy.
+
+        </p>
+
+
+        <!-- BUTTONS -->
+
+        <div class="pa-hero-buttons">
+
+
+            <a
+                href="{% url 'contact' %}"
+                class="pa-button pa-button-primary"
+            >
+
+                START A CONVERSATION
+
+                <span class="pa-button-arrow">
+                    ↗
+                </span>
+
+            </a>
+
+
+            <a
+                href=""
+                class="pa-button pa-button-outline"
+            >
+
+                JOINT VENTURES
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MARQUEE
+====================================================== -->
+
+<div class="pa-marquee">
+
+    <div class="pa-marquee-track">
+
+
+        <span>
+
+            <i></i>
+
+            MARKET INTELLIGENCE
+
+            <i></i>
+
+            LOCATION ANALYSIS
+
+            <i></i>
+
+            INVESTMENT ASSESSMENT
+
+            <i></i>
+
+            PERSONALISED PROPERTY STRATEGY
+
+        </span>
+
+
+        <span>
+
+            <i></i>
+
+            MARKET INTELLIGENCE
+
+            <i></i>
+
+            LOCATION ANALYSIS
+
+            <i></i>
+
+            INVESTMENT ASSESSMENT
+
+            <i></i>
+
+            PERSONALISED PROPERTY STRATEGY
+
+        </span>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PA APPROACH
+====================================================== -->
+
+<section class="pa-approach">
+
+    <div class="pa-site-shell pa-section-pad">
+
+
+        <!-- EYEBROW -->
+
+        <p class="pa-section-eyebrow">
+
+            THE ADVISORY APPROACH
+
+        </p>
+
+
+        <!-- QUOTE -->
+
+        <div class="pa-quote">
+
+            <p>
+
+                Go beyond listings with
+
+                <em>
+                    market intelligence
+                </em>,
+
+                location analysis, investment
+                assessment and personalised
+                property strategy.
+
+            </p>
+
+        </div>
+
+
+        <!-- SERVICE GRID -->
+
+        <div class="pa-service-grid">
+
+
+            <!-- 01 -->
+
+            <div class="pa-service-tile">
+
+                <span class="pa-service-number">
+                    01
+                </span>
+
+
+                <h3 class="pa-service-title">
+                    MARKET<br>
+                    INTELLIGENCE
+                </h3>
+
+
+                <p class="pa-service-description">
+
+                    Data-led reads on pricing, absorption
+                    and demand across Dubai's key
+                    submarkets, so every decision is
+                    grounded in evidence.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 02 -->
+
+            <div class="pa-service-tile">
+
+                <span class="pa-service-number">
+                    02
+                </span>
+
+
+                <h3 class="pa-service-title">
+                    LOCATION<br>
+                    ANALYSIS
+                </h3>
+
+
+                <p class="pa-service-description">
+
+                    Granular assessment of infrastructure,
+                    connectivity and growth corridors to
+                    identify where value is heading next.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 03 -->
+
+            <div class="pa-service-tile">
+
+                <span class="pa-service-number">
+                    03
+                </span>
+
+
+                <h3 class="pa-service-title">
+                    INVESTMENT<br>
+                    ASSESSMENT
+                </h3>
+
+
+                <p class="pa-service-description">
+
+                    Rigorous evaluation of yield, exit
+                    timelines and risk, tailored to your
+                    capital and appetite for return.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 04 -->
+
+            <div class="pa-service-tile">
+
+                <span class="pa-service-number">
+                    04
+                </span>
+
+
+                <h3 class="pa-service-title">
+                    PERSONALISED<br>
+                    STRATEGY
+                </h3>
+
+
+                <p class="pa-service-description">
+
+                    A property plan shaped around your
+                    goals, timeline and portfolio, not a
+                    generic listing recommendation.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+====================================================== -->
+
+<section class="pa-cta-band">
+
+    <div class="pa-cta-band-inner">
+
+
+        <p class="pa-cta-text">
+
+            Your next opportunity may start<br>
+            with the right advice.
+
+        </p>
+
+
+        <a
+            href="{% url 'contact' %}"
+            class="pa-cta-button"
+        >
+
+            SPEAK TO AN EXPERT
+
+            <span class="pa-cta-arrow">
+                ↗
+            </span>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}

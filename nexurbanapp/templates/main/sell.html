@@ -1,0 +1,3197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — SELL HERO
+========================================================= */
+
+.nx-sell-hero {
+    position: relative;
+    width: 100%;
+    min-height: 760px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.nx-sell-hero-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    z-index: 0;
+
+    transform: scale(1.04);
+
+    animation: nxSellHeroZoom 12s ease-out forwards;
+}
+
+
+@keyframes nxSellHeroZoom {
+
+    from {
+        transform: scale(1.08);
+    }
+
+    to {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   HERO SHADE
+========================================================= */
+
+.nx-sell-hero-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgb(0 0 0) 0%, rgb(8 8 8) 32%, rgba(8, 8, 8, .53) 62%, rgba(8, 8, 8, .42) 100%);
+}
+
+
+/* Bottom fade */
+
+.nx-sell-hero-shade::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 32%;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.75),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   RED ACCENT PANEL
+========================================================= */
+
+.nx-sell-panel {
+    position: absolute;
+
+    right: 0;
+    top: -10%;
+
+    width: 27%;
+    height: 120%;
+
+    z-index: 2;
+
+    background: rgba(255,29,12,.045);
+
+    border-left: 1px solid rgba(255,29,12,.14);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LARGE SELL WORD
+========================================================= */
+
+.nx-sell-word {
+    position: absolute;
+
+    right: 7%;
+    top: 50%;
+
+    z-index: 2;
+
+    margin: 0;
+
+    transform: translateY(-50%) rotate(90deg);
+
+    color: rgba(247, 244, 237, 0.088);
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(110px, 15vw, 230px);
+
+    font-weight: 400;
+
+    line-height: .8;
+
+    letter-spacing: -.07em;
+
+    user-select: none;
+}
+
+
+.nx-sell-word b {
+   color: rgba(247, 244, 237, 0.088);
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO CONTAINER
+========================================================= */
+
+.nx-sell-shell {
+    position: relative;
+
+    z-index: 5;
+
+    width: min(1480px, calc(100% - 160px));
+
+    margin: 0 auto;
+
+    padding: 145px 0 100px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.nx-sell-content {
+    max-width: 850px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-sell-eyebrow {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* Red line */
+
+.nx-sell-eyebrow::before {
+    content: "";
+
+    width: 31px;
+    height: 1px;
+
+    flex: 0 0 auto;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   LIVE DOT
+========================================================= */
+
+.nx-sell-live {
+    position: relative;
+
+    width: 6px;
+    height: 6px;
+
+    margin-right: 2px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 0 4px rgba(255,29,12,.10),
+        0 0 15px rgba(255,29,12,.55);
+}
+
+
+/* =========================================================
+   HERO HEADING
+========================================================= */
+
+.nx-sell-title {
+    margin: 22px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(48px, 6vw, 88px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.035em;
+}
+
+
+/* Each heading line */
+
+.nx-sell-title span {
+    display: block;
+}
+
+
+/* =========================================================
+   ITALIC HEADING
+========================================================= */
+
+.nx-sell-title em {
+    display: block;
+
+    color: #e8dfd1;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-sell-description {
+    max-width: 580px;
+
+    margin: 12px 0 0;
+
+    color: rgba(247,244,237,.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   HERO ACTIONS
+========================================================= */
+
+.nx-sell-actions {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+
+/* =========================================================
+   BUTTON BASE
+========================================================= */
+
+.nx-sell-button {
+    min-height: 47px;
+
+    padding: 0 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.4px;
+
+    white-space: nowrap;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease,
+        border-color .3s ease;
+}
+
+
+/* =========================================================
+   PRIMARY
+========================================================= */
+
+.nx-sell-button-primary {
+    background: #ff1d0c;
+}
+
+
+.nx-sell-button-primary:hover {
+    background: #ffffff;
+
+    color: #111111;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   SECONDARY
+========================================================= */
+
+.nx-sell-button-secondary {
+    background: rgba(17,17,17,.18);
+
+    border-color: rgba(247,244,237,.55);
+
+    color: #f7f4ed;
+}
+
+
+.nx-sell-button-secondary:hover {
+    background: #ff1d0c;
+
+    border-color: #ff1d0c;
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   BUTTON ARROW
+========================================================= */
+
+.nx-sell-button-arrow {
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition: transform .3s ease;
+}
+
+
+.nx-sell-button:hover .nx-sell-button-arrow {
+    transform: translateX(4px);
+}
+
+
+/* =========================================================
+   HERO BOTTOM LINE
+========================================================= */
+
+.nx-sell-line {
+    width: 100%;
+
+    max-width: 780px;
+
+    height: 1px;
+
+    margin-top: 55px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,29,12,.65),
+            rgba(247,244,237,.18),
+            transparent
+        );
+}
+
+
+/* =========================================================
+   SMALL INFORMATION
+========================================================= */
+
+.nx-sell-meta {
+    display: flex;
+
+    align-items: center;
+
+    gap: 35px;
+
+    margin-top: 24px;
+}
+
+
+.nx-sell-meta-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: rgba(247,244,237,.48);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: .14em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-sell-meta-item strong {
+    color: #f7f4ed;
+
+    font-weight: 600;
+}
+
+
+.nx-sell-meta-dot {
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   SIDE NUMBER
+========================================================= */
+
+.nx-sell-side-number {
+    position: absolute;
+
+    right: 40px;
+    bottom: 42px;
+
+    z-index: 5;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: rgba(247,244,237,.42);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-sell-side-number::before {
+    content: "";
+
+    width: 28px;
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   FADE UP ANIMATION
+========================================================= */
+
+.nx-sell-fade {
+    opacity: 0;
+
+    transform: translateY(28px);
+
+    animation:
+        nxSellFadeUp .9s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+}
+
+
+.nx-sell-delay-1 {
+    animation-delay: .12s;
+}
+
+
+.nx-sell-delay-2 {
+    animation-delay: .22s;
+}
+
+
+.nx-sell-delay-3 {
+    animation-delay: .34s;
+}
+
+
+.nx-sell-delay-4 {
+    animation-delay: .46s;
+}
+
+
+@keyframes nxSellFadeUp {
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-sell-shell {
+        width: min(100% - 110px, 1480px);
+
+        padding-top: 125px;
+    }
+
+
+    .nx-sell-content {
+        max-width: 760px;
+    }
+
+
+    .nx-sell-panel {
+        width: 30%;
+    }
+
+
+    .nx-sell-title {
+        font-size: clamp(48px, 7vw, 76px);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-sell-hero {
+        min-height: 100svh;
+
+        align-items: center;
+    }
+
+
+    .nx-sell-hero-image {
+        object-position: 58% center;
+    }
+
+
+    .nx-sell-hero-shade {
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(8,8,8,.67) 0%,
+                rgba(8,8,8,.78) 45%,
+                rgba(8,8,8,.96) 100%
+            );
+    }
+
+
+    .nx-sell-panel {
+        width: 100%;
+
+        height: 45%;
+
+        top: auto;
+        bottom: 0;
+
+        border-left: 0;
+
+        border-top: 1px solid rgba(255,29,12,.10);
+
+        background: rgba(255,29,12,.035);
+    }
+
+
+    .nx-sell-word {
+        right: -5%;
+
+        top: 23%;
+
+        font-size: 105px;
+
+        opacity: .75;
+    }
+
+
+    .nx-sell-shell {
+        width: calc(100% - 42px);
+
+        padding: 115px 0 100px;
+    }
+
+
+    .nx-sell-content {
+        max-width: 100%;
+    }
+
+
+    .nx-sell-eyebrow {
+        gap: 9px;
+
+        font-size: 9px;
+
+        letter-spacing: .16em;
+    }
+
+
+    .nx-sell-eyebrow::before {
+        width: 23px;
+    }
+
+
+    .nx-sell-title {
+        margin-top: 20px;
+
+        font-size: clamp(47px, 13vw, 65px);
+
+        line-height: .96;
+
+        letter-spacing: -.04em;
+    }
+
+
+    .nx-sell-title em {
+        margin-top: 7px;
+    }
+
+
+    .nx-sell-description {
+        max-width: 100%;
+
+        margin-top: 22px;
+
+        font-size: 13.5px;
+
+        line-height: 1.75;
+    }
+
+
+    .nx-sell-actions {
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        margin-top: 28px;
+
+        gap: 9px;
+    }
+
+
+    .nx-sell-button {
+        width: 100%;
+
+        min-height: 50px;
+    }
+
+
+    .nx-sell-line {
+        margin-top: 38px;
+    }
+
+
+    .nx-sell-meta {
+        flex-wrap: wrap;
+
+        gap: 15px 24px;
+
+        margin-top: 20px;
+    }
+
+
+    .nx-sell-meta-item {
+        font-size: 8px;
+    }
+
+
+    .nx-sell-side-number {
+        right: 21px;
+
+        bottom: 22px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-sell-shell {
+        width: calc(100% - 32px);
+
+        padding-top: 105px;
+    }
+
+
+    .nx-sell-title {
+        font-size: 45px;
+    }
+
+
+    .nx-sell-description {
+        font-size: 13px;
+    }
+
+
+    .nx-sell-word {
+        font-size: 85px;
+    }
+
+
+    .nx-sell-side-number {
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-sell-hero-image,
+    .nx-sell-fade {
+        animation: none !important;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     NEXURBAN SELL HERO
+========================================================= -->
+
+<section class="nx-sell-hero">
+
+
+    <!-- HERO IMAGE -->
+
+    <img
+        src="{% static 'img/sellheroimg.jpg' %}"
+        alt="Dubai skyline at dusk"
+        width="1920"
+        height="1080"
+        class="nx-sell-hero-image"
+    >
+
+
+    <!-- DARK SHADE -->
+
+    <div class="nx-sell-hero-shade"></div>
+
+
+    <!-- RED ACCENT PANEL -->
+
+    <div class="nx-sell-panel"></div>
+
+
+    <!-- LARGE BACKGROUND WORD -->
+
+    
+
+
+    <!-- HERO CONTENT -->
+
+    <div class="nx-sell-shell">
+
+        <div class="nx-sell-content">
+
+
+            <!-- EYEBROW -->
+
+            <p class="nx-sell-eyebrow nx-sell-fade nx-sell-delay-1">
+
+                <span class="nx-sell-live"></span>
+
+                SELL WITH NEXURBAN
+
+            </p>
+
+
+            <!-- HEADING -->
+
+            <h1 class="nx-sell-title">
+
+                <span class="nx-sell-fade nx-sell-delay-2">
+                    Position.Reach.
+                </span>
+
+         
+
+                <em class="nx-sell-fade nx-sell-delay-3">
+                    Maximise.
+                </em>
+
+            </h1>
+
+
+            <!-- DESCRIPTION -->
+
+            <p class="nx-sell-description nx-sell-fade nx-sell-delay-3">
+
+                Position your property strategically, reach qualified
+                buyers and maximise your selling opportunity with
+                a smarter, more considered approach.
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="nx-sell-actions nx-sell-fade nx-sell-delay-4">
+
+
+                <a
+                    href="/contact"
+                    class="nx-sell-button nx-sell-button-primary"
+                >
+
+                    REQUEST A VALUATION
+
+                    <span class="nx-sell-button-arrow">
+                        ↗
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="#process"
+                    class="nx-sell-button nx-sell-button-secondary"
+                >
+
+                    THE PROCESS
+
+                    <span class="nx-sell-button-arrow">
+                        ↓
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+            <!-- LINE -->
+
+            <div class="nx-sell-line"></div>
+
+
+            <!-- SMALL META -->
+
+            <div class="nx-sell-meta">
+
+                <div class="nx-sell-meta-item">
+
+                    <span class="nx-sell-meta-dot"></span>
+
+                    <strong>STRATEGIC</strong>
+
+                    POSITIONING
+
+                </div>
+
+
+                <div class="nx-sell-meta-item">
+
+                    <span class="nx-sell-meta-dot"></span>
+
+                    QUALIFIED
+
+                    <strong>REACH</strong>
+
+                </div>
+
+
+                <div class="nx-sell-meta-item">
+
+                    <span class="nx-sell-meta-dot"></span>
+
+                    MAXIMUM
+
+                    <strong>VALUE</strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- SIDE LABEL -->
+
+    <div class="nx-sell-side-number">
+
+        DUBAI
+
+        <span>SELL 01</span>
+
+    </div>
+
+
+</section>
+
+<!-- =========================================================
+     NEXURBAN — SELL MARQUEE
+========================================================= -->
+
+<style>
+
+/* =========================================================
+   MARQUEE WRAPPER
+========================================================= */
+
+.nx-sell-marquee {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #080808;
+
+    border-top: 1px solid rgba(247,244,237,.10);
+    border-bottom: 1px solid rgba(247,244,237,.10);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MARQUEE TRACK
+========================================================= */
+
+.nx-sell-marquee-track {
+    display: flex;
+
+    width: max-content;
+
+    animation:
+        nxSellMarquee 28s linear infinite;
+
+    will-change: transform;
+}
+
+
+/* =========================================================
+   MARQUEE GROUP
+========================================================= */
+
+.nx-sell-marquee-group {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================================================
+   MARQUEE ITEM
+========================================================= */
+
+.nx-sell-marquee-item {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 38px;
+
+    padding: 17px 38px;
+
+    color: rgba(247,244,237,.72);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .18em;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   RED DOT / DIAMOND
+========================================================= */
+
+.nx-sell-marquee-item i {
+    display: block;
+
+    width: 5px;
+    height: 5px;
+
+    flex: 0 0 auto;
+
+    background: #ff1d0c;
+
+    transform: rotate(45deg);
+
+    box-shadow:
+        0 0 10px rgba(255,29,12,.35);
+}
+
+
+/* =========================================================
+   HIGHLIGHT LAST ITEM
+========================================================= */
+
+.nx-sell-marquee-item:last-child {
+    color: #f7f4ed;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes nxSellMarquee {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.nx-sell-marquee:hover .nx-sell-marquee-track {
+    animation-play-state: paused;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-sell-marquee-item {
+        gap: 25px;
+
+        padding: 15px 25px;
+
+        font-size: 8px;
+
+        letter-spacing: .15em;
+    }
+
+
+    .nx-sell-marquee-item i {
+        width: 4px;
+        height: 4px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-sell-marquee-track {
+        animation: none;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     SELL MARQUEE
+========================================================= -->
+
+<div
+    class="nx-sell-marquee"
+    aria-hidden="true"
+>
+
+    <div class="nx-sell-marquee-track">
+
+
+        <!-- GROUP 01 -->
+
+        <div class="nx-sell-marquee-group">
+
+            <span class="nx-sell-marquee-item">
+                STRATEGIC VALUATION
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                CONSIDERED PRESENTATION
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                QUALIFIED REACH
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                CONFIDENT NEGOTIATION
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                MAXIMISED OUTCOME
+                <i></i>
+            </span>
+
+        </div>
+
+
+        <!-- GROUP 02
+             Duplicate required for seamless loop -->
+
+        <div class="nx-sell-marquee-group">
+
+            <span class="nx-sell-marquee-item">
+                STRATEGIC VALUATION
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                CONSIDERED PRESENTATION
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                QUALIFIED REACH
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                CONFIDENT NEGOTIATION
+                <i></i>
+            </span>
+
+            <span class="nx-sell-marquee-item">
+                MAXIMISED OUTCOME
+                <i></i>
+            </span>
+
+        </div>
+
+
+    </div>
+
+</div>
+<!-- =========================================================
+     THE NEXURBAN SALE / PROCESS
+========================================================= -->
+
+<section class="nx-sell-process" id="process">
+
+    <div class="nx-sell-process-shell">
+
+        <!-- TOP CONTENT -->
+        <div class="nx-sell-process-intro">
+
+            <!-- LEFT -->
+            <div class="nx-sell-process-heading">
+
+                <p class="nx-sell-process-eyebrow">
+                    THE NEXURBAN SALE
+                </p>
+
+                <h2 class="nx-sell-process-title">
+                    Your property deserves
+                    <br>
+                    the right <em>position.</em>
+                </h2>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <p class="nx-sell-process-description">
+                Selling well is not about exposure alone. It is about
+                intelligent pricing, exceptional presentation and targeted
+                access to the right buyers — managed end to end by one
+                accountable advisor.
+            </p>
+
+        </div>
+
+
+        <!-- PROCESS STEPS -->
+        <div class="nx-sell-process-grid">
+
+
+            <!-- STEP 01 -->
+            <div class="nx-sell-step">
+
+                <span class="nx-sell-step-number">
+                    01
+                </span>
+
+                <div class="nx-sell-step-content">
+
+                    <h3>
+                        STRATEGIC VALUATION
+                    </h3>
+
+                    <p>
+                        A market-informed view of your property's true
+                        position — priced to attract serious buyers,
+                        not to sit on portals.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 02 -->
+            <div class="nx-sell-step">
+
+                <span class="nx-sell-step-number">
+                    02
+                </span>
+
+                <div class="nx-sell-step-content">
+
+                    <h3>
+                        CONSIDERED PRESENTATION
+                    </h3>
+
+                    <p>
+                        Editorial photography, staging guidance and
+                        marketing designed to communicate distinction,
+                        not just dimensions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 03 -->
+            <div class="nx-sell-step">
+
+                <span class="nx-sell-step-number">
+                    03
+                </span>
+
+                <div class="nx-sell-step-content">
+
+                    <h3>
+                        QUALIFIED REACH
+                    </h3>
+
+                    <p>
+                        Focused exposure to serious local and global
+                        buyers through our private network — not
+                        indiscriminate advertising.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 04 -->
+            <div class="nx-sell-step">
+
+                <span class="nx-sell-step-number">
+                    04
+                </span>
+
+                <div class="nx-sell-step-content">
+
+                    <h3>
+                        CONFIDENT NEGOTIATION
+                    </h3>
+
+                    <p>
+                        Experienced representation through every offer,
+                        condition and detail — through to a clean
+                        completion.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — SELL PROCESS
+========================================================= */
+
+.nx-sell-process {
+    width: 100%;
+    padding: 125px 0 135px;
+
+    background: #f7f4ed;
+    color: #111;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SHELL
+========================================================= */
+
+.nx-sell-process-shell {
+    width: min(1400px, calc(100% - 100px));
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.nx-sell-process-intro {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(320px, 460px);
+
+    gap: 90px;
+
+    align-items: end;
+
+    margin-bottom: 75px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-sell-process-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-sell-process-title {
+    margin: 22px 0 0;
+
+    color: #111;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(48px, 6vw, 88px);
+
+    font-weight: 400;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.035em;
+}
+
+
+/* =========================================================
+   TITLE ITALIC
+========================================================= */
+
+.nx-sell-process-title em {
+    color: #8d8173;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-sell-process-description {
+    max-width: 580px;
+
+    margin: 12px 0 0;
+
+    color: rgba(17, 17, 17, 0.60);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   PROCESS GRID
+========================================================= */
+
+.nx-sell-process-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    column-gap: 70px;
+
+    row-gap: 0;
+
+    border-top: 1px solid rgba(17,17,17,.16);
+}
+
+
+/* =========================================================
+   STEP
+========================================================= */
+
+.nx-sell-step {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 60px 1fr;
+
+    gap: 25px;
+
+    min-height: 230px;
+
+    padding: 35px 0 38px;
+
+    border-bottom: 1px solid rgba(17,17,17,.16);
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.nx-sell-step-number {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: flex-start;
+
+    padding-top: 4px;
+
+    color: #ff1d0c;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: .12em;
+}
+
+
+/* =========================================================
+   STEP TITLE
+========================================================= */
+
+.nx-sell-step-content h3 {
+    margin: 0;
+
+    color: #111;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: .13em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   STEP DESCRIPTION
+========================================================= */
+
+.nx-sell-step-content p {
+    max-width: 470px;
+
+    margin: 18px 0 0;
+
+    color: rgba(17,17,17,.58);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   STEP HOVER
+========================================================= */
+
+.nx-sell-step {
+    transition:
+        background .35s ease,
+        padding-left .35s ease;
+}
+
+.nx-sell-step:hover {
+    padding-left: 10px;
+}
+
+.nx-sell-step:hover .nx-sell-step-number {
+    color: #111;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-sell-process-shell {
+        width: min(100% - 70px, 1400px);
+    }
+
+    .nx-sell-process-intro {
+        grid-template-columns: 1fr 360px;
+
+        gap: 55px;
+    }
+
+    .nx-sell-process-title {
+        font-size: clamp(48px, 6.5vw, 76px);
+    }
+
+    .nx-sell-process-grid {
+        column-gap: 45px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .nx-sell-process {
+        padding: 95px 0 105px;
+    }
+
+    .nx-sell-process-shell {
+        width: calc(100% - 48px);
+    }
+
+    .nx-sell-process-intro {
+        display: block;
+
+        margin-bottom: 55px;
+    }
+
+    .nx-sell-process-description {
+        max-width: 600px;
+
+        margin-top: 30px;
+    }
+
+    .nx-sell-process-grid {
+        grid-template-columns: 1fr;
+
+        column-gap: 0;
+    }
+
+    .nx-sell-step {
+        min-height: auto;
+
+        padding: 30px 0 32px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .nx-sell-process {
+        padding: 80px 0 90px;
+    }
+
+    .nx-sell-process-shell {
+        width: calc(100% - 40px);
+    }
+
+    .nx-sell-process-eyebrow {
+        font-size: 10px;
+
+        letter-spacing: .17em;
+    }
+
+    .nx-sell-process-title {
+        margin-top: 18px;
+
+        font-size: clamp(43px, 12vw, 60px);
+
+        line-height: .98;
+    }
+
+    .nx-sell-process-description {
+        margin-top: 25px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+    .nx-sell-process-intro {
+        margin-bottom: 45px;
+    }
+
+    .nx-sell-step {
+        grid-template-columns: 42px 1fr;
+
+        gap: 15px;
+
+        padding: 27px 0 30px;
+    }
+
+    .nx-sell-step-number {
+        font-size: 10px;
+    }
+
+    .nx-sell-step-content h3 {
+        font-size: 11px;
+
+        letter-spacing: .10em;
+    }
+
+    .nx-sell-step-content p {
+        margin-top: 13px;
+
+        font-size: 12.5px;
+
+        line-height: 1.75;
+    }
+
+    .nx-sell-step:hover {
+        padding-left: 0;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .nx-sell-process-shell {
+        width: calc(100% - 32px);
+    }
+
+    .nx-sell-process-title {
+        font-size: 40px;
+    }
+
+}
+
+</style>
+<!-- =========================================================
+     WHAT YOUR SALE INCLUDES
+========================================================= -->
+
+<section class="nx-sale-includes">
+
+    <!-- IMAGE -->
+    <div class="nx-sale-includes-image">
+
+        <img
+            src="{% static 'img/sell-left.jpg' %}"
+            alt="Luxury Dubai villa presented for sale"
+            loading="lazy"
+        >
+
+        <div class="nx-sale-image-overlay"></div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+    <div class="nx-sale-includes-content">
+
+        <p class="nx-sale-includes-eyebrow">
+            WHAT YOUR SALE INCLUDES
+        </p>
+
+
+        <h2 class="nx-sale-includes-title">
+            Every detail,
+            <br>
+            <em>handled.</em>
+        </h2>
+
+
+        <!-- FEATURES -->
+        <div class="nx-sale-includes-list">
+
+
+            <!-- ITEM 01 -->
+            <div class="nx-sale-includes-item">
+
+                <div class="nx-sale-item-title">
+                    Valuation Report
+                </div>
+
+                <p>
+                    Data-led pricing with comparable evidence
+                </p>
+
+            </div>
+
+
+            <!-- ITEM 02 -->
+            <div class="nx-sale-includes-item">
+
+                <div class="nx-sale-item-title">
+                    Editorial Marketing
+                </div>
+
+                <p>
+                    Photography, film and copy that sell the lifestyle
+                </p>
+
+            </div>
+
+
+            <!-- ITEM 03 -->
+            <div class="nx-sale-includes-item">
+
+                <div class="nx-sale-item-title">
+                    Private Network
+                </div>
+
+                <p>
+                    Direct access to qualified local and global buyers
+                </p>
+
+            </div>
+
+
+            <!-- ITEM 04 -->
+            <div class="nx-sale-includes-item">
+
+                <div class="nx-sale-item-title">
+                    Single Advisor
+                </div>
+
+                <p>
+                    One accountable expert from listing to transfer
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BUTTON -->
+        <a
+            href="/contact"
+            class="nx-sale-includes-button"
+        >
+            START YOUR SALE
+
+            <span>
+                ↗
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — SALE INCLUDES
+========================================================= */
+
+.nx-sale-includes {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    width: 100%;
+
+    min-height: 720px;
+
+    background: #111;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.nx-sale-includes-image {
+    position: relative;
+
+    min-height: 720px;
+
+    overflow: hidden;
+
+    background: #151515;
+}
+
+
+.nx-sale-includes-image img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    transition:
+        transform 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+
+.nx-sale-includes:hover
+.nx-sale-includes-image img {
+    transform: scale(1.025);
+}
+
+
+/* =========================================================
+   IMAGE OVERLAY
+========================================================= */
+
+.nx-sale-image-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.04) 0%,
+            rgba(0,0,0,.12) 100%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-sale-includes-content {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 90px clamp(45px, 6vw, 100px);
+
+    background: #111;
+
+    color: #f7f4ed;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-sale-includes-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-sale-includes-title {
+    margin: 22px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(48px, 5.2vw, 76px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.035em;
+}
+
+
+/* =========================================================
+   TITLE ITALIC
+========================================================= */
+
+.nx-sale-includes-title em {
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   FEATURE LIST
+========================================================= */
+
+.nx-sale-includes-list {
+    width: 100%;
+
+    margin-top: 45px;
+}
+
+
+/* =========================================================
+   FEATURE ITEM
+========================================================= */
+
+.nx-sale-includes-item {
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding: 19px 0;
+
+    border-top: 1px solid rgba(247,244,237,.15);
+
+    transition:
+        padding-left .35s ease,
+        border-color .35s ease;
+}
+
+
+.nx-sale-includes-item:last-child {
+    border-bottom: 1px solid rgba(247,244,237,.15);
+}
+
+
+/* =========================================================
+   ITEM TITLE
+========================================================= */
+
+.nx-sale-item-title {
+    flex-shrink: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 21px;
+
+    font-weight: 400;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   ITEM DESCRIPTION
+========================================================= */
+
+.nx-sale-includes-item p {
+    max-width: 260px;
+
+    margin: 0;
+
+    color: rgba(247,244,237,.53);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   ITEM HOVER
+========================================================= */
+
+.nx-sale-includes-item:hover {
+    padding-left: 8px;
+
+    border-color: rgba(255,29,12,.45);
+}
+
+.nx-sale-includes-item:hover
+.nx-sale-item-title {
+    color: #fff;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.nx-sale-includes-button {
+    min-height: 47px;
+
+    padding: 0 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    align-self: flex-start;
+
+    gap: 35px;
+
+    margin-top: 40px;
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.4px;
+
+    white-space: nowrap;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+.nx-sale-includes-button span {
+    font-size: 18px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.nx-sale-includes-button:hover {
+    background: #ffffff;
+
+    color: #111;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
+}
+
+
+.nx-sale-includes-button:hover span {
+    transform: translate(3px, -3px);
+}
+
+
+/* =========================================================
+   LARGE TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-sale-includes {
+        min-height: 650px;
+    }
+
+    .nx-sale-includes-image {
+        min-height: 650px;
+    }
+
+    .nx-sale-includes-content {
+        padding: 70px 50px;
+    }
+
+    .nx-sale-includes-title {
+        font-size: clamp(45px, 5.5vw, 65px);
+    }
+
+    .nx-sale-item-title {
+        font-size: 19px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .nx-sale-includes {
+        grid-template-columns: 1fr;
+
+        min-height: auto;
+    }
+
+    .nx-sale-includes-image {
+        min-height: 520px;
+
+        position: relative;
+    }
+
+    .nx-sale-includes-content {
+        padding: 75px 55px 85px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .nx-sale-includes-image {
+        min-height: 390px;
+    }
+
+    .nx-sale-includes-content {
+        padding: 65px 24px 70px;
+    }
+
+    .nx-sale-includes-eyebrow {
+        font-size: 10px;
+
+        letter-spacing: .17em;
+    }
+
+    .nx-sale-includes-title {
+        margin-top: 18px;
+
+        font-size: clamp(43px, 12vw, 60px);
+
+        line-height: .98;
+    }
+
+    .nx-sale-includes-list {
+        margin-top: 35px;
+    }
+
+    .nx-sale-includes-item {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+        padding: 20px 0;
+    }
+
+    .nx-sale-item-title {
+        font-size: 20px;
+    }
+
+    .nx-sale-includes-item p {
+        max-width: 100%;
+
+        text-align: left;
+
+        font-size: 12px;
+    }
+
+    .nx-sale-includes-button {
+        width: 100%;
+
+        margin-top: 32px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .nx-sale-includes-image {
+        min-height: 340px;
+    }
+
+    .nx-sale-includes-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .nx-sale-includes-title {
+        font-size: 40px;
+    }
+
+    .nx-sale-item-title {
+        font-size: 19px;
+    }
+
+}
+
+</style>
+
+<!-- =========================================================
+     CONFIDENTIAL VALUATION
+========================================================= -->
+
+<section class="nx-valuation-section">
+
+    <div class="nx-valuation-shell">
+
+        <!-- LEFT CONTENT -->
+        <div class="nx-valuation-content">
+
+            <p class="nx-valuation-eyebrow">
+                CONFIDENTIAL VALUATION
+            </p>
+
+            <h2 class="nx-valuation-title">
+                Find out what your
+                <br>
+                property is really
+                <em>worth.</em>
+            </h2>
+
+            <p class="nx-valuation-description">
+                A focused conversation with an advisor is the beginning
+                of every Nexurban sale. No obligation — just a clear,
+                honest view of your position in today's market.
+            </p>
+
+            <p class="nx-valuation-contact">
+                055 902 5646
+                <span>·</span>
+                SALES@NEXURBANPROPERTIES.COM
+            </p>
+
+        </div>
+
+
+        <!-- RIGHT FORM -->
+        <div class="nx-valuation-form-wrap">
+
+            <div class="nx-valuation-form-heading">
+
+                <span>
+                    PRIVATE CONSULTATION
+                </span>
+
+                <i></i>
+
+            </div>
+
+
+            <form class="nx-valuation-form">
+
+                <!-- NAME -->
+                <div class="nx-form-field">
+
+                    <label for="valuation-name">
+                        YOUR NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="valuation-name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PHONE -->
+                <div class="nx-form-field">
+
+                    <label for="valuation-phone">
+                        PHONE NUMBER
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="valuation-phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="nx-form-field">
+
+                    <label for="valuation-email">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="valuation-email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PROPERTY -->
+                <div class="nx-form-field">
+
+                    <label for="valuation-property">
+                        PROPERTY TYPE
+                    </label>
+
+                    <select
+                        id="valuation-property"
+                        name="property_type"
+                    >
+
+                        <option value="">
+                            Select property type
+                        </option>
+
+                        <option value="apartment">
+                            Apartment
+                        </option>
+
+                        <option value="villa">
+                            Villa
+                        </option>
+
+                        <option value="townhouse">
+                            Townhouse
+                        </option>
+
+                        <option value="penthouse">
+                            Penthouse
+                        </option>
+
+                        <option value="commercial">
+                            Commercial
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+                <div class="nx-form-field">
+
+                    <label for="valuation-message">
+                        PROPERTY DETAILS
+                    </label>
+
+                    <textarea
+                        id="valuation-message"
+                        name="message"
+                        rows="3"
+                        placeholder="Tell us about your property"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    class="nx-valuation-submit"
+                >
+
+                    REQUEST A VALUATION
+
+                    <span>↗</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — CONFIDENTIAL VALUATION
+========================================================= */
+
+.nx-valuation-section {
+    position: relative;
+
+    width: 100%;
+
+    padding: 125px 0 130px;
+
+    background: #111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SUBTLE BACKGROUND DETAIL
+========================================================= */
+
+.nx-valuation-section::before {
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+    height: 600px;
+
+    right: -300px;
+    top: -260px;
+
+    border: 1px solid rgba(255,29,12,.10);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 80px rgba(255,255,255,.012),
+        0 0 0 160px rgba(255,255,255,.008);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SHELL
+========================================================= */
+
+.nx-valuation-shell {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1400px, calc(100% - 100px));
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(380px, 500px);
+
+    gap: 110px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.nx-valuation-content {
+    max-width: 800px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-valuation-eyebrow {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-valuation-title {
+    margin: 22px 0 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(48px, 5.6vw, 82px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.035em;
+}
+
+
+/* =========================================================
+   TITLE ITALIC
+========================================================= */
+
+.nx-valuation-title em {
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    margin-left: 8px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-valuation-description {
+    max-width: 580px;
+
+    margin: 28px 0 0;
+
+    color: rgba(247,244,237,.68);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.nx-valuation-contact {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 38px 0 0;
+
+    color: rgba(247,244,237,.42);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: .15em;
+
+    line-height: 1.6;
+}
+
+
+.nx-valuation-contact span {
+    color: #ff1d0c;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FORM WRAPPER
+========================================================= */
+
+.nx-valuation-form-wrap {
+    position: relative;
+
+    padding: 38px;
+
+    background: #fff;
+
+    color: #111;
+
+    border: 1px solid rgba(247,244,237,.18);
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.22);
+}
+
+
+/* =========================================================
+   FORM TOP LABEL
+========================================================= */
+
+.nx-valuation-form-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+    color: rgba(17,17,17,.48);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-valuation-form-heading i {
+    display: block;
+
+    width: 35px;
+
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.nx-valuation-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0;
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.nx-form-field {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    padding: 0 0 20px;
+}
+
+
+.nx-form-field label {
+    color: rgba(17, 17, 17, 0.493);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .15em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.nx-form-field input,
+.nx-form-field select,
+.nx-form-field textarea {
+
+    width: 100%;
+
+    padding: 12px 0;
+
+    border: 0;
+
+    border-bottom: 1px solid rgba(17,17,17,.18);
+
+    outline: none;
+
+    background: transparent;
+
+    color: #111;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    border-radius: 0;
+
+    transition:
+        border-color .3s ease;
+}
+
+
+.nx-form-field input::placeholder,
+.nx-form-field textarea::placeholder {
+    color: rgba(17,17,17,.35);
+}
+
+
+.nx-form-field input:focus,
+.nx-form-field select:focus,
+.nx-form-field textarea:focus {
+    border-color: #ff1d0c;
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.nx-form-field select {
+    cursor: pointer;
+    color: rgba(17, 17, 17, 0.452);
+    appearance: none;
+
+    background:
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #111 50%
+        ) calc(100% - 7px) 50% / 5px 5px no-repeat,
+
+        linear-gradient(
+            135deg,
+            #111 50%,
+            transparent 50%
+        ) calc(100% - 3px) 50% / 5px 5px no-repeat;
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+.nx-form-field textarea {
+    resize: vertical;
+
+    min-height: 65px;
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.nx-valuation-submit {
+
+    min-height: 47px;
+
+    padding: 0 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-top: 5px;
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.4px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.nx-valuation-submit span {
+    font-size: 18px;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.nx-valuation-submit:hover {
+    background: #111;
+
+    color: #fff;
+
+    border-color: #111;
+
+    transform: translateY(-2px);
+}
+
+
+.nx-valuation-submit:hover span {
+    transform: translate(4px, -3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-valuation-shell {
+        width: min(100% - 70px, 1400px);
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(330px, 430px);
+
+        gap: 60px;
+    }
+
+    .nx-valuation-title {
+        font-size: clamp(45px, 6vw, 72px);
+    }
+
+    .nx-valuation-form-wrap {
+        padding: 32px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .nx-valuation-section {
+        padding: 95px 0 105px;
+    }
+
+    .nx-valuation-shell {
+        width: calc(100% - 48px);
+
+        grid-template-columns: 1fr;
+
+        gap: 65px;
+
+        align-items: start;
+    }
+
+    .nx-valuation-content {
+        max-width: 700px;
+    }
+
+    .nx-valuation-form-wrap {
+        width: 100%;
+
+        max-width: 600px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .nx-valuation-section {
+        padding: 80px 0 90px;
+    }
+
+    .nx-valuation-shell {
+        width: calc(100% - 40px);
+
+        gap: 48px;
+    }
+
+    .nx-valuation-eyebrow {
+        font-size: 10px;
+
+        letter-spacing: .17em;
+    }
+
+    .nx-valuation-title {
+        margin-top: 18px;
+
+        font-size: clamp(43px, 12vw, 60px);
+
+        line-height: .98;
+    }
+
+    .nx-valuation-title em {
+        margin-left: 0;
+    }
+
+    .nx-valuation-description {
+        margin-top: 24px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+    .nx-valuation-contact {
+        margin-top: 28px;
+
+        font-size: 9px;
+
+        letter-spacing: .11em;
+    }
+
+    .nx-valuation-form-wrap {
+        padding: 27px 22px;
+    }
+
+    .nx-valuation-form-heading {
+        margin-bottom: 25px;
+
+        font-size: 8px;
+    }
+
+    .nx-form-field {
+        padding-bottom: 18px;
+    }
+
+    .nx-valuation-submit {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .nx-valuation-shell {
+        width: calc(100% - 32px);
+    }
+
+    .nx-valuation-title {
+        font-size: 40px;
+    }
+
+    .nx-valuation-form-wrap {
+        padding: 24px 18px;
+    }
+
+}
+
+</style>
+{% endblock %}

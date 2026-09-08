@@ -1,0 +1,2039 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Realistic Flip Book</title>
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: #111;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   STAGE
+========================================================= */
+
+.book-stage {
+
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #414141 0%,
+            #292929 38%,
+            #111 100%
+        );
+}
+
+
+/* =========================================================
+   FLOOR SHADOW
+========================================================= */
+
+.book-stage::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 6%;
+
+    width: min(900px, 75vw);
+    height: 70px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(0,0,0,.58);
+
+    filter: blur(34px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOOK WRAPPER
+========================================================= */
+
+.book-wrapper {
+
+    position: relative;
+
+    width: min(1180px, 92vw);
+    height: min(720px, 78vh);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 10;
+
+    /*
+       NEVER change width/height during flipping.
+       This keeps the spine fixed.
+    */
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   BOOK
+========================================================= */
+
+#book {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transform: translateZ(0);
+
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #f7f4ed;
+
+    color: #171717;
+
+    min-width: 0;
+    min-height: 0;
+
+}
+
+
+/* =========================================================
+   PAGE EDGE
+========================================================= */
+
+.page::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(0,0,0,.10);
+
+}
+
+
+/* =========================================================
+   PAPER TEXTURE
+========================================================= */
+
+.page::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 90;
+
+    pointer-events: none;
+
+    opacity: .10;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0,0,0,.09),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(0,0,0,.06),
+            transparent 40%
+        );
+}
+
+
+/* =========================================================
+   FRONT COVER
+========================================================= */
+
+.cover {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #161616;
+
+    color: white;
+
+}
+
+
+/* =========================================================
+   COVER IMAGE
+========================================================= */
+
+.cover img {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+/* =========================================================
+   COVER OVERLAY
+========================================================= */
+
+.cover-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,0,0,.84),
+            rgba(0,0,0,.20)
+        );
+}
+
+
+/* =========================================================
+   COVER CONTENT
+========================================================= */
+
+.cover-content {
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    padding: 35px;
+
+    text-align: center;
+
+}
+
+
+.cover-small {
+
+    margin-bottom: 24px;
+
+    font-size: 10px;
+
+    letter-spacing: 6px;
+
+    text-transform: uppercase;
+
+    opacity: .78;
+}
+
+
+.cover-title {
+
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            90px
+        );
+
+    line-height: .88;
+
+    letter-spacing: -5px;
+
+    font-weight: 700;
+
+}
+
+
+.cover-line {
+
+    width: 70px;
+    height: 2px;
+
+    margin: 30px auto;
+
+    background: white;
+}
+
+
+.cover-bottom {
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    opacity: .72;
+}
+
+
+/* =========================================================
+   CONTENT PAGE
+========================================================= */
+
+.page-content {
+
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+    height: 100%;
+
+    padding:
+        clamp(
+            35px,
+            6vw,
+            75px
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+
+.eyebrow {
+
+    margin-bottom: 20px;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: #888;
+
+}
+
+
+.page-title {
+
+    margin-bottom: 25px;
+
+    font-size:
+        clamp(
+            32px,
+            5vw,
+            65px
+        );
+
+    line-height: .94;
+
+    letter-spacing: -3px;
+
+    font-weight: 600;
+
+}
+
+
+.page-description {
+
+    max-width: 470px;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    color: #625e57;
+
+}
+
+
+/* =========================================================
+   INFO GRID
+========================================================= */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 12px;
+
+    max-width: 450px;
+
+    margin-top: 30px;
+
+}
+
+
+.info-card {
+
+    padding: 20px;
+
+    border: 1px solid #ded9d0;
+
+    background: rgba(255,255,255,.48);
+
+}
+
+
+.info-card strong {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 25px;
+
+}
+
+
+.info-card span {
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color: #888;
+
+}
+
+
+/* =========================================================
+   PAGE NUMBER
+========================================================= */
+
+.page-number {
+
+    position: absolute;
+
+    bottom: 25px;
+
+    z-index: 30;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color: #999;
+
+}
+
+
+.page-number.right {
+    right: 30px;
+}
+
+
+.page-number.left {
+    left: 30px;
+}
+
+
+/* =========================================================
+   IMAGE PAGE
+========================================================= */
+
+.image-page {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+
+.image-page img {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+.image-page-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.75),
+            rgba(0,0,0,0) 65%
+        );
+
+}
+
+
+.image-content {
+
+    position: absolute;
+
+    left: 40px;
+    bottom: 40px;
+
+    z-index: 20;
+
+    color: white;
+
+}
+
+
+.image-content small {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+}
+
+
+.image-content h2 {
+
+    font-size: 34px;
+
+    line-height: 1;
+
+    font-weight: 500;
+
+}
+
+
+/* =========================================================
+   FINAL INSIDE PAGE
+========================================================= */
+
+.final-page {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f7f4ed;
+
+}
+
+
+.final-page-inner {
+
+    width: 75%;
+
+}
+
+
+.final-page h2 {
+
+    font-size:
+        clamp(
+            34px,
+            5vw,
+            60px
+        );
+
+    line-height: .95;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.final-page p {
+
+    max-width: 420px;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+
+    color: #68635b;
+
+}
+
+
+/* =========================================================
+   BACK COVER
+========================================================= */
+
+.back-cover {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background: #171717;
+
+    color: white;
+
+}
+
+
+.back-cover h2 {
+
+    font-size:
+        clamp(
+            40px,
+            6vw,
+            75px
+        );
+
+    line-height: 1;
+
+    letter-spacing: -4px;
+
+}
+
+
+.back-cover p {
+
+    margin-top: 20px;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: #999;
+
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+
+    position: fixed;
+
+    left: 50%;
+    bottom: 24px;
+
+    transform: translateX(-50%);
+
+    z-index: 5000;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+.control-button {
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.32);
+
+    background:
+        rgba(0,0,0,.60);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease,
+        opacity .25s ease;
+
+}
+
+
+.control-button:hover {
+
+    background: white;
+
+    color: black;
+
+    transform: translateY(-2px);
+
+}
+
+
+.control-button:disabled {
+
+    opacity: .25;
+
+    pointer-events: none;
+
+}
+
+
+.counter {
+
+    min-width: 85px;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+}
+
+
+/* =========================================================
+   DRAG HINT
+========================================================= */
+
+.flip-hint {
+
+    position: fixed;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, 275px);
+
+    z-index: 5000;
+
+    color:
+        rgba(255,255,255,.50);
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    pointer-events: none;
+
+    transition: opacity .5s ease;
+
+}
+
+
+.flip-hint.hide {
+
+    opacity: 0;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .book-wrapper {
+
+        width: 94vw;
+
+        height: 65vh;
+
+    }
+
+
+    .page-content {
+
+        padding: 25px;
+
+    }
+
+
+    .page-title {
+
+        font-size: 28px;
+
+        letter-spacing: -1.5px;
+
+    }
+
+
+    .page-description {
+
+        font-size: 11px;
+
+        line-height: 1.65;
+
+    }
+
+
+    .cover-title {
+
+        font-size: 40px;
+
+        letter-spacing: -2px;
+
+    }
+
+
+    .cover-content {
+
+        padding: 25px;
+
+    }
+
+
+    .image-content {
+
+        left: 22px;
+
+        bottom: 22px;
+
+    }
+
+
+    .image-content h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .controls {
+
+        bottom: 15px;
+
+    }
+
+
+    .control-button {
+
+        width: 42px;
+        height: 42px;
+
+    }
+
+
+    .flip-hint {
+
+        transform:
+            translate(-50%, 220px);
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     BOOK
+========================================================= -->
+
+<section class="book-stage">
+
+    <div class="book-wrapper">
+
+        <div id="book">
+
+
+            <!-- =================================================
+                 0 — FRONT COVER
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="cover">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1800&q=90"
+                        alt="Front Cover"
+                    >
+
+                    <div class="cover-overlay"></div>
+
+                    <div class="cover-content">
+
+                        <div class="cover-small">
+                            YOUR COMPANY
+                        </div>
+
+                        <div class="cover-title">
+                            THE<br>
+                            STORY<br>
+                            BOOK
+                        </div>
+
+                        <div class="cover-line"></div>
+
+                        <div class="cover-bottom">
+                            2026 EDITION
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 1 — INSIDE LEFT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="page-content">
+
+                    <div class="eyebrow">
+                        Introduction
+                    </div>
+
+                    <h1 class="page-title">
+                        A New<br>
+                        Chapter.
+                    </h1>
+
+                    <p class="page-description">
+                        This is your first inside
+                        content page. Replace
+                        this with your existing
+                        website content.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+
+                            <strong>
+                                15+
+                            </strong>
+
+                            <span>
+                                Years
+                            </span>
+
+                        </div>
+
+                        <div class="info-card">
+
+                            <strong>
+                                40+
+                            </strong>
+
+                            <span>
+                                Projects
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="page-number right">
+                    01
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 2 — INSIDE RIGHT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="image-page">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1800&q=90"
+                        alt="Architecture"
+                    >
+
+                    <div class="image-page-overlay"></div>
+
+                    <div class="image-content">
+
+                        <small>
+                            Chapter 01
+                        </small>
+
+                        <h2>
+                            Architecture
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 3 — INSIDE LEFT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="page-content">
+
+                    <div class="eyebrow">
+                        Experience
+                    </div>
+
+                    <h2 class="page-title">
+                        Designed<br>
+                        To Be Felt.
+                    </h2>
+
+                    <p class="page-description">
+                        Use this page for your
+                        project, property, service
+                        or company information.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+
+                            <strong>
+                                24
+                            </strong>
+
+                            <span>
+                                Locations
+                            </span>
+
+                        </div>
+
+                        <div class="info-card">
+
+                            <strong>
+                                98%
+                            </strong>
+
+                            <span>
+                                Satisfaction
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="page-number right">
+                    02
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 4 — INSIDE RIGHT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="image-page">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=90"
+                        alt="Interior"
+                    >
+
+                    <div class="image-page-overlay"></div>
+
+                    <div class="image-content">
+
+                        <small>
+                            Chapter 02
+                        </small>
+
+                        <h2>
+                            Interiors
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 5 — INSIDE LEFT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="page-content">
+
+                    <div class="eyebrow">
+                        Services
+                    </div>
+
+                    <h2 class="page-title">
+                        Everything<br>
+                        In One Place.
+                    </h2>
+
+                    <p class="page-description">
+                        Add your services,
+                        features and other
+                        website information.
+                    </p>
+
+                    <div class="info-grid">
+
+                        <div class="info-card">
+
+                            <strong>
+                                01
+                            </strong>
+
+                            <span>
+                                Strategy
+                            </span>
+
+                        </div>
+
+                        <div class="info-card">
+
+                            <strong>
+                                02
+                            </strong>
+
+                            <span>
+                                Design
+                            </span>
+
+                        </div>
+
+                        <div class="info-card">
+
+                            <strong>
+                                03
+                            </strong>
+
+                            <span>
+                                Development
+                            </span>
+
+                        </div>
+
+                        <div class="info-card">
+
+                            <strong>
+                                04
+                            </strong>
+
+                            <span>
+                                Support
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <span class="page-number right">
+                    03
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 6 — INSIDE RIGHT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="image-page">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=90"
+                        alt="Workspace"
+                    >
+
+                    <div class="image-page-overlay"></div>
+
+                    <div class="image-content">
+
+                        <small>
+                            Chapter 03
+                        </small>
+
+                        <h2>
+                            Our Space
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 7 — INSIDE LEFT
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="page-content">
+
+                    <div class="eyebrow">
+                        The Future
+                    </div>
+
+                    <h2 class="page-title">
+                        Let's Start<br>
+                        Something.
+                    </h2>
+
+                    <p class="page-description">
+                        Your final content page
+                        can contain your CTA,
+                        enquiry information,
+                        property details or
+                        anything else.
+                    </p>
+
+                </div>
+
+                <span class="page-number right">
+                    04
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 8 — FINAL INSIDE RIGHT
+                 
+                 IMPORTANT:
+                 This page is added BEFORE
+                 the back cover.
+                 
+                 This creates a true even
+                 inner-page spread.
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="final-page">
+
+                    <div class="final-page-inner">
+
+                        <div class="eyebrow">
+                            The Journey
+                        </div>
+
+                        <h2>
+                            Built For<br>
+                            What's Next.
+                        </h2>
+
+                        <p>
+                            This final inside page
+                            balances the physical book
+                            before the back cover.
+                            Replace this with your
+                            final website content.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 9 — BACK COVER
+                 
+                 THIS MUST BE THE FINAL PAGE.
+            ================================================= -->
+
+            <div class="page">
+
+                <div class="back-cover">
+
+                    <div>
+
+                        <h2>
+                            THE END
+                        </h2>
+
+                        <p>
+                            YOUR COMPANY · 2026
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTROLS
+========================================================= -->
+
+<div class="controls">
+
+    <button
+        type="button"
+        class="control-button"
+        id="previous"
+        aria-label="Previous page"
+    >
+        ←
+    </button>
+
+
+    <div class="counter">
+
+        <span id="current">
+            01
+        </span>
+
+        /
+        
+        <span id="total">
+            05
+        </span>
+
+    </div>
+
+
+    <button
+        type="button"
+        class="control-button"
+        id="next"
+        aria-label="Next page"
+    >
+        →
+    </button>
+
+</div>
+
+
+<div
+    class="flip-hint"
+    id="flipHint"
+>
+    Drag the page corner
+</div>
+
+
+<script>
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const bookElement =
+    document.getElementById("book");
+
+const pages =
+    document.querySelectorAll(
+        "#book > .page"
+    );
+
+const nextButton =
+    document.getElementById("next");
+
+const previousButton =
+    document.getElementById("previous");
+
+const currentNumber =
+    document.getElementById("current");
+
+const flipHint =
+    document.getElementById("flipHint");
+
+
+/* =========================================================
+   PAGE FLIP
+========================================================= */
+
+const pageFlip =
+    new St.PageFlip(
+        bookElement,
+        {
+
+            /*
+             * Physical page dimensions
+             */
+
+            width: 560,
+
+            height: 700,
+
+
+            /*
+             * Responsive sizing
+             */
+
+            size: "stretch",
+
+            minWidth: 280,
+
+            maxWidth: 620,
+
+            minHeight: 360,
+
+            maxHeight: 780,
+
+
+            /*
+             * TRUE COVER MODE
+             */
+
+            showCover: true,
+
+
+            /*
+             * Desktop = spread
+             * Mobile = portrait
+             */
+
+            usePortrait: true,
+
+
+            /*
+             * REALISTIC SHADOW
+             */
+
+            drawShadow: true,
+
+            maxShadowOpacity: 0.52,
+
+
+            /*
+             * Natural paper movement
+             */
+
+            flippingTime: 780,
+
+
+            /*
+             * Dragging
+             */
+
+            useMouseEvents: true,
+
+            mobileScrollSupport: false,
+
+            swipeDistance: 20,
+
+
+            /*
+             * Keep the physical
+             * book stable.
+             */
+
+            autoSize: true,
+
+
+            /*
+             * Start on cover.
+             */
+
+            startPage: 0,
+
+            startZIndex: 0
+
+        }
+    );
+
+
+/* =========================================================
+   LOAD ALL PHYSICAL PAGES
+========================================================= */
+
+pageFlip.loadFromHTML(
+    pages
+);
+
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+let audioContext = null;
+
+
+function initAudio() {
+
+    if (audioContext) {
+        return;
+    }
+
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+
+    if (!AudioContext) {
+        return;
+    }
+
+
+    audioContext =
+        new AudioContext();
+
+}
+
+
+/* =========================================================
+   PAPER FLIP SOUND
+========================================================= */
+
+function playFlipSound() {
+
+    initAudio();
+
+
+    if (!audioContext) {
+        return;
+    }
+
+
+    if (
+        audioContext.state ===
+        "suspended"
+    ) {
+
+        audioContext.resume();
+
+    }
+
+
+    const now =
+        audioContext.currentTime;
+
+
+    /*
+     * Main paper movement
+     */
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+    const filter =
+        audioContext.createBiquadFilter();
+
+
+    oscillator.type =
+        "triangle";
+
+
+    oscillator.frequency.setValueAtTime(
+        170,
+        now
+    );
+
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        58,
+        now + .24
+    );
+
+
+    filter.type =
+        "lowpass";
+
+
+    filter.frequency.value =
+        1500;
+
+
+    gain.gain.setValueAtTime(
+        .0001,
+        now
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        .045,
+        now + .015
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        .0001,
+        now + .26
+    );
+
+
+    oscillator.connect(filter);
+
+    filter.connect(gain);
+
+    gain.connect(
+        audioContext.destination
+    );
+
+
+    oscillator.start(now);
+
+    oscillator.stop(
+        now + .27
+    );
+
+
+    /*
+     * Paper rustle
+     */
+
+    const buffer =
+        audioContext.createBuffer(
+            1,
+            audioContext.sampleRate * .18,
+            audioContext.sampleRate
+        );
+
+
+    const data =
+        buffer.getChannelData(0);
+
+
+    for (
+        let i = 0;
+        i < data.length;
+        i++
+    ) {
+
+        data[i] =
+            (
+                Math.random() * 2 - 1
+            ) * .045;
+
+    }
+
+
+    const noise =
+        audioContext.createBufferSource();
+
+
+    noise.buffer =
+        buffer;
+
+
+    const noiseFilter =
+        audioContext.createBiquadFilter();
+
+
+    noiseFilter.type =
+        "bandpass";
+
+
+    noiseFilter.frequency.value =
+        950;
+
+
+    const noiseGain =
+        audioContext.createGain();
+
+
+    noiseGain.gain.setValueAtTime(
+        .0001,
+        now
+    );
+
+
+    noiseGain.gain.exponentialRampToValueAtTime(
+        .024,
+        now + .01
+    );
+
+
+    noiseGain.gain.exponentialRampToValueAtTime(
+        .0001,
+        now + .18
+    );
+
+
+    noise.connect(
+        noiseFilter
+    );
+
+
+    noiseFilter.connect(
+        noiseGain
+    );
+
+
+    noiseGain.connect(
+        audioContext.destination
+    );
+
+
+    noise.start(now);
+
+}
+
+
+/* =========================================================
+   NEXT
+========================================================= */
+
+nextButton.addEventListener(
+    "click",
+    function() {
+
+        initAudio();
+
+        pageFlip.flipNext();
+
+        hideHint();
+
+    }
+);
+
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
+previousButton.addEventListener(
+    "click",
+    function() {
+
+        initAudio();
+
+        pageFlip.flipPrev();
+
+    }
+);
+
+
+/* =========================================================
+   FLIP EVENT
+========================================================= */
+
+pageFlip.on(
+    "flip",
+    function(event) {
+
+        playFlipSound();
+
+        const index =
+            Number(event.data);
+
+
+        /*
+         * Logical page counter
+         */
+
+        let logicalPage = 1;
+
+
+        if (
+            index === 0
+        ) {
+
+            logicalPage = 1;
+
+        }
+
+        else if (
+            index >= 9
+        ) {
+
+            logicalPage = 5;
+
+        }
+
+        else {
+
+            logicalPage =
+                Math.floor(
+                    index / 2
+                ) + 1;
+
+        }
+
+
+        currentNumber.textContent =
+            String(
+                logicalPage
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        updateButtons();
+
+        hideHint();
+
+    }
+);
+
+
+/* =========================================================
+   BUTTON STATE
+========================================================= */
+
+function updateButtons() {
+
+    const index =
+        pageFlip.getCurrentPageIndex();
+
+
+    /*
+     * Front cover
+     */
+
+    previousButton.disabled =
+        index <= 0;
+
+
+    /*
+     * Back cover
+     */
+
+    nextButton.disabled =
+        index >= 8;
+
+}
+
+
+/* =========================================================
+   HIDE HINT
+========================================================= */
+
+function hideHint() {
+
+    flipHint.classList.add(
+        "hide"
+    );
+
+}
+
+
+/* =========================================================
+   KEYBOARD
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "ArrowRight"
+        ) {
+
+            initAudio();
+
+            pageFlip.flipNext();
+
+            hideHint();
+
+        }
+
+
+        if (
+            event.key ===
+            "ArrowLeft"
+        ) {
+
+            initAudio();
+
+            pageFlip.flipPrev();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUDIO ACTIVATION
+========================================================= */
+
+document.addEventListener(
+    "pointerdown",
+    function() {
+
+        initAudio();
+
+    },
+    {
+        once: true
+    }
+);
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+currentNumber.textContent =
+    "01";
+
+
+previousButton.disabled =
+    true;
+
+
+setTimeout(
+    function() {
+
+        updateButtons();
+
+    },
+    150
+);
+
+</script>
+
+</body>
+
+</html>
+

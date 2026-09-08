@@ -1,0 +1,4512 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GLOBAL HORIZONTAL OVERFLOW FIX
+========================================================= */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+
+    overflow-x: hidden !important;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   NEXURBAN — LUXURY HERO
+========================================================= */
+
+.nx-luxury-hero {
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 88vh;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
+
+.nx-luxury-hero-image {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 115%;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: .82;
+
+    z-index: 0;
+
+    transform: scale(1.02);
+
+    animation:
+        nxLuxuryZoom
+        12s
+        ease-out
+        forwards;
+}
+
+
+@keyframes nxLuxuryZoom {
+
+    from {
+        transform: scale(1.08);
+    }
+
+    to {
+        transform: scale(1.02);
+    }
+
+}
+
+
+/* =========================================================
+   HERO OVERLAY
+========================================================= */
+
+.nx-luxury-hero-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10,10,10,.96) 0%,
+            rgba(10,10,10,.88) 28%,
+            rgba(10,10,10,.55) 55%,
+            rgba(10,10,10,.22) 78%,
+            rgba(10,10,10,.42) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.92) 0%,
+            rgba(8,8,8,.12) 48%,
+            rgba(8,8,8,.20) 100%
+        );
+}
+
+
+/* =========================================================
+   RIGHT ACCENT PANEL
+========================================================= */
+
+.nx-luxury-panel {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 27%;
+    height: 100%;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,29,12,.025),
+            rgba(230,18,3,.125)
+        );
+
+    border-left: 1px solid rgba(255,29,12,.14);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO SHELL
+========================================================= */
+
+.nx-luxury-shell {
+    position: relative;
+
+    z-index: 5;
+
+    width: min(
+        1400px,
+        calc(100% - 100px)
+    );
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 150px 0 100px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.nx-luxury-content {
+    max-width: 850px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-luxury-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* eyebrow line */
+
+.nx-luxury-eyebrow::before {
+
+    content: "";
+
+    width: 32px;
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   LIVE DOT
+========================================================= */
+
+.nx-luxury-dot {
+
+    width: 6px;
+    height: 6px;
+
+    flex: 0 0 6px;
+
+    background: #ff1d0c;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 5px rgba(255,29,12,.10),
+        0 0 15px rgba(255,29,12,.55);
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.nx-luxury-title {
+
+    margin: 22px 0 0;
+
+    max-width: 900px;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(
+            48px,
+            6vw,
+            88px
+        );
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.035em;
+}
+
+
+/* =========================================================
+   HEADING LINES
+========================================================= */
+
+.nx-luxury-title span {
+
+    display: block;
+}
+
+
+/* =========================================================
+   NORMAL HEADING
+========================================================= */
+
+.nx-luxury-title .nx-title-normal {
+
+    color: #f7f4ed;
+}
+
+
+/* =========================================================
+   ITALIC LUXURY TEXT
+========================================================= */
+
+.nx-luxury-title em {
+
+    display: inline-block;
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-luxury-description {
+
+    max-width: 580px;
+
+    margin: 22px 0 0;
+
+    color:
+        rgba(
+            247,
+            244,
+            237,
+            .68
+        );
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   BUTTON WRAPPER
+========================================================= */
+
+.nx-luxury-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 32px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.nx-luxury-btn {
+
+    min-height: 47px;
+
+    padding: 0 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 22px;
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.4px;
+
+    white-space: nowrap;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease,
+        border-color .3s ease;
+}
+
+
+/* arrow */
+
+.nx-luxury-btn span {
+
+    font-size: 19px;
+
+    transition:
+        transform .3s ease;
+}
+
+
+/* hover */
+
+.nx-luxury-btn:hover {
+
+    background: #ffffff;
+
+    color: #111111;
+
+    border-color: #ffffff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.nx-luxury-btn:hover span {
+
+    transform:
+        translateX(5px);
+}
+
+
+/* =========================================================
+   OUTLINE BUTTON
+========================================================= */
+
+.nx-luxury-btn-outline {
+
+    background: transparent;
+
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            .55
+        );
+
+    color: #ffffff;
+}
+
+
+.nx-luxury-btn-outline:hover {
+
+    background: #ff1d0c;
+
+    border-color: #ff1d0c;
+
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   BOTTOM INFORMATION
+========================================================= */
+
+.nx-luxury-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    margin-top: 75px;
+}
+
+
+/* =========================================================
+   BOTTOM LINE
+========================================================= */
+
+.nx-luxury-bottom-line {
+
+    width: 90px;
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .25
+        );
+}
+
+
+/* =========================================================
+   BOTTOM TEXT
+========================================================= */
+
+.nx-luxury-bottom-text {
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .45
+        );
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   RIGHT VERTICAL LABEL
+========================================================= */
+
+.nx-luxury-vertical {
+
+    position: absolute;
+
+    right: 42px;
+    bottom: 65px;
+
+    z-index: 6;
+
+    writing-mode: vertical-rl;
+
+    transform:
+        rotate(180deg);
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .45
+        );
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FADE ANIMATION
+========================================================= */
+
+.nx-luxury-anim {
+
+    opacity: 0;
+
+    transform:
+        translateY(30px);
+
+    animation:
+        nxLuxuryFade
+        .9s
+        cubic-bezier(
+            .22,
+            1,
+            .36,
+            1
+        )
+        forwards;
+}
+
+
+.nx-luxury-delay-1 {
+    animation-delay: .10s;
+}
+
+
+.nx-luxury-delay-2 {
+    animation-delay: .20s;
+}
+
+
+.nx-luxury-delay-3 {
+    animation-delay: .32s;
+}
+
+
+.nx-luxury-delay-4 {
+    animation-delay: .44s;
+}
+
+
+.nx-luxury-delay-5 {
+    animation-delay: .56s;
+}
+
+
+@keyframes nxLuxuryFade {
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-luxury-shell {
+
+        width:
+            calc(100% - 70px);
+
+        max-width: none;
+    }
+
+
+    .nx-luxury-title {
+
+        font-size:
+            clamp(
+                48px,
+                7vw,
+                76px
+            );
+    }
+
+
+    .nx-luxury-panel {
+
+        width: 32%;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-luxury-hero {
+
+        min-height:
+            100svh;
+
+        width: 100%;
+
+        overflow: hidden;
+    }
+
+
+    .nx-luxury-hero-image {
+
+        object-position:
+            62% center;
+    }
+
+
+    .nx-luxury-hero-overlay {
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(8,8,8,.66) 0%,
+                rgba(8,8,8,.82) 48%,
+                rgba(8,8,8,.97) 100%
+            );
+    }
+
+
+    .nx-luxury-panel {
+
+        width: 100%;
+
+        height: 100%;
+
+        border-left: 0;
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(255,29,12,.025),
+                rgba(255,29,12,.06)
+            );
+    }
+
+
+    .nx-luxury-shell {
+
+        width:
+            calc(100% - 40px);
+
+        max-width: none;
+
+        padding:
+            125px 0 70px;
+    }
+
+
+    .nx-luxury-content {
+
+        width: 100%;
+
+        max-width: 100%;
+    }
+
+
+    .nx-luxury-eyebrow {
+
+        font-size: 9px;
+
+        letter-spacing: .16em;
+
+        gap: 9px;
+    }
+
+
+    .nx-luxury-eyebrow::before {
+
+        width: 23px;
+    }
+
+
+    .nx-luxury-title {
+
+        margin-top: 20px;
+
+        max-width: 100%;
+
+        font-size:
+            clamp(
+                43px,
+                12vw,
+                62px
+            );
+
+        line-height: .98;
+
+        letter-spacing: -.04em;
+    }
+
+
+    .nx-luxury-description {
+
+        margin-top: 23px;
+
+        max-width: 100%;
+
+        font-size: 13.5px;
+
+        line-height: 1.75;
+    }
+
+
+    .nx-luxury-actions {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 9px;
+
+        margin-top: 28px;
+    }
+
+
+    .nx-luxury-btn {
+
+        width: 100%;
+
+        min-height: 49px;
+    }
+
+
+    .nx-luxury-bottom {
+
+        margin-top: 55px;
+
+        gap: 18px;
+    }
+
+
+    .nx-luxury-bottom-line {
+
+        width: 55px;
+    }
+
+
+    .nx-luxury-vertical {
+
+        display: none;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-luxury-shell {
+
+        width:
+            calc(100% - 32px);
+
+        padding-top: 115px;
+    }
+
+
+    .nx-luxury-title {
+
+        font-size: 43px;
+    }
+
+
+    .nx-luxury-description {
+
+        font-size: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-luxury-hero-image,
+    .nx-luxury-anim {
+
+        animation: none !important;
+
+        opacity: 1;
+
+        transform: none;
+    }
+
+}
+
+
+/* =========================================================
+   NEXURBAN — LUXURY MARQUEE
+========================================================= */
+
+.nx-luxury-marquee {
+
+    position: relative;
+
+    width: 100%;
+    max-width: 100%;
+
+    padding: 0;
+
+    overflow: hidden;
+    overflow-x: clip;
+
+    background: #000000;
+
+    border-top:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .10
+        );
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .10
+        );
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MOVING TRACK
+========================================================= */
+
+.nx-luxury-marquee-track {
+
+    display: flex;
+
+    width: max-content;
+
+    max-width: none;
+
+    flex-shrink: 0;
+
+    will-change: transform;
+
+    animation:
+        nxLuxuryMarquee
+        28s
+        linear
+        infinite;
+}
+
+
+/* =========================================================
+   MARQUEE GROUP
+========================================================= */
+
+.nx-luxury-marquee-group {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-shrink: 0;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   MARQUEE ITEM
+========================================================= */
+
+.nx-luxury-marquee-group span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 38px;
+
+    padding:
+        21px 38px;
+
+    flex-shrink: 0;
+
+    color:
+        rgba(
+            247,
+            244,
+            237,
+            .58
+        );
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .22em;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   RED DOT
+========================================================= */
+
+.nx-luxury-marquee-group i {
+
+    display: block;
+
+    width: 5px;
+    height: 5px;
+
+    flex:
+        0 0 5px;
+
+    background: #ff1d0c;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px
+        rgba(
+            255,
+            29,
+            12,
+            .45
+        );
+}
+
+
+/* =========================================================
+   MARQUEE ANIMATION
+========================================================= */
+
+@keyframes nxLuxuryMarquee {
+
+    from {
+
+        transform:
+            translate3d(
+                0,
+                0,
+                0
+            );
+    }
+
+    to {
+
+        transform:
+            translate3d(
+                -50%,
+                0,
+                0
+            );
+    }
+
+}
+
+
+/* =========================================================
+   HOVER — PAUSE
+========================================================= */
+
+.nx-luxury-marquee:hover
+.nx-luxury-marquee-track {
+
+    animation-play-state:
+        paused;
+}
+
+
+/* =========================================================
+   MOBILE MARQUEE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-luxury-marquee {
+
+        width: 100%;
+
+        overflow: hidden;
+
+        overflow-x: clip;
+    }
+
+
+    .nx-luxury-marquee-group span {
+
+        gap: 25px;
+
+        padding:
+            17px 25px;
+
+        font-size: 8px;
+
+        letter-spacing: .18em;
+    }
+
+
+    .nx-luxury-marquee-group i {
+
+        width: 4px;
+        height: 4px;
+
+        flex-basis: 4px;
+    }
+
+
+    .nx-luxury-marquee-track {
+
+        animation-duration: 22s;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION — MARQUEE
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-luxury-marquee-track {
+
+        animation: none;
+
+        transform: none;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     LUXURY HERO
+========================================================= -->
+
+<section class="nx-luxury-hero">
+
+
+    <!-- BACKGROUND IMAGE -->
+
+    <img
+        src="{% static 'img/luxury.jpg' %}"
+        alt="Luxury Dubai residence"
+        class="nx-luxury-hero-image"
+    >
+
+
+    <!-- DARK OVERLAY -->
+
+    <div class="nx-luxury-hero-overlay"></div>
+
+
+    <!-- RIGHT ACCENT PANEL -->
+
+    <div class="nx-luxury-panel"></div>
+
+
+    <!-- =====================================================
+         HERO CONTENT
+    ====================================================== -->
+
+    <div class="nx-luxury-shell">
+
+        <div class="nx-luxury-content">
+
+
+            <!-- EYEBROW -->
+
+            <p class="
+                nx-luxury-eyebrow
+                nx-luxury-anim
+                nx-luxury-delay-1
+            ">
+
+                <span class="nx-luxury-dot"></span>
+
+                NEXURBAN PRIVATE COLLECTION
+
+            </p>
+
+
+            <!-- =================================================
+                 HEADING
+            ================================================== -->
+
+            <h1 class="nx-luxury-title">
+
+
+                <span class="
+                    nx-title-normal
+                    nx-luxury-anim
+                    nx-luxury-delay-2
+                ">
+
+                    Luxury Has
+
+                </span>
+
+
+                <span class="
+                    nx-luxury-anim
+                    nx-luxury-delay-3
+                ">
+
+                    <em>
+                        Another
+                        Standard.
+                    </em>
+
+                </span>
+
+
+            </h1>
+
+
+            <!-- =================================================
+                 DESCRIPTION
+            ================================================== -->
+
+            <p class="
+                nx-luxury-description
+                nx-luxury-anim
+                nx-luxury-delay-4
+            ">
+
+                Discover exceptional residences across Dubai's
+                most distinguished addresses — selected for their
+                architecture, privacy, setting and lasting value.
+
+            </p>
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+            ================================================== -->
+
+            <div class="
+                nx-luxury-actions
+                nx-luxury-anim
+                nx-luxury-delay-5
+            ">
+
+
+                <a
+                    href="#collection"
+                    class="nx-luxury-btn"
+                >
+
+                    VIEW THE COLLECTION
+
+                    <span>↗</span>
+
+                </a>
+
+
+                <a
+                    href="/contact"
+                    class="
+                        nx-luxury-btn
+                        nx-luxury-btn-outline
+                    "
+                >
+
+                    PRIVATE ENQUIRY
+
+                </a>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTTOM DETAIL
+            ================================================== -->
+
+            <div class="
+                nx-luxury-bottom
+                nx-luxury-anim
+                nx-luxury-delay-5
+            ">
+
+                <span
+                    class="nx-luxury-bottom-line"
+                ></span>
+
+
+                <span
+                    class="nx-luxury-bottom-text"
+                >
+
+                    Luxury Collection · Dubai
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         VERTICAL LABEL
+    ====================================================== -->
+
+    <div class="nx-luxury-vertical">
+
+        DUBAI · UAE — NEXURBAN PRIVATE COLLECTION
+
+    </div>
+
+
+</section>
+
+
+
+
+<!-- =========================================================
+     NEXURBAN — LUXURY PILLARS SECTION
+========================================================= -->
+
+<section class="nx-luxury-pillar-section">
+
+    <div class="nx-luxury-pillar-shell">
+
+        <!-- =================================================
+             INTRO
+        ================================================== -->
+
+        <div class="nx-luxury-pillar-intro">
+
+            <!-- LEFT -->
+            <div class="nx-luxury-pillar-heading">
+
+                <p class="nx-luxury-pillar-eyebrow">
+                    IT IS ABOUT
+                </p>
+
+                <h2 class="nx-luxury-pillar-title">
+                    Beyond<br>
+                    <em>square footage.</em>
+                </h2>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="nx-luxury-pillar-description">
+
+                <p>
+                    From waterfront villas and branded residences to
+                    signature penthouses and ultra-prime apartments —
+                    discover properties designed for exceptional
+                    lifestyles and discerning portfolios.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LUXURY PILLARS
+        ================================================== -->
+
+        <div class="nx-luxury-pillars">
+
+
+            <!-- 01 -->
+            <div class="nx-luxury-pillar">
+
+                <span class="nx-luxury-pillar-number">
+                    01
+                </span>
+
+                <div class="nx-luxury-pillar-content">
+
+                    <h3>
+                        Address
+                    </h3>
+
+                    <p>
+                        Dubai's most sought-after destinations —
+                        Palm Jumeirah, Emirates Hills, Downtown
+                        and beyond.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 02 -->
+            <div class="nx-luxury-pillar">
+
+                <span class="nx-luxury-pillar-number">
+                    02
+                </span>
+
+                <div class="nx-luxury-pillar-content">
+
+                    <h3>
+                        Architecture
+                    </h3>
+
+                    <p>
+                        Signature design by the world's most
+                        celebrated architects and developers.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 03 -->
+            <div class="nx-luxury-pillar">
+
+                <span class="nx-luxury-pillar-number">
+                    03
+                </span>
+
+                <div class="nx-luxury-pillar-content">
+
+                    <h3>
+                        Privacy
+                    </h3>
+
+                    <p>
+                        Discreet residences and discreet
+                        transactions — on and off market.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 04 -->
+            <div class="nx-luxury-pillar">
+
+                <span class="nx-luxury-pillar-number">
+                    04
+                </span>
+
+                <div class="nx-luxury-pillar-content">
+
+                    <h3>
+                        Service
+                    </h3>
+
+                    <p>
+                        Branded residences, concierge living
+                        and hotel-grade management.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 05 -->
+            <div class="nx-luxury-pillar">
+
+                <span class="nx-luxury-pillar-number">
+                    05
+                </span>
+
+                <div class="nx-luxury-pillar-content">
+
+                    <h3>
+                        Scarcity
+                    </h3>
+
+                    <p>
+                        Ultra-prime assets that cannot be
+                        replicated — the foundation of
+                        lasting value.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — LUXURY PILLARS
+========================================================= */
+
+.nx-luxury-pillar-section {
+
+    position: relative;
+
+    width: 100%;
+
+    background: #111111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.nx-luxury-pillar-shell {
+
+    width: min(1400px, calc(100% - 100px));
+
+    margin: 0 auto;
+
+    padding: 125px 0 135px;
+}
+
+
+/* =========================================================
+   INTRO
+   LEFT HEADING / RIGHT PARAGRAPH
+========================================================= */
+
+.nx-luxury-pillar-intro {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(320px, 500px);
+
+    gap: 100px;
+
+    align-items: end;
+
+    margin-bottom: 78px;
+}
+
+
+/* =========================================================
+   LEFT HEADING
+========================================================= */
+
+.nx-luxury-pillar-heading {
+
+    align-self: end;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-luxury-pillar-eyebrow {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* RED LINE */
+
+.nx-luxury-pillar-eyebrow::before {
+
+    content: "";
+
+    display: block;
+
+    width: 30px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+========================================================= */
+
+.nx-luxury-pillar-title {
+
+    margin: 20px 0 0;
+
+    max-width: 700px;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(48px, 6vw, 82px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.035em;
+}
+
+
+/* =========================================================
+   ITALIC HEADING
+========================================================= */
+
+.nx-luxury-pillar-title em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   RIGHT DESCRIPTION
+========================================================= */
+
+.nx-luxury-pillar-description {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    justify-self: end;
+
+    align-self: end;
+
+    padding-bottom: 5px;
+}
+
+
+.nx-luxury-pillar-description p {
+
+    margin: 0;
+
+    color: rgba(247,244,237,.60);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   PILLARS CONTAINER
+========================================================= */
+
+.nx-luxury-pillars {
+
+    width: 100%;
+
+    border-top: 1px solid rgba(247,244,237,.15);
+}
+
+
+/* =========================================================
+   SINGLE PILLAR
+========================================================= */
+
+.nx-luxury-pillar {
+
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        80px
+        minmax(180px, 300px)
+        minmax(300px, 1fr);
+
+    align-items: center;
+
+    gap: 55px;
+
+    min-height: 125px;
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid rgba(247,244,237,.15);
+
+    transition:
+        background .35s ease,
+        padding .35s ease;
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.nx-luxury-pillar-number {
+
+    color: rgba(247,244,237,.36);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: .20em;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.nx-luxury-pillar-content {
+
+    display: contents;
+}
+
+
+/* =========================================================
+   PILLAR TITLE
+========================================================= */
+
+.nx-luxury-pillar-content h3 {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 32px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -.02em;
+
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+/* =========================================================
+   PILLAR DESCRIPTION
+========================================================= */
+
+.nx-luxury-pillar-content p {
+
+    max-width: 510px;
+
+    margin-left: 45%;
+
+    color: rgba(247,244,237,.50);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   HOVER EFFECT
+========================================================= */
+
+.nx-luxury-pillar:hover {
+
+    padding-left: 15px;
+
+    padding-right: 15px;
+
+    background: rgba(255,255,255,.025);
+}
+
+
+.nx-luxury-pillar:hover
+.nx-luxury-pillar-number {
+
+    color: #ff4c3fd3;
+}
+
+
+.nx-luxury-pillar:hover
+.nx-luxury-pillar-content h3 {
+
+    color: #e8dfd1;
+
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-luxury-pillar-shell {
+
+        width: min(100% - 70px, 1400px);
+
+        padding: 105px 0 115px;
+    }
+
+
+    .nx-luxury-pillar-intro {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(280px, 400px);
+
+        gap: 55px;
+
+        margin-bottom: 65px;
+    }
+
+
+    .nx-luxury-pillar {
+
+        grid-template-columns:
+            65px
+            minmax(160px, 220px)
+            minmax(250px, 1fr);
+
+        gap: 35px;
+    }
+
+
+    .nx-luxury-pillar-content h3 {
+
+        font-size: 29px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-luxury-pillar-shell {
+
+        width: calc(100% - 40px);
+
+        padding: 80px 0 85px;
+    }
+
+
+    /* HEADING + PARAGRAPH STACK */
+
+    .nx-luxury-pillar-intro {
+
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 27px;
+
+        margin-bottom: 55px;
+    }
+
+
+    .nx-luxury-pillar-description {
+
+        max-width: 100%;
+
+        justify-self: start;
+
+        padding-bottom: 0;
+    }
+
+
+    .nx-luxury-pillar-description p {
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    /* EYEBROW */
+
+    .nx-luxury-pillar-eyebrow {
+
+        font-size: 9px;
+
+        letter-spacing: .17em;
+
+        gap: 9px;
+    }
+
+
+    .nx-luxury-pillar-eyebrow::before {
+
+        width: 22px;
+    }
+
+
+    /* HEADING */
+
+    .nx-luxury-pillar-title {
+
+        margin-top: 18px;
+
+        font-size: clamp(44px, 13vw, 60px);
+
+        line-height: .97;
+
+        letter-spacing: -.04em;
+    }
+
+
+    /* PILLAR */
+
+    .nx-luxury-pillar {
+
+        display: grid;
+
+        grid-template-columns: 42px minmax(0, 1fr);
+
+        gap: 18px;
+
+        min-height: auto;
+
+        padding: 28px 0;
+    }
+
+
+    .nx-luxury-pillar-number {
+
+        align-self: start;
+
+        padding-top: 5px;
+
+        font-size: 9px;
+    }
+
+
+    .nx-luxury-pillar-content {
+
+        display: block;
+    }
+
+
+    .nx-luxury-pillar-content h3 {
+
+        margin: 0 0 10px;
+
+        font-size: 27px;
+
+        line-height: 1;
+    }
+
+
+    .nx-luxury-pillar-content p {
+
+        max-width: 100%;
+
+        font-size: 12px;
+
+        line-height: 1.75;
+    }
+
+
+    /* REMOVE DESKTOP HOVER SHIFT */
+
+    .nx-luxury-pillar:hover {
+
+        padding-left: 0;
+
+        padding-right: 0;
+
+        background: transparent;
+    }
+
+
+    .nx-luxury-pillar:hover
+    .nx-luxury-pillar-content h3 {
+
+        transform: none;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-luxury-pillar-shell {
+
+        width: calc(100% - 32px);
+
+        padding-top: 70px;
+
+        padding-bottom: 75px;
+    }
+
+
+    .nx-luxury-pillar-title {
+
+        font-size: 43px;
+    }
+
+
+    .nx-luxury-pillar-content h3 {
+
+        font-size: 25px;
+    }
+
+
+    .nx-luxury-pillar-content p {
+
+        font-size: 11.5px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-luxury-pillar,
+    .nx-luxury-pillar-content h3 {
+
+        transition: none;
+    }
+
+}
+
+</style>
+<main id="collection" class="nx-collection-section">
+
+    <section class="nx-collection-shell">
+
+        <!-- COLLECTION HEADER -->
+        <div class="nx-collection-heading">
+
+            <div class="nx-collection-heading-left">
+
+                <p class="nx-collection-eyebrow">
+                    <span></span>
+                    THE COLLECTION
+                </p>
+
+                <h2 class="nx-collection-title">
+                    Selected residences,
+                    <br>
+                    <em>chosen with intent.</em>
+                </h2>
+
+            </div>
+
+            <p class="nx-collection-intro">
+                Each residence is evaluated for address, architecture,
+                privacy and long-term scarcity value.
+            </p>
+
+        </div>
+
+
+        <!-- PROPERTY LIST -->
+        <div class="nx-collection-grid">
+
+            {% for property in properties %}
+
+            <article class="nx-collection-card">
+
+                <!-- IMAGE -->
+                <a
+                    href="{% url 'propertydetail' property.slug %}" 
+                    class="nx-collection-image-wrap"
+                >
+
+                    {% if property.cover %}
+
+                        <img
+                            src="{{ property.cover }}"
+                            alt="{{ property.title|default:'Property' }}"
+                            class="nx-collection-image"
+                            loading="lazy"
+                        >
+
+                    {% endif %}
+
+                    <!-- TYPE -->
+                    <span class="nx-collection-tag">
+                        {% if property.property_type %}
+                            {{ property.property_type }}
+                        {% else %}
+                            LUXURY
+                        {% endif %}
+                    </span>
+
+                    <!-- IMAGE ARROW -->
+                    <span class="nx-collection-image-arrow">
+                        ↗
+                    </span>
+
+                </a>
+
+
+                <!-- CARD CONTENT -->
+                <div class="nx-collection-card-info">
+
+                    <!-- LOCATION + NUMBER -->
+                    <div class="nx-collection-card-top">
+
+                        <p class="nx-collection-location">
+
+                            {% if property.city %}
+                                {{ property.city }}
+                            {% else %}
+                                DUBAI
+                            {% endif %}
+
+                            {% if property.district %}
+                                · {{ property.district }}
+                            {% endif %}
+
+                        </p>
+
+                        <span class="nx-collection-number">
+                            {{ forloop.counter|stringformat:"02d" }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- TITLE -->
+                    <h3 class="nx-collection-property-title">
+
+                        {% if property.title %}
+                            {{ property.title }}
+                        {% else %}
+                            Property details unavailable
+                        {% endif %}
+
+                    </h3>
+
+
+                    <!-- PROPERTY DETAILS -->
+                    <div class="nx-collection-details">
+
+                        <span>
+                            {% if property.area_from %}
+                                {{ property.area_from|floatformat:0 }} SQ.FT
+                            {% else %}
+                                AREA N/A
+                            {% endif %}
+                        </span>
+
+                        <span>
+                            {% if property.property_type %}
+                                {{ property.property_type }}
+                            {% else %}
+                                TYPE N/A
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+
+                    <!-- BOTTOM -->
+                    <div class="nx-collection-card-bottom">
+
+                        <p class="nx-collection-price">
+
+                            {% if property.price_from and property.price_from != 0 %}
+                                AED {{ property.price_from|floatformat:0|intcomma  }}
+                            {% else %}
+                                Price on request
+                            {% endif %}
+
+                        </p>
+
+                          <a href="" class="nx-property-card-link">
+                       
+                            VIEW PROPERTY
+                            <span>↗</span>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            {% empty %}
+
+            <div class="nx-collection-empty">
+                No luxury properties available at the moment.
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =================================================
+             PAGINATION (same as offplan / ready)
+        ================================================== -->
+
+        {% if total_pages > 1 %}
+
+        <div class="nx-pagination">
+
+            <!-- PREVIOUS -->
+
+            {% if previous_page %}
+
+                <a
+                    href="?{% if selected_city %}city={{ selected_city|urlencode }}&{% endif %}{% if selected_property_type %}property_type={{ selected_property_type|urlencode }}&{% endif %}{% if selected_min_price %}min_price={{ selected_min_price|urlencode }}&{% endif %}{% if selected_max_price %}max_price={{ selected_max_price|urlencode }}&{% endif %}page={{ current_page|add:'-1' }}"
+                    class="nx-page-button nx-page-prev"
+                >
+                    ← PREV
+                </a>
+
+            {% endif %}
+
+
+            <!-- PAGE NUMBERS -->
+
+            {% for page in page_numbers %}
+
+                {% if page == "..." %}
+
+                    <span class="nx-page-dots">
+                        …
+                    </span>
+
+                {% else %}
+
+                    <a
+                        href="?{% if selected_city %}city={{ selected_city|urlencode }}&{% endif %}{% if selected_property_type %}property_type={{ selected_property_type|urlencode }}&{% endif %}{% if selected_min_price %}min_price={{ selected_min_price|urlencode }}&{% endif %}{% if selected_max_price %}max_price={{ selected_max_price|urlencode }}&{% endif %}page={{ page }}"
+                        class="nx-page-button nx-page-number {% if page == current_page %}active{% endif %}"
+                    >
+                        {{ page }}
+                    </a>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+            <!-- NEXT -->
+
+            {% if next_page %}
+
+                <a
+                    href="?{% if selected_city %}city={{ selected_city|urlencode }}&{% endif %}{% if selected_property_type %}property_type={{ selected_property_type|urlencode }}&{% endif %}{% if selected_min_price %}min_price={{ selected_min_price|urlencode }}&{% endif %}{% if selected_max_price %}max_price={{ selected_max_price|urlencode }}&{% endif %}page={{ current_page|add:'1' }}"
+                    class="nx-page-button nx-page-next"
+                >
+                    NEXT →
+                </a>
+
+            {% endif %}
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+<style>
+    /* =========================================================
+   NEXURBAN — COLLECTION SECTION
+========================================================= */
+
+.nx-collection-section {
+    width: 100%;
+    background: #f7f4ed;
+    color: #111111;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.nx-collection-shell {
+    width: min(1400px, calc(100% - 100px));
+    margin: 0 auto;
+    padding: 125px 0 135px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.nx-collection-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
+    align-items: end;
+    gap: 100px;
+    margin-bottom: 70px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-collection-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .20em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.nx-collection-eyebrow span {
+    width: 30px;
+    height: 1px;
+    background: #ff1d0c;
+    display: block;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-collection-title {
+    margin: 20px 0 0;
+    max-width: 760px;
+
+    color: #111111;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(48px, 6vw, 82px);
+    font-weight: 400;
+    line-height: .96;
+    letter-spacing: -.035em;
+}
+
+.nx-collection-title em {
+    color: #111;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HEADER DESCRIPTION
+========================================================= */
+
+.nx-collection-intro {
+    max-width: 500px;
+    justify-self: end;
+
+    margin: 0;
+    padding-bottom: 5px;
+
+    color: rgba(17,17,17,.60);
+
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   PROPERTY GRID
+========================================================= */
+
+.nx-collection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 65px 32px;
+}
+
+
+/* =========================================================
+   PROPERTY CARD
+========================================================= */
+
+.nx-collection-card {
+    position: relative;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   IMAGE WRAPPER
+========================================================= */
+
+.nx-collection-image-wrap {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1.35 / 1;
+
+    overflow: hidden;
+
+    background: #dedbd4;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.nx-collection-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    display: block;
+
+    transition:
+        transform 1s cubic-bezier(.2,.65,.3,1),
+        filter .6s ease;
+}
+
+
+/* =========================================================
+   IMAGE HOVER
+========================================================= */
+
+.nx-collection-card:hover
+.nx-collection-image {
+    transform: scale(1.045);
+}
+
+
+/* =========================================================
+   IMAGE DARK OVERLAY
+========================================================= */
+
+.nx-collection-image-wrap::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.40),
+            transparent 42%
+        );
+
+    opacity: .7;
+
+    pointer-events: none;
+
+    transition: opacity .4s ease;
+}
+
+.nx-collection-card:hover
+.nx-collection-image-wrap::after {
+    opacity: .9;
+}
+
+
+/* =========================================================
+   PROPERTY TYPE TAG
+========================================================= */
+
+.nx-collection-tag {
+    position: absolute;
+
+    top: 20px;
+    left: 20px;
+
+    z-index: 3;
+
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 29px;
+    padding: 0 12px;
+
+    background: #ff1d0c;
+    color: #ffffff;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: .15em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   IMAGE ARROW
+========================================================= */
+
+.nx-collection-image-arrow {
+    position: absolute;
+
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(255,255,255,.55);
+
+    color: #ffffff;
+
+    font-size: 21px;
+    font-weight: 300;
+
+    backdrop-filter: blur(5px);
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+.nx-collection-card:hover
+.nx-collection-image-arrow {
+    background: #ff1d0c;
+    border-color: #ff1d0c;
+    transform: translate(3px,-3px);
+}
+
+
+/* =========================================================
+   CARD INFORMATION
+========================================================= */
+
+.nx-collection-card-info {
+    padding-top: 22px;
+}
+
+
+/* =========================================================
+   LOCATION + NUMBER
+========================================================= */
+
+.nx-collection-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 13px;
+
+    border-bottom: 1px solid rgba(17,17,17,.12);
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.nx-collection-location {
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .17em;
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   CARD NUMBER
+========================================================= */
+
+.nx-collection-number {
+    color: rgba(17,17,17,.35);
+
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: .15em;
+}
+
+
+/* =========================================================
+   PROPERTY TITLE
+========================================================= */
+
+.nx-collection-property-title {
+    margin: 17px 0 0;
+
+    color: #111111c7;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 28px;
+    font-weight: 400;
+
+    line-height: 1;
+    letter-spacing: 0.01em;
+   text-transform: uppercase;
+    transition: color .3s ease;
+}
+
+.nx-collection-card:hover
+.nx-collection-property-title {
+    color: #ff1d0c;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.nx-collection-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: 0;
+
+    margin-top: 20px;
+
+    color: rgba(17,17,17,.52);
+
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: .13em;
+}
+
+.nx-collection-details span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.nx-collection-details span:not(:last-child)::after {
+    content: "";
+
+    width: 3px;
+    height: 3px;
+
+    margin: 0 13px;
+
+    background: #ff1d0c;
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   CARD BOTTOM
+========================================================= */
+
+.nx-collection-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-top: 24px;
+}
+.nx-collection-card-bottom   a{
+    text-decoration: none;
+    color: #000000;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.nx-collection-price {
+    margin: 0;
+
+    color: #111111;
+
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: 400;
+    
+    line-height: 1;
+}
+
+
+/* =========================================================
+   VIEW PROPERTY
+========================================================= */
+
+.nx-collection-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #111111;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition:
+        color .3s ease,
+        gap .3s ease;
+}
+
+.nx-collection-view span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.nx-collection-view:hover {
+    color: #ff1d0c;
+    gap: 17px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.nx-collection-empty {
+    grid-column: 1 / -1;
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    color: rgba(17,17,17,.5);
+
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PAGINATION (copied from offplan.html / ready.html)
+========================================================= */
+
+.nx-pagination {
+
+    margin-top: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+}
+
+
+.nx-page-button {
+
+    min-width: 43px;
+
+    height: 43px;
+
+    padding: 0 13px;
+
+    border:
+        1px solid rgba(17,17,17,.15);
+
+    background: transparent;
+
+    color: #111111;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease;
+}
+
+
+.nx-page-number {
+
+    width: 43px;
+
+    padding: 0;
+}
+
+
+.nx-page-button.active {
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border-color: #ff1d0c;
+}
+
+
+.nx-page-button:hover:not(.active) {
+
+    background: #111111;
+
+    color: #ffffff;
+
+    border-color: #111111;
+}
+
+
+.nx-page-prev,
+.nx-page-next {
+
+    min-width: 82px;
+
+    padding-left: 17px;
+
+    padding-right: 17px;
+}
+
+
+.nx-page-disabled {
+
+    opacity: .35;
+
+    pointer-events: none;
+}
+
+
+.nx-page-dots {
+
+    width: 30px;
+
+    height: 43px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: rgba(17,17,17,.45);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+}
+
+
+@media (max-width: 767px) {
+
+    .nx-pagination {
+
+        margin-top: 65px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .nx-pagination {
+
+        gap: 5px;
+    }
+
+
+    .nx-page-button {
+
+        min-width: 39px;
+
+        height: 39px;
+
+        font-size: 8px;
+    }
+
+
+    .nx-page-number {
+
+        width: 39px;
+    }
+
+
+    .nx-page-prev,
+    .nx-page-next {
+
+        min-width: 70px;
+    }
+
+
+    .nx-page-dots {
+
+        width: 22px;
+
+        height: 39px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-collection-shell {
+        width: min(100% - 70px, 1400px);
+        padding: 105px 0 115px;
+    }
+
+    .nx-collection-heading {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(280px, 400px);
+
+        gap: 55px;
+        margin-bottom: 60px;
+    }
+
+    .nx-collection-grid {
+        gap: 50px 25px;
+    }
+
+    .nx-collection-property-title {
+        font-size: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-collection-shell {
+        width: calc(100% - 40px);
+        padding: 80px 0 85px;
+    }
+
+
+    /* HEADER */
+
+    .nx-collection-heading {
+        grid-template-columns: 1fr;
+        gap: 27px;
+
+        margin-bottom: 50px;
+    }
+
+    .nx-collection-intro {
+        max-width: 100%;
+        justify-self: start;
+        padding-bottom: 0;
+
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+
+    /* EYEBROW */
+
+    .nx-collection-eyebrow {
+        font-size: 9px;
+        letter-spacing: .17em;
+        gap: 9px;
+    }
+
+    .nx-collection-eyebrow span {
+        width: 22px;
+    }
+
+
+    /* HEADING */
+
+    .nx-collection-title {
+        margin-top: 18px;
+
+        font-size: clamp(44px, 13vw, 60px);
+        line-height: .97;
+        letter-spacing: -.04em;
+    }
+
+
+    /* GRID */
+
+    .nx-collection-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+
+    /* IMAGE */
+
+    .nx-collection-image-wrap {
+        aspect-ratio: 1.12 / 1;
+    }
+
+    .nx-collection-tag {
+        top: 14px;
+        left: 14px;
+
+        min-height: 27px;
+        padding: 0 10px;
+
+        font-size: 8px;
+    }
+
+    .nx-collection-image-arrow {
+        right: 14px;
+        bottom: 14px;
+
+        width: 42px;
+        height: 42px;
+
+        font-size: 18px;
+    }
+
+
+    /* CARD */
+
+    .nx-collection-card-info {
+        padding-top: 18px;
+    }
+
+    .nx-collection-property-title {
+        font-size: 28px;
+        line-height: 1.02;
+    }
+
+    .nx-collection-details {
+        font-size: 8px;
+    }
+
+    .nx-collection-price {
+        font-size: 22px;
+    }
+
+    .nx-collection-view {
+        font-size: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-collection-shell {
+        width: calc(100% - 32px);
+        padding-top: 70px;
+        padding-bottom: 75px;
+    }
+
+    .nx-collection-title {
+        font-size: 43px;
+    }
+
+    .nx-collection-grid {
+        gap: 48px;
+    }
+
+    .nx-collection-property-title {
+        font-size: 25px;
+    }
+
+    .nx-collection-card-bottom {
+        gap: 15px;
+    }
+
+    .nx-collection-price {
+        font-size: 20px;
+    }
+
+}
+</style>
+<section class="nx-destinations-section">
+
+    <div class="nx-destinations-shell">
+
+        <!-- SECTION INTRO -->
+        <div class="nx-destinations-intro">
+
+            <div>
+                <p class="nx-destinations-eyebrow">
+                    DESTINATIONS
+                </p>
+
+                <h2 class="nx-destinations-title">
+                    Dubai's most
+                    <em>distinctive addresses.</em>
+                </h2>
+            </div>
+
+            <p class="nx-destinations-description">
+                Explore the neighbourhoods shaping Dubai's luxury
+                property market — from waterfront living to
+                established ultra-prime communities.
+            </p>
+
+        </div>
+
+
+        <!-- DESTINATION GRID -->
+        <div class="nx-destinations-grid">
+
+            <!-- 01 -->
+            <a href="/dubai-communities/palm-jumeirah/"
+               class="nx-destination-card">
+
+                <div class="nx-destination-top">
+                    <span class="nx-destination-label">
+                        DESTINATION
+                    </span>
+
+                    <span class="nx-destination-number">
+                        01
+                    </span>
+                </div>
+
+                <h3>
+                    Palm Jumeirah
+                </h3>
+
+                <p>
+                    Waterfront villas, branded residences and
+                    exceptional apartments overlooking the Arabian Gulf.
+                </p>
+
+                <span class="nx-destination-link">
+                    EXPLORE
+                    <span>↗</span>
+                </span>
+
+            </a>
+
+
+            <!-- 02 -->
+            <a href="/dubai-communities/emirates-hills/"
+               class="nx-destination-card">
+
+                <div class="nx-destination-top">
+                    <span class="nx-destination-label">
+                        DESTINATION
+                    </span>
+
+                    <span class="nx-destination-number">
+                        02
+                    </span>
+                </div>
+
+                <h3>
+                    Emirates Hills
+                </h3>
+
+                <p>
+                    One of Dubai's most private residential
+                    communities, defined by space, greenery and prestige.
+                </p>
+
+                <span class="nx-destination-link">
+                    EXPLORE
+                    <span>↗</span>
+                </span>
+
+            </a>
+
+
+            <!-- 03 -->
+            <a href="/dubai-communities/downtown-dubai/"
+               class="nx-destination-card">
+
+                <div class="nx-destination-top">
+                    <span class="nx-destination-label">
+                        DESTINATION
+                    </span>
+
+                    <span class="nx-destination-number">
+                        03
+                    </span>
+                </div>
+
+                <h3>
+                    Downtown Dubai
+                </h3>
+
+                <p>
+                    Iconic towers, signature residences and
+                    a lifestyle at the centre of modern Dubai.
+                </p>
+
+                <span class="nx-destination-link">
+                    EXPLORE
+                    <span>↗</span>
+                </span>
+
+            </a>
+
+
+            <!-- 04 -->
+            <a href="/dubai-communities/dubai-hills-estate/"
+               class="nx-destination-card">
+
+                <div class="nx-destination-top">
+                    <span class="nx-destination-label">
+                        DESTINATION
+                    </span>
+
+                    <span class="nx-destination-number">
+                        04
+                    </span>
+                </div>
+
+                <h3>
+                    Dubai Hills Estate
+                </h3>
+
+                <p>
+                    Contemporary residences surrounded by
+                    parks, golf and one of Dubai's most connected locations.
+                </p>
+
+                <span class="nx-destination-link">
+                    EXPLORE
+                    <span>↗</span>
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — DESTINATIONS
+========================================================= */
+
+.nx-destinations-section {
+    width: 100%;
+    background: #fff;
+    color: #111111;
+    border-top: 1px solid rgba(17,17,17,.10);
+}
+
+
+/* =========================================================
+   SHELL
+========================================================= */
+
+.nx-destinations-shell {
+    width: min(1400px, calc(100% - 100px));
+    margin: 0 auto;
+    padding: 120px 0 125px;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.nx-destinations-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
+    gap: 100px;
+    align-items: end;
+    margin-bottom: 70px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-destinations-eyebrow {
+    margin: 0;
+    color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .20em;
+    line-height: 1.4;
+}
+
+.nx-destinations-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    margin-right: 12px;
+    vertical-align: middle;
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.nx-destinations-title {
+    max-width: 700px;
+    margin: 20px 0 0;
+    color: #111111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(48px, 6vw, 82px);
+    font-weight: 400;
+    line-height: .96;
+    letter-spacing: -.035em;
+}
+
+.nx-destinations-title em {
+    display: block;
+    color: #111;
+    font-style: italic;
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-destinations-description {
+    max-width: 500px;
+    margin: 0;
+    color: rgba(17,17,17,.60);
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.nx-destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(17,17,17,.14);
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.nx-destination-card {
+    position: relative;
+    display: flex;
+    min-height: 330px;
+    flex-direction: column;
+    padding: 30px 30px 32px;
+    color: #111111;
+    text-decoration: none;
+    border-right: 1px solid rgba(17,17,17,.14);
+    border-bottom: 1px solid rgba(17,17,17,.14);
+    transition:
+        background .35s ease,
+        transform .35s ease;
+}
+
+.nx-destination-card:first-child {
+    border-left: 1px solid rgba(17,17,17,.14);
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.nx-destination-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nx-destination-label {
+    color: #ff4c3fd3;
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.nx-destination-number {
+    color: rgba(17,17,17,.30);
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .12em;
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.nx-destination-card h3 {
+    margin: auto 0 14px;
+    color: #111111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -.025em;
+    transition: transform .35s ease;
+}
+
+
+/* =========================================================
+   CARD DESCRIPTION
+========================================================= */
+
+.nx-destination-card p {
+    max-width: 270px;
+    margin: 0;
+    color: rgba(17,17,17,.55);
+    font-family: "Manrope", sans-serif;
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   LINK
+========================================================= */
+
+.nx-destination-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 28px;
+    color: #111111;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.nx-destination-link span {
+    font-size: 17px;
+    font-weight: 400;
+    transition: transform .3s ease;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.nx-destination-card:hover {
+    background: #111111;
+    transform: translateY(-5px);
+    z-index: 2;
+}
+
+.nx-destination-card:hover h3 {
+    color: #f7f4ed;
+    transform: translateX(5px);
+}
+
+.nx-destination-card:hover p {
+    color: rgba(247,244,237,.58);
+}
+
+.nx-destination-card:hover .nx-destination-number {
+    color: rgba(247,244,237,.35);
+}
+
+.nx-destination-card:hover .nx-destination-link {
+    color: #ffffff;
+}
+
+.nx-destination-card:hover .nx-destination-link span {
+    color: #ff1d0c;
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-destinations-shell {
+        width: min(100% - 70px, 1400px);
+        padding: 100px 0 105px;
+    }
+
+    .nx-destinations-intro {
+        gap: 55px;
+    }
+
+    .nx-destinations-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nx-destination-card {
+        min-height: 300px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-destinations-shell {
+        width: calc(100% - 40px);
+        padding: 80px 0 85px;
+    }
+
+    .nx-destinations-intro {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-bottom: 50px;
+    }
+
+    .nx-destinations-description {
+        max-width: 100%;
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    .nx-destinations-eyebrow {
+        font-size: 9px;
+    }
+
+    .nx-destinations-title {
+        margin-top: 18px;
+        font-size: clamp(44px, 13vw, 60px);
+    }
+
+    .nx-destinations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nx-destination-card,
+    .nx-destination-card:first-child {
+        min-height: 270px;
+        padding: 27px 24px;
+        border-left: 1px solid rgba(17,17,17,.14);
+    }
+
+    .nx-destination-card h3 {
+        font-size: 29px;
+    }
+
+    .nx-destination-card p {
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-destinations-shell {
+        width: calc(100% - 32px);
+        padding-top: 70px;
+        padding-bottom: 75px;
+    }
+
+    .nx-destinations-title {
+        font-size: 43px;
+    }
+
+    .nx-destination-card {
+        min-height: 250px;
+    }
+
+}
+
+</style>
+
+<!-- =========================================================
+     NEXURBAN — PRIVATE ACCESS SECTION
+========================================================= -->
+
+<section class="nx-private-access">
+
+    <div class="nx-private-shell">
+
+        <!-- LEFT CONTENT -->
+        <div class="nx-private-content">
+
+            <p class="nx-private-eyebrow">
+                <span></span>
+                PRIVATE ACCESS
+            </p>
+
+            <h2 class="nx-private-title">
+                Some residences are
+                <br>
+                <em>never publicly listed.</em>
+            </h2>
+
+            <p class="nx-private-description">
+                A confidential conversation opens doors that portals cannot.
+                Tell us what exceptional means to you.
+            </p>
+
+            <div class="nx-private-contact">
+
+                <span class="nx-private-contact-line"></span>
+
+                <div>
+                    <p>PRIVATE ENQUIRIES</p>
+                    <strong>055 902 5646</strong>
+                </div>
+
+                <div>
+                    <p>EMAIL</p>
+                    <strong>SALES@NEXURBANPROPERTIES.COM</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT ENQUIRY CARD -->
+        <div class="nx-private-card">
+
+            <div class="nx-private-card-top">
+
+                <div>
+                    <p class="nx-private-card-eyebrow">
+                        NEXURBAN PRIVATE COLLECTION
+                    </p>
+
+                    <h3>
+                        Private collection
+                        <br>
+                        <em>enquiry.</em>
+                    </h3>
+                </div>
+
+
+            </div>
+
+
+            <!-- DEMO FIELDS -->
+            <div class="nx-private-fields">
+
+                <div class="nx-private-field">
+                    <label>FULL NAME</label>
+                    <div class="nx-private-input">
+                        Your name
+                    </div>
+                </div>
+
+
+                <div class="nx-private-field">
+                    <label>EMAIL ADDRESS</label>
+                    <div class="nx-private-input">
+                        Your email
+                    </div>
+                </div>
+
+
+                <div class="nx-private-field">
+                    <label>PHONE NUMBER</label>
+                    <div class="nx-private-input">
+                        +971
+                    </div>
+                </div>
+
+
+                <div class="nx-private-field">
+                    <label>WHAT ARE YOU LOOKING FOR?</label>
+                    <div class="nx-private-input nx-private-textarea">
+                        Tell us what exceptional means to you.
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- DEMO BUTTON -->
+            <a href="{% url 'contact' %}" class="nx-private-submit">
+
+                <span>
+                    REQUEST PRIVATE ACCESS
+                </span>
+
+                <b>↗</b>
+
+            </a>
+
+
+            <p class="nx-private-note">
+                Your enquiry is handled confidentially by a Nexurban advisor.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* =========================================================
+   NEXURBAN — PRIVATE ACCESS
+========================================================= */
+
+.nx-private-access {
+
+    position: relative;
+
+    width: 100%;
+
+    background: #111111;
+
+    color: #f7f4ed;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SHELL
+========================================================= */
+
+.nx-private-shell {
+
+    width: min(1400px, calc(100% - 100px));
+
+    margin: 0 auto;
+
+    padding: 125px 0 135px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(420px, 500px);
+
+    gap: 120px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.nx-private-content {
+
+    max-width: 720px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.nx-private-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    line-height: 1.4;
+}
+
+
+.nx-private-eyebrow span {
+
+    width: 30px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.nx-private-title {
+
+    margin: 22px 0 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: clamp(48px, 5.5vw, 78px);
+
+    font-weight: 400;
+
+    line-height: .97;
+
+    letter-spacing: -.035em;
+}
+
+
+.nx-private-title em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.nx-private-description {
+
+    max-width: 520px;
+
+    margin: 28px 0 0;
+
+    color: rgba(247,244,237,.60);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   CONTACT INFORMATION
+========================================================= */
+
+.nx-private-contact {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 42px;
+
+    margin-top: 55px;
+}
+
+
+.nx-private-contact-line {
+
+    width: 55px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: rgba(247,244,237,.25);
+}
+
+
+.nx-private-contact p {
+
+    margin: 0 0 7px;
+
+    color: rgba(247,244,237,.35);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .18em;
+}
+
+
+.nx-private-contact strong {
+
+    color: rgba(247,244,237,.75);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    letter-spacing: .08em;
+}
+
+
+/* =========================================================
+   ENQUIRY CARD
+========================================================= */
+
+.nx-private-card {
+
+    position: relative;
+
+    padding: 38px;
+
+    background: #191919;
+
+    border: 1px solid rgba(247,244,237,.12);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.28);
+}
+
+
+/* subtle red accent */
+
+.nx-private-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 70px;
+
+    height: 2px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.nx-private-card-top {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 28px;
+
+    border-bottom: 1px solid rgba(247,244,237,.10);
+}
+
+
+.nx-private-card-eyebrow {
+
+    margin: 0 0 12px;
+
+    color: rgba(247,244,237,.38);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: .17em;
+}
+
+
+.nx-private-card h3 {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 31px;
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -.025em;
+}
+
+
+.nx-private-card h3 em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+}
+
+
+.nx-private-card-number {
+
+    color: rgba(247,244,237,.20);
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 28px;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   FIELDS
+========================================================= */
+
+.nx-private-fields {
+
+    display: grid;
+
+    gap: 0;
+
+    margin-top: 4px;
+}
+
+
+.nx-private-field {
+
+    padding: 17px 0;
+
+    border-bottom: 1px solid rgba(247,244,237,.10);
+}
+
+
+.nx-private-field label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: rgba(247,244,237,.38);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+}
+
+
+.nx-private-input {
+
+    color: rgba(247,244,237,.42);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+.nx-private-textarea {
+
+    min-height: 42px;
+
+    padding-top: 2px;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.nx-private-submit {
+
+    min-height: 50px;
+
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding: 0 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.4px;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+
+.nx-private-submit b {
+
+    font-size: 20px;
+
+    font-weight: 400;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.nx-private-submit:hover {
+
+    background: #ffffff;
+
+    color: #111111;
+
+    transform: translateY(-2px);
+}
+
+
+.nx-private-submit:hover b {
+
+    transform: translateX(5px);
+}
+
+
+/* =========================================================
+   CARD NOTE
+========================================================= */
+
+.nx-private-note {
+
+    margin: 17px 0 0;
+
+    color: rgba(247,244,237,.30);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-private-shell {
+
+        width: min(100% - 70px, 1400px);
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(360px, 430px);
+
+        gap: 65px;
+
+        padding: 105px 0 115px;
+    }
+
+
+    .nx-private-title {
+
+        font-size: clamp(46px, 6vw, 70px);
+    }
+
+
+    .nx-private-card {
+
+        padding: 30px;
+    }
+
+
+    .nx-private-contact {
+
+        gap: 25px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-private-shell {
+
+        width: calc(100% - 40px);
+
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+
+        padding: 80px 0 85px;
+    }
+
+
+    .nx-private-content {
+
+        max-width: 100%;
+    }
+
+
+    .nx-private-eyebrow {
+
+        font-size: 9px;
+
+        letter-spacing: .17em;
+
+        gap: 9px;
+    }
+
+
+    .nx-private-eyebrow span {
+
+        width: 22px;
+    }
+
+
+    .nx-private-title {
+
+        margin-top: 19px;
+
+        font-size: clamp(43px, 12vw, 60px);
+
+        line-height: .98;
+    }
+
+
+    .nx-private-description {
+
+        margin-top: 23px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    .nx-private-contact {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 20px;
+
+        margin-top: 38px;
+    }
+
+
+    .nx-private-contact-line {
+
+        width: 45px;
+    }
+
+
+    .nx-private-contact div {
+
+        width: 100%;
+    }
+
+
+    .nx-private-card {
+
+        padding: 25px;
+
+        width: 100%;
+    }
+
+
+    .nx-private-card h3 {
+
+        font-size: 27px;
+    }
+
+
+    .nx-private-card-number {
+
+        font-size: 22px;
+    }
+
+
+    .nx-private-field {
+
+        padding: 15px 0;
+    }
+
+
+    .nx-private-submit {
+
+        min-height: 49px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nx-private-shell {
+
+        width: calc(100% - 32px);
+
+        padding-top: 70px;
+
+        padding-bottom: 75px;
+    }
+
+
+    .nx-private-card {
+
+        padding: 22px;
+    }
+
+
+    .nx-private-card h3 {
+
+        font-size: 25px;
+    }
+
+
+    .nx-private-contact strong {
+
+        font-size: 9px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-private-submit {
+
+        transition: none;
+    }
+
+}
+
+</style>
+{% endblock %}

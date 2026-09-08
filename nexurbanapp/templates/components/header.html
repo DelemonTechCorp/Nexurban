@@ -1,0 +1,1006 @@
+{% load static %}
+<style>
+
+
+/* ========================================
+   NEXURBAN NAVBAR
+======================================== */
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.nx-navbar,
+.nx-sidebar {
+  font-family: "Manrope", sans-serif;
+}
+
+.nx-header {
+    /*
+       position: relative kept the header IN the document flow,
+       taking up 108px of real space at the top of every page.
+       Being transparent, that space just showed through to
+       whatever background color the page underneath had —
+       white on the off-plan page, dark (or nothing) elsewhere.
+
+       position: absolute removes it from the flow entirely and
+       pins it to the very top, so it overlays directly on top
+       of the hero image on every page — the hero shows through
+       it consistently, no matter what that page's own
+       background color is.
+    */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+}
+
+
+.nx-navbar {
+    width: 100%;
+    min-height: 108px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 50px;
+
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+
+    background: transparent;
+}
+
+
+/* ========================================
+   LOGO
+======================================== */
+
+.nx-logo-link {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+
+.nx-logo {
+    width: 160px;
+    height: auto;
+    display: block;
+}
+
+
+/* ========================================
+   DESKTOP NAVIGATION
+======================================== */
+
+.nx-desktop-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.nx-nav-link {
+    color: #b8b8b8;
+
+    text-decoration: none;
+
+
+    font-size: 12px;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    transition: color 0.3s ease;
+}
+
+
+.nx-nav-link:hover {
+    color: #ffffff;
+}
+
+
+/* ========================================
+   RIGHT ACTIONS
+======================================== */
+
+.nx-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+
+.nx-search-btn {
+    border: none;
+    background: transparent;
+
+    color: #d4d4d4;
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    padding: 5px;
+
+    transition: color 0.3s ease;
+}
+
+
+.nx-search-btn:hover {
+    color: #ffffff;
+}
+
+
+/* ========================================
+   CONSULTATION BUTTON
+======================================== */
+
+.nx-consultation-btn {
+    min-height: 47px;
+
+    padding: 0 25px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ff1d0c;
+    color: #ffffff;
+    border: 1px solid #111;
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+
+    
+    font-size: 14px;
+    font-weight: 500;
+
+    letter-spacing: 1.4px;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+.nx-consultation-btn:hover {
+    background: #e91607;
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   HAMBURGER BUTTON
+======================================== */
+
+.nx-menu-toggle {
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    cursor: pointer;
+
+    padding: 0;
+}
+
+
+.nx-menu-toggle span {
+    display: block;
+
+    width: 18px;
+    height: 1.5px;
+
+    background: #d5d5d5;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+
+/* ========================================
+   OVERLAY
+======================================== */
+
+.nx-menu-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+
+    z-index: 1998;
+}
+
+
+.nx-menu-overlay.nx-overlay-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.nx-sidebar {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width: 500px;
+    max-width: 100%;
+
+    height: 100vh;
+
+    background: #121212;
+
+    border-left: 1px solid #373737;
+
+    transform: translateX(100%);
+
+    transition: transform 0.5s cubic-bezier(
+        0.77,
+        0,
+        0.18,
+        1
+    );
+
+    z-index: 1999;
+
+    overflow-y: auto;
+
+    padding: 70px 58px 40px;
+
+    box-sizing: border-box;
+}
+
+
+.nx-sidebar.nx-sidebar-active {
+    transform: translateX(0);
+}
+
+
+/* ========================================
+   CLOSE BUTTON
+======================================== */
+
+.nx-sidebar-close {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #ff2b18;
+    background: transparent;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+}
+
+
+.nx-sidebar-close span {
+    position: absolute;
+
+    width: 14px;
+    height: 1.5px;
+
+    background: #bcbcbc;
+}
+
+
+.nx-sidebar-close span:first-child {
+    transform: rotate(45deg);
+}
+
+
+.nx-sidebar-close span:last-child {
+    transform: rotate(-45deg);
+}
+
+
+/* ========================================
+   SIDEBAR LOGO
+======================================== */
+
+.nx-sidebar-logo-wrap {
+    margin-bottom: 90px;
+}
+
+
+.nx-sidebar-logo {
+    width: 160px;
+    height: auto;
+    display: block;
+}
+
+
+/* ========================================
+   SIDEBAR NAVIGATION
+======================================== */
+
+.nx-sidebar-nav {
+    width: 100%;
+}
+
+
+.nx-sidebar-link {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 100px;
+
+    color: #d8d8d8;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #353535;
+
+    font-size: 38px;
+    font-weight: 400;
+    font-family: "Manrope", sans-serif;
+
+    letter-spacing: 0.5px;
+
+    transition:
+        color 0.3s ease,
+        padding-left 0.3s ease;
+}
+
+
+.nx-sidebar-link:hover {
+    color: #ff2a18;
+
+    padding-left: 10px;
+}
+
+
+.nx-arrow {
+ 
+    
+
+    font-size: 31px;
+    line-height: 1;
+
+    color: #d2d2d2;
+
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+
+.nx-sidebar-link:hover .nx-arrow {
+    color: #ff2a18;
+    transform: translate(5px, -5px);
+}
+
+
+/* ========================================
+   SIDEBAR BOTTOM
+======================================== */
+
+.nx-sidebar-bottom {
+    padding-top: 40px;
+}
+
+
+.nx-sidebar-consultation {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 55px;
+
+    background: #ff2110;
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    transition: background 0.3s ease;
+}
+
+
+.nx-sidebar-consultation:hover {
+    background: #e81708;
+}
+
+
+/* ========================================
+   BODY SCROLL LOCK
+======================================== */
+
+body.nx-menu-open {
+    overflow: hidden;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1200px) {
+
+    .nx-navbar {
+        padding: 0 30px;
+    }
+
+
+    .nx-desktop-nav {
+        gap: 18px;
+    }
+
+
+    .nx-nav-link {
+        font-size: 11px;
+    }
+
+
+    .nx-header-actions {
+        gap: 15px;
+    }
+
+
+    .nx-consultation-btn {
+        padding: 0 18px;
+        font-size: 12px;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .nx-navbar {
+        min-height: 78px;
+
+        padding: 0 20px;
+    }
+
+
+    .nx-logo {
+        width: 145px;
+    }
+
+
+    .nx-desktop-nav {
+        display: none;
+    }
+
+
+    .nx-header-actions {
+        margin-left: auto;
+        gap: 15px;
+    }
+
+
+    .nx-consultation-btn {
+        display: none;
+    }
+
+
+    .nx-search-btn {
+        padding: 5px;
+    }
+
+
+    .nx-menu-toggle {
+        width: 35px;
+        height: 35px;
+    }
+
+
+    .nx-sidebar {
+        width: 100%;
+
+        padding:
+            85px
+            30px
+            40px;
+    }
+
+
+    .nx-sidebar-logo-wrap {
+        margin-bottom: 55px;
+    }
+
+
+    .nx-sidebar-logo {
+        width: 150px;
+    }
+
+
+    .nx-sidebar-link {
+        min-height: 76px;
+
+        font-size: 29px;
+    }
+
+
+    .nx-arrow {
+        font-size: 25px;
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 480px) {
+
+    .nx-navbar {
+        min-height: 70px;
+
+        padding: 0 15px;
+    }
+
+
+    .nx-logo {
+        width: 130px;
+    }
+
+
+    .nx-header-actions {
+        gap: 8px;
+    }
+
+
+    .nx-search-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .nx-sidebar {
+        padding:
+            80px
+            22px
+            30px;
+    }
+
+
+    .nx-sidebar-logo-wrap {
+        margin-bottom: 45px;
+    }
+
+
+    .nx-sidebar-logo {
+        width: 135px;
+    }
+
+
+    .nx-sidebar-link {
+        min-height: 68px;
+
+        font-size: 25px;
+    }
+
+
+    .nx-arrow {
+        font-size: 23px;
+    }
+
+
+    .nx-sidebar-close {
+        top: 18px;
+        right: 18px;
+    }
+
+}
+.nx-whatsapp-btn {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+      color: #25D366;
+    text-decoration: none;
+
+    background: transparent;
+    border: 1px solid transparent;
+
+    transition: 0.3s ease;
+}
+
+.nx-whatsapp-btn svg {
+    width: 23px;
+    height: 23px;
+  
+}
+
+.nx-whatsapp-btn:hover {
+  color: #ff1d0c;
+    transform: scale(1.08);
+}
+</style>
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/navbar.css' %}"
+    >
+
+</head>
+
+{% load static %}
+
+<header class="nx-header" id="nxHeader">
+
+    <div class="nx-navbar">
+
+        <!-- Logo -->
+        <a href="/" class="nx-logo-link">
+            <img
+                src="{% static 'img/logo.png' %}"
+                alt="Nexurban Properties"
+                class="nx-logo"
+            >
+        </a>
+
+
+        <!-- Desktop Navigation -->
+        <nav class="nx-desktop-nav">
+           
+            <a href="{% url 'buy' %}" class="nx-nav-link">BUY</a>
+
+            <a href="{% url 'sell' %}" class="nx-nav-link">SELL</a>
+            <a href="{% url 'offplan' %}" class="nx-nav-link">OFF-PLAN</a>
+            <a href="{% url 'ready' %}" class="nx-nav-link">READY</a>
+            <a href="{% url 'luxury' %}" class="nx-nav-link">LUXURY</a>
+            <a href="{% url 'area' %}" class="nx-nav-link">COMMUNITIES</a>
+            <a href="#" class="nx-nav-link">ADVISORY</a>
+             <a href="{% url 'about' %}" class="nx-nav-link">ABOUT</a>
+
+
+        </nav>
+
+
+        <!-- Right Side -->
+        <div class="nx-header-actions">
+
+            <!-- Search -->
+            <a
+    href="https://wa.me/+971559025646"
+    class="nx-whatsapp-btn"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat with us on WhatsApp"
+>
+    <svg
+        width="23"
+        height="23"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path d="M20.52 3.48A11.94 11.94 0 0 0 12.03 0C5.4 0 .03 5.37.03 12c0 2.12.55 4.19 1.6 6.01L0 24l6.17-1.62A11.96 11.96 0 0 0 12.03 24h.01c6.62 0 11.99-5.37 11.99-12 0-3.2-1.25-6.21-3.51-8.52ZM12.04 21.97c-1.83 0-3.61-.49-5.17-1.42l-.37-.22-3.66.96.98-3.57-.24-.37A9.9 9.9 0 0 1 2.07 12c0-5.5 4.47-9.97 9.97-9.97 2.66 0 5.16 1.04 7.04 2.92A9.89 9.89 0 0 1 22 12c0 5.5-4.46 9.97-9.96 9.97Zm5.46-7.47c-.3-.15-1.78-.88-2.05-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.96 1.18-.18.2-.35.23-.65.08-1.78-.89-2.95-1.59-4.13-3.61-.31-.53.31-.49.88-1.63.1-.2.05-.38-.03-.53-.08-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.51 0 1.48 1.08 2.91 1.23 3.11.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.78-.73 2.03-1.43.25-.7.25-1.31.18-1.43-.08-.13-.28-.2-.58-.35Z"/>
+    </svg>
+</a>
+
+
+            <!-- Consultation Button -->
+            <a href="{% url 'contact' %}" class="nx-consultation-btn">
+                BOOK A CONSULTATION
+            </a>
+
+
+            <!-- Hamburger -->
+            <button
+                type="button"
+                class="nx-menu-toggle"
+                id="nxMenuToggle"
+                aria-label="Open Menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     MENU OVERLAY
+========================= -->
+
+<div class="nx-menu-overlay" id="nxMenuOverlay"></div>
+
+
+<!-- =========================
+     SIDE MENU
+========================= -->
+
+<aside class="nx-sidebar" id="nxSidebar">
+
+    <!-- Close Button -->
+    <button
+        type="button"
+        class="nx-sidebar-close"
+        id="nxSidebarClose"
+        aria-label="Close Menu"
+    >
+        <span></span>
+        <span></span>
+    </button>
+
+
+    <!-- Sidebar Logo -->
+    <div class="nx-sidebar-logo-wrap">
+
+        <a href="/">
+            <img
+                src="{% static 'img/logo.png' %}"
+                alt="Nexurban Properties"
+                class="nx-sidebar-logo"
+            >
+        </a>
+
+    </div>
+
+
+    <!-- Sidebar Navigation -->
+    <nav class="nx-sidebar-nav">
+
+      
+        
+        <a href="{% url 'buy' %}" class="nx-sidebar-link">
+            <span>BUY</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+        <a href="{% url 'sell' %}" class="nx-sidebar-link">
+            <span>SELL</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+
+
+        <a href="{% url 'offplan' %}" class="nx-sidebar-link">
+            <span>OFF-PLAN</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+
+
+        <a href="{% url 'ready' %}" class="nx-sidebar-link">
+            <span>READY</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+
+
+        <a href="{% url 'luxury' %}" class="nx-sidebar-link">
+            <span>LUXURY</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+
+
+        <a href="{% url 'area' %}" class="nx-sidebar-link">
+            <span>COMMUNITIES</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+
+
+        <a href="#" class="nx-sidebar-link">
+            <span>ADVISORY</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+         
+        <a href="{% url 'about' %}" class="nx-sidebar-link">
+            <span>About</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+
+
+    </nav>
+
+
+    <!-- Mobile Consultation -->
+    <div class="nx-sidebar-bottom">
+
+        <a href="{% url 'contact' %}" class="nx-sidebar-consultation">
+            BOOK A CONSULTATION
+        </a>
+
+    </div>
+
+</aside>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const nxMenuToggle = document.getElementById("nxMenuToggle");
+    const nxSidebar = document.getElementById("nxSidebar");
+    const nxSidebarClose = document.getElementById("nxSidebarClose");
+    const nxMenuOverlay = document.getElementById("nxMenuOverlay");
+
+
+    // Open Menu
+    function nxOpenMenu() {
+
+        nxSidebar.classList.add("nx-sidebar-active");
+
+        nxMenuOverlay.classList.add("nx-overlay-active");
+
+        document.body.classList.add("nx-menu-open");
+
+        nxMenuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+    }
+
+
+    // Close Menu
+    function nxCloseMenu() {
+
+        nxSidebar.classList.remove("nx-sidebar-active");
+
+        nxMenuOverlay.classList.remove("nx-overlay-active");
+
+        document.body.classList.remove("nx-menu-open");
+
+        nxMenuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+    }
+
+
+    // Hamburger Click
+    nxMenuToggle.addEventListener(
+        "click",
+        nxOpenMenu
+    );
+
+
+    // Close Button
+    nxSidebarClose.addEventListener(
+        "click",
+        nxCloseMenu
+    );
+
+
+    // Click Outside
+    nxMenuOverlay.addEventListener(
+        "click",
+        nxCloseMenu
+    );
+
+
+    // ESC Key Close
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                nxSidebar.classList.contains(
+                    "nx-sidebar-active"
+                )
+            ) {
+                nxCloseMenu();
+            }
+
+        }
+    );
+
+
+    // Close sidebar when clicking a menu link
+    const nxSidebarLinks = document.querySelectorAll(
+        ".nx-sidebar-link"
+    );
+
+
+    nxSidebarLinks.forEach(function (link) {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                nxCloseMenu();
+
+            }
+        );
+
+    });
+
+});
+</script>

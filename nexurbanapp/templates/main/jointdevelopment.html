@@ -1,0 +1,2275 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — JOINT DEVELOPMENT
+   PREMIUM EDITORIAL PAGE
+   Styled to match OFF-PLAN page
+========================================================= */
+
+.jd-page {
+    width: 100%;
+    background: #f7f4ed;
+    color: #111111;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.jd-page-hero {
+    position: relative;
+
+    width: 100%;
+    min-height: 720px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    color: #f7f4ed;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.91) 0%,
+            rgba(8,8,8,.72) 34%,
+            rgba(8,8,8,.36) 65%,
+            rgba(8,8,8,.18) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.94) 0%,
+            rgba(8,8,8,.18) 55%,
+            rgba(8,8,8,.38) 100%
+        ),
+        url("{% static 'img/jdhero.jpg' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    isolation: isolate;
+
+    animation:
+        nxJDHeroReveal 1.2s ease-out both;
+}
+
+
+@keyframes nxJDHeroReveal {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT SIDE ACCENT
+========================================================= */
+
+.jd-page-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 24%;
+    height: 100%;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,29,12,.025),
+            rgba(255,29,12,.10)
+        );
+
+    border-left:
+        1px solid rgba(255,29,12,.12);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.jd-hero-inner {
+
+    position: relative;
+
+    z-index: 3;
+
+    width:
+        min(
+            1400px,
+            calc(100% - 100px)
+        );
+
+    margin: 0 auto;
+
+    padding:
+        155px 0 90px;
+}
+
+
+/* =========================================================
+   HERO EYEBROW
+========================================================= */
+
+.jd-hero-eyebrow {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        0 0 22px;
+
+    color: #ff4c3fd3;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxJDFade
+        .8s cubic-bezier(.22,1,.36,1)
+        .1s forwards;
+}
+
+
+.jd-hero-eyebrow::before {
+
+    content: "";
+
+    width: 32px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+.jd-hero-eyebrow::after {
+
+    content: "";
+
+    width: 5px;
+
+    height: 5px;
+
+    margin-left: -5px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 0 5px rgba(255,29,12,.08),
+        0 0 13px rgba(255,29,12,.45);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.jd-hero-title {
+
+    max-width: 920px;
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(52px, 6.3vw, 90px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.045em;
+
+    opacity: 0;
+
+    animation:
+        nxJDFade
+        1s cubic-bezier(.22,1,.36,1)
+        .22s forwards;
+}
+
+
+.jd-hero-title em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.jd-hero-description {
+
+    max-width: 580px;
+
+    margin:
+        27px 0 0;
+
+    color:
+        rgba(247,244,237,.66);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+
+    opacity: 0;
+
+    animation:
+        nxJDFade
+        .9s cubic-bezier(.22,1,.36,1)
+        .38s forwards;
+}
+
+
+/* =========================================================
+   HERO LINE
+========================================================= */
+
+.jd-hero-line {
+
+    width: 55px;
+
+    height: 1px;
+
+    margin-top: 30px;
+
+    background: #ff1d0c;
+
+    opacity: 0;
+
+    animation:
+        nxJDFade
+        .8s cubic-bezier(.22,1,.36,1)
+        .42s forwards;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.jd-hero-actions {
+
+    margin-top: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    opacity: 0;
+
+    animation:
+        nxJDFade
+        .9s cubic-bezier(.22,1,.36,1)
+        .48s forwards;
+}
+
+
+.jd-btn {
+
+    min-height: 52px;
+
+    padding:
+        0 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    text-decoration: none;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    text-transform: uppercase;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+
+.jd-btn-primary {
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border:
+        1px solid #ff1d0c;
+}
+
+
+.jd-btn-primary:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.jd-btn-outline {
+
+    background: transparent;
+
+    color: #f7f4ed;
+
+    border:
+        1px solid rgba(247,244,237,.42);
+}
+
+
+.jd-btn-outline:hover {
+
+    background: #f7f4ed;
+
+    border-color: #f7f4ed;
+
+    color: #111111;
+
+    transform:
+        translateY(-2px);
+}
+
+
+.jd-btn-arrow {
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.jd-btn:hover .jd-btn-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   HERO BOTTOM DETAIL
+========================================================= */
+
+.jd-hero-inner::after {
+
+    content:
+        "NEXURBAN · DUBAI · JOINT DEVELOPMENT";
+
+    display: block;
+
+    margin-top: 58px;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxJDFade
+        .8s ease
+        .58s forwards;
+}
+
+
+/* =========================================================
+   HERO FADE
+========================================================= */
+
+@keyframes nxJDFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.jd-marquee {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #111111;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    padding:
+        21px 0;
+}
+
+
+.jd-marquee-track {
+
+    width: max-content;
+
+    display: flex;
+
+    white-space: nowrap;
+
+    animation:
+        jdMarquee 28s linear infinite;
+}
+
+
+.jd-marquee-track span {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    color:
+        rgba(247,244,237,.72);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+}
+
+
+.jd-marquee-track i {
+
+    width: 4px;
+
+    height: 4px;
+
+    margin:
+        0 30px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    display: inline-block;
+}
+
+
+@keyframes jdMarquee {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   APPROACH SECTION
+========================================================= */
+
+.jd-main {
+
+    width: 100%;
+
+    background: #ffffff;
+
+    color: #111111;
+}
+
+
+.jd-site-shell {
+
+    width:
+        min(
+            calc(100% - 100px),
+            1400px
+        );
+
+    margin: 0 auto;
+}
+
+
+.jd-section {
+
+    padding:
+        115px 0 125px;
+}
+
+
+/* =========================================================
+   SECTION EYEBROW
+========================================================= */
+
+.jd-section-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 0;
+
+    color: #ff1d0c;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.jd-section-eyebrow::before {
+
+    content: "";
+
+    width: 28px;
+
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   APPROACH HEADER
+========================================================= */
+
+.jd-approach-heading {
+
+    margin-top: 55px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        minmax(280px,390px);
+
+    gap: 80px;
+
+    align-items: end;
+}
+
+
+.jd-approach-title {
+
+    max-width: 780px;
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(48px, 5.8vw, 78px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.045em;
+}
+
+
+.jd-approach-title em {
+
+    color: #55504a;
+
+    font-style: italic;
+}
+
+
+.jd-approach-copy {
+
+    max-width: 390px;
+
+    margin: 0;
+
+    color:
+        rgba(17,17,17,.56);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   QUOTE
+========================================================= */
+
+.jd-quote {
+
+    max-width: 1040px;
+
+    margin-top: 90px;
+
+    padding:
+        50px 0 50px 55px;
+
+    border-left:
+        2px solid #ff1d0c;
+}
+
+
+.jd-quote p {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(34px, 4vw, 58px);
+
+    font-weight: 400;
+
+    line-height: 1.03;
+
+    letter-spacing: -.035em;
+}
+
+
+.jd-quote em {
+
+    color: #ff1d0c;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   APPROACH ROWS
+========================================================= */
+
+.jd-approach-list {
+
+    margin-top: 85px;
+
+    border-top:
+        1px solid rgba(17,17,17,.13);
+}
+
+
+.jd-approach-row {
+
+    min-height: 145px;
+
+    padding:
+        30px 0;
+
+    display: grid;
+
+    grid-template-columns: 90px minmax(0,1fr) 380px;
+
+    gap: 40px;
+
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(17,17,17,.13);
+
+    transition:
+        background .35s ease,
+        padding .35s ease;
+}
+
+
+.jd-approach-row:hover {
+
+    padding-left: 15px;
+
+    padding-right: 15px;
+
+    background: #faf9f6;
+}
+
+
+.jd-approach-number {
+
+    color: #ff1d0c;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .15em;
+}
+
+
+.jd-approach-row h3 {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(27px, 3vw, 39px);
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -.025em;
+}
+
+
+.jd-approach-row p {
+
+    margin: 0;
+
+    color:
+        rgba(17,17,17,.55);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   JD VALUES SECTION
+========================================================= */
+
+.jd-values-section {
+
+    background: #f7f4ed;
+
+    border-top:
+        1px solid rgba(17,17,17,.08);
+}
+
+
+.jd-values-grid {
+
+    margin-top: 75px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap: 38px;
+}
+
+
+.jd-value-card {
+
+    position: relative;
+
+    min-height: 330px;
+
+    padding:
+        35px 30px;
+
+    background: #ffffff;
+
+    border:
+        1px solid rgba(17,17,17,.10);
+
+    transition:
+        transform .4s cubic-bezier(.2,.65,.3,1),
+        border-color .3s ease;
+}
+
+
+.jd-value-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255,29,12,.35);
+}
+
+
+.jd-value-number {
+
+    color: #ff1d0c;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .18em;
+}
+
+
+.jd-value-card h3 {
+
+    margin:
+        55px 0 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 34px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -.025em;
+}
+
+
+.jd-value-card p {
+
+    max-width: 340px;
+
+    margin:
+        25px 0 0;
+
+    color:
+        rgba(17,17,17,.56);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+.jd-value-arrow {
+
+    position: absolute;
+
+    right: 28px;
+
+    bottom: 25px;
+
+    width: 39px;
+
+    height: 39px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid rgba(255,29,12,.25);
+
+    border-radius: 50%;
+
+    color: #ff1d0c;
+
+    font-size: 17px;
+
+    transition:
+        background .3s ease,
+        color .3s ease;
+}
+
+
+.jd-value-card:hover .jd-value-arrow {
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border-color: #ff1d0c;
+}
+
+
+/* =========================================================
+   CTA BAND
+========================================================= */
+
+.jd-cta-band {
+
+    min-height: 420px;
+
+    padding:
+        100px 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111111 0%,
+            #181818 50%,
+            #0d0d0d 100%
+        );
+
+    color: #f7f4ed;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.jd-cta-band::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+
+    height: 520px;
+
+    right: -180px;
+
+    top: -240px;
+
+    border:
+        1px solid rgba(255,29,12,.16);
+
+    border-radius: 50%;
+}
+
+
+.jd-cta-band::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+
+    height: 300px;
+
+    left: -150px;
+
+    bottom: -180px;
+
+    border:
+        1px solid rgba(255,29,12,.10);
+
+    border-radius: 50%;
+}
+
+
+.jd-cta-band p {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin: 0 0 38px;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(45px, 6vw, 78px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.045em;
+}
+
+
+.jd-cta-band p em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+}
+
+
+.jd-cta-button {
+
+    position: relative;
+
+    z-index: 2;
+
+    min-height: 56px;
+
+    padding:
+        0 28px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border:
+        1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .17em;
+
+    text-transform: uppercase;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+.jd-cta-button:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-3px);
+}
+
+
+.jd-cta-button span {
+
+    font-size: 18px;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.jd-cta-button:hover span {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .jd-site-shell {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .jd-hero-inner {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .jd-page-hero {
+
+        min-height: 650px;
+    }
+
+
+    .jd-approach-heading {
+
+        gap: 50px;
+    }
+
+
+    .jd-approach-row {
+
+        grid-template-columns:
+            70px minmax(0,1fr);
+
+        gap: 25px;
+    }
+
+
+    .jd-approach-row p {
+
+        grid-column: 2;
+    }
+
+
+    .jd-values-grid {
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap: 30px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .jd-site-shell {
+
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .jd-hero-inner {
+
+        width:
+            calc(100% - 36px);
+
+        padding:
+            125px 0 65px;
+    }
+
+
+    .jd-page-hero {
+
+        min-height: 680px;
+
+        align-items: flex-end;
+
+        background-position:
+            60% center;
+    }
+
+
+    .jd-page-hero::after {
+
+        width: 100%;
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(255,29,12,.015),
+                rgba(255,29,12,.055)
+            );
+
+        border-left: 0;
+
+        border-top:
+            1px solid rgba(255,29,12,.06);
+    }
+
+
+    /* HERO */
+
+    .jd-hero-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+
+        gap: 8px;
+    }
+
+
+    .jd-hero-eyebrow::before {
+
+        width: 22px;
+    }
+
+
+    .jd-hero-title {
+
+        font-size:
+            clamp(45px,13vw,64px);
+
+        line-height: .97;
+    }
+
+
+    .jd-hero-description {
+
+        max-width: 100%;
+
+        margin-top: 22px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    .jd-hero-line {
+
+        margin-top: 25px;
+    }
+
+
+    .jd-hero-actions {
+
+        margin-top: 25px;
+
+        gap: 9px;
+    }
+
+
+    .jd-btn {
+
+        min-height: 49px;
+
+        padding:
+            0 18px;
+
+        font-size: 8px;
+
+        letter-spacing: .12em;
+    }
+
+
+    .jd-hero-inner::after {
+
+        margin-top: 42px;
+
+        font-size: 7px;
+
+        letter-spacing: .15em;
+    }
+
+
+    /* =====================================================
+       MARQUEE
+    ===================================================== */
+
+    .jd-marquee {
+
+        padding:
+            17px 0;
+    }
+
+
+    .jd-marquee-track span {
+
+        font-size: 8px;
+
+        letter-spacing: .17em;
+    }
+
+
+    .jd-marquee-track i {
+
+        margin:
+            0 20px;
+    }
+
+
+    /* =====================================================
+       SECTION
+    ===================================================== */
+
+    .jd-section {
+
+        padding:
+            70px 0 80px;
+    }
+
+
+    /* =====================================================
+       APPROACH
+    ===================================================== */
+
+    .jd-approach-heading {
+
+        display: block;
+
+        margin-top: 45px;
+    }
+
+
+    .jd-approach-title {
+
+        font-size:
+            clamp(45px,13vw,60px);
+
+        line-height: .97;
+    }
+
+
+    .jd-approach-copy {
+
+        max-width: 100%;
+
+        margin-top: 25px;
+
+        font-size: 12.5px;
+    }
+
+
+    /* =====================================================
+       QUOTE
+    ===================================================== */
+
+    .jd-quote {
+
+        margin-top: 65px;
+
+        padding:
+            30px 0 30px 25px;
+    }
+
+
+    .jd-quote p {
+
+        font-size:
+            clamp(31px,9vw,46px);
+
+        line-height: 1.02;
+    }
+
+
+    /* =====================================================
+       APPROACH LIST
+    ===================================================== */
+
+    .jd-approach-list {
+
+        margin-top: 60px;
+    }
+
+
+    .jd-approach-row {
+
+        min-height: auto;
+
+        padding:
+            27px 0;
+
+        display: block;
+    }
+
+
+    .jd-approach-number {
+
+        display: block;
+
+        margin-bottom: 17px;
+    }
+
+
+    .jd-approach-row h3 {
+
+        font-size: 29px;
+    }
+
+
+    .jd-approach-row p {
+
+        margin-top: 17px;
+
+        font-size: 11.5px;
+    }
+
+
+    .jd-approach-row:hover {
+
+        padding-left: 8px;
+
+        padding-right: 8px;
+    }
+
+
+    /* =====================================================
+       VALUES
+    ===================================================== */
+
+    .jd-values-grid {
+
+        margin-top: 50px;
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    .jd-value-card {
+
+        min-height: 280px;
+
+        padding:
+            28px 24px;
+    }
+
+
+    .jd-value-card h3 {
+
+        margin-top: 45px;
+
+        font-size: 31px;
+    }
+
+
+    .jd-value-card p {
+
+        font-size: 11.5px;
+
+        margin-top: 20px;
+    }
+
+
+    /* =====================================================
+       CTA
+    ===================================================== */
+
+    .jd-cta-band {
+
+        min-height: 400px;
+
+        padding:
+            80px 25px;
+    }
+
+
+    .jd-cta-band p {
+
+        font-size:
+            clamp(43px,12vw,60px);
+    }
+
+
+    .jd-cta-button {
+
+        min-height: 52px;
+
+        padding:
+            0 21px;
+
+        font-size: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .jd-site-shell {
+
+        width:
+            calc(100% - 30px);
+    }
+
+
+    .jd-hero-inner {
+
+        width:
+            calc(100% - 30px);
+
+        padding-top: 112px;
+    }
+
+
+    .jd-page-hero {
+
+        min-height: 670px;
+    }
+
+
+    .jd-hero-title {
+
+        font-size: 44px;
+    }
+
+
+    .jd-approach-title {
+
+        font-size: 43px;
+    }
+
+
+    .jd-quote p {
+
+        font-size: 30px;
+    }
+
+
+    .jd-value-card h3 {
+
+        font-size: 28px;
+    }
+
+
+    .jd-cta-band p {
+
+        font-size: 42px;
+    }
+
+
+    .jd-btn {
+
+        width: 100%;
+    }
+
+
+    .jd-hero-actions {
+
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .jd-page-hero,
+    .jd-hero-eyebrow,
+    .jd-hero-title,
+    .jd-hero-description,
+    .jd-hero-line,
+    .jd-hero-actions,
+    .jd-hero-inner::after {
+
+        animation: none !important;
+
+        opacity: 1;
+
+        transform: none;
+    }
+
+
+    .jd-marquee-track {
+
+        animation: none !important;
+    }
+
+
+    .jd-value-card,
+    .jd-approach-row,
+    .jd-btn,
+    .jd-cta-button {
+
+        transition: none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="jd-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="jd-page-hero">
+
+        <div class="jd-hero-inner">
+
+
+            <!-- EYEBROW -->
+
+            <p class="jd-hero-eyebrow">
+
+                JOINT DEVELOPMENTS (JD)
+
+            </p>
+
+
+            <!-- TITLE -->
+
+            <h1 class="jd-hero-title">
+
+                Transform Land Into<br>
+
+                <em>High-Value Projects.</em>
+
+            </h1>
+
+
+            <!-- LINE -->
+
+            <div class="jd-hero-line"></div>
+
+
+            <!-- DESCRIPTION -->
+
+            <p class="jd-hero-description">
+
+                Partner with the right stakeholders to transform
+                land and development opportunities into
+                high-value, commercially viable real estate projects.
+
+            </p>
+
+
+            <!-- ACTIONS -->
+
+            <div class="jd-hero-actions">
+
+                <a
+                    href="{% url 'contact' %}"
+                    class="jd-btn jd-btn-primary"
+                >
+
+                    START A CONVERSATION
+
+                    <span class="jd-btn-arrow">
+                        ↗
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{% url 'land-deals' %}"
+                    class="jd-btn jd-btn-outline"
+                >
+
+                    EXPLORE LAND DEALS
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MARQUEE
+    ====================================================== -->
+
+    <div class="jd-marquee">
+
+        <div class="jd-marquee-track">
+
+            <span>
+
+                <i></i>
+                RIGHT STAKEHOLDERS
+
+                <i></i>
+                LAND OPPORTUNITIES
+
+                <i></i>
+                HIGH-VALUE PROJECTS
+
+                <i></i>
+                COMMERCIALLY VIABLE
+
+                <i></i>
+
+            </span>
+
+
+            <span>
+
+                <i></i>
+                RIGHT STAKEHOLDERS
+
+                <i></i>
+                LAND OPPORTUNITIES
+
+                <i></i>
+                HIGH-VALUE PROJECTS
+
+                <i></i>
+                COMMERCIALLY VIABLE
+
+                <i></i>
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="jd-main">
+
+
+        <!-- =================================================
+             JD APPROACH
+        ================================================== -->
+
+        <section class="jd-section">
+
+            <div class="jd-site-shell">
+
+
+                <!-- EYEBROW -->
+
+                <p class="jd-section-eyebrow">
+
+                    THE JD APPROACH
+
+                </p>
+
+
+                <!-- HEADING -->
+
+                <div class="jd-approach-heading">
+
+                    <div>
+
+                        <h2 class="jd-approach-title">
+
+                            The right partnership
+                            <br>
+
+                            creates
+                            <em>lasting value.</em>
+
+                        </h2>
+
+                    </div>
+
+
+                    <p class="jd-approach-copy">
+
+                        We bring together landowners,
+                        developers, investors and strategic
+                        partners to structure opportunities
+                        that are commercially viable and
+                        positioned for long-term success.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     QUOTE
+                ================================================== -->
+
+                <div class="jd-quote">
+
+                    <p>
+
+                        Partner with the right stakeholders
+                        to transform land and development
+                        opportunities into
+
+                        <em>
+                            high-value, commercially viable
+                        </em>
+
+                        real estate projects.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     APPROACH LIST
+                ================================================== -->
+
+                <div class="jd-approach-list">
+
+
+                    <!-- ROW 01 -->
+
+                    <div class="jd-approach-row">
+
+                        <span class="jd-approach-number">
+                            01
+                        </span>
+
+
+                        <div>
+
+                            <h3>
+                                THE RIGHT STAKEHOLDERS
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+
+                            We identify and connect the right
+                            landowners, developers, investors
+                            and strategic partners to create
+                            strong development structures.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- ROW 02 -->
+
+                    <div class="jd-approach-row">
+
+                        <span class="jd-approach-number">
+                            02
+                        </span>
+
+
+                        <div>
+
+                            <h3>
+                                LAND & DEVELOPMENT OPPORTUNITIES
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+
+                            We evaluate land and development
+                            opportunities based on location,
+                            fundamentals, demand and the
+                            potential for value creation.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- ROW 03 -->
+
+                    <div class="jd-approach-row">
+
+                        <span class="jd-approach-number">
+                            03
+                        </span>
+
+
+                        <div>
+
+                            <h3>
+                                HIGH-VALUE, COMMERCIALLY
+                                VIABLE PROJECTS
+                            </h3>
+
+                        </div>
+
+
+                        <p>
+
+                            The objective is to structure
+                            projects that combine commercial
+                            viability, strong positioning and
+                            sustainable long-term value.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             VALUE SECTION
+        ================================================== -->
+
+        <section class="jd-section jd-values-section">
+
+            <div class="jd-site-shell">
+
+
+                <!-- EYEBROW -->
+
+                <p class="jd-section-eyebrow">
+
+                    WHY JOINT DEVELOPMENT
+
+                </p>
+
+
+                <!-- HEADING -->
+
+                <div class="jd-approach-heading">
+
+                    <div>
+
+                        <h2 class="jd-approach-title">
+
+                            Built around
+                            <br>
+
+                            <em>shared opportunity.</em>
+
+                        </h2>
+
+                    </div>
+
+
+                    <p class="jd-approach-copy">
+
+                        Joint development works when every
+                        stakeholder brings a clear advantage
+                        to the table. Our role is to align those
+                        advantages into one coherent opportunity.
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- VALUE CARDS -->
+
+                <div class="jd-values-grid">
+
+
+                    <!-- CARD 01 -->
+
+                    <article class="jd-value-card">
+
+                        <span class="jd-value-number">
+                            01 / ALIGN
+                        </span>
+
+
+                        <h3>
+                            Strategic
+                            Alignment
+                        </h3>
+
+
+                        <p>
+
+                            Aligning land, capital, development
+                            expertise and market knowledge
+                            around a common commercial objective.
+
+                        </p>
+
+
+                        <span class="jd-value-arrow">
+                            ↗
+                        </span>
+
+                    </article>
+
+
+
+                    <!-- CARD 02 -->
+
+                    <article class="jd-value-card">
+
+                        <span class="jd-value-number">
+                            02 / STRUCTURE
+                        </span>
+
+
+                        <h3>
+                            Intelligent
+                            Structure
+                        </h3>
+
+
+                        <p>
+
+                            Structuring partnerships around
+                            clearly defined responsibilities,
+                            incentives and long-term objectives.
+
+                        </p>
+
+
+                        <span class="jd-value-arrow">
+                            ↗
+                        </span>
+
+                    </article>
+
+
+
+                    <!-- CARD 03 -->
+
+                    <article class="jd-value-card">
+
+                        <span class="jd-value-number">
+                            03 / CREATE
+                        </span>
+
+
+                        <h3>
+                            Value
+                            Creation
+                        </h3>
+
+
+                        <p>
+
+                            Turning underutilised land and
+                            development opportunities into
+                            high-value real estate projects.
+
+                        </p>
+
+
+                        <span class="jd-value-arrow">
+                            ↗
+                        </span>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CTA
+        ================================================== -->
+
+        <section class="jd-cta-band">
+
+
+            <p>
+
+                The right partnership can turn
+                <br>
+
+                <em>opportunity into a landmark.</em>
+
+            </p>
+
+
+            <a
+                href="{% url 'contact' %}"
+                class="jd-cta-button"
+            >
+
+                SPEAK TO AN EXPERT
+
+                <span>
+                    ↗
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+{% endblock %}
