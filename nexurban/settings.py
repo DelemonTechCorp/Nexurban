@@ -165,7 +165,7 @@ X_OPPERP_BASE_URL = config(
 )
 
 
-BREVO_API_KEY = config("BREVO_API_KEY")
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
