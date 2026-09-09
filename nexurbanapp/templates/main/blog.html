@@ -1,0 +1,826 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  :root{
+    --ink: #0d0f0e;
+    --ink-2: #14211c;
+    --ivory: #f2ede2;
+    --hairline: rgba(242,237,226,0.14);
+  }
+
+/* =========================================================
+   HERO — matches off-plan page styling
+========================================================= */
+
+.adv-hero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+
+  color: #f7f4ed;
+
+  background-image:
+      linear-gradient(
+          90deg,
+          rgba(8,8,8,.91) 0%,
+          rgba(8,8,8,.72) 34%,
+          rgba(8,8,8,.36) 65%,
+          rgba(8,8,8,.18) 100%
+      ),
+      linear-gradient(
+          to top,
+          rgba(8,8,8,.94) 0%,
+          rgba(8,8,8,.18) 55%,
+          rgba(8,8,8,.38) 100%
+      ),
+      url("{% static 'img/blog-hero.jpg' %}");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  animation: nxBlogHeroReveal 1.2s ease-out both;
+}
+
+@keyframes nxBlogHeroReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.adv-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(255,29,12,.025), rgba(255,29,12,.10));
+  border-left: 1px solid rgba(255,29,12,.12);
+  pointer-events: none;
+}
+
+.adv-hero .site-shell {
+  position: relative;
+  z-index: 3;
+  width: min(1100px, 88%);
+  margin: 0 auto;
+  padding: 155px 0 90px;
+}
+
+.adv-hero .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+
+  color: #ff4c3fd3;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  animation: nxBlogFade .8s cubic-bezier(.22,1,.36,1) .1s forwards;
+}
+
+.adv-hero .eyebrow::before {
+  content: "";
+  width: 32px;
+  height: 1px;
+  flex-shrink: 0;
+  background: #ff1d0c;
+}
+
+.adv-hero .live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff1d0c;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 5px rgba(255,29,12,.08), 0 0 13px rgba(255,29,12,.45);
+  animation: adv-pulse 2.4s ease-out infinite;
+}
+
+@keyframes adv-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,29,12,.45); }
+  70%  { box-shadow: 0 0 0 9px rgba(255,29,12,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,29,12,0); }
+}
+
+.adv-hero h1 {
+  max-width: 920px;
+  margin: 0;
+
+  color: #f7f4ed;
+
+  font-family: "Times New Roman", Times, serif;
+  font-size: clamp(52px, 6.3vw, 90px);
+  font-weight: 400;
+  line-height: .96;
+  letter-spacing: -.045em;
+
+  opacity: 0;
+  animation: nxBlogFade 1s cubic-bezier(.22,1,.36,1) .22s forwards;
+}
+
+.adv-hero h1 .accent,
+.adv-hero h1 em {
+  color: #e8dfd1;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.adv-hero .lede {
+  max-width: 580px;
+  margin: 27px 0 0;
+
+  color: rgba(247,244,237,.66);
+
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  line-height: 1.85;
+
+  opacity: 0;
+  animation: nxBlogFade .9s cubic-bezier(.22,1,.36,1) .38s forwards;
+}
+
+.adv-hero .meta-row {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+
+  color: rgba(247,244,237,.4);
+
+  font-family: "Manrope", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  animation: nxBlogFade .8s ease .5s forwards;
+}
+
+.adv-hero .meta-row span { position: relative; padding-right: 2rem; }
+.adv-hero .meta-row span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 0.8em;
+  background: rgba(247,244,237,.14);
+}
+
+/* HERO BUTTONS */
+
+.adv-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 40px;
+
+  opacity: 0;
+  animation: nxBlogFade .9s cubic-bezier(.22,1,.36,1) .62s forwards;
+}
+
+.adv-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  min-height: 54px;
+  padding: 0 28px;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
+}
+
+.adv-hero-btn-primary {
+  background: #ff1d0c;
+  color: #ffffff;
+  border: 1px solid #ff1d0c;
+}
+
+.adv-hero-btn-primary:hover {
+  background: #ffffff;
+  color: #111111;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.adv-hero-btn-secondary {
+  background: transparent;
+  color: #f7f4ed;
+  border: 1px solid rgba(247,244,237,.35);
+}
+
+.adv-hero-btn-secondary:hover {
+  border-color: #f7f4ed;
+  transform: translateY(-2px);
+}
+
+@keyframes nxBlogFade {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adv-hero,
+  .adv-hero .eyebrow,
+  .adv-hero h1,
+  .adv-hero .lede,
+  .adv-hero .meta-row,
+  .adv-hero-actions,
+  .adv-hero .live-dot {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .adv-hero { min-height: 640px; }
+  .adv-hero .site-shell { padding: 125px 0 65px; }
+  .adv-hero h1 { font-size: clamp(45px, 13vw, 64px); }
+  .adv-hero .meta-row { gap: 1.1rem; }
+  .adv-hero .meta-row span { padding-right: 1.1rem; }
+  .adv-hero-btn { width: 100%; justify-content: center; }
+  .adv-hero-actions { flex-direction: column; }
+}
+</style>
+
+<section class="adv-hero">
+  <div class="site-shell">
+
+    <p class="eyebrow"><span class="live-dot"></span> Section 04 — Investment Advisory · Insights</p>
+
+    <h1>{{ posts.title|default:"The Advisory" }}<br><em>Perspectives &amp; Insight.</em></h1>
+
+    <p class="lede">
+      {{ featured_post.description|default:"Market intelligence, location analysis, investment assessment and personalised property strategy — published perspectives from the Nexurban advisory desk." }}
+    </p>
+
+    <div class="meta-row">
+      <span>{{ posts.paginator.count|add:"1" }} Perspectives</span>
+      <span>2026 Edition</span>
+      <span>Dubai, UAE</span>
+    </div>
+
+    <div class="adv-hero-actions">
+      {% if featured_post %}
+        <a href="{% url 'blog_detail' featured_post.slug %}" class="adv-hero-btn adv-hero-btn-primary">
+          Read Latest Perspective <span>↗</span>
+        </a>
+      {% endif %}
+      <a href="{% url 'contact' %}" class="adv-hero-btn adv-hero-btn-secondary">
+        Speak To An Advisor <span>↗</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- Featured -->
+
+<style>
+  .adv-section{
+    --ink: #0d0f0e;
+    --ivory: #f2ede2;
+    --paper: #f7f3ea;
+    background: var(--paper);
+    padding: 5.5rem 0 1rem;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .adv-section .site-shell{
+    width: min(1100px, 88%);
+    margin: 0 auto;
+  }
+
+  .adv-section .eyebrow{
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--bronze);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .section-head{
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .section-head .kicker{
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: rgba(13,15,14,0.45);
+  }
+
+  @media (max-width: 767px){
+    .section-head .kicker{ display: none; }
+  }
+
+  .adv-feature{
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid rgba(13,15,14,0.1);
+  }
+
+  @media (min-width: 1024px){
+    .adv-feature{ grid-template-columns: 1.15fr 1fr; }
+  }
+
+  .adv-feature .image-frame{
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+   
+  }
+
+  @media (min-width: 1024px){
+    .adv-feature .image-frame{ aspect-ratio: auto; height: 100%; }
+  }
+
+  .adv-feature .image-zoom{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .adv-feature:hover .image-zoom{ transform: scale(1.05); }
+
+  .adv-feature .image-label{
+    position: absolute;
+    top: 1.25rem;
+    left: 1.15rem;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--ivory);
+    background: rgba(13,15,14,0.55);
+    backdrop-filter: blur(4px);
+  }
+
+  .adv-feature-copy{
+    position: relative;
+    padding: 2.75rem 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .adv-feature-copy h2{
+    margin-top: 0.9rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .adv-feature-desc{
+    margin-top: 1.25rem;
+    max-width: 26rem;
+    line-height: 1.7;
+    color: rgba(13,15,14,0.6);
+  }
+
+  .adv-feature-num{
+    position: absolute;
+    bottom: 1.75rem;
+    right: 2.5rem;
+    font-family: 'Fraunces', serif;
+    font-size: 0.85rem;
+    color: rgba(13,15,14,0.3);
+  }
+
+  .arrow-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--bronze-dim);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .arrow-link svg{
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .adv-feature:hover .arrow-link svg{ transform: translate(2px, -2px); }
+
+  @media (max-width: 640px){
+    .adv-feature-copy{ padding: 2rem 1.5rem 2.25rem; }
+    .adv-feature-num{ right: 1.5rem; bottom: 1.25rem; }
+  }
+</style>
+
+<section class="adv-section">
+  <div class="site-shell">
+
+    <div class="section-head" id="featured">
+      <p class="eyebrow">Featured Perspective</p>
+      <p class="kicker">The Advisory Desk</p>
+    </div>
+
+    {% if featured_post %}
+    <a href="{% url 'blog_detail' featured_post.slug %}" class="adv-feature group">
+      <div class="image-frame">
+        <img src="{{ featured_post.image.url }}" alt="{{ featured_post.title }}" class="image-zoom">
+        <span class="image-label">Featured</span>
+      </div>
+      <div class="adv-feature-copy">
+        <p class="eyebrow">Market Intelligence · {{ featured_post.reading_time }} min read</p>
+        <h2>{{ featured_post.title }}</h2>
+        <p class="adv-feature-desc">
+          {{ featured_post.description }}
+        </p>
+        <p class="arrow-link">
+          Read the Perspective
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 7h10v10"></path>
+            <path d="M7 17 17 7"></path>
+          </svg>
+        </p>
+        <span class="adv-feature-num">01</span>
+      </div>
+    </a>
+    {% else %}
+    <p style="padding: 3rem 0; color: rgba(13,15,14,0.5); font-family:'Inter',sans-serif;">No featured post yet.</p>
+    {% endif %}
+
+  </div>
+</section>
+
+
+<!-- index -->
+
+
+<style>
+  .adv-index{
+    --ink: #0d0f0e;
+    --ivory: #f2ede2;
+    --paper: #f7f3ea;
+    --bronze: #b8925a;
+    --bronze-dim: #7d6842;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .adv-index .eyebrow{
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--bronze);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .adv-row{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 3.5rem 4.75rem;
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid rgba(13,15,14,0.1);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .adv-index a.adv-row:last-child{
+    border-bottom: 1px solid rgba(13,15,14,0.1);
+  }
+
+  .adv-row:hover{
+    background: rgba(184,146,90,0.07);
+    transform: translateX(6px);
+  }
+
+  .adv-row-num{
+    flex-shrink: 0;
+    width: 5.75rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.8rem;
+    color: rgb(162, 20, 20);
+    transition: color 0.25s ease;
+  }
+
+  .adv-row:hover .adv-row-num{ color: var(--bronze); }
+
+  .adv-row-img{
+    position: relative;
+    flex-shrink: 0;
+    width: 140px;
+    height: 130px;
+    overflow: hidden;
+  }
+
+  .adv-row-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .adv-row-main{ flex: 1; min-width: 0; }
+
+  .adv-row-main h3{
+    margin-top: 0.35rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 50;
+    font-size: 2rem;
+    line-height: 1.3;
+    color: var(--ink);
+    transition: color 0.25s ease;
+  }
+
+  .adv-row:hover .adv-row-main h3{ color: var(--bronze-dim); }
+
+  .adv-row-main p{
+    margin-top: 0.4rem;
+    max-width: 38rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: rgba(13,15,14,0.55);
+  }
+
+  .adv-row-arrow{
+    flex-shrink: 0;
+    display: flex;
+    color: rgba(13,15,14,0.35);
+    transition: color 0.25s ease;
+  }
+
+  .adv-row-arrow svg{ width: 20px; height: 20px; }
+
+  .adv-row:hover .adv-row-arrow{ color: var(--bronze-dim); }
+
+  .adv-empty{
+    padding: 3.5rem 4.75rem;
+    color: rgba(13,15,14,0.5);
+    border-top: 1px solid rgba(13,15,14,0.1);
+    border-bottom: 1px solid rgba(13,15,14,0.1);
+  }
+
+  .adv-pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 3rem 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+
+  .adv-pagination a{
+    color: var(--bronze-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .adv-pagination a:hover{ color: var(--bronze); }
+
+  .adv-pagination span{
+    color: rgba(13,15,14,0.45);
+  }
+
+  @media (max-width: 640px){
+    .adv-row{ gap: 1rem; padding: 1.25rem 0.5rem; }
+    .adv-row:hover{ transform: none; }
+    .adv-row-img{ width: 56px; height: 44px; }
+    .adv-row-main p{ display: none; }
+    .adv-row-num{ width: 1.35rem; font-size: 0.7rem; }
+    .adv-empty{ padding: 2rem 1rem; }
+  }
+</style>
+
+<div class="adv-index">
+  {% for post in posts %}
+  <a href="{{ post.get_absolute_url }}" class="adv-row">
+    <span class="adv-row-num">{{ forloop.counter|add:"1"|stringformat:"02d" }}</span>
+    <div class="adv-row-img">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+    </div>
+    <div class="adv-row-main">
+      <p class="eyebrow">{{ post.reading_time }} min read</p>
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.description }}</p>
+    </div>
+    <span class="adv-row-arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </span>
+  </a>
+  {% empty %}
+  <p class="adv-empty">No more posts yet.</p>
+  {% endfor %}
+</div>
+
+{% if posts.has_other_pages %}
+<div class="adv-pagination">
+  {% if posts.has_previous %}
+    <a href="?page={{ posts.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">← Previous</a>
+  {% endif %}
+  <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+  {% if posts.has_next %}
+    <a href="?page={{ posts.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">Next →</a>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Contact section -->
+
+
+<style>
+  .adv-cta{
+    --ink: #0d0f0e;
+    --espresso: #1c140f;
+    --ivory: #f2ede2;
+    --sand: #ff1d0c;
+    background: var(--ink);
+    padding: 6rem 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .adv-cta .site-shell{
+    width: min(1100px, 88%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  @media (min-width: 1024px){
+    .adv-cta .site-shell{ grid-template-columns: 1fr 1fr; align-items: center; }
+  }
+
+  .adv-cta .eyebrow{
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--sand);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .adv-cta-intro h2{
+    margin-top: 1rem;
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(3rem, 3.4vw, 2.9rem);
+    line-height: 1.15;
+    color: var(--ivory);
+  }
+
+  .adv-cta-intro .lede{
+    margin-top: 1.5rem;
+    max-width: 30rem;
+    line-height: 1.7;
+    color: #999897;
+  }
+
+  .adv-cta-intro .contact-line{
+    margin-top: 2.5rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: rgba(242,237,226,0.4);
+  }
+
+  .adv-cta-form{
+    background: var(--espresso);
+    color: var(--ivory);
+    padding: 2.25rem;
+  }
+
+  .adv-cta-form .form-title{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.75rem;
+  }
+
+  .adv-cta-form .form-sub{
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: rgba(242,237,226,0.6);
+  }
+
+  .adv-cta-form .form-fields{
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .adv-cta-form input{
+    width: 100%;
+    height: 3rem;
+    padding: 0 1rem;
+    background: transparent;
+    border: 1px solid rgba(242,237,226,0.25);
+    color: var(--ivory);
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.25s ease;
+  }
+
+  .adv-cta-form input::placeholder{ color: rgba(242,237,226,0.4); }
+  .adv-cta-form input:focus{ border-color: var(--bronze); }
+
+  .adv-cta-form button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    height: 2.75rem;
+    padding: 0 2rem;
+    margin-top: 0.25rem;
+    background: #ff1d0c;
+    color: #fff;
+    border: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease;
+  }
+
+  .adv-cta-form button:hover{ background: var(--sand); }
+  .adv-cta-form button svg{ width: 16px; height: 16px; }
+
+  @media (max-width: 640px){
+    .adv-cta{ padding: 4.5rem 0; }
+    .adv-cta-form{ padding: 1.75rem; }
+  }
+</style>
+
+<section class="adv-cta">
+  <div class="site-shell">
+
+    <div class="adv-cta-intro">
+      <p class="eyebrow">A Smarter Next Step</p>
+      <h2>Bring us your objective.<br>We'll bring perspective.</h2>
+      <p class="lede">
+        A focused conversation with an advisor is the beginning of every Nexurban relationship.
+      </p>
+      <p class="contact-line">055 902 5646 · sales@nexurbanproperties.com</p>
+    </div>
+
+    <form class="adv-cta-form" method="post" action="">
+      {% csrf_token %}
+      <p class="form-title">Speak to an advisor</p>
+      <p class="form-sub">Tell us what you are looking to achieve.</p>
+
+      <div class="form-fields">
+        <input type="text" name="full_name" required placeholder="Full name">
+        <input type="email" name="email" required placeholder="Email address">
+        <input type="tel" name="phone" required placeholder="Phone number">
+        <input type="text" name="message" placeholder="How can we help?">
+
+        <button type="submit">
+          Submit Enquiry
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 7h10v10"></path>
+            <path d="M7 17 17 7"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+{% endblock %}

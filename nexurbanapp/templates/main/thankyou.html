@@ -1,0 +1,664 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — THANK YOU (EDITORIAL)
+========================================================= */
+
+.nx-thanks-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background: #111;
+}
+
+
+/* GIANT BACKGROUND NUMERAL */
+
+.nx-thanks-numeral {
+    position: absolute;
+
+    left: -2%;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 0;
+
+    margin: 0;
+
+    color: rgba(247,244,237,.05);
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(280px, 34vw, 560px);
+
+    font-weight: 400;
+
+    line-height: .8;
+
+    letter-spacing: -.04em;
+
+    user-select: none;
+
+    pointer-events: none;
+}
+
+
+/* DIAGONAL ACCENT PANEL */
+
+.nx-thanks-panel {
+    position: absolute;
+
+    right: 0;
+    top: 0;
+
+    width: 42%;
+    height: 100%;
+
+    z-index: 0;
+
+    background: rgba(255,29,12,.04);
+
+    border-left: 1px solid rgba(255,29,12,.14);
+
+    pointer-events: none;
+}
+
+.nx-thanks-panel::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(255,29,12,.05) 50%,
+            transparent
+        );
+}
+
+
+.nx-thanks-shell {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1400px, calc(100% - 120px));
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 400px);
+
+    gap: 90px;
+
+    align-items: center;
+
+    padding: 100px 0;
+}
+
+
+/* =========================================================
+   LEFT — STATUS
+========================================================= */
+
+.nx-thanks-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 0 0 30px;
+}
+
+.nx-thanks-dot {
+    position: relative;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 0 5px rgba(255,29,12,.10),
+        0 0 16px rgba(255,29,12,.6);
+
+    animation: nxThanksPulse 2s ease-in-out infinite;
+}
+
+@keyframes nxThanksPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .4; }
+}
+
+.nx-thanks-status span {
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.nx-thanks-title {
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: clamp(52px, 6.4vw, 100px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.035em;
+}
+
+.nx-thanks-title em {
+    display: block;
+
+    color: #8d8173;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    margin-top: 4px;
+}
+
+
+.nx-thanks-description {
+    max-width: 480px;
+
+    margin: 26px 0 0;
+
+    color: rgba(247,244,237,.62);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+.nx-thanks-actions {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 40px;
+}
+
+.nx-thanks-button {
+    min-height: 47px;
+
+    padding: 0 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 13px;
+
+    color: #ffffff;
+
+    border: 1px solid #ff1d0c;
+
+    text-decoration: none;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    letter-spacing: 1.4px;
+
+    white-space: nowrap;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease,
+        border-color .3s ease;
+}
+
+.nx-thanks-button-primary {
+    background: #ff1d0c;
+}
+
+.nx-thanks-button-primary:hover {
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.nx-thanks-button-secondary {
+    background: transparent;
+    border-color: rgba(247,244,237,.4);
+    color: rgba(247,244,237,.75);
+}
+
+.nx-thanks-button-secondary:hover {
+    border-color: #f7f4ed;
+    color: #f7f4ed;
+    transform: translateY(-2px);
+}
+
+
+.nx-thanks-contact {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 46px;
+
+    color: rgba(247,244,237,.38);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10.5px;
+
+    font-weight: 600;
+
+    letter-spacing: .14em;
+}
+
+.nx-thanks-contact span {
+    color: #ff1d0c;
+}
+
+
+/* =========================================================
+   RIGHT — TIMELINE CARD
+========================================================= */
+
+.nx-thanks-card {
+    position: relative;
+
+    padding: 40px 36px;
+
+    background: rgba(247,244,237,.03);
+
+    border: 1px solid rgba(247,244,237,.12);
+
+    backdrop-filter: blur(2px);
+}
+
+.nx-thanks-card-label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 30px;
+
+    color: rgba(247,244,237,.4);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .18em;
+
+    text-transform: uppercase;
+}
+
+.nx-thanks-card-label i {
+    display: block;
+
+    width: 30px;
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+.nx-thanks-step {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: 26px 1fr;
+
+    gap: 18px;
+
+    padding: 0 0 26px 0;
+}
+
+.nx-thanks-step:not(:last-child)::before {
+    content: "";
+
+    position: absolute;
+
+    left: 12px;
+    top: 26px;
+    bottom: 0;
+
+    width: 1px;
+
+    background: rgba(247,244,237,.14);
+}
+
+.nx-thanks-step-num {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+
+    border: 1px solid rgba(255,29,12,.5);
+
+    border-radius: 50%;
+
+    color: #ff1d0c;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+.nx-thanks-step.is-done .nx-thanks-step-num {
+    background: #ff1d0c;
+    color: #fff;
+    border-color: #ff1d0c;
+}
+
+.nx-thanks-step-content h4 {
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .06em;
+
+    text-transform: uppercase;
+}
+
+.nx-thanks-step-content p {
+    margin: 8px 0 0;
+
+    color: rgba(247,244,237,.5);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FADE UP
+========================================================= */
+
+.nx-thanks-fade {
+    opacity: 0;
+    transform: translateY(24px);
+
+    animation:
+        nxThanksFadeUp .8s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+}
+
+.nx-thanks-delay-1 { animation-delay: .10s; }
+.nx-thanks-delay-2 { animation-delay: .20s; }
+.nx-thanks-delay-3 { animation-delay: .32s; }
+.nx-thanks-delay-4 { animation-delay: .44s; }
+.nx-thanks-delay-5 { animation-delay: .56s; }
+
+@keyframes nxThanksFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .nx-thanks-shell {
+        width: min(100% - 70px, 1400px);
+
+        gap: 55px;
+    }
+
+    .nx-thanks-panel {
+        width: 48%;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .nx-thanks-shell {
+        grid-template-columns: 1fr;
+
+        padding: 130px 0 90px;
+    }
+
+    .nx-thanks-numeral {
+        top: 6%;
+        transform: none;
+
+        font-size: 180px;
+    }
+
+    .nx-thanks-panel {
+        width: 100%;
+        height: 55%;
+
+        top: auto;
+        bottom: 0;
+
+        border-left: 0;
+        border-top: 1px solid rgba(255,29,12,.10);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .nx-thanks-hero {
+        min-height: 100svh;
+    }
+
+    .nx-thanks-shell {
+        width: calc(100% - 40px);
+        padding: 110px 0 80px;
+    }
+
+    .nx-thanks-numeral {
+        font-size: 120px;
+        opacity: .7;
+    }
+
+    .nx-thanks-title {
+        font-size: clamp(40px, 12vw, 56px);
+    }
+
+    .nx-thanks-description {
+        font-size: 13.5px;
+        max-width: 100%;
+    }
+
+    .nx-thanks-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nx-thanks-button {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .nx-thanks-card {
+        padding: 30px 24px;
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    .nx-thanks-dot,
+    .nx-thanks-fade {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+</style>
+
+
+<section class="nx-thanks-hero">
+
+    <p class="nx-thanks-numeral" aria-hidden="true">01</p>
+
+    <div class="nx-thanks-panel"></div>
+
+    <div class="nx-thanks-shell">
+
+        <!-- LEFT -->
+        <div>
+
+            <div class="nx-thanks-status nx-thanks-fade nx-thanks-delay-1">
+                <span class="nx-thanks-dot"></span>
+                <span>{{ eyebrow }}</span>
+            </div>
+
+            <h1 class="nx-thanks-title nx-thanks-fade nx-thanks-delay-2">
+                {{ title }}
+                <em>{{ title_em }}</em>
+            </h1>
+
+            <p class="nx-thanks-description nx-thanks-fade nx-thanks-delay-3">
+                {{ description }}
+            </p>
+
+            <div class="nx-thanks-actions nx-thanks-fade nx-thanks-delay-4">
+
+                <a href="/" class="nx-thanks-button nx-thanks-button-primary">
+                    BACK TO HOME
+                    <span>↗</span>
+                </a>
+
+                <a href="{% url 'buy' %}" class="nx-thanks-button nx-thanks-button-secondary">
+                    BROWSE PROPERTIES
+                    <span>↗</span>
+                </a>
+
+            </div>
+
+            <div class="nx-thanks-contact nx-thanks-fade nx-thanks-delay-5">
+                055 902 5646
+                <span>·</span>
+                SALES@NEXURBANPROPERTIES.COM
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+        <div class="nx-thanks-card nx-thanks-fade nx-thanks-delay-3">
+
+            <div class="nx-thanks-card-label">
+                <i></i>
+                WHAT HAPPENS NEXT
+            </div>
+
+            <div class="nx-thanks-step is-done">
+                <span class="nx-thanks-step-num">✓</span>
+                <div class="nx-thanks-step-content">
+                    <h4>Submission Received</h4>
+                    <p>Your details have been logged in our system.</p>
+                </div>
+            </div>
+
+            <div class="nx-thanks-step">
+                <span class="nx-thanks-step-num">2</span>
+                <div class="nx-thanks-step-content">
+                    <h4>Advisor Review</h4>
+                    <p>A specialist reviews your request against current listings and market data.</p>
+                </div>
+            </div>
+
+            <div class="nx-thanks-step">
+                <span class="nx-thanks-step-num">3</span>
+                <div class="nx-thanks-step-content">
+                    <h4>Personal Follow-Up</h4>
+                    <p>You'll hear from us directly, usually within one business day.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -9,9 +9,14 @@ from .services import (
     get_cached_property_detail,
     get_cached_property_units,
 )
-
+import json
+from django.urls import reverse
 INVALID_LABELS = {"unnamed", "unnamed city", "n/a", "none", "null", ""}
-
+import traceback
+from .models import *
+from django.shortcuts import render, get_object_or_404
+from .models import BlogPost
+from django.core.paginator import Paginator
 
 # =========================================================
 # FIELD HELPERS
@@ -20,8 +25,41 @@ INVALID_LABELS = {"unnamed", "unnamed city", "n/a", "none", "null", ""}
 # objects on this endpoint.
 # =========================================================
 from django.utils.text import slugify
-
 def propertydetail(request, slug):
+
+    
+    # =====================================================
+    # HANDLE ENQUIRY FORM SUBMISSION
+    # =====================================================
+
+    if request.method == "POST":
+
+        enquiry = Enquiry.objects.create(
+            form_type="property",
+            name=request.POST.get("name", "").strip(),
+            email=request.POST.get("email", "").strip(),
+            phone=request.POST.get("phone", "").strip(),
+            message=request.POST.get("message", "").strip(),
+            interest=request.POST.get("interest", "").strip(),
+            property_name=request.POST.get("property_name", "").strip(),
+            property_slug=request.POST.get("property_slug", "").strip(),
+        )
+
+        try:
+            result = send_enquiry_email(enquiry)
+
+            print("BREVO SUCCESS:", result)
+
+            enquiry.sent_to_brevo = True
+            enquiry.save(update_fields=["sent_to_brevo"])
+
+        except Exception as e:
+            print("========== BREVO ERROR ==========")
+            print("ERROR:", str(e))
+            traceback.print_exc()
+            print("=================================")
+
+        return redirect(f"{reverse('thank_you')}?type=property")
 
     api = XOpperpAPI()
 
@@ -603,6 +641,9 @@ def propertydetail(request, slug):
             ),
         })
 
+
+
+
     # =====================================================
     # FINAL CONTEXT
     # =====================================================
@@ -636,6 +677,7 @@ def propertydetail(request, slug):
         "main/propertydetail.html",
         context
     )
+
 
 
 
@@ -1924,9 +1966,38 @@ def JointVentures(request):
 
 def landdeal(request):
     return render(request, 'main/landdeals.html')
-
 def contact(request):
-    return render(request, 'main/contact.html')
+    if request.method == "POST":
+
+        enquiry = Enquiry.objects.create(
+            form_type="contact",
+            name=request.POST.get("name", "").strip(),
+            email=request.POST.get("email", "").strip(),
+            phone=request.POST.get("phone", "").strip(),
+            message=request.POST.get("message", "").strip(),
+        )
+
+        try:
+            result = send_enquiry_email(enquiry)
+
+            print("BREVO SUCCESS:", result)
+
+            enquiry.sent_to_brevo = True
+            enquiry.save(update_fields=["sent_to_brevo"])
+
+        except Exception as e:
+            print("========== BREVO ERROR ==========")
+            print("ERROR:", str(e))
+            traceback.print_exc()
+            print("=================================")
+
+        return redirect(f"{reverse('thank_you')}?type=contact")
+
+    return render(request, "main/contact.html")
+def invest(request):
+    return render(request, 'main/invest.html')
+def investmentadvisory(request):
+    return render(request, 'main/investmentadvisory.html')
 
 def format_price_display(value):
     """AED 2.4M / AED 850K / Price on Request."""
@@ -2318,10 +2389,34 @@ def build_unit_types(units):
 
     return list(grouped.values())
 
-
 def sell(request):
-    return render(request, 'main/sell.html')
 
+    if request.method == "POST":
+
+        enquiry = Enquiry.objects.create(
+            form_type="valuation",
+            name=request.POST.get("name", "").strip(),
+            email=request.POST.get("email", "").strip(),
+            phone=request.POST.get("phone", "").strip(),
+            message=request.POST.get("message", "").strip(),
+            property_type=request.POST.get("property_type", "").strip(),
+        )
+
+        try:
+            result = send_enquiry_email(enquiry)
+            print("BREVO SUCCESS:", result)
+            enquiry.sent_to_brevo = True
+            enquiry.save(update_fields=["sent_to_brevo"])
+
+        except Exception as e:
+            print("========== BREVO ERROR ==========")
+            print("ERROR:", str(e))
+            traceback.print_exc()
+            print("=================================")
+
+        return redirect(f"{reverse('thank_you')}?type=valuation")
+
+    return render(request, "main/sell.html")
 def flipbook(request):
     return render(request, 'main/flipbook.html')
 
@@ -2397,9 +2492,11 @@ def area(request):
         if area_key not in area_data:
             area_data[area_key] = {
                 "name": area_name,
+                "slug": slugify(area_name),
                 "image": "",
                 "property_count": 0,
             }
+
 
         area_entry = area_data[area_key]
         area_entry["property_count"] += 1
@@ -2498,184 +2595,470 @@ def get_budget_options(properties):
             options.append((value, label))
 
     return options
-def area_detail(request, area_name):
+def area_detail(request, area_slug):
 
     api = XOpperpAPI()
 
     current_page = request.GET.get("page", 1)
+
     try:
         current_page = int(current_page)
     except (TypeError, ValueError):
         current_page = 1
+
     if current_page < 1:
         current_page = 1
 
-    # BASIC FILTERS
-    property_name = request.GET.get("property_name", "").strip()
-    property_status = request.GET.get("property_status", "").strip()
-    budget = request.GET.get("budget", "").strip()
+    # =====================================================
+    # FILTERS
+    # =====================================================
 
-    # ADVANCED FILTERS
-    developer = request.GET.get("developer", "").strip()
-    bedrooms = request.GET.get("bedrooms", "").strip()
-    handover = request.GET.get("handover", "").strip()
+    property_name = request.GET.get(
+        "property_name", ""
+    ).strip()
 
-    budget_min, budget_max = parse_budget_range(budget)
+    property_status = request.GET.get(
+        "property_status", ""
+    ).strip()
+
+    budget = request.GET.get(
+        "budget", ""
+    ).strip()
+
+    developer = request.GET.get(
+        "developer", ""
+    ).strip()
+
+    bedrooms = request.GET.get(
+        "bedrooms", ""
+    ).strip()
+
+    handover = request.GET.get(
+        "handover", ""
+    ).strip()
+
+    budget_min, budget_max = parse_budget_range(
+        budget
+    )
+
+    # =====================================================
+    # GET PROPERTIES
+    # =====================================================
 
     try:
         all_properties = get_all_properties(api)
+
     except Exception as e:
-        print("X-OPPERP AREA DETAIL API ERROR:", e)
+
+        print(
+            "X-OPPERP AREA DETAIL API ERROR:",
+            e
+        )
+
         all_properties = []
 
-    area_name_lower = area_name.strip().lower()
+    # =====================================================
+    # NORMALIZE URL SLUG
+    #
+    # /area-detail/jvc/
+    # /area-detail/palm-jumeirah/
+    # /area-detail/downtown-dubai/
+    # =====================================================
 
-    # BASE SET = every property in this area, excluding Sold Out
-    base = [
-        p for p in all_properties
-        if get_area_name(p).strip().lower() == area_name_lower
-        and get_sales_status_name(p).lower() != "sold out"
-    ]
+    area_slug = area_slug.strip().lower()
 
-    # Resolve a nicely-cased display name straight from the data
-    area_display_name = area_name
+    # =====================================================
+    # FIND PROPERTIES FOR THIS AREA
+    # =====================================================
+
+    base = []
+
+    for p in all_properties:
+
+        property_area = get_area_name(p)
+
+        if not property_area:
+            continue
+
+        property_area_slug = slugify(
+            property_area
+        )
+
+        if property_area_slug != area_slug:
+            continue
+
+        # Exclude sold-out properties
+        if (
+            get_sales_status_name(p)
+            .strip()
+            .lower()
+            == "sold out"
+        ):
+            continue
+
+        base.append(p)
+
+    # =====================================================
+    # AREA DISPLAY NAME
+    # =====================================================
+
+    area_display_name = (
+        area_slug
+        .replace("-", " ")
+        .title()
+    )
+
     area_city = ""
+
+    # Use actual API name where available
     for p in base:
-        actual = get_area_name(p)
-        if actual:
-            area_display_name = actual
+
+        actual_area = get_area_name(p)
+
+        if actual_area:
+            area_display_name = actual_area
+
         city_val = get_city(p)
+
         if city_val:
             area_city = city_val
-        if area_display_name != area_name and area_city:
-            break
 
-    # DYNAMIC FILTER OPTIONS — scoped to this area only
-    property_names = get_distinct_property_names(base)
-    property_statuses = get_distinct_property_statuses(base)
-    developers = get_distinct_developers(base)
-    bedroom_options = get_distinct_bedrooms(base)
-    handover_options = get_distinct_handover_options(base)
-    budget_options = get_budget_options(base)      
+        break
+
+    # =====================================================
+    # DYNAMIC FILTER OPTIONS
+    # =====================================================
+
+    property_names = (
+        get_distinct_property_names(base)
+    )
+
+    property_statuses = (
+        get_distinct_property_statuses(base)
+    )
+
+    developers = (
+        get_distinct_developers(base)
+    )
+
+    bedroom_options = (
+        get_distinct_bedrooms(base)
+    )
+
+    handover_options = (
+        get_distinct_handover_options(base)
+    )
+
+    budget_options = (
+        get_budget_options(base)
+    )
+
+    # =====================================================
     # APPLY FILTERS
+    # =====================================================
+
     filtered = base
 
+    # Property name
     if property_name:
+
         pname_lower = property_name.lower()
+
         filtered = [
-            p for p in filtered
-            if pname_lower in api_text(p.get("title")).lower()
+            p
+            for p in filtered
+            if pname_lower
+            in api_text(
+                p.get("title")
+            ).lower()
         ]
 
+    # Property status
     if property_status:
-        pstatus_lower = property_status.lower()
+
+        pstatus_lower = (
+            property_status.lower()
+        )
+
         filtered = [
-            p for p in filtered
-            if pstatus_lower in get_property_status_name(p).lower()
+            p
+            for p in filtered
+            if pstatus_lower
+            in get_property_status_name(
+                p
+            ).lower()
         ]
 
+    # Developer
     if developer:
-        developer_lower = developer.lower()
+
+        developer_lower = (
+            developer.lower()
+        )
+
         filtered = [
-            p for p in filtered
-            if developer_lower in get_developer_name(p).lower()
+            p
+            for p in filtered
+            if developer_lower
+            in get_developer_name(
+                p
+            ).lower()
         ]
 
+    # Bedrooms
     if bedrooms:
+
         filtered = [
-            p for p in filtered
-            if bedrooms in get_bedroom_list(p)
+            p
+            for p in filtered
+            if bedrooms
+            in get_bedroom_list(p)
         ]
 
+    # Handover
     if handover:
+
         filtered = [
-            p for p in filtered
-            if get_handover_code(p) == handover
+            p
+            for p in filtered
+            if get_handover_code(p)
+            == handover
         ]
 
+    # Budget minimum
     if budget_min is not None:
+
         filtered = [
-            p for p in filtered
-            if (get_property_price(p) or 0) >= budget_min
+            p
+            for p in filtered
+            if (
+                get_property_price(p)
+                or 0
+            ) >= budget_min
         ]
 
+    # Budget maximum
     if budget_max is not None:
+
         filtered = [
-            p for p in filtered
-            if (get_property_price(p) or 0) <= budget_max
+            p
+            for p in filtered
+            if (
+                get_property_price(p)
+                or 0
+            ) <= budget_max
         ]
 
-    # BUILD DISPLAY-READY LIST
+    # =====================================================
+    # BUILD DISPLAY PROPERTIES
+    # =====================================================
+
     properties_display = []
 
     for p in filtered:
 
-        cover_image = get_property_cover_image(p)
-        title = api_text(p.get("title")) or "Luxury Property"
+        cover_image = (
+            get_property_cover_image(p)
+        )
+
+        title = (
+            api_text(
+                p.get("title")
+            )
+            or "Luxury Property"
+        )
 
         properties_display.append({
-            "id": p.get("id") or p.get("external_id"),
-            "slug": get_property_slug(p),  
+
+            "id": (
+                p.get("id")
+                or p.get("external_id")
+            ),
+
+            "slug": get_property_slug(p),
+
             "title": title,
-            "cover": normalize_image_url(cover_image),
-            "property_status_name": get_property_status_name(p),
-            "city": get_city(p),
-            "district": get_area_name(p),
-            "area_from": p.get("area_from") or p.get("area_to"),
-            "property_type": get_property_type(p),
-            "price_from": get_property_price(p),
-            "developer": get_developer_name(p),
-            "bedrooms": get_bedroom_list(p),
-            "handover": get_handover(p),
+
+            "cover": normalize_image_url(
+                cover_image
+            ),
+
+            "property_status_name":
+                get_property_status_name(p),
+
+            "sales_status_name":
+                get_sales_status_name(p),
+
+            "city":
+                get_city(p),
+
+            "district":
+                get_area_name(p),
+
+            "area_from":
+                p.get("area_from")
+                or p.get("area_to"),
+
+            "property_type":
+                get_property_type(p),
+
+            "price_from":
+                get_property_price(p),
+
+            "developer":
+                get_developer_name(p),
+
+            "bedrooms":
+                get_bedroom_list(p),
+
+            "handover":
+                get_handover(p),
         })
 
+    # =====================================================
     # PAGINATION
+    # =====================================================
+
     page_size = 9
-    total_properties = len(properties_display)
-    total_pages = (
-        (total_properties + page_size - 1) // page_size
-        if total_properties else 0
+
+    total_properties = len(
+        properties_display
     )
-    if total_pages and current_page > total_pages:
+
+    total_pages = (
+        (
+            total_properties
+            + page_size
+            - 1
+        )
+        // page_size
+        if total_properties
+        else 0
+    )
+
+    if (
+        total_pages
+        and current_page > total_pages
+    ):
         current_page = total_pages
 
-    start = (current_page - 1) * page_size
+    start = (
+        current_page - 1
+    ) * page_size
+
     end = start + page_size
-    properties = properties_display[start:end]
 
-    previous_page = current_page - 1 if current_page > 1 else None
-    next_page = current_page + 1 if current_page < total_pages else None
+    properties = properties_display[
+        start:end
+    ]
 
-    page_numbers = _build_page_numbers(current_page, total_pages)
+    previous_page = (
+        current_page - 1
+        if current_page > 1
+        else None
+    )
+
+    next_page = (
+        current_page + 1
+        if current_page < total_pages
+        else None
+    )
+
+    page_numbers = _build_page_numbers(
+        current_page,
+        total_pages
+    )
+
+    # =====================================================
+    # CONTEXT
+    # =====================================================
 
     context = {
-        "area_name": area_name,
-        "area_display_name": area_display_name,
-        "area_city": area_city,
-        "properties": properties,
-        "total_properties": total_properties,
-        "current_page": current_page,
-        "total_pages": total_pages,
-        "page_numbers": page_numbers,
-        "previous_page": previous_page,
-        "next_page": next_page,
-        "property_names": property_names,
-        "property_statuses": property_statuses,
-        "developers": developers,
-        "bedroom_options": bedroom_options,
-        "handover_options": handover_options,
-         "budget_options": budget_options,  
+
+        # URL slug
+        "area_slug":
+            area_slug,
+
+        # Human-readable area name
+        "area_name":
+            area_display_name,
+
+        "area_display_name":
+            area_display_name,
+
+        "area_city":
+            area_city,
+
+        # Properties
+        "properties":
+            properties,
+
+        "total_properties":
+            total_properties,
+
+        # Pagination
+        "current_page":
+            current_page,
+
+        "total_pages":
+            total_pages,
+
+        "page_numbers":
+            page_numbers,
+
+        "previous_page":
+            previous_page,
+
+        "next_page":
+            next_page,
+
+        # Filters
+        "property_names":
+            property_names,
+
+        "property_statuses":
+            property_statuses,
+
+        "developers":
+            developers,
+
+        "bedroom_options":
+            bedroom_options,
+
+        "handover_options":
+            handover_options,
+
+        "budget_options":
+            budget_options,
+
         "filters": {
-            "property_name": property_name,
-            "property_status": property_status,
-            "budget": budget,
-            "developer": developer,
-            "bedrooms": bedrooms,
-            "handover": handover,
+
+            "property_name":
+                property_name,
+
+            "property_status":
+                property_status,
+
+            "budget":
+                budget,
+
+            "developer":
+                developer,
+
+            "bedrooms":
+                bedrooms,
+
+            "handover":
+                handover,
         },
     }
 
-    return render(request, "main/areadetail.html", context)
+    return render(
+        request,
+        "main/areadetail.html",
+        context
+    )
+
 def test_opperp(request):
 
     api = XOpperpAPI()
@@ -2693,3 +3076,285 @@ def test_opperp(request):
         },
         status=response.status_code
     )
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+import requests
+import logging
+
+from .forms import ValuationForm, ContactForm, PropertyEnquiryForm
+from .utils import send_enquiry_email
+
+logger = logging.getLogger(__name__)
+
+
+def _save_and_notify(request, form, form_type):
+    enquiry = form.save(commit=False)
+    enquiry.form_type = form_type
+    enquiry.save()  # DB write happens regardless of Brevo's outcome
+
+    try:
+        send_enquiry_email(enquiry)
+        enquiry.sent_to_brevo = True
+        enquiry.save(update_fields=["sent_to_brevo"])
+    except requests.exceptions.RequestException:
+        logger.exception("Brevo email failed for enquiry id=%s", enquiry.id)
+        # don't fail the request — the enquiry is already saved
+
+    return enquiry
+
+
+@require_POST
+def submit_valuation(request):
+    form = ValuationForm(request.POST)
+    if form.is_valid():
+        _save_and_notify(request, form, "valuation")
+        messages.success(request, "Thanks! We'll send your valuation shortly.")
+    else:
+        messages.error(request, "Please check the form and try again.")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+@require_POST
+def submit_contact(request):
+    form = ContactForm(request.POST)
+    if form.is_valid():
+        _save_and_notify(request, form, "contact")
+        messages.success(request, "Thanks! Your enquiry has been sent.")
+    else:
+        messages.error(request, "Please check the form and try again.")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+
+@require_POST
+def submit_property_enquiry(request):
+    form = PropertyEnquiryForm(request.POST)
+    if form.is_valid():
+        _save_and_notify(request, form, "property")
+        messages.success(request, "Thanks! We'll get back to you about this property.")
+    else:
+        messages.error(request, "Please check the form and try again.")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
+
+def thank_you(request):
+
+    # Lets one thank-you page serve all your forms with a tailored message
+    form_type = request.GET.get("type", "general")
+
+    messages_map = {
+        "valuation": {
+            "eyebrow": "REQUEST RECEIVED",
+            "title": "Your valuation",
+            "title_em": "is underway.",
+            "description": (
+                "One of our advisors is reviewing your property details "
+                "and will be in touch shortly with a considered, "
+                "market-informed valuation."
+            ),
+        },
+        "contact": {
+            "eyebrow": "MESSAGE RECEIVED",
+            "title": "Thank you for",
+            "title_em": "reaching out.",
+            "description": (
+                "Your enquiry has been received. A member of our team "
+                "will respond to you shortly."
+            ),
+        },
+        "property": {
+            "eyebrow": "ENQUIRY RECEIVED",
+            "title": "We've got",
+            "title_em": "your enquiry.",
+            "description": (
+                "An advisor familiar with this property will be in "
+                "touch shortly with the details you requested."
+            ),
+        },
+        "general": {
+            "eyebrow": "SUBMISSION RECEIVED",
+            "title": "Thank",
+            "title_em": "you.",
+            "description": (
+                "We've received your submission and will be in touch shortly."
+            ),
+        },
+    }
+
+    context = messages_map.get(form_type, messages_map["general"])
+
+    return render(request, "main/thankyou.html", context)
+
+
+def property_map_search(request):
+
+    api = XOpperpAPI()
+
+    try:
+        all_properties = get_all_properties(api)
+    except Exception as e:
+        print("X-OPPERP PROPERTY LIST ERROR:", e)
+        all_properties = []
+
+    q = request.GET.get("q", "").strip().lower()
+    property_type = request.GET.get("property_type", "").strip().lower()
+    city = request.GET.get("city", "").strip().lower()
+    min_price = request.GET.get("min_price", "").strip()
+    max_price = request.GET.get("max_price", "").strip()
+    bedrooms = request.GET.get("bedrooms", "").strip().lower()
+
+    def to_number(val):
+        try:
+            return float(val)
+        except (TypeError, ValueError):
+            return None
+
+    min_price_val = to_number(min_price)
+    max_price_val = to_number(max_price)
+
+    listings = []
+    city_set = set()
+    type_set = set()
+
+    for item in all_properties:
+
+        if get_sales_status_name(item).lower() == "sold out":
+            continue
+
+        raw_lat = item.get("latitude")
+        raw_lng = item.get("longitude")
+
+        try:
+            lat = float(raw_lat)
+            lng = float(raw_lng)
+        except (TypeError, ValueError):
+            continue
+
+        if lat == 0 and lng == 0:
+            continue
+
+        if not (-90 <= lat <= 90) or not (-180 <= lng <= 180):
+            continue
+
+        item_city = (get_city(item) or "").strip()
+        item_type = (get_property_type(item) or "").strip()
+        item_price = get_property_price(item)
+        item_slug = get_property_slug(item)
+        item_name = api_text(item.get("title")) or "Luxury Property"
+        item_bedrooms = get_bedroom_list(item)
+
+        if item_city:
+            city_set.add(item_city)
+        if item_type:
+            type_set.add(item_type)
+
+        if q and q not in item_name.lower() and q not in item_city.lower():
+            continue
+
+        if property_type and item_type.lower() != property_type:
+            continue
+
+        if city and item_city.lower() != city:
+            continue
+
+        if min_price_val is not None and (item_price is None or item_price < min_price_val):
+            continue
+
+        if max_price_val is not None and (item_price is None or item_price > max_price_val):
+            continue
+
+        if bedrooms:
+            bedroom_strs = [str(b).strip().lower() for b in item_bedrooms]
+            if bedrooms not in bedroom_strs:
+                continue
+
+        listings.append({
+            "id": item.get("id"),
+            "slug": item_slug,
+            "name": item_name,
+            "place": get_area_name(item) or item_city,
+            "city": item_city,
+            "type": item_type or "Residence",
+            "price": format_price_display(item_price),
+            "price_raw": item_price,
+            "bedrooms": ", ".join(item_bedrooms) if item_bedrooms else "Studio",
+            "image": normalize_image_url(get_property_cover_image(item)),
+            "lat": lat,
+            "lng": lng,
+            "url": reverse("propertydetail", args=[item_slug]) if item_slug else "",
+        })
+
+    context = {
+        "listings_json": json.dumps(listings),
+        "listings_count": len(listings),
+        "featured_listings": listings[:3],
+        "cities": sorted(city_set),
+        "property_types": sorted(type_set),
+        "filters": {
+            "q": request.GET.get("q", ""),
+            "property_type": request.GET.get("property_type", ""),
+            "city": request.GET.get("city", ""),
+            "min_price": min_price,
+            "max_price": max_price,
+            "bedrooms": request.GET.get("bedrooms", ""),
+        },
+    }
+
+    return render(request, "main/property_map_search.html", context)
+
+
+
+def blog(request, page=1):
+    search_query = request.GET.get('search', '').strip()
+    sort_by = request.GET.get('sort', '-created_at')
+    page_size = int(request.GET.get('page_size', 9))
+
+    posts = BlogPost.objects.all()
+
+    if search_query:
+        posts = posts.filter(
+            Q(title__icontains=search_query) |
+            Q(description__icontains=search_query) |
+            Q(content__icontains=search_query)
+        )
+
+    sort_map = {
+        '-publish_date': '-created_at',
+        'publish_date': 'created_at',
+        'title': 'title',
+    }
+    posts = posts.order_by(sort_map.get(sort_by, '-created_at'))
+
+    # First post = featured (big card), rest = numbered list
+    featured_post = posts.first()
+    other_posts = posts.exclude(pk=featured_post.pk) if featured_post else posts.none()
+
+    paginator = Paginator(other_posts, page_size)
+    posts_page = paginator.get_page(page)
+
+    context = {
+        'featured_post': featured_post,
+        'posts': posts_page,
+        'search_query': search_query,
+        'sort_by': sort_by,
+        'page_size': page_size,
+        'current_page': posts_page.number,
+    }
+    return render(request, 'main/blog.html', context)
+
+
+
+
+
+def blog_detail(request, slug):
+    post = get_object_or_404(BlogPost, slug=slug)
+
+    related_posts = BlogPost.objects.exclude(
+        id=post.id
+    ).order_by('-created_at')[:3]
+
+    context = {
+        'post': post,
+        'related_posts': related_posts,
+    }
+
+    return render(request, 'main/blog_detail.html', context)

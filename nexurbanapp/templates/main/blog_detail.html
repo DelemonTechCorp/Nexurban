@@ -1,0 +1,786 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --accent:#F11200;
+    --accent-dark:#C40D00;
+    --accent-tint:#FFEDEA;
+
+    --ink:#171412;
+    --ink-soft:rgba(23,20,18,0.6);
+    --line: rgba(23,20,18,0.12);
+
+    --paper:#FFFFFF;
+    --panel:#FAFAF9;
+    --radius: 2px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+  }
+
+  /* ---------- Unified typography (matches blog list / off-plan pages) ---------- */
+  h1,h2,h3,.font-display{
+    font-family:"Times New Roman", Times, serif;
+    font-weight:400;
+    letter-spacing:-.02em;
+    margin:0;
+  }
+  h1 em, h2 em, h3 em, .font-display em{
+    /* color:#7d6842; */
+    font-style:italic;
+    font-weight:400;
+  }
+
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer;}
+
+  .site-shell{
+    max-width:1200px;
+    margin:0 auto;
+    padding:40px 24px 0;
+  }
+
+  /* ---------- Fade-up on load ---------- */
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .reveal{ animation:fadeUp .6s ease both; }
+  .reveal-1{ animation-delay:.05s; }
+  .reveal-2{ animation-delay:.15s; }
+  .reveal-3{ animation-delay:.25s; }
+
+  /* ---------- Hero banner — taller, darker, common image across all detail pages ---------- */
+  .hero-banner{
+    position:relative;
+    height:620px;
+    overflow:hidden;
+    color:#fff;
+  }
+  .hero-bg{
+    position:absolute; inset:0;
+    background-image:url("{% static 'img/blog-hero-bg.jpg' %}");
+    background-size:cover;
+    background-position:center;
+    background-color:#0a0a0a;
+  }
+  .hero-overlay{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(2,2,2,0.72) 0%, rgba(2,2,2,0.88) 55%, rgba(0,0,0,0.97) 100%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:1;
+    max-width:1200px;
+    margin:0 auto;
+    height:100%;
+    padding:0 24px 44px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+  }
+  .hero-tag{
+    font-size:13px;
+    letter-spacing:.08em;
+    font-weight:600;
+    color:#F5C34C;
+    text-transform:uppercase;
+  }
+  .hero-title{
+      font-family:"Times New Roman", Times, serif;
+      font-weight:400;
+      font-size:60px;
+      margin-top:14px;
+      color:#f7f4ed;
+      line-height:1.1;
+      letter-spacing:-.03em;
+      max-width:20ch;
+  }
+  .hero-subtitle{
+    margin-top:14px;
+    font-size:18px;
+    color:rgba(247,244,237,0.7);
+    max-width:60ch;
+  }
+
+  @media(max-width:640px){
+    .hero-banner{ height:auto; padding-top:0; }
+    .hero-inner{ padding:120px 20px 32px; height:auto; }
+    .hero-title{ font-size:34px; }
+  }
+
+  /* ---------- Lead feature image (top of article) ---------- */
+  .toc-image{
+    position:relative;
+    aspect-ratio:16/9;
+    width:100%;
+    border-radius:var(--radius);
+    overflow:hidden;
+    background-color:#eee;
+  }
+  .toc-image::before{
+    content:"";
+    position:absolute; inset:0;
+    background-size:cover;
+    background-position:center;
+    transform:scale(1.12);
+    transition:transform .5s ease;
+  }
+  .toc-image:hover::before{ transform:scale(1.22); }
+
+  /* ---------- "In This Article" list — black header bar ---------- */
+  .toc-heading{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:11px;
+    letter-spacing:.08em;
+    font-weight:700;
+    color:#f7f4ed;
+    font-family:'Manrope', sans-serif;
+    background:#111111;
+    padding:16px 20px;
+    margin:-28px -28px 18px -28px;
+    text-transform:uppercase;
+  }
+  .toc-list{ list-style:none; margin:0; padding:0; }
+  .toc-list li{
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    font-size:13px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:color .2s ease;
+  }
+  .toc-list li:last-child{ border-bottom:none; }
+  .toc-list li:hover{ color:var(--accent); }
+  .toc-list a{ display:block; }
+
+  /* ---------- Sidebar feature image ---------- */
+  .sidebar-image{
+    width:100%;
+    aspect-ratio:4/3;
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .sidebar-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .5s ease;
+  }
+  .sidebar-image:hover img{ transform:scale(1.06); }
+
+  /* ---------- Layout ---------- */
+  .detail-grid{
+    display:grid;
+    grid-template-columns: 1fr 340px;
+    gap:56px;
+    padding:48px 0;
+    align-items:start;
+  }
+
+  .eyebrow{
+    color:var(--accent);
+    font-size:13px;
+    letter-spacing:.05em;
+    font-weight:600;
+    font-family:'Manrope', sans-serif;
+  }
+
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:18px;
+  }
+  .tag-pill{
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:6px 12px;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    border-radius:999px;
+    font-family:'Manrope', sans-serif;
+  }
+
+  .lede{
+    margin-top:36px;
+    font-family:"Times New Roman", Times, serif;
+    font-weight:400;
+    font-size:26px;
+    max-width:34ch;
+  }
+  .description{
+    margin-top:18px;
+    max-width:68ch;
+    color:var(--ink-soft);
+    line-height:1.85;
+    font-size:16px;
+  }
+  .description p{ margin:0 0 20px; }
+  .description img{ border-radius:var(--radius); margin:20px 0; }
+  .description h2, .description h3{ color:var(--ink); margin-top:32px; margin-bottom:12px; }
+
+  h3.section-title{
+    font-size:24px;
+    margin-top:52px;
+    scroll-margin-top:24px;
+  }
+
+  .pull-quote{
+    border-left:3px solid var(--accent);
+    padding:6px 0 6px 24px;
+    margin:36px 0;
+    font-family:"Times New Roman", Times, serif;
+    font-weight:400;
+    font-size:22px;
+    line-height:1.5;
+    max-width:56ch;
+  }
+  .pull-quote cite{
+    display:block;
+    margin-top:12px;
+    font-style:normal;
+    font-size:13px;
+    color:var(--ink-soft);
+    font-family:'Manrope', sans-serif;
+  }
+
+  .inline-figure{ margin-top:28px; }
+  .inline-figure .frame{
+    aspect-ratio:16/9;
+    border-radius:var(--radius);
+    overflow:hidden;
+    background-size:cover;
+    background-position:center;
+  }
+  .inline-figure figcaption{
+    margin-top:10px;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  .key-points{
+    border-top:1px solid var(--line);
+    padding-top:22px;
+    margin-top:18px;
+    display:grid;
+    gap:12px;
+    font-size:15px;
+  }
+  .key-points p{ margin:0; padding-left:22px; position:relative; }
+  .key-points p::before{
+    content:"—";
+    color:var(--accent);
+    position:absolute;
+    left:0;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-panel{
+    margin-top:52px;
+    padding:32px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+  }
+  .cta-panel .font-display{ font-size:26px; }
+  .cta-panel p{ margin-top:10px; color:var(--ink-soft); font-size:15px; line-height:1.7; max-width:60ch; }
+  .cta-panel .btn-accent{ margin-top:20px; padding:0 22px; width:auto; display:inline-flex; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:18px; border-top:1px solid var(--line); }
+  .faq-item{ border-bottom:1px solid var(--line); padding:18px 0; }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    font-weight:600;
+    font-size:15px;
+    font-family:'Manrope', sans-serif;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .plus{
+    flex:none;
+    width:18px; height:18px;
+    position:relative;
+  }
+  .faq-item summary .plus::before,
+  .faq-item summary .plus::after{
+    content:"";
+    position:absolute;
+    background:var(--accent);
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+  }
+  .faq-item summary .plus::before{ width:12px; height:2px; }
+  .faq-item summary .plus::after{ width:2px; height:12px; transition:transform .2s ease; }
+  .faq-item[open] summary .plus::after{ transform:translate(-50%,-50%) rotate(90deg); opacity:0; }
+  .faq-answer{
+    margin-top:12px;
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.75;
+    max-width:68ch;
+  }
+
+  /* ---------- Author bio (end of article) — Nexurban branded, short/generic ---------- */
+  .author-endcard{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-top:56px;
+    padding:28px;
+    background:#111111;
+    border-radius:var(--radius);
+  }
+  .author-endcard .author-logo{
+    flex:none;
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+  }
+  .author-endcard .author-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+  .author-endcard .author-name{
+    font-family:"Times New Roman", Times, serif;
+    font-weight:400;
+    font-size:22px;
+    color:#f7f4ed;
+  }
+  .author-endcard .author-desc{
+    margin-top:6px;
+    font-size:13px;
+    color:rgba(247,244,237,0.55);
+    line-height:1.6;
+    max-width:56ch;
+    font-family:'Manrope', sans-serif;
+  }
+
+  /* ---------- Comments ---------- */
+  .comments-section{ margin-top:56px; }
+  .comment-form{ display:grid; gap:12px; margin-top:18px; max-width:68ch; }
+  .comment-form textarea.field{ min-height:100px; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar-sticky{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .card-panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:28px;
+    border-radius: var(--radius);
+    transition:border-color .25s ease, box-shadow .25s ease;
+    overflow:hidden;
+  }
+  .card-panel:hover{
+    border-color:rgba(241,18,0,0.35);
+    box-shadow:0 8px 24px rgba(23,20,18,0.06);
+  }
+  .card-panel .eyebrow{ display:block; margin-bottom:14px; }
+
+  /* Black form panels — newsletter + comments */
+  .card-panel.dark-panel{
+    background:#111111;
+    border-color:rgba(247,244,237,.1);
+    color:#f7f4ed;
+  }
+  .card-panel.dark-panel:hover{
+    border-color:rgba(241,18,0,.5);
+    box-shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+  .card-panel.dark-panel .eyebrow{ color:#ff4c3fd3; }
+  .card-panel.dark-panel .font-display{ color:#f7f4ed; }
+  .card-panel.dark-panel p{ color:rgba(247,244,237,.55); }
+
+  .field{
+    width:100%;
+    height:48px;
+    background:#fff;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:0 16px;
+    font-size:14px;
+    font-family:inherit;
+    border-radius:0;
+    transition:border-color .2s ease;
+  }
+  /* Placeholders — black / clearly visible everywhere */
+  .field::placeholder{ color:rgba(23,20,18,0.65); }
+  .field:focus{ outline:none; border-color:var(--accent); }
+  textarea.field{ height:auto; padding:12px 16px; resize:vertical; min-height:70px; }
+
+  /* Black input fields inside dark panels — placeholder kept black on the white input */
+  .dark-panel .field{
+    background:#fff;
+    border:1px solid rgba(247,244,237,.16);
+    color:#111;
+  }
+  .dark-panel .field::placeholder{ color:rgba(17,17,17,.55); }
+  .dark-panel .field:focus{ border-color:#ff1d0c; }
+
+  .form-stack{ display:grid; gap:12px; margin-top:22px; }
+
+  .btn-accent{
+    margin-top:4px;
+    height:44px;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.12em;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .btn-accent:hover{ background:var(--accent-dark); transform:translateY(-1px); }
+  .btn-accent:active{ transform:translateY(0); }
+
+  /* Share card — functional links */
+  .share-icons{ display:flex; gap:12px; margin-top:16px; }
+  .share-icons button{
+    width:42px; height:42px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:transparent;
+    padding:0;
+    transition:border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .share-icons button:hover{ border-color:var(--accent); background:var(--accent-tint); transform:translateY(-2px); }
+  .share-icons svg{ width:17px; height:17px; color:var(--ink); pointer-events:none; }
+  .share-icons button:hover svg{ color:var(--accent); }
+  .share-icons .copy-feedback{
+    margin-top:12px;
+    font-size:11px;
+    letter-spacing:.06em;
+    color:var(--accent);
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  .share-icons .copy-feedback.visible{ opacity:1; }
+
+  /* Author card (top, if used elsewhere) */
+  .author-row{ display:flex; align-items:center; gap:16px; }
+  .author-avatar{
+    width:56px; height:56px;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, #ff5a3c, var(--accent) 70%);
+    color:#fff;
+    font-size:9px;
+    font-weight:600;
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    letter-spacing:.02em;
+    line-height:1.2;
+    flex:none;
+  }
+  .author-avatar.small{ width:48px; height:48px; }
+  .author-name{ font-size:22px; font-family:"Times New Roman", Times, serif; font-weight:400; }
+  .author-desc{ margin-top:6px; font-size:13px; color:var(--ink-soft); line-height:1.6; }
+
+  /* ---------- Related articles ---------- */
+  .similar-section{ padding-bottom:80px; }
+  .similar-grid{
+    display:grid;
+    gap:32px;
+    margin-top:32px;
+  }
+  @media(min-width:768px){ .similar-grid{ grid-template-columns:repeat(3,1fr); } }
+
+  .property-card{ transition:transform .25s ease; }
+  .property-card:hover{ transform:translateY(-4px); }
+
+  .property-card .image-frame{
+    aspect-ratio:4/3;
+    position:relative;
+    overflow:hidden;
+    background:#111;
+  }
+  .property-card .image-frame::before{
+    content:"";
+    position:absolute; inset:0;
+    background-size:cover;
+    background-position:center;
+    transition:transform .5s ease;
+  }
+  .property-card:hover .image-frame::before{ transform:scale(1.06); }
+
+  .image-label{
+    position:absolute;
+    top:14px; left:14px;
+    background:#fff;
+    color:var(--ink);
+    font-size:10px;
+    letter-spacing:.08em;
+    padding:6px 10px;
+    z-index:1;
+    text-transform:uppercase;
+  }
+  .property-card .card-body{ border-bottom:1px solid var(--line); padding:18px 0; }
+  .property-card .card-title{ font-size:22px; font-family:"Times New Roman", Times, serif; font-weight:400; }
+  .property-card .card-loc{ margin-top:4px; font-size:12px; color:var(--ink-soft); }
+  .card-excerpt{ margin-top:12px; font-size:13px; color:var(--ink-soft); line-height:1.6; }
+  .card-price-row{ display:flex; justify-content:space-between; gap:12px; margin-top:18px; align-items:center; }
+  .card-price-row small{ font-size:10px; letter-spacing:.06em; color:var(--ink-soft); display:block; }
+  .card-price-row .price-val{ margin-top:2px; font-weight:500; }
+  .arrow-link{
+    margin-top:18px;
+    font-size:11px;
+    letter-spacing:.1em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--ink);
+    transition:gap .2s ease, color .2s ease;
+  }
+  .arrow-link svg{ transition:transform .2s ease; }
+  .property-card:hover .arrow-link{ color:var(--accent); }
+  .property-card:hover .arrow-link svg{ transform:translate(2px,-2px); }
+
+  @media(max-width:960px){
+    .detail-grid{ grid-template-columns:1fr; }
+  }
+  @media(max-width:600px){
+    .site-shell{ padding:24px 16px 0; }
+    .author-endcard{ flex-direction:column; text-align:center; }
+  }
+</style>
+
+<!-- ============ HERO BANNER (common image + darker gradient across every detail page) ============ -->
+<section class="hero-banner"> <div class="hero-bg"></div> <div class="hero-overlay"></div> <div class="hero-inner"> <h1 class="hero-title">Real Estate Insights &amp;<em>Market Updates</em> </h1> <p class="hero-subtitle"> Explore expert insights, market trends, property news, and the latest developments in Dubai real estate. </p> </div> </section>
+
+<div class="site-shell">
+
+  <div class="detail-grid reveal reveal-1">
+
+    <!-- ============ MAIN COLUMN / ARTICLE BODY ============ -->
+    <article class="reveal reveal-2" id="overview">
+      <h1 style="font-size:40px; margin-top:12px;">{{ post.title }}</h1>
+
+      <!-- Lead feature image -->
+      {% if post.image %}
+      <div class="toc-image" style="margin-top:28px;">
+        <div style="position:absolute; inset:0; background-image:url('{{ post.image.url }}'); background-size:cover; background-position:center;"></div>
+      </div>
+      {% endif %}
+
+      <div class="description" style="margin-top:36px;">
+        {{ post.content|safe }}
+      </div>
+
+      <!-- CTA -->
+      {% if post.cta_heading %}
+      <div class="cta-panel">
+        <p class="font-display">{{ post.cta_heading }}</p>
+        {% if post.cta_subheading %}<p>{{ post.cta_subheading }}</p>{% endif %}
+        {% if post.cta_button_text and post.cta_button_link %}
+        <a href="{{ post.cta_button_link }}" class="btn-accent">
+          {{ post.cta_button_text }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+        </a>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <!-- FAQ -->
+      {% if post.faqs.all %}
+      <h3 class="section-title" id="faq">Frequently asked questions</h3>
+      <div class="faq-list">
+        {% for faq in post.faqs.all %}
+        <details class="faq-item"{% if forloop.first %} open{% endif %}>
+          <summary>{{ faq.question }}<span class="plus"></span></summary>
+          <div class="faq-answer">{{ faq.answer }}</div>
+        </details>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Nexurban author box — short, generic real estate copy -->
+      <div class="author-endcard">
+        <div class="author-logo">
+          <img src="{% static 'img/logo.png' %}" alt="Nexurban">
+        </div>
+        <div>
+          <p class="author-name">Nexurban Advisory Desk</p>
+          <p class="author-desc">
+            Real estate insights and market perspective from Dubai's property experts.
+          </p>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="reveal reveal-3">
+      <div class="sidebar-sticky">
+
+        <!-- In This Article — black header bar -->
+        <div class="card-panel">
+          <p class="toc-heading">In This Article</p>
+          <ul class="toc-list">
+            <li><a href="#overview">Overview</a></li>
+            {% if post.faqs.all %}<li><a href="#faq">Frequently Asked Questions</a></li>{% endif %}
+            <li><a href="#comments">Join the Discussion</a></li>
+          </ul>
+        </div>
+
+        <!-- Share Article — functional -->
+        <div class="card-panel">
+          <span class="eyebrow">SHARE ARTICLE</span>
+          <div class="share-icons">
+            <button type="button" aria-label="Share on LinkedIn" data-share="linkedin">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+            </button>
+            <button type="button" aria-label="Share on Facebook" data-share="facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.9h2.65l.4-3.08H13.5V8.06c0-.89.25-1.5 1.52-1.5h1.63V3.8A22 22 0 0 0 14.3 3.7c-2.35 0-3.96 1.44-3.96 4.07v2.25H7.68v3.08h2.66V21h3.16Z"/></svg>
+            </button>
+            <button type="button" aria-label="Share on X" data-share="x">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.6 10.6 20 3.4h-1.9L12.8 9.3 8.3 3.4H3l6.7 8.9L3 21h1.9l5.7-6.4 4.8 6.4H21l-7.4-10.4Zm-2 2.7-.7-.9-5.3-7h2.2l4.2 5.6.7.9 5.5 7.3h-2.2l-4.4-5.9Z"/></svg>
+            </button>
+            <button type="button" aria-label="Share on WhatsApp" data-share="whatsapp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.9a9.1 9.1 0 0 0-7.8 13.8L3 21.1l4.5-1.2A9.1 9.1 0 1 0 12 2.9Zm0 16.5a7.3 7.3 0 0 1-3.7-1l-.27-.16-2.66.7.71-2.6-.18-.27A7.36 7.36 0 1 1 12 19.4Zm4-5.5c-.22-.11-1.3-.64-1.5-.72-.2-.07-.35-.11-.5.11-.14.22-.57.72-.7.87-.13.14-.26.16-.48.05-.22-.11-.94-.34-1.79-1.1a6.7 6.7 0 0 1-1.24-1.53c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.14-.22.22-.36.07-.15.04-.28-.02-.4-.07-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.14 0-.38.06-.58.28-.2.22-.76.75-.76 1.82s.78 2.11.89 2.25c.11.15 1.53 2.33 3.7 3.27.52.22.92.36 1.24.46.52.16 1 .14 1.37.09.42-.06 1.3-.53 1.48-1.05.18-.51.18-.95.13-1.04-.05-.1-.2-.16-.42-.27Z"/></svg>
+            </button>
+            <button type="button" aria-label="Copy link" data-share="copy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <p class="copy-feedback" id="nx-copy-feedback">Link copied to clipboard</p>
+        </div>
+
+        <!-- Newsletter signup — black form -->
+        <div class="card-panel dark-panel">
+          <span class="eyebrow">STAY UPDATED</span>
+          <p class="font-display" style="font-size:24px; margin-top:12px;">Get market insights in your inbox</p>
+          <p style="margin-top:8px; font-size:14px;">One email a week. No noise, just what's moving the market.</p>
+          <div class="form-stack">
+            <input class="field" placeholder="Email address" type="email" required>
+            <button class="btn-accent" type="submit">
+              SUBSCRIBE
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Comment box — black form -->
+        <div class="card-panel dark-panel" id="comments">
+          <span class="eyebrow">JOIN THE DISCUSSION</span>
+          <div class="comment-form" style="margin-top:14px;">
+            <input class="field" placeholder="Your name" required>
+            <input class="field" placeholder="Email address" type="email" required>
+            <textarea class="field" placeholder="Share your thoughts..."></textarea>
+            <button class="btn-accent" type="submit">
+              POST COMMENT
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  var pageUrl   = window.location.href;
+  var pageTitle = document.title || "{{ post.title|escapejs }}";
+
+  function openShareWindow(url) {
+    window.open(url, "_blank", "noopener,noreferrer,width=600,height=600");
+  }
+
+  document.querySelectorAll('[data-share]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var type = btn.getAttribute('data-share');
+      var encodedUrl = encodeURIComponent(pageUrl);
+      var encodedTitle = encodeURIComponent(pageTitle);
+
+      switch (type) {
+        case 'linkedin':
+          openShareWindow('https://www.linkedin.com/sharing/share-offsite/?url=' + encodedUrl);
+          break;
+        case 'facebook':
+          openShareWindow('https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl);
+          break;
+        case 'x':
+          openShareWindow('https://twitter.com/intent/tweet?url=' + encodedUrl + '&text=' + encodedTitle);
+          break;
+        case 'whatsapp':
+          openShareWindow('https://wa.me/?text=' + encodedTitle + '%20' + encodedUrl);
+          break;
+        case 'copy':
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(pageUrl).then(showCopyFeedback);
+          } else {
+            var tmp = document.createElement('input');
+            document.body.appendChild(tmp);
+            tmp.value = pageUrl;
+            tmp.select();
+            document.execCommand('copy');
+            document.body.removeChild(tmp);
+            showCopyFeedback();
+          }
+          break;
+      }
+    });
+  });
+
+  function showCopyFeedback() {
+    var el = document.getElementById('nx-copy-feedback');
+    if (!el) return;
+    el.classList.add('visible');
+    setTimeout(function () { el.classList.remove('visible'); }, 2200);
+  }
+
+});
+</script>
+
+{% endblock %}

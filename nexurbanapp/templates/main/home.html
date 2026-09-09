@@ -112,6 +112,7 @@
   font-weight: 700;
   letter-spacing: 0.20em;
   line-height: 1.4;
+  font-size: 15px;
   font-family: "Manrope", sans-serif;
 }
 
@@ -2625,7 +2626,7 @@ font-style: italic;
  
  
       <!-- 02 — INVEST -->
-      <a href="{% url 'buy' %}" class="lux-goal-card">
+      <a href="{% url 'invest' %}" class="lux-goal-card">
         <img
           src="{% static 'img/invest.jpg' %}"
           alt="Invest"
@@ -3002,7 +3003,7 @@ font-style: italic;
 
                                 {% if property.area_from %}
 
-                                    DUBAI · {{ property.area_from|upper }}
+                                    DUBAI 
 
                                 {% else %}
 
@@ -5355,7 +5356,929 @@ font-style: italic;
     }
 
 }
+
+/* =========================================================
+   NEXURBAN — REFINED FLOATING ACTIONS
+========================================================= */
+
+/* =========================================================
+   NEXURBAN — FLOATING ACTIONS
+   WhatsApp + Scroll Progress / Back To Top
+========================================================= */
+/* =========================================================
+   FLOATING ACTIONS
+========================================================= */
+
+.nx-floating-actions {
+    position: fixed;
+
+    right: 26px;
+    bottom: 26px;
+
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 10px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   COMMON CIRCLE
+========================================================= */
+
+.nx-whatsapp-button,
+.nx-top-button {
+    position: relative;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    border-radius: 50%;
+
+    font-family: "Manrope", sans-serif;
+
+    text-decoration: none;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   WHATSAPP BUTTON
+========================================================= */
+
+.nx-whatsapp-button {
+
+    background: #111;
+
+    color: #f7f4ed;
+
+    border: 1px solid rgba(247, 244, 237, .25);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, .30);
+
+    transition:
+        background .35s ease,
+        color .35s ease,
+        border-color .35s ease,
+        transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   WHATSAPP ICON
+========================================================= */
+
+.nx-whatsapp-button svg {
+
+    position: relative;
+
+    z-index: 4;
+
+    width: 20px;
+    height: 20px;
+
+    fill: currentColor;
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   WHATSAPP BORDER
+========================================================= */
+
+.nx-whatsapp-button::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(247, 244, 237, .25);
+
+    pointer-events: none;
+
+    z-index: 2;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   WHATSAPP ORANGE MOVING DOT
+========================================================= */
+
+/* .nx-whatsapp-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 7px;
+    height: 7px;
+
+    margin-left: -3.5px;
+    margin-top: -3.5px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    border: 2px solid #111;
+
+    box-sizing: border-box;
+
+    z-index: 6;
+
+    box-shadow:
+        0 0 8px rgba(255, 29, 12, .80),
+        0 0 16px rgba(255, 29, 12, .35);
+
+    animation:
+        nxWhatsappOrbit 4s linear infinite;
+} */
+
+
+/* =========================================================
+   WHATSAPP DOT ORBIT
+========================================================= */
+
+@keyframes nxWhatsappOrbit {
+
+    0% {
+        transform:
+            rotate(0deg)
+            translateY(-25px);
+    }
+
+    25% {
+        transform:
+            rotate(90deg)
+            translateY(-25px);
+    }
+
+    50% {
+        transform:
+            rotate(180deg)
+            translateY(-25px);
+    }
+
+    75% {
+        transform:
+            rotate(270deg)
+            translateY(-25px);
+    }
+
+    100% {
+        transform:
+            rotate(360deg)
+            translateY(-25px);
+    }
+}
+
+
+/* =========================================================
+   WHATSAPP HOVER
+========================================================= */
+
+.nx-whatsapp-button:hover {
+
+    background: #ff1d0c;
+
+    color: #fff;
+
+    border-color: #ff1d0c;
+
+    transform: translateY(-3px);
+}
+
+
+.nx-whatsapp-button:hover svg {
+
+    transform: scale(1.08);
+}
+
+
+.nx-whatsapp-button:hover::after {
+
+    border-color: rgba(255, 29, 12, .60);
+}
+
+
+/* =========================================================
+   WHATSAPP LABEL
+========================================================= */
+
+.nx-whatsapp-button .nx-whatsapp-label {
+
+    position: absolute;
+
+    right: calc(100% + 12px);
+
+    top: 50%;
+
+    transform:
+        translateY(-50%)
+        translateX(6px);
+
+    padding: 8px 11px;
+
+    background: #111;
+
+    color: rgba(247, 244, 237, .82);
+
+    border: 1px solid rgba(247, 244, 237, .12);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: .12em;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+
+.nx-whatsapp-button:hover .nx-whatsapp-label {
+
+    opacity: 1;
+
+    transform:
+        translateY(-50%)
+        translateX(0);
+}
+
+
+/* =========================================================
+   TOP BUTTON
+========================================================= */
+
+.nx-top-button {
+
+    background: rgba(17, 17, 17, .96);
+
+    color: #f7f4ed;
+
+    border: 1px solid rgba(247, 244, 237, .18);
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(15px)
+        scale(.92);
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, .28);
+
+    transition:
+        opacity .35s ease,
+        visibility .35s ease,
+        transform .35s cubic-bezier(.22, 1, .36, 1),
+        background .3s ease,
+        color .3s ease;
+}
+
+
+/* =========================================================
+   TOP BUTTON VISIBLE
+========================================================= */
+
+.nx-top-button.is-visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   PROGRESS RING
+========================================================= */
+
+.nx-top-button .nx-progress-ring {
+
+    position: absolute;
+
+    inset: -3px;
+
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+
+    overflow: visible;
+
+    pointer-events: none;
+
+    transform: rotate(-90deg);
+}
+
+
+/* =========================================================
+   PROGRESS RING BACKGROUND
+========================================================= */
+
+.nx-top-button .nx-progress-ring-bg {
+
+    fill: none;
+
+    stroke: rgba(247, 244, 237, .13);
+
+    stroke-width: 1.2;
+}
+
+
+/* =========================================================
+   ORANGE SCROLL PROGRESS
+========================================================= */
+
+.nx-top-button .nx-progress-ring-progress {
+
+    fill: none;
+
+    stroke: #ff1d0c;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 150.8;
+
+    stroke-dashoffset: 150.8;
+
+    transition:
+        stroke-dashoffset .15s linear;
+
+    filter:
+        drop-shadow(
+            0 0 4px rgba(255, 29, 12, .40)
+        );
+}
+
+
+/* =========================================================
+   TOP BUTTON MOVING DOT
+========================================================= */
+
+/* =========================================================
+   TOP ARROW
+========================================================= */
+
+.nx-top-button .nx-top-arrow {
+
+    position: relative;
+
+    z-index: 4;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: inherit;
+
+    font-family: "Times New Roman", Times, serif;
+
+    font-size: 22px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    transition:
+        transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+
+
+/* =========================================================
+   TOP BUTTON HOVER
+========================================================= */
+
+.nx-top-button:hover {
+
+    background: #f7f4ed;
+
+    color: #111;
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+}
+
+
+.nx-top-button:hover .nx-top-arrow {
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TOP LABEL
+========================================================= */
+
+.nx-top-button .nx-top-label {
+
+    position: absolute;
+
+    right: calc(100% + 12px);
+
+    top: 50%;
+
+    transform:
+        translateY(-50%)
+        translateX(6px);
+
+    padding: 7px 10px;
+
+    background: #111;
+
+    color: rgba(247, 244, 237, .75);
+
+    border: 1px solid rgba(247, 244, 237, .12);
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: .14em;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+}
+
+
+.nx-top-button:hover .nx-top-label {
+
+    opacity: 1;
+
+    transform:
+        translateY(-50%)
+        translateX(0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .nx-floating-actions {
+
+        right: 15px;
+        bottom: 18px;
+
+        gap: 9px;
+    }
+
+
+    /* WhatsApp */
+
+    .nx-whatsapp-button {
+
+        width: 48px;
+        height: 48px;
+    }
+
+
+    .nx-whatsapp-button svg {
+
+        width: 18px;
+        height: 18px;
+    }
+
+
+    .nx-whatsapp-button::before {
+
+        width: 6px;
+        height: 6px;
+
+        margin-left: -3px;
+        margin-top: -3px;
+
+        animation-name: nxWhatsappOrbitMobile;
+    }
+
+
+    /* Top */
+
+    .nx-top-button {
+
+        width: 44px;
+        height: 44px;
+    }
+
+
+    .nx-top-button .nx-progress-dot {
+
+        transform:
+            rotate(var(--scroll-angle, 0deg))
+            translateY(-20px);
+    }
+
+
+    .nx-top-button .nx-top-arrow {
+
+        font-size: 20px;
+    }
+
+
+    .nx-top-button .nx-top-label,
+    .nx-whatsapp-button .nx-whatsapp-label {
+
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE WHATSAPP ORBIT
+========================================================= */
+
+@keyframes nxWhatsappOrbitMobile {
+
+    0% {
+        transform:
+            rotate(0deg)
+            translateY(-23px);
+    }
+
+    25% {
+        transform:
+            rotate(90deg)
+            translateY(-23px);
+    }
+
+    50% {
+        transform:
+            rotate(180deg)
+            translateY(-23px);
+    }
+
+    75% {
+        transform:
+            rotate(270deg)
+            translateY(-23px);
+    }
+
+    100% {
+        transform:
+            rotate(360deg)
+            translateY(-23px);
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .nx-floating-actions {
+
+        right: 11px;
+        bottom: 14px;
+
+        gap: 7px;
+    }
+
+
+    .nx-whatsapp-button {
+
+        width: 44px;
+        height: 44px;
+    }
+
+
+    .nx-top-button {
+
+        width: 41px;
+        height: 41px;
+    }
+
+
+    .nx-top-button .nx-progress-dot {
+
+        transform:
+            rotate(var(--scroll-angle, 0deg))
+            translateY(-18.5px);
+    }
+
+
+    .nx-whatsapp-button::before {
+
+        animation-name: nxWhatsappOrbitSmall;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE ORBIT
+========================================================= */
+
+@keyframes nxWhatsappOrbitSmall {
+
+    0% {
+        transform:
+            rotate(0deg)
+            translateY(-21px);
+    }
+
+    25% {
+        transform:
+            rotate(90deg)
+            translateY(-21px);
+    }
+
+    50% {
+        transform:
+            rotate(180deg)
+            translateY(-21px);
+    }
+
+    75% {
+        transform:
+            rotate(270deg)
+            translateY(-21px);
+    }
+
+    100% {
+        transform:
+            rotate(360deg)
+            translateY(-21px);
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .nx-whatsapp-button::before {
+
+        animation: none;
+    }
+
+
+    .nx-top-button .nx-progress-ring-progress {
+
+        transition: none;
+    }
+
+
+    .nx-top-button .nx-progress-dot {
+
+        transition: none;
+    }
+}
+
+
 </style>
+<!-- =========================================================
+     NEXURBAN — FLOATING ACTIONS
+========================================================= -->
+
+
+
+<div class="nx-floating-actions">
+
+    <!-- WHATSAPP -->
+
+    <a
+        href="https://wa.me/971559025646"
+        class="nx-whatsapp-button"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Nexurban on WhatsApp"
+    >
+
+        <span class="nx-whatsapp-label">
+            WHATSAPP · 055 902 5646
+        </span>
+
+        <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+        >
+            <path d="M20.52 3.48A11.83 11.83 0 0 0 12.08 0C5.55 0 .24 5.31.24 11.84c0 2.09.55 4.13 1.59 5.93L.13 24l6.38-1.67a11.82 11.82 0 0 0 5.57 1.41h.01c6.52 0 11.83-5.31 11.83-11.84 0-3.16-1.23-6.13-3.4-8.42ZM12.09 21.7h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.21-3.79.99 1.01-3.69-.23-.38a9.82 9.82 0 0 1-1.51-5.2C2.18 6.41 6.61 1.98 12.08 1.98c2.65 0 5.14 1.03 7.01 2.91a9.84 9.84 0 0 1 2.9 7.01c0 5.47-4.43 9.8-9.9 9.8Zm5.39-7.35c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.49-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.09 4.49.71.31 1.27.5 1.71.64.72.23 1.37.2 1.89.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+        </svg>
+
+    </a>
+
+
+    <!-- BACK TO TOP -->
+
+    <button
+        type="button"
+        class="nx-top-button"
+        id="nxTopButton"
+        aria-label="Back to top"
+    >
+
+        <span class="nx-top-label">
+            BACK TO TOP
+        </span>
+
+
+        <!-- PROGRESS RING -->
+
+        <svg
+            class="nx-progress-ring"
+            viewBox="0 0 54 54"
+            aria-hidden="true"
+        >
+
+            <circle
+                class="nx-progress-ring-bg"
+                cx="27"
+                cy="27"
+                r="24"
+            />
+
+            <circle
+                class="nx-progress-ring-progress"
+                id="nxProgressRing"
+                cx="27"
+                cy="27"
+                r="24"
+            />
+
+        </svg>
+
+
+        <!-- MOVING ORANGE DOT -->
+
+        <span
+            class="nx-progress-dot"
+            id="nxProgressDot"
+        ></span>
+
+
+        <!-- ARROW -->
+
+        <span class="nx-top-arrow">
+            ↑
+        </span>
+
+    </button>
+
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const topButton = document.getElementById("nxTopButton");
+    const progressRing = document.getElementById("nxProgressRing");
+    const progressDot = document.getElementById("nxProgressDot");
+
+    if (!topButton || !progressRing || !progressDot) return;
+
+
+    const circumference = 150.8;
+
+
+    function updateScrollUI() {
+
+        const scrollTop =
+            window.scrollY ||
+            document.documentElement.scrollTop;
+
+        const documentHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+
+        const progress =
+            documentHeight > 0
+                ? Math.min(scrollTop / documentHeight, 1)
+                : 0;
+
+
+        /* =========================================
+           SHOW / HIDE TOP BUTTON
+        ========================================= */
+
+        if (scrollTop > 350) {
+
+            topButton.classList.add("is-visible");
+
+        } else {
+
+            topButton.classList.remove("is-visible");
+
+        }
+
+
+        /* =========================================
+           ORANGE CIRCLE PROGRESS
+        ========================================= */
+
+        const offset =
+            circumference -
+            (progress * circumference);
+
+        progressRing.style.strokeDashoffset = offset;
+
+
+        /* =========================================
+           MOVING ORANGE DOT
+        ========================================= */
+
+        const angle =
+            progress * 360;
+
+        progressDot.style.setProperty(
+            "--scroll-angle",
+            angle + "deg"
+        );
+
+    }
+
+
+    /* =========================================
+       BACK TO TOP
+    ========================================= */
+
+    topButton.addEventListener("click", function () {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+
+    /* =========================================
+       SCROLL
+    ========================================= */
+
+    window.addEventListener(
+        "scroll",
+        updateScrollUI,
+        { passive: true }
+    );
+
+
+    /* =========================================
+       INITIAL STATE
+    ========================================= */
+
+    updateScrollUI();
+
+});
+</script>
 
 
 <section class="nx-luxury-feature">

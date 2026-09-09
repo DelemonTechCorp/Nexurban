@@ -719,7 +719,9 @@ body.nx-menu-open {
             <a href="{% url 'ready' %}" class="nx-nav-link">READY</a>
             <a href="{% url 'luxury' %}" class="nx-nav-link">LUXURY</a>
             <a href="{% url 'area' %}" class="nx-nav-link">COMMUNITIES</a>
-            <a href="#" class="nx-nav-link">ADVISORY</a>
+            <a href="{% url 'investmentadvisory' %}" class="nx-nav-link">INVESTMENT ADVISORY</a>
+             <a href="{% url 'property_map_search' %}" class="nx-nav-link">MAP</a>
+      <!-- <a href="{% url 'blog' %}" class="nx-nav-link">BLOG</a> -->
              <a href="{% url 'about' %}" class="nx-nav-link">ABOUT</a>
 
 
@@ -871,14 +873,28 @@ body.nx-menu-open {
         </a>
 
 
-        <a href="#" class="nx-sidebar-link">
-            <span>ADVISORY</span>
+        <a href="{% url 'investmentadvisory' %}" class="nx-sidebar-link">
+            <span> ADVISORY</span>
 
             <span class="nx-arrow">
                 ↗
             </span>
         </a>
          
+          <a href="{% url 'property_map_search' %}" class="nx-sidebar-link">
+            <span> Map</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
+          <a href="{% url 'blog' %}" class="nx-sidebar-link">
+            <span> BLOG</span>
+
+            <span class="nx-arrow">
+                ↗
+            </span>
+        </a>
         <a href="{% url 'about' %}" class="nx-sidebar-link">
             <span>About</span>
 

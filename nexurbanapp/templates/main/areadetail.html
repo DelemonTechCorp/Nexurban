@@ -977,7 +977,7 @@
     align-items: center;
     justify-content: center;
     font-family: "Manrope", sans-serif;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: .08em;
     text-decoration: none;
@@ -1036,7 +1036,7 @@
 
     .nx-ad-advanced-toggle,
     .nx-ad-search-button {
-        width: 50%;
+        width: 100%;
         min-width: 0;
         height: 62px;
         min-height: 62px;
@@ -1178,7 +1178,7 @@
 
             <form
                 method="GET"
-                action="{% url 'area_detail' area_name %}"
+                    action="{% url 'area_detail' area_slug %}"
                 id="nx-area-detail-filter-form"
             >
 

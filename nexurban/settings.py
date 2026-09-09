@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'nexurbanapp',
      "django.contrib.humanize",
+    'django_ckeditor_5',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,25 @@ WSGI_APPLICATION = 'nexurban.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'link',
+            'bulletedList',
+            'numberedList',
+            'blockQuote',
+            'insertTable',
+            'imageUpload',
+            'mediaEmbed',
+            'undo',
+            'redo',
+        ],
+    },
+}
 
 DATABASES = {
     'default': {
@@ -143,6 +163,9 @@ X_OPPERP_BASE_URL = config(
     "X_OPPERP_BASE_URL",
     default="https://www.x-opperp.com/api/v1/partner/"
 )
+
+
+BREVO_API_KEY = config("BREVO_API_KEY")
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 

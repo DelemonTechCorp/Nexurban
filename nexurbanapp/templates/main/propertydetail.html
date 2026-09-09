@@ -1439,7 +1439,8 @@ textarea.nx-enquiry-field {
                     <span>/</span>
 
                     {% if p.place %}
-                        <a href="{% url 'area_detail' p.place %}" class="nx-nav-link">{{ p.place }}</a>
+                      <a href="{% url 'area_detail' p.place|slugify %}" class="nx-nav-link">{{ p.place }}</a>
+
                         <span>/</span>
                     {% endif %}
 
@@ -1936,12 +1937,13 @@ textarea.nx-enquiry-field {
                                 pricing, payment plans and viewings.
                             </p>
 
-                            <form class="nx-enquiry-form" method="POST">
+                           <form class="nx-enquiry-form" method="POST" action="{% url 'propertydetail' slug=p.slug %}">
 
                                 {% csrf_token %}
 
                                 <input type="hidden" name="property_slug" value="{{ p.slug }}">
                                 <input type="hidden" name="property_name" value="{{ p.name }}">
+
 
                                 <input type="text" name="name" class="nx-enquiry-field" placeholder="Your name" required>
                                 <input type="email" name="email" class="nx-enquiry-field" placeholder="Email address" required>

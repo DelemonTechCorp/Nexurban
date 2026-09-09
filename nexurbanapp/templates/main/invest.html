@@ -1,0 +1,1696 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   NEXURBAN — INVEST
+   Same editorial typography/style as OFF-PLAN / JV pages
+========================================================= */
+
+.inv-page {
+    width: 100%;
+    background: #f7f4ed;
+    color: #111111;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.inv-hero {
+    position: relative;
+
+    width: 100%;
+    min-height: 720px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    color: #f7f4ed;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,8,8,.91) 0%,
+            rgba(8,8,8,.72) 34%,
+            rgba(8,8,8,.36) 65%,
+            rgba(8,8,8,.18) 100%
+        ),
+        linear-gradient(
+            to top,
+            rgba(8,8,8,.94) 0%,
+            rgba(8,8,8,.18) 55%,
+            rgba(8,8,8,.384) 100%
+        ),
+        url("{% static 'img/invest-hero.webp' %}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    isolation: isolate;
+
+    animation: nxInvHeroReveal 1.2s ease-out both;
+}
+
+
+@keyframes nxInvHeroReveal {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
+   RIGHT SIDE PANEL
+========================================================= */
+
+.inv-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 24%;
+    height: 100%;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,29,12,.025),
+            rgba(255,29,12,.10)
+        );
+
+    border-left:
+        1px solid rgba(255,29,12,.12);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   HERO INNER
+========================================================= */
+
+.inv-hero-inner {
+
+    position: relative;
+
+    z-index: 3;
+
+    width:
+        min(
+            1400px,
+            calc(100% - 100px)
+        );
+
+    margin: 0 auto;
+
+    padding:
+        155px 0 90px;
+}
+
+
+/* =========================================================
+   HERO EYEBROW
+========================================================= */
+
+.inv-hero-eyebrow {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin:
+        0 0 22px;
+
+    color: #ff4c3fd3;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxInvFade .8s cubic-bezier(.22,1,.36,1)
+        .1s forwards;
+}
+
+
+.inv-hero-eyebrow::before {
+
+    content: "";
+
+    width: 32px;
+
+    height: 1px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+}
+
+
+.inv-hero-eyebrow::after {
+
+    content: "";
+
+    width: 5px;
+
+    height: 5px;
+
+    margin-left: -5px;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 0 5px rgba(255,29,12,.08),
+        0 0 13px rgba(255,29,12,.45);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.inv-hero-title {
+
+    max-width: 920px;
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(52px, 6.3vw, 90px);
+
+    font-weight: 400;
+
+    line-height: .96;
+
+    letter-spacing: -.045em;
+
+    opacity: 0;
+
+    animation:
+        nxInvFade 1s cubic-bezier(.22,1,.36,1)
+        .22s forwards;
+}
+
+
+.inv-hero-title em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   HERO LINE
+========================================================= */
+
+.inv-hero-line {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    height: 1px;
+
+    margin-top: 32px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff1d0c,
+            rgba(255,29,12,.12)
+        );
+
+    opacity: 0;
+
+    animation:
+        nxInvFade .8s ease
+        .32s forwards;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.inv-hero-description {
+
+    max-width: 580px;
+
+    margin:
+        27px 0 0;
+
+    color:
+        rgba(247,244,237,.66);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+
+    opacity: 0;
+
+    animation:
+        nxInvFade .9s cubic-bezier(.22,1,.36,1)
+        .38s forwards;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.inv-hero-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 32px;
+
+    opacity: 0;
+
+    animation:
+        nxInvFade .9s cubic-bezier(.22,1,.36,1)
+        .48s forwards;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.inv-button {
+
+    min-height: 48px;
+
+    padding:
+        0 22px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    border: 1px solid transparent;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .15em;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        border-color .3s ease,
+        transform .3s ease;
+}
+
+
+/* PRIMARY */
+
+.inv-button-primary {
+
+    background: #ff1d0c;
+
+    color: #ffffff;
+
+    border-color: #ff1d0c;
+}
+
+
+.inv-button-primary:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* SECONDARY */
+
+.inv-button-outline {
+
+    background: transparent;
+
+    color: #f7f4ed;
+
+    border-color:
+        rgba(247,244,237,.35);
+}
+
+
+.inv-button-outline:hover {
+
+    background: #f7f4ed;
+
+    color: #111111;
+
+    border-color: #f7f4ed;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* ARROW */
+
+.inv-button-arrow {
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.inv-button:hover
+.inv-button-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   HERO BOTTOM DETAIL
+========================================================= */
+
+.inv-hero-inner::after {
+
+    content:
+        "NEXURBAN · DUBAI · INVEST";
+
+    display: block;
+
+    margin-top: 52px;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: .22em;
+
+    text-transform: uppercase;
+
+    opacity: 0;
+
+    animation:
+        nxInvFade .8s ease
+        .58s forwards;
+}
+
+
+/* =========================================================
+   FADE
+========================================================= */
+
+@keyframes nxInvFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.inv-marquee {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #111111;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    white-space: nowrap;
+}
+
+
+.inv-marquee-track {
+
+    width: max-content;
+
+    display: flex;
+
+    align-items: center;
+
+    animation:
+        invMarquee 28s linear infinite;
+}
+
+
+.inv-marquee-track span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 34px;
+
+    padding:
+        23px 17px;
+
+    color:
+        rgba(247,244,237,.72);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.inv-marquee-track i {
+
+    width: 5px;
+
+    height: 5px;
+
+    flex-shrink: 0;
+
+    display: inline-block;
+
+    border-radius: 50%;
+
+    background: #ff1d0c;
+
+    box-shadow:
+        0 0 10px rgba(255,29,12,.5);
+}
+
+
+@keyframes invMarquee {
+
+    from {
+        transform:
+            translateX(0);
+    }
+
+    to {
+        transform:
+            translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   APPROACH SECTION
+========================================================= */
+
+.inv-approach {
+
+    width: 100%;
+
+    background: #111111;
+
+    color: #f7f4ed;
+}
+
+
+.inv-site-shell {
+
+    width:
+        min(
+            calc(100% - 100px),
+            1400px
+        );
+
+    margin: 0 auto;
+}
+
+
+.inv-section-pad {
+
+    padding:
+        120px 0 130px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.inv-section-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin: 0;
+
+    color: #ff4c3fd3;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .20em;
+
+    text-transform: uppercase;
+}
+
+
+.inv-section-eyebrow::before {
+
+    content: "";
+
+    width: 28px;
+
+    height: 1px;
+
+    background: #ff1d0c;
+}
+
+
+/* =========================================================
+   APPROACH QUOTE
+========================================================= */
+
+.inv-quote {
+
+    max-width: 1100px;
+
+    margin-top: 48px;
+}
+
+
+.inv-quote p {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(38px, 4.7vw, 67px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -.04em;
+}
+
+
+.inv-quote em {
+
+    color: #e8dfd1;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   SERVICE GRID
+========================================================= */
+
+.inv-service-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0,1fr));
+
+    margin-top: 75px;
+
+    border-top:
+        1px solid rgba(247,244,237,.14);
+
+    border-left:
+        1px solid rgba(247,244,237,.14);
+}
+
+
+/* =========================================================
+   SERVICE TILE
+========================================================= */
+
+.inv-service-tile {
+
+    min-height: 310px;
+
+    padding:
+        36px 35px;
+
+    border-right:
+        1px solid rgba(247,244,237,.14);
+
+    border-bottom:
+        1px solid rgba(247,244,237,.14);
+
+    transition:
+        background .4s ease;
+}
+
+
+.inv-service-tile:hover {
+
+    background:
+        rgba(247,244,237,.035);
+}
+
+
+.inv-service-number {
+
+    display: block;
+
+    color:
+        rgba(247,244,237,.38);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+}
+
+
+.inv-service-title {
+
+    margin:
+        70px 0 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 30px;
+
+    font-weight: 400;
+
+    line-height: 1.05;
+
+    letter-spacing: -.025em;
+}
+
+
+.inv-service-description {
+
+    max-width: 320px;
+
+    margin:
+        20px 0 0;
+
+    color:
+        rgba(247,244,237,.53);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CTA BAND
+========================================================= */
+
+.inv-cta-band {
+
+    width: 100%;
+
+    min-height: 360px;
+
+    padding:
+        75px 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+
+    background: #f7f4ed;
+
+    color: #111111;
+
+    border-top:
+        1px solid rgba(17,17,17,.12);
+}
+
+
+.inv-cta-band-inner {
+
+    width:
+        min(
+            1400px,
+            100%
+        );
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 50px;
+}
+
+
+.inv-cta-text {
+
+    margin: 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(42px, 5vw, 70px);
+
+    font-weight: 400;
+
+    line-height: .98;
+
+    letter-spacing: -.045em;
+}
+
+
+/* =========================================================
+   CTA BUTTON
+========================================================= */
+
+.inv-cta-button {
+
+    min-height: 56px;
+
+    padding:
+        0 26px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    flex-shrink: 0;
+
+    background: #ff1d0c;
+
+    border: 1px solid #ff1d0c;
+
+    color: #ffffff;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    transition:
+        background .3s ease,
+        transform .3s ease;
+}
+
+
+.inv-cta-button:hover {
+
+    background: #d9180b;
+
+    border-color: #d9180b;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-3px);
+}
+
+
+.inv-cta-arrow {
+
+    font-size: 18px;
+
+    line-height: 1;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.inv-cta-button:hover
+.inv-cta-arrow {
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .inv-site-shell {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .inv-hero-inner {
+
+        width:
+            min(
+                calc(100% - 70px),
+                1400px
+            );
+    }
+
+
+    .inv-hero {
+
+        min-height: 650px;
+    }
+
+
+    .inv-service-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+    }
+
+
+    .inv-cta-band-inner {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .inv-site-shell {
+
+        width:
+            calc(100% - 36px);
+    }
+
+
+    .inv-hero-inner {
+
+        width:
+            calc(100% - 36px);
+
+        padding:
+            125px 0 65px;
+    }
+
+
+    .inv-hero {
+
+        min-height: 620px;
+
+        align-items: flex-end;
+
+        background-position:
+            60% center;
+    }
+
+
+    .inv-hero::after {
+
+        width: 100%;
+
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(255,29,12,.015),
+                rgba(255,29,12,.055)
+            );
+
+        border-left: 0;
+
+        border-top:
+            1px solid rgba(255,29,12,.06);
+    }
+
+
+    /* HERO EYEBROW */
+
+    .inv-hero-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+
+        gap: 8px;
+    }
+
+
+    .inv-hero-eyebrow::before {
+
+        width: 22px;
+    }
+
+
+    /* HERO TITLE */
+
+    .inv-hero-title {
+
+        font-size:
+            clamp(45px, 13vw, 64px);
+
+        line-height: .97;
+    }
+
+
+    /* DESCRIPTION */
+
+    .inv-hero-description {
+
+        max-width: 100%;
+
+        margin-top: 22px;
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    /* BUTTONS */
+
+    .inv-hero-buttons {
+
+        margin-top: 27px;
+
+        gap: 9px;
+    }
+
+
+    .inv-button {
+
+        min-height: 45px;
+
+        padding:
+            0 17px;
+
+        font-size: 8px;
+
+        letter-spacing: .12em;
+    }
+
+
+    /* HERO FOOTER */
+
+    .inv-hero-inner::after {
+
+        margin-top: 42px;
+
+        font-size: 7px;
+
+        letter-spacing: .16em;
+    }
+
+
+    /* MARQUEE */
+
+    .inv-marquee-track span {
+
+        padding:
+            19px 14px;
+
+        font-size: 8px;
+
+        gap: 25px;
+
+        letter-spacing: .16em;
+    }
+
+
+    /* APPROACH */
+
+    .inv-section-pad {
+
+        padding:
+            75px 0 80px;
+    }
+
+
+    .inv-section-eyebrow {
+
+        font-size: 8px;
+
+        letter-spacing: .16em;
+    }
+
+
+    .inv-quote {
+
+        margin-top: 32px;
+    }
+
+
+    .inv-quote p {
+
+        font-size:
+            clamp(39px, 11.5vw, 58px);
+
+        line-height: .98;
+    }
+
+
+    /* SERVICE GRID */
+
+    .inv-service-grid {
+
+        grid-template-columns: 1fr;
+
+        margin-top: 48px;
+    }
+
+
+    .inv-service-tile {
+
+        min-height: 250px;
+
+        padding:
+            28px 24px;
+    }
+
+
+    .inv-service-title {
+
+        margin-top: 55px;
+
+        font-size: 28px;
+    }
+
+
+    .inv-service-description {
+
+        font-size: 11.5px;
+    }
+
+
+    /* CTA */
+
+    .inv-cta-band {
+
+        min-height: 350px;
+
+        padding:
+            65px 18px;
+    }
+
+
+    .inv-cta-band-inner {
+
+        width: 100%;
+
+        gap: 35px;
+    }
+
+
+    .inv-cta-text {
+
+        font-size:
+            clamp(42px, 12vw, 57px);
+    }
+
+
+    .inv-cta-button {
+
+        min-height: 52px;
+
+        padding:
+            0 21px;
+
+        font-size: 8px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .inv-site-shell {
+
+        width:
+            calc(100% - 30px);
+    }
+
+
+    .inv-hero-inner {
+
+        width:
+            calc(100% - 30px);
+
+        padding-top: 112px;
+    }
+
+
+    .inv-hero-title {
+
+        font-size: 44px;
+    }
+
+
+    .inv-hero-description {
+
+        font-size: 12.5px;
+    }
+
+
+    .inv-button {
+
+        width: 100%;
+    }
+
+
+    .inv-service-title {
+
+        font-size: 27px;
+    }
+
+
+    .inv-cta-text {
+
+        font-size: 43px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .inv-hero,
+    .inv-hero-eyebrow,
+    .inv-hero-title,
+    .inv-hero-line,
+    .inv-hero-description,
+    .inv-hero-buttons,
+    .inv-hero-inner::after {
+
+        animation: none !important;
+
+        opacity: 1;
+
+        transform: none;
+    }
+
+
+    .inv-marquee-track {
+
+        animation: none !important;
+    }
+
+
+    .inv-button,
+    .inv-cta-button,
+    .inv-service-tile {
+
+        transition: none !important;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="inv-page">
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="inv-hero">
+
+    <div class="inv-hero-inner">
+
+
+        <!-- EYEBROW -->
+
+        <p class="inv-hero-eyebrow">
+            INVEST
+        </p>
+
+
+        <!-- TITLE -->
+
+        <h1 class="inv-hero-title">
+
+            Invest In Real Assets,<br>
+
+            <em>Not Just Real Estate.</em>
+
+        </h1>
+
+
+        <!-- LINE -->
+
+        <div class="inv-hero-line"></div>
+
+
+        <!-- DESCRIPTION -->
+
+        <p class="inv-hero-description">
+
+            Identify properties with compelling
+            potential for capital appreciation,
+            rental income and long-term wealth
+            creation.
+
+        </p>
+
+
+        <!-- BUTTONS -->
+
+        <div class="inv-hero-buttons">
+
+
+            <a
+                href="{% url 'contact' %}"
+                class="inv-button inv-button-primary"
+            >
+
+                START A CONVERSATION
+
+                <span class="inv-button-arrow">
+                    ↗
+                </span>
+
+            </a>
+
+
+            <a
+                href=""
+                class="inv-button inv-button-outline"
+            >
+
+                INVESTMENT ADVISORY
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MARQUEE
+====================================================== -->
+
+<div class="inv-marquee">
+
+    <div class="inv-marquee-track">
+
+
+        <span>
+
+            <i></i>
+
+            CAPITAL APPRECIATION
+
+            <i></i>
+
+            RENTAL INCOME
+
+            <i></i>
+
+            LONG-TERM WEALTH CREATION
+
+            <i></i>
+
+            PROPERTY IDENTIFICATION
+
+        </span>
+
+
+        <span>
+
+            <i></i>
+
+            CAPITAL APPRECIATION
+
+            <i></i>
+
+            RENTAL INCOME
+
+            <i></i>
+
+            LONG-TERM WEALTH CREATION
+
+            <i></i>
+
+            PROPERTY IDENTIFICATION
+
+        </span>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     INVEST APPROACH
+====================================================== -->
+
+<section class="inv-approach">
+
+    <div class="inv-site-shell inv-section-pad">
+
+
+        <!-- EYEBROW -->
+
+        <p class="inv-section-eyebrow">
+
+            THE INVEST APPROACH
+
+        </p>
+
+
+        <!-- QUOTE -->
+
+        <div class="inv-quote">
+
+            <p>
+
+                Identify properties with compelling
+                potential for
+
+                <em>
+                    capital appreciation
+                </em>,
+
+                rental income and long-term
+                wealth creation.
+
+            </p>
+
+        </div>
+
+
+        <!-- SERVICE GRID -->
+
+        <div class="inv-service-grid">
+
+
+            <!-- 01 -->
+
+            <div class="inv-service-tile">
+
+                <span class="inv-service-number">
+                    01
+                </span>
+
+
+                <h3 class="inv-service-title">
+                    CAPITAL<br>
+                    APPRECIATION
+                </h3>
+
+
+                <p class="inv-service-description">
+
+                    Identify properties positioned in
+                    high-growth corridors with strong
+                    fundamentals for long-term value
+                    uplift.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 02 -->
+
+            <div class="inv-service-tile">
+
+                <span class="inv-service-number">
+                    02
+                </span>
+
+
+                <h3 class="inv-service-title">
+                    RENTAL<br>
+                    INCOME
+                </h3>
+
+
+                <p class="inv-service-description">
+
+                    Access assets curated for stable,
+                    consistent yields and strong
+                    tenant demand across key
+                    submarkets.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 03 -->
+
+            <div class="inv-service-tile">
+
+                <span class="inv-service-number">
+                    03
+                </span>
+
+
+                <h3 class="inv-service-title">
+                    LONG-TERM WEALTH<br>
+                    CREATION
+                </h3>
+
+
+                <p class="inv-service-description">
+
+                    Build a resilient portfolio
+                    designed around aligned
+                    objectives, sound advisory and
+                    disciplined execution.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+====================================================== -->
+
+<section class="inv-cta-band">
+
+    <div class="inv-cta-band-inner">
+
+
+        <p class="inv-cta-text">
+
+            Your next investment starts<br>
+            with the right insight.
+
+        </p>
+
+
+        <a
+            href="{% url 'contact' %}"
+            class="inv-cta-button"
+        >
+
+            SPEAK TO AN EXPERT
+
+            <span class="inv-cta-arrow">
+                ↗
+            </span>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+</div>
+
+{% endblock %}

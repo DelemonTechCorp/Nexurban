@@ -776,7 +776,7 @@
     align-items: center;
     justify-content: center;
     font-family: "Manrope", sans-serif;
-    font-size: 9px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: .08em;
     text-decoration: none;
@@ -1222,6 +1222,10 @@
 ========================================================= */
 
 @media (max-width: 480px) {
+.nx-area-cta-box {
+    display: flex;
+    flex-direction: column;
+}
 
     .nx-areas-shell {
         width: calc(100% - 30px);
@@ -1445,7 +1449,7 @@
                     {% for area in areas %}
 <a
                         
-                            href="{% url 'area_detail' area.name %}"
+                            href="{% url 'area_detail' area.slug %}"
                             class="nx-area-card"
                         >
 

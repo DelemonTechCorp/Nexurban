@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block extra_css %}
 
 <style>
@@ -532,7 +532,20 @@
 }
 
 @media (max-width: 767px) {
+ .nx-advanced-toggle {
+        width: 100%;
+        min-width: 0;
+        min-height: 52px;
+        padding: 0 16px;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        font-size: 9px;
+        letter-spacing: .12em;
+    }
     .nx-advanced-grid {
         grid-template-columns: 1fr;
     }
@@ -1715,10 +1728,13 @@
 
     justify-content: center;
 
+  
     gap: 7px;
 
     flex-wrap: wrap;
+    font-size: 15px;
 }
+
 
 
 .nx-page-button {
@@ -1743,7 +1759,7 @@
 
     font-family: "Manrope", sans-serif;
 
-    font-size: 9px;
+    font-size: 12px;
 
     font-weight: 700;
 
@@ -2670,7 +2686,7 @@
                                     <p class="nx-property-price">
 
                                         {% if property.price_from and property.price_from != 0 %}
-                                            AED {{ property.price_from|floatformat:0 }}
+                                            AED {{ property.price_from|floatformat:0|intcomma }}
                                         {% else %}
                                             Price on request
                                         {% endif %}
