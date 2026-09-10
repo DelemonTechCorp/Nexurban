@@ -9,7 +9,9 @@ class Enquiry(models.Model):
         ("valuation", "Valuation Request"),
         ("contact", "General Contact"),
         ("property", "Property Enquiry"),
-    ]
+        ("blog", "Blog Enquiry"),
+   ("newsletter", "Newsletter Subscription"),
+]
 
     form_type = models.CharField(max_length=20, choices=FORM_TYPES)
     name = models.CharField(max_length=150)

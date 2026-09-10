@@ -799,26 +799,64 @@
       <p class="contact-line">055 902 5646 · sales@nexurbanproperties.com</p>
     </div>
 
-    <form class="adv-cta-form" method="post" action="">
-      {% csrf_token %}
-      <p class="form-title">Speak to an advisor</p>
-      <p class="form-sub">Tell us what you are looking to achieve.</p>
+<form class="adv-cta-form" method="post" action="{% url 'contact' %}">
+    {% csrf_token %}
 
-      <div class="form-fields">
-        <input type="text" name="full_name" required placeholder="Full name">
-        <input type="email" name="email" required placeholder="Email address">
-        <input type="tel" name="phone" required placeholder="Phone number">
-        <input type="text" name="message" placeholder="How can we help?">
+    <p class="form-title">Speak to an advisor</p>
+    <p class="form-sub">Tell us what you are looking to achieve.</p>
+
+    <div class="form-fields">
+
+        <input
+            type="text"
+            name="name"
+            required
+            placeholder="Full name"
+        >
+
+        <input
+            type="email"
+            name="email"
+            required
+            placeholder="Email address"
+        >
+
+        <input
+            type="tel"
+            name="phone"
+            required
+            placeholder="Phone number"
+        >
+
+        <input
+            type="text"
+            name="message"
+            placeholder="How can we help?"
+        >
 
         <button type="submit">
-          Submit Enquiry
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 7h10v10"></path>
-            <path d="M7 17 17 7"></path>
-          </svg>
+            Submit Enquiry
+
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+            </svg>
         </button>
-      </div>
-    </form>
+
+    </div>
+</form>
+
 
   </div>
 </section>

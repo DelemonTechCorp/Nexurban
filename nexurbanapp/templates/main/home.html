@@ -70,7 +70,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1500px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 125px 60px 100px;
 
@@ -1000,7 +1000,7 @@ window.addEventListener('pageshow', function (event) {
 .nx-difference-container {
     width: 100%;
 
-    max-width: 1400px;
+    max-width: 1500px;
 
     margin: 0 auto;
 
@@ -1550,7 +1550,7 @@ font-style: italic;
 
   margin: 0 auto;
 
-  padding: 120px 0;
+  padding: 120px 50px;
 
   display: flex;
   flex-direction: column;
@@ -2956,7 +2956,7 @@ font-style: italic;
                         ================================== -->
 
                         <a
-                            href="{% if property.slug %}/property/{{ property.slug }}/{% elif property.external_id %}/property/{{ property.external_id }}/{% else %}#{% endif %}"
+                            href="{% url 'propertydetail' property.slug %}"
                             class="nx-curated-image-wrap"
                         >
 

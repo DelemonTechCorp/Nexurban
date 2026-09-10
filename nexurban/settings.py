@@ -24,9 +24,10 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-01*=mzemn!rki@b-8sx4k7^e5uw&q^52+$hrm)ry^_fb+oi1k('
+# 
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# SECRET_KEY = 'django-insecure-01*=mzemn!rki@b-8sx4k7^e5uw&q^52+$hrm)ry^_fb+oi1k('
 # DEBUG = True
 
 # ALLOWED_HOSTS = []
@@ -83,12 +84,7 @@ WSGI_APPLICATION = 'nexurban.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': [
@@ -108,6 +104,12 @@ CKEDITOR_5_CONFIGS = {
         ],
     },
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': {

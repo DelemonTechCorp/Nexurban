@@ -1117,83 +1117,127 @@ def home(request):
     property_statuses = get_distinct_property_statuses(all_properties)
     locations = get_distinct_locations(all_properties)
 
+    # ==========================================
+    # BUILD DISPLAY-READY HOME PROPERTIES
+    # ==========================================
+
     home_properties = []
 
-    # for p in all_properties:
+    for p in all_properties:
 
-    #     city = get_city(p).lower().strip()
-    #     sales_status = get_sales_status_name(p).lower().strip()
-    #     property_status = p.get('property_status_name')
+        # Get slug exactly like offplan
+        slug = get_property_slug(p)
 
-    #     print("PROPERTY STATUS RAW:", repr(property_status))
+        # Property must have a slug
+        if not slug:
+            print(
+                "HOME PROPERTY SKIPPED - NO SLUG:",
+                p.get("title"),
+                p.get("id")
+            )
+            continue
 
-    #     if property_status:
-    #         property_status = str(property_status).strip()
-    #     else:
-    #         property_status = ""
+        cover_image = get_property_cover_image(p)
 
-    #     # Only Dubai properties
-    #     if city != "dubai" and "dubai" not in city:
-    #         continue
+        title = api_text(
+            p.get("title")
+        ) or "Luxury Property"
 
-    #     # Statuses to exclude
-    #     excluded_statuses = [
-    #         "sold",
-    #         "sold out",
-    #         "unavailable",
-    #         "off market",
-    #     ]
+        bedroom_list = get_bedroom_list(p)
 
-    #     if sales_status in excluded_statuses:
-    #         continue
+        # Convert bedroom list to display string
+        bedroom_labels = ", ".join(
+            str(b) for b in bedroom_list
+        ) if bedroom_list else ""
 
-    #     if property_status.lower() in excluded_statuses:
-    #         continue
+        # Area
+        area_from = (
+            p.get("area_from")
+            or p.get("area_to")
+        )
 
-    #     cover_image = get_property_cover_image(p)
-    #     area_name = get_area_name(p)
+        # Price
+        price_from = get_property_price(p)
 
-    #     title = api_text(p.get("title")) or "Luxury Property"
+        # External ID
+        external_id = (
+            api_text(p.get("id"))
+            or api_text(p.get("external_id"))
+        )
 
-    #     bedroom_list = get_bedroom_list(p)
-    #     bedrooms = ", ".join(bedroom_list) if bedroom_list else ""
+        home_properties.append({
 
-    #     area_sqft = p.get("area_from") or p.get("area_to")
+            "id": external_id,
 
-    #     price = get_property_price(p)
+            # IMPORTANT
+            "slug": slug,
 
-    #     external_id = (
-    #         api_text(p.get("id"))
-    #         or api_text(p.get("external_id"))
-    #     )
+            "title": title,
 
-    #     home_properties.append({
-    #         "title": title,
-    #         "area": area_name,
-    #         "slug": get_property_slug(p),
-    #         "bedrooms": bedrooms,
-    #         "area_sqft": area_sqft,
-    #         "price": price,
+            "cover": normalize_image_url(
+                cover_image
+            ),
 
-    #         # Exact property status
-    #         "property_status": property_status,
+            "sales_status_name": get_sales_status_name(p),
 
-    #         "image": normalize_image_url(cover_image),
-    #         "external_id": external_id,
-    #         "raw": p,
-    #     })
+            "property_status": get_property_status_name(p),
 
-        # if len(home_properties) >= 3:
-        #     break
+            "city": get_city(p),
+
+            "district": get_area_name(p),
+
+            "area_from": area_from,
+
+            "area_to": p.get("area_to"),
+
+            "property_type": get_property_type(p),
+
+            "price_from": price_from,
+
+            "developer": get_developer_name(p),
+
+            "bedrooms": bedroom_list,
+
+            "bedroom_labels": bedroom_labels,
+
+            "bathrooms": p.get("bathrooms"),
+
+            "handover": get_handover(p),
+
+            "external_id": external_id,
+
+            "raw": p,
+        })
+
+        # Only 6 properties on homepage
+        if len(home_properties) >= 3:
+            break
+
+    print(
+        "HOME DISPLAY PROPERTIES:",
+        len(home_properties)
+    )
+
+    for prop in home_properties:
+        print(
+            "HOME PROPERTY:",
+            prop["title"],
+            "| SLUG:",
+            prop["slug"]
+        )
 
     context = {
-        "home_properties": all_properties[:6],
+        "home_properties": home_properties,
         "property_names": property_names,
         "property_statuses": property_statuses,
         "locations": locations,
     }
 
-    return render(request, "main/home.html", context)
+    return render(
+        request,
+        "main/home.html",
+        context
+    )
 
 # =========================================================
 # OFF-PLAN
@@ -3302,11 +3346,87 @@ def property_map_search(request):
     return render(request, "main/property_map_search.html", context)
 
 
-
 def blog(request, page=1):
-    search_query = request.GET.get('search', '').strip()
-    sort_by = request.GET.get('sort', '-created_at')
-    page_size = int(request.GET.get('page_size', 9))
+
+    # ==========================================
+    # NEWSLETTER SUBSCRIPTION
+    # ==========================================
+
+    if request.method == "POST":
+
+        form_type = request.POST.get(
+            "form_type",
+            ""
+        ).strip()
+
+        if form_type == "newsletter":
+
+            email = request.POST.get(
+                "email",
+                ""
+            ).strip()
+
+            if email:
+
+                enquiry = Enquiry.objects.create(
+                    form_type="newsletter",
+                    name="Newsletter Subscriber",
+                    email=email,
+                    phone="",
+                    message="Newsletter subscription",
+                    interest="Newsletter",
+                )
+
+                print("================================")
+                print("NEWSLETTER SUBSCRIBER CREATED")
+                print("ID:", enquiry.id)
+                print("EMAIL:", enquiry.email)
+                print("================================")
+
+                try:
+
+                    result = send_enquiry_email(enquiry)
+
+                    print("BREVO NEWSLETTER SUCCESS:")
+                    print(result)
+
+                    enquiry.sent_to_brevo = True
+
+                    enquiry.save(
+                        update_fields=["sent_to_brevo"]
+                    )
+
+                except Exception as e:
+
+                    print("========== BREVO NEWSLETTER ERROR ==========")
+                    print("ERROR:", str(e))
+                    traceback.print_exc()
+                    print("============================================")
+
+            return redirect(
+                f"{reverse('thank_you')}?type=newsletter"
+            )
+
+    # ==========================================
+    # BLOG LISTING
+    # ==========================================
+
+    search_query = request.GET.get(
+        "search",
+        ""
+    ).strip()
+
+    sort_by = request.GET.get(
+        "sort",
+        "-created_at"
+    )
+
+    page_size = int(
+        request.GET.get(
+            "page_size",
+            9
+        )
+    )
 
     posts = BlogPost.objects.all()
 
@@ -3318,43 +3438,167 @@ def blog(request, page=1):
         )
 
     sort_map = {
-        '-publish_date': '-created_at',
-        'publish_date': 'created_at',
-        'title': 'title',
+        "-publish_date": "-created_at",
+        "publish_date": "created_at",
+        "title": "title",
     }
-    posts = posts.order_by(sort_map.get(sort_by, '-created_at'))
 
-    # First post = featured (big card), rest = numbered list
+    posts = posts.order_by(
+        sort_map.get(
+            sort_by,
+            "-created_at"
+        )
+    )
+
+    # First post = featured
     featured_post = posts.first()
-    other_posts = posts.exclude(pk=featured_post.pk) if featured_post else posts.none()
 
-    paginator = Paginator(other_posts, page_size)
-    posts_page = paginator.get_page(page)
+    if featured_post:
+        other_posts = posts.exclude(
+            pk=featured_post.pk
+        )
+    else:
+        other_posts = posts.none()
+
+    paginator = Paginator(
+        other_posts,
+        page_size
+    )
+
+    posts_page = paginator.get_page(
+        page
+    )
 
     context = {
-        'featured_post': featured_post,
-        'posts': posts_page,
-        'search_query': search_query,
-        'sort_by': sort_by,
-        'page_size': page_size,
-        'current_page': posts_page.number,
+        "featured_post": featured_post,
+        "posts": posts_page,
+        "search_query": search_query,
+        "sort_by": sort_by,
+        "page_size": page_size,
+        "current_page": posts_page.number,
     }
-    return render(request, 'main/blog.html', context)
 
-
-
-
+    return render(
+        request,
+        "main/blog.html",
+        context
+    )
 
 def blog_detail(request, slug):
-    post = get_object_or_404(BlogPost, slug=slug)
+
+    post = get_object_or_404(
+        BlogPost,
+        slug=slug
+    )
+
+    if request.method == "POST":
+
+        form_type = request.POST.get("form_type", "").strip()
+
+        # ==========================================
+        # NEWSLETTER SUBSCRIPTION
+        # ==========================================
+
+        if form_type == "newsletter":
+
+            email = request.POST.get("email", "").strip()
+
+            if email:
+
+                enquiry = Enquiry.objects.create(
+                    form_type="newsletter",
+                    name="Newsletter Subscriber",
+                    email=email,
+                    phone="",
+                    message="Newsletter subscription",
+                    property_slug=post.slug,
+                    property_name=post.title,
+                    interest="Newsletter",
+                )
+
+                print("NEWSLETTER CREATED:", enquiry.id)
+
+                try:
+
+                    result = send_enquiry_email(enquiry)
+
+                    print("BREVO NEWSLETTER SUCCESS:", result)
+
+                    enquiry.sent_to_brevo = True
+
+                    enquiry.save(
+                        update_fields=["sent_to_brevo"]
+                    )
+
+                except Exception as e:
+
+                    print("========== BREVO NEWSLETTER ERROR ==========")
+                    print("ERROR:", str(e))
+                    traceback.print_exc()
+                    print("============================================")
+
+            return redirect(
+                f"{reverse('thank_you')}?type=newsletter"
+            )
+
+        # ==========================================
+        # BLOG ENQUIRY
+        # ==========================================
+
+        enquiry = Enquiry.objects.create(
+            form_type="blog",
+
+            name=request.POST.get("name", "").strip(),
+
+            email=request.POST.get("email", "").strip(),
+
+            phone=request.POST.get("phone", "").strip(),
+
+            message=request.POST.get("message", "").strip(),
+
+            property_slug=post.slug,
+
+            property_name=post.title,
+
+            interest="Blog Enquiry",
+        )
+
+        print("BLOG ENQUIRY CREATED:", enquiry.id)
+
+        try:
+
+            result = send_enquiry_email(enquiry)
+
+            print("BREVO SUCCESS:", result)
+
+            enquiry.sent_to_brevo = True
+
+            enquiry.save(
+                update_fields=["sent_to_brevo"]
+            )
+
+        except Exception as e:
+
+            print("========== BREVO ERROR ==========")
+            print("ERROR:", str(e))
+            traceback.print_exc()
+            print("=================================")
+
+        return redirect(
+            f"{reverse('thank_you')}?type=blog"
+        )
 
     related_posts = BlogPost.objects.exclude(
         id=post.id
-    ).order_by('-created_at')[:3]
+    ).order_by("-created_at")[:3]
 
     context = {
-        'post': post,
-        'related_posts': related_posts,
+        "post": post,
+        "related_posts": related_posts,
     }
 
-    return render(request, 'main/blog_detail.html', context)
+    return render(
+        request,
+        "main/blog_detail.html",
+        context
+    )

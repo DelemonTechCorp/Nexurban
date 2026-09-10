@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load humanize %}
+{% load l10n %}
 
 {% block content %}
 
@@ -8,20 +9,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-.nx-nav-link {
-    color: #2727275c !important;
-    text-decoration: none;
-}
-
-.nx-nav-link:hover {
-    color: #ff1d0c !important;
-}
+.nx-nav-link { color: #2727275c !important; text-decoration: none; }
+.nx-nav-link:hover { color: #ff1d0c !important; }
 
 /* =========================================================
-   NEXURBAN PROPERTY DETAIL
-   MODERN EDITORIAL REAL ESTATE DESIGN — v3
-   Palette: warm parchment paper + deep ink + brand red +
-   a low, dusty bronze reserved for investment/finance data.
+   NEXURBAN PROPERTY DETAIL — v4
+   A "listing dossier" concept: the page reads like a single
+   continuous property file rather than stacked generic
+   sections. Warm parchment paper, deep ink, brand red, and a
+   dusty bronze reserved only for investor-facing numbers.
+   Every section below only renders when its own data exists —
+   if a listing has no payment plan, no amenities, etc. that
+   whole block disappears instead of showing an empty shell.
 ========================================================= */
 
 .nx-property-page {
@@ -51,1363 +50,361 @@
     font-family: var(--nx-sans);
 }
 
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
 .nx-property-page *,
 .nx-property-page *::before,
-.nx-property-page *::after {
-    box-sizing: border-box;
-}
+.nx-property-page *::after { box-sizing: border-box; }
 
-.nx-property-shell {
-    width: min(1440px, calc(100% - 120px));
-    margin: 0 auto;
-}
+.nx-property-shell { width: min(1440px, calc(100% - 120px)); margin: 0 auto; }
 
 .nx-property-page .nx-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    color: var(--nx-red);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .01em;
+    display: inline-flex; align-items: center; gap: 9px;
+    color: var(--nx-red); font-size: 11px; font-weight: 700; letter-spacing: .01em;
 }
+.nx-property-page .nx-label::before { content:""; width:16px; height:1px; background: var(--nx-red); }
 
-.nx-property-page .nx-label::before {
-    content: "";
-    width: 16px;
-    height: 1px;
-    background: var(--nx-red);
-}
-
-
-/* =========================================================
-   TOP BAR (above hero stage)
-========================================================= */
-
-.nx-property-hero {
-    padding: 140px 0 0;
-}
-
+/* TOP BAR */
+.nx-property-hero { padding: 140px 0 0; }
 .nx-hero-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 26px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px; margin-bottom: 26px;
 }
-
 .nx-property-breadcrumb {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    color: #86807a;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .04em;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+    color: #86807a; font-size: 10px; font-weight: 600; letter-spacing: .04em;
 }
-
 .nx-property-breadcrumb span { color: var(--nx-red); }
-
 .nx-property-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 8px 14px;
-    border: 1px solid var(--nx-line);
-    background: var(--nx-white);
-    color: #514c45;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .04em;
+    display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px;
+    border: 1px solid var(--nx-line); background: var(--nx-white); color: #514c45;
+    font-size: 10px; font-weight: 700; letter-spacing: .04em;
 }
+.nx-property-status::before { content:""; width:6px; height:6px; background: var(--nx-red); border-radius: 50%; }
 
-.nx-property-status::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    background: var(--nx-red);
-    border-radius: 50%;
-}
-
-
-/* =========================================================
-   HERO STAGE — full-bleed immersive image
-========================================================= */
-
-.nx-hero-stage {
-    position: relative;
-    height: 78vh;
-    min-height: 560px;
-    max-height: 760px;
-    overflow: hidden;
-    background: #ddd;
-}
-
+/* HERO STAGE */
+.nx-hero-stage { position: relative; height: 78vh; min-height: 560px; max-height: 760px; overflow: hidden; background:#ddd; }
 .nx-hero-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transform: scale(1.05);
-    filter: saturate(.92) brightness(.94);
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+    transform: scale(1.05); filter: saturate(.92) brightness(.94);
     animation: nxHeroReveal 1.3s cubic-bezier(.22,1,.36,1) forwards;
 }
-
-@keyframes nxHeroReveal {
-    to { transform: scale(1); filter: saturate(1) brightness(1); }
-}
-
+@keyframes nxHeroReveal { to { transform: scale(1); filter: saturate(1) brightness(1); } }
 .nx-hero-scrim {
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0; pointer-events: none;
     background:
         linear-gradient(0deg, rgba(12,13,15,.86) 0%, rgba(12,13,15,.15) 40%, rgba(12,13,15,0) 62%),
         linear-gradient(180deg, rgba(12,13,15,.35) 0%, rgba(12,13,15,0) 26%);
-    pointer-events: none;
 }
-
-.nx-hero-copy {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    padding: 0 340px 46px 4.4%;
-}
-
+.nx-hero-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 0 340px 46px 4.4%; }
 .nx-hero-kicker {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0 0 16px;
-    color: rgba(255,255,255,.8);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .04em;
+    display: flex; align-items: center; gap: 10px; margin: 0 0 16px;
+    color: rgba(255,255,255,.8); font-size: 11px; font-weight: 700; letter-spacing: .04em;
 }
-
-.nx-hero-kicker::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--nx-red);
-    flex-shrink: 0;
-}
-
+.nx-hero-kicker::before { content:""; width:6px; height:6px; border-radius:50%; background: var(--nx-red); flex-shrink:0; }
 .nx-hero-title {
-    margin: 0;
-    max-width: 800px;
-    color: #fff;
-    font-family: var(--nx-serif);
-    font-size: clamp(46px, 5.6vw, 84px);
-    font-weight: 400;
-    line-height: .96;
-    letter-spacing: -.02em;
-    text-wrap: balance;
+    margin: 0; max-width: 800px; color: #fff; font-family: var(--nx-serif);
+    font-size: clamp(46px, 5.6vw, 84px); font-weight: 400; line-height: .96; letter-spacing: -.02em; text-wrap: balance;
 }
+.nx-hero-location { display: flex; align-items: center; gap: 9px; margin-top: 20px; color: rgba(255,255,255,.72); font-size: 13px; font-weight: 600; }
+.nx-hero-location-mark { width: 8px; height: 8px; border: 1px solid var(--nx-red); border-radius: 50%; flex-shrink: 0; }
 
-.nx-hero-location {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-top: 20px;
-    color: rgba(255,255,255,.72);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.nx-hero-location-mark {
-    width: 8px;
-    height: 8px;
-    border: 1px solid var(--nx-red);
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.nx-hero-thumbs {
-    position: absolute;
-    top: 26px;
-    right: 26px;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
+.nx-hero-thumbs { position: absolute; top: 26px; right: 26px; z-index: 2; display: flex; flex-direction: column; gap: 8px; }
 .nx-hero-thumb {
-    width: 92px;
-    height: 62px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    opacity: .68;
-    transition: opacity .25s ease, border-color .25s ease;
+    width: 92px; height: 62px; overflow: hidden; cursor: pointer;
+    border: 2px solid transparent; opacity: .68; transition: opacity .25s ease, border-color .25s ease;
 }
-
-.nx-hero-thumb.active,
-.nx-hero-thumb:hover { opacity: 1; border-color: var(--nx-red); }
-
+.nx-hero-thumb.active, .nx-hero-thumb:hover { opacity: 1; border-color: var(--nx-red); }
 .nx-hero-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.nx-hero-counter {
-    margin-top: 4px;
-    padding: 6px 0;
-    text-align: center;
-    color: rgba(255,255,255,.85);
-    font-size: 10px;
-    letter-spacing: .08em;
-}
+.nx-hero-counter { margin-top: 4px; padding: 6px 0; text-align: center; color: rgba(255,255,255,.85); font-size: 10px; letter-spacing: .08em; }
 
 .nx-hero-price-card {
-    position: absolute;
-    right: 26px;
-    bottom: 26px;
-    z-index: 3;
-    width: 260px;
-    max-width: 82vw;
-    padding: 24px 26px;
-    background: rgba(255,255,255,.94);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 30px 70px rgba(0,0,0,.35);
-    border-bottom: 3px solid var(--nx-red);
+    position: absolute; right: 26px; bottom: 26px; z-index: 3; width: 260px; max-width: 82vw;
+    padding: 24px 26px; background: rgba(255,255,255,.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 30px 70px rgba(0,0,0,.35); border-bottom: 3px solid var(--nx-red);
 }
+.nx-hero-price-label { margin-bottom: 7px; color: var(--nx-muted); font-size: 10px; font-weight: 700; letter-spacing: .06em; }
+.nx-hero-price { margin: 0; color: var(--nx-ink); font-family: var(--nx-serif); font-size: 32px; font-weight: 400; line-height: 1; }
+.nx-hero-desc { margin: 16px 0 0; color: #5c564c; font-size: 12px; line-height: 1.75; }
 
-.nx-hero-price-label {
-    margin-bottom: 7px;
-    color: var(--nx-muted);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .06em;
-}
-
-.nx-hero-price {
-    margin: 0;
-    color: var(--nx-ink);
-    font-family: var(--nx-serif);
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1;
-}
-
-.nx-hero-desc {
-    margin: 16px 0 0;
-    color: #5c564c;
-    font-size: 12px;
-    line-height: 1.75;
-}
-
-
-/* =========================================================
-   READ MORE — shared component
-========================================================= */
-
-.nx-readmore-wrap {
-    position: relative;
-    overflow: hidden;
-    transition: max-height .45s ease;
-}
-
-.nx-readmore-wrap.is-collapsed {
-    max-height: var(--nx-clamp, 120px);
-}
-
+/* READ MORE — shared, works reliably because we measure actual content height in JS */
+.nx-readmore-wrap { position: relative; overflow: hidden; transition: max-height .45s ease; }
+.nx-readmore-wrap.is-collapsed { max-height: var(--nx-clamp, 120px); }
 .nx-readmore-wrap.is-collapsed::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 40px;
-    background: linear-gradient(to top, var(--nx-fade-bg, #ffffff), transparent);
-    pointer-events: none;
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40px;
+    background: linear-gradient(to top, var(--nx-fade-bg, #ffffff), transparent); pointer-events: none;
 }
-
 .nx-readmore-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 14px;
-    padding: 0;
-    border: 0;
-    background: none;
-    cursor: pointer;
-    color: var(--nx-red);
-    font-family: var(--nx-sans);
-    font-size: 11px;
-    font-weight: 700;
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; padding: 0; border: 0; background: none;
+    cursor: pointer; color: var(--nx-red); font-family: var(--nx-sans); font-size: 11px; font-weight: 700;
 }
-
-.nx-readmore-btn::after {
-    content: "";
-    width: 14px;
-    height: 1px;
-    background: var(--nx-red);
-    transition: width .25s ease;
-}
-
+.nx-readmore-btn::after { content:""; width:14px; height:1px; background: var(--nx-red); transition: width .25s ease; }
 .nx-readmore-btn.is-open::after { width: 26px; }
 .nx-readmore-btn:hover { color: var(--nx-red-dark); }
 
-
-/* =========================================================
-   QUICK FACTS — floating card overlapping the hero
-========================================================= */
-
+/* QUICK FACTS */
 .nx-property-facts {
-    position: relative;
-    z-index: 3;
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    background: var(--nx-dark);
-    box-shadow: 0 25px 60px rgba(0,0,0,.3);
-    margin: -46px 0 0;
+    position: relative; z-index: 3; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    background: var(--nx-dark); box-shadow: 0 25px 60px rgba(0,0,0,.3); margin: -46px 0 0;
 }
-
 .nx-property-fact {
-    min-height: 118px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 24px 26px;
-    border-right: 1px solid rgba(255,255,255,.1);
-    transition: background .3s ease;
+    min-height: 118px; display: flex; flex-direction: column; justify-content: center; padding: 24px 26px;
+    border-right: 1px solid rgba(255,255,255,.1); transition: background .3s ease;
 }
-
 .nx-property-fact:hover { background: rgba(255,255,255,.03); }
-
 .nx-property-fact:last-child { border-right: 0; }
+.nx-property-fact-label { margin-bottom: 11px; color: var(--nx-red); font-size: 10px; font-weight: 700; letter-spacing: .06em; }
+.nx-desktop-nav a{ color: #14171c !important; }
+.nx-menu-toggle { background: #14171c !important; }
+.nx-property-fact-value { color: #fff; font-family: var(--nx-serif); font-size: 25px; line-height: 1; }
+.nx-property-fact-value small { font-family: var(--nx-sans); font-size: 10px; color: rgba(255,255,255,.5); }
 
-.nx-property-fact-label {
-    margin-bottom: 11px;
-
-    color: var(--nx-red);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-}
-.nx-desktop-nav a{
-
-    color: #14171c !important;
-}
-.nx-menu-toggle {
-    background: #14171c !important;
-}
-.nx-property-fact-value {
-    color: #fff;
-    font-family: var(--nx-serif);
-    font-size: 25px;
-    line-height: 1;
-}
-
-.nx-property-fact-value small {
-    font-family: var(--nx-sans);
-    font-size: 10px;
-    color: rgba(255,255,255,.5);
-}
-
-
-/* =========================================================
-   DETAIL SECTION
-========================================================= */
-
+/* DETAIL SECTION */
 .nx-property-detail-section { padding: 100px 0 120px; }
-
-.nx-property-detail-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 380px;
-    gap: 100px;
-    align-items: stretch;
-}
-
+.nx-property-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 100px; align-items: stretch; }
 .nx-property-content { min-width: 0; }
-
 .nx-section-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    margin: 0 0 16px;
-    color: var(--nx-red);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .02em;
+    display: inline-flex; align-items: center; gap: 9px; margin: 0 0 16px;
+    color: var(--nx-red); font-size: 11px; font-weight: 700; letter-spacing: .02em;
 }
-
-.nx-section-eyebrow::before {
-    content: "";
-    width: 16px;
-    height: 1px;
-    background: var(--nx-red);
-}
-
+.nx-section-eyebrow::before { content:""; width:16px; height:1px; background: var(--nx-red); }
 .nx-property-section-title {
-    margin: 0;
-    max-width: 780px;
-    font-family: var(--nx-serif);
-    font-size: clamp(38px, 4.6vw, 60px);
-    font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: -.03em;
+    margin: 0; max-width: 780px; font-family: var(--nx-serif); font-size: clamp(38px, 4.6vw, 60px);
+    font-weight: 400; line-height: 1.02; letter-spacing: -.03em;
 }
-
-.nx-property-copy {
-    max-width: 720px;
-    margin: 26px 0 0;
-    color: #6f6a63;
-    font-size: 14.5px;
-    line-height: 1.95;
-}
-
+.nx-property-copy { max-width: 720px; margin: 26px 0 0; color: #6f6a63; font-size: 14.5px; line-height: 1.95; }
 .nx-property-copy p { margin: 0 0 18px; }
 .nx-property-copy p:last-child { margin-bottom: 0; }
 
-
-/* =========================================================
-   GENERIC BLOCK
-========================================================= */
-
 .nx-property-block { margin-top: 96px; }
+.nx-property-block-header { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
+.nx-property-block-title { margin: 0; font-family: var(--nx-serif); font-size: 36px; font-weight: 400; line-height: 1.05; }
+.nx-property-block-copy { max-width: 300px; margin: 0; color: #8b857c; font-size: 11.5px; line-height: 1.7; }
 
-.nx-property-block-header {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 30px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.nx-property-block-title {
-    margin: 0;
-    font-family: var(--nx-serif);
-    font-size: 36px;
-    font-weight: 400;
-    line-height: 1.05;
-}
-
-.nx-property-block-copy {
-    max-width: 300px;
-    margin: 0;
-    color: #8b857c;
-    font-size: 11.5px;
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   AMENITIES
-========================================================= */
-
+/* AMENITIES — a quiet accent bar instead of a numbered index,
+   since a list of amenities isn't a sequence. */
 .nx-amenities-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--nx-line);
-    border-left: 1px solid var(--nx-line);
-    transition: max-height .4s ease;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--nx-line); border-left: 1px solid var(--nx-line);
+    max-height: 1200px; overflow: hidden; transition: max-height .4s ease;
 }
-
-.nx-amenities-grid.is-capped {
-    max-height: 350px;
-    overflow: hidden;
-}
-
+.nx-amenities-grid.is-capped { max-height: 350px; }
 .nx-amenity {
-    min-height: 112px;
-    padding: 22px;
-    border-right: 1px solid var(--nx-line);
-    border-bottom: 1px solid var(--nx-line);
-    transition: background .3s ease, transform .3s ease;
+    min-height: 96px; display: flex; align-items: center; gap: 14px; padding: 0 22px;
+    border-right: 1px solid var(--nx-line); border-bottom: 1px solid var(--nx-line);
+    transition: background .3s ease;
 }
-
-.nx-amenity:hover {
-    background: var(--nx-white);
-    transform: translateY(-3px);
-}
-
-.nx-amenity-index {
-    display: block;
-    margin-bottom: 18px;
-    color: var(--nx-red);
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.nx-amenity-name {
-    color: #222;
-    font-size: 12px;
-    font-weight: 700;
-}
-
+.nx-amenity:hover { background: var(--nx-white); }
+.nx-amenity-mark { width: 7px; height: 7px; border-radius: 50%; background: var(--nx-red); flex-shrink: 0; }
+.nx-amenity-name { color: #222; font-size: 12.5px; font-weight: 700; }
 .nx-showmore-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 20px;
-    padding: 13px 22px;
-    border: 1px solid var(--nx-line);
-    background: var(--nx-white);
-    cursor: pointer;
-    color: #222;
-    font-family: var(--nx-sans);
-    font-size: 10px;
-    font-weight: 700;
-    transition: border-color .25s ease, color .25s ease;
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; padding: 13px 22px;
+    border: 1px solid var(--nx-line); background: var(--nx-white); cursor: pointer; color: #222;
+    font-family: var(--nx-sans); font-size: 10px; font-weight: 700; transition: border-color .25s ease, color .25s ease;
 }
+.nx-showmore-btn:hover { border-color: var(--nx-red); color: var(--nx-red); }
 
-.nx-showmore-btn:hover {
-    border-color: var(--nx-red);
-    color: var(--nx-red);
-}
-
-
-/* =========================================================
-   PAYMENT PLAN
-========================================================= */
-
-.nx-payment-plan-name {
-    margin: 28px 0 10px;
-    font-size: 13px;
-    font-weight: 800;
-    color: #111;
-}
-
+/* PAYMENT PLAN */
+.nx-payment-plan-name { margin: 28px 0 10px; font-size: 13px; font-weight: 800; color: #111; }
 .nx-payment-plan-name:first-of-type { margin-top: 0; }
-
-.nx-payment-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    border-top: 1px solid var(--nx-line);
-    border-left: 1px solid var(--nx-line);
-}
-
-.nx-payment-item {
-    padding: 28px 22px;
-    border-right: 1px solid var(--nx-line);
-    border-bottom: 1px solid var(--nx-line);
-    border-top: 2px solid transparent;
-    transition: border-color .25s ease;
-}
-
+.nx-payment-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--nx-line); border-left: 1px solid var(--nx-line); }
+.nx-payment-item { padding: 28px 22px; border-right: 1px solid var(--nx-line); border-bottom: 1px solid var(--nx-line); border-top: 2px solid transparent; transition: border-color .25s ease; }
 .nx-payment-item:hover { border-top-color: var(--nx-red); }
+.nx-payment-percent { display: block; margin-bottom: 12px; color: var(--nx-ink); font-family: var(--nx-serif); font-size: 34px; line-height: 1; }
+.nx-payment-step { color: #7d776f; font-size: 10px; line-height: 1.6; }
 
-.nx-payment-percent {
-    display: block;
-    margin-bottom: 12px;
-    color: var(--nx-ink);
-    font-family: var(--nx-serif);
-    font-size: 34px;
-    line-height: 1;
-}
-
-.nx-payment-step {
-    color: #7d776f;
-    font-size: 10px;
-    line-height: 1.6;
-}
-
-
-/* =========================================================
-   PROJECT SCALE
-========================================================= */
-
-.nx-scale-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0,1fr));
-    border-top: 1px solid var(--nx-line);
-    border-left: 1px solid var(--nx-line);
-}
-
-.nx-scale-item {
-    padding: 25px 22px;
-    border-right: 1px solid var(--nx-line);
-    border-bottom: 1px solid var(--nx-line);
-    border-top: 2px solid transparent;
-    transition: border-color .25s ease;
-}
-
+/* PROJECT SCALE */
+.nx-scale-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); border-top: 1px solid var(--nx-line); border-left: 1px solid var(--nx-line); }
+.nx-scale-item { padding: 25px 22px; border-right: 1px solid var(--nx-line); border-bottom: 1px solid var(--nx-line); border-top: 2px solid transparent; transition: border-color .25s ease; }
 .nx-scale-item:hover { border-top-color: var(--nx-orange); }
-
-.nx-scale-value {
-    display: block;
-    margin-bottom: 10px;
-    font-family: var(--nx-serif);
-    font-size: 28px;
-    color: var(--nx-ink);
-}
-
-.nx-scale-label {
-    color: #7d776f;
-    font-size: 10px;
-}
-
+.nx-scale-value { display: block; margin-bottom: 10px; font-family: var(--nx-serif); font-size: 28px; color: var(--nx-ink); }
+.nx-scale-label { color: #7d776f; font-size: 10px; }
 
 /* =========================================================
-   UNITS TABLE
+   UNIT TYPES — back to the original dark-header table look,
+   just trimmed down to the four columns a common buyer needs:
+   unit type, bedrooms, area, price. No floor/bathroom/view/
+   status columns.
 ========================================================= */
-
 .nx-units-table-wrap { overflow-x: auto; }
-
-.nx-units-table {
-    width: 100%;
-    min-width: 760px;
-    border-collapse: collapse;
-    font-size: 12px;
-}
-
+.nx-units-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 12.5px; }
 .nx-units-table th {
-    text-align: left;
-    padding: 14px 16px;
-    background: var(--nx-ink);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    white-space: nowrap;
+    text-align: left; padding: 14px 16px; background: var(--nx-ink); color: #fff;
+    font-size: 10px; font-weight: 700; white-space: nowrap;
 }
-
-.nx-units-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--nx-line);
-    color: #3a3733;
-    white-space: nowrap;
-}
-
-.nx-units-table tr:hover td { background: var(--nx-paper); }
+.nx-units-table td { padding: 14px 16px; border-bottom: 1px solid var(--nx-line); color: #3a3733; white-space: nowrap; }
+.nx-units-table tr:hover td { background: var(--nx-paper-deep); }
 .nx-units-table tr.nx-unit-hidden { display: none; }
+.nx-units-table td.nx-unit-price { color: var(--nx-red); font-weight: 800; }
 
-.nx-unit-status {
-    display: inline-block;
-    padding: 4px 10px;
-    font-size: 9px;
-    font-weight: 700;
-    border-radius: 2px;
-}
-
-.nx-unit-status.available { background: #e7f6ec; color: #1a7f3c; }
-.nx-unit-status.reserved  { background: #fff4e0; color: #b5750a; }
-.nx-unit-status.sold      { background: #fbe8e8; color: #b3231c; }
-.nx-unit-status.unknown   { background: #eee; color: #777; }
-
-.nx-units-pagination {
-    display: flex;
-    gap: 8px;
-    margin-top: 20px;
-}
-
-.nx-units-pagination a {
-    padding: 8px 14px;
-    border: 1px solid var(--nx-line);
-    font-size: 11px;
-    font-weight: 700;
-    text-decoration: none;
-    color: #111;
-}
-
-.nx-units-pagination a.active {
-    background: var(--nx-ink);
-    color: #fff;
-}
-
-
-/* =========================================================
-   INVESTMENT SECTION
-========================================================= */
-
-.nx-investment-box {
-    position: relative;
-    margin-top: 55px;
-    padding: 46px;
-    overflow: hidden;
-    background: var(--nx-dark);
-    color: #fff;
-}
-
-.nx-investment-box::after {
-    content: "";
-    position: absolute;
-    width: 320px;
-    height: 320px;
-    right: -150px;
-    top: -170px;
-    border: 1px solid rgba(169,122,63,.4);
-    border-radius: 50%;
-}
-
-.nx-investment-label {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 16px;
-    color: var(--nx-bronze);
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.nx-investment-label::before {
-    content: "";
-    width: 16px;
-    height: 1px;
-    background: var(--nx-bronze);
-}
-
-.nx-investment-title {
-    max-width: 640px;
-    margin: 0;
-    font-family: var(--nx-serif);
-    font-size: 38px;
-    font-weight: 400;
-    line-height: 1.08;
-}
-
-.nx-investment-copy {
-    max-width: 620px;
-    margin: 18px 0 0;
-    color: rgba(255,255,255,.6);
-    font-size: 12.5px;
-    line-height: 1.85;
-}
-
-.nx-investment-metrics {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    margin-top: 36px;
-    background: rgba(255,255,255,.12);
-}
-
+/* INVESTMENT SECTION */
+.nx-investment-box { position: relative; margin-top: 55px; padding: 46px; overflow: hidden; background: var(--nx-dark); color: #fff; }
+.nx-investment-box::after { content:""; position:absolute; width:320px; height:320px; right:-150px; top:-170px; border:1px solid rgba(169,122,63,.4); border-radius:50%; }
+.nx-investment-label { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; color: var(--nx-bronze); font-size: 11px; font-weight: 700; }
+.nx-investment-label::before { content:""; width:16px; height:1px; background: var(--nx-bronze); }
+.nx-investment-title { max-width: 640px; margin: 0; font-family: var(--nx-serif); font-size: 38px; font-weight: 400; line-height: 1.08; }
+.nx-investment-copy { max-width: 620px; margin: 18px 0 0; color: rgba(255,255,255,.6); font-size: 12.5px; line-height: 1.85; }
+.nx-investment-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 36px; background: rgba(255,255,255,.12); }
 .nx-investment-metric { padding: 24px; background: #1b1b1b; }
+.nx-investment-metric strong { display: block; margin-bottom: 7px; color: #fff; font-family: var(--nx-serif); font-size: 28px; font-weight: 400; }
+.nx-investment-metric span { color: rgba(255,255,255,.45); font-size: 9px; font-weight: 700; }
 
-.nx-investment-metric strong {
-    display: block;
-    margin-bottom: 7px;
-    color: #fff;
-    font-family: var(--nx-serif);
-    font-size: 28px;
-    font-weight: 400;
-}
-
-.nx-investment-metric span {
-    color: rgba(255,255,255,.45);
-    font-size: 9px;
-    font-weight: 700;
-}
-
-
-/* =========================================================
-   LOCATION
-========================================================= */
-
-.nx-location-box {
-    position: relative;
-    height: 400px;
-    overflow: hidden;
-    margin-top: 36px;
-    background: linear-gradient(135deg, #ded9d1, #c8c1b8);
-}
-
-.nx-location-box iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-}
-
+/* LOCATION */
+.nx-location-box { position: relative; height: 400px; overflow: hidden; margin-top: 36px; background: linear-gradient(135deg, #ded9d1, #c8c1b8); }
+.nx-location-box iframe { width: 100%; height: 100%; border: 0; display: block; }
 .nx-location-box::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: .3;
-    background-image:
-        linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
+    content:""; position:absolute; inset:0; opacity:.3;
+    background-image: linear-gradient(rgba(0,0,0,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.08) 1px, transparent 1px);
+    background-size: 50px 50px; pointer-events: none;
 }
-
 .nx-location-box.has-map::before { display: none; }
-
-.nx-location-pin {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 18px;
-    height: 18px;
-    border: 3px solid var(--nx-red);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    box-shadow: 0 0 0 12px rgba(255,29,12,.12), 0 0 0 28px rgba(255,29,12,.06);
-}
-
 .nx-location-info {
-    position: absolute;
-    left: 24px;
-    bottom: 24px;
-    padding: 18px 22px;
-    background: rgba(20,23,28,.94);
-    color: #fff;
-    min-width: 250px;
-    z-index: 2;
+    position: absolute; left: 24px; bottom: 24px; padding: 18px 22px; background: rgba(20,23,28,.94); color: #fff; min-width: 250px; z-index: 2;
 }
+.nx-location-info small { display: block; margin-bottom: 6px; color: var(--nx-red); font-size: 10px; font-weight: 700; }
+.nx-location-info strong { font-family: var(--nx-serif); font-size: 21px; font-weight: 400; }
+.nx-nearby-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px; margin-top: 28px; background: var(--nx-line); border: 1px solid var(--nx-line); }
+.nx-nearby-item { padding: 16px 22px; background: var(--nx-paper-deep); color: #4c4842; font-size: 12.5px; display: flex; justify-content: space-between; gap: 12px; }
+.nx-nearby-item strong { color: var(--nx-red); font-size: 11px; white-space: nowrap; }
 
-.nx-location-info small {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--nx-red);
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.nx-location-info strong {
-    font-family: var(--nx-serif);
-    font-size: 21px;
-    font-weight: 400;
-}
-
-.nx-nearby-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 1px;
-    margin-top: 28px;
-    background: var(--nx-line);
-    border: 1px solid var(--nx-line);
-}
-
-.nx-nearby-item {
-    padding: 16px 22px;
-    background: var(--nx-paper-deep);
-    color: #4c4842;
-    font-size: 12.5px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.nx-nearby-item strong {
-    color: var(--nx-red);
-    font-size: 11px;
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   RIGHT ENQUIRY COLUMN
-========================================================= */
-
+/* RIGHT ENQUIRY COLUMN */
 .nx-property-aside { position: relative; height: 100%; }
-
-.nx-enquiry-sticky {
-    position: sticky;
-    top: 40px;
-    height: calc(100vh - 80px);
-    display: flex;
-    flex-direction: column;
-}
-
-.nx-enquiry-card {
-    flex-shrink: 0;
-    padding: 34px;
-    background: var(--nx-dark);
-    border-radius: 3px;
-    box-shadow: 0 25px 70px rgba(0,0,0,.25);
-}
-
-.nx-enquiry-label {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-bottom: 24px;
-    color: rgba(255,255,255,.5);
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.nx-enquiry-label::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--nx-red);
-}
-
-.nx-enquiry-title {
-    margin: 0;
-    color: #fff;
-    font-family: var(--nx-serif);
-    font-size: 34px;
-    font-weight: 400;
-    line-height: 1.04;
-    letter-spacing: -.02em;
-}
-
-.nx-enquiry-copy {
-    margin: 16px 0 28px;
-    color: rgba(255,255,255,.55);
-    font-size: 12px;
-    line-height: 1.75;
-}
-
-.nx-enquiry-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
+.nx-enquiry-sticky { position: sticky; top: 40px; height: calc(100vh - 80px); display: flex; flex-direction: column; }
+.nx-enquiry-card { flex-shrink: 0; padding: 34px; background: var(--nx-dark); border-radius: 3px; box-shadow: 0 25px 70px rgba(0,0,0,.25); }
+.nx-enquiry-label { display: flex; align-items: center; gap: 9px; margin-bottom: 24px; color: rgba(255,255,255,.5); font-size: 10px; font-weight: 700; }
+.nx-enquiry-label::before { content:""; width:6px; height:6px; border-radius:50%; background: var(--nx-red); }
+.nx-enquiry-title { margin: 0; color: #fff; font-family: var(--nx-serif); font-size: 34px; font-weight: 400; line-height: 1.04; letter-spacing: -.02em; }
+.nx-enquiry-copy { margin: 16px 0 28px; color: rgba(255,255,255,.55); font-size: 12px; line-height: 1.75; }
+.nx-enquiry-form { display: flex; flex-direction: column; gap: 10px; }
 .nx-enquiry-field {
-    width: 100%;
-    height: 52px;
-    padding: 0 15px;
-    border: 1px solid rgba(255,255,255,.14);
-    border-radius: 2px;
-    outline: none;
-    background: rgba(255,255,255,.05);
-    color: #fff;
-    font-family: var(--nx-sans);
-    font-size: 12px;
+    width: 100%; height: 52px; padding: 0 15px; border: 1px solid rgba(255,255,255,.14); border-radius: 2px;
+    outline: none; background: rgba(255,255,255,.05); color: #fff; font-family: var(--nx-sans); font-size: 12px;
     transition: border-color .25s ease, background .25s ease;
 }
-
 .nx-enquiry-field::placeholder { color: rgba(255,255,255,.4); }
-
-.nx-enquiry-field:focus {
-    border-color: var(--nx-red);
-    background: rgba(255,255,255,.09);
-}
-
-.nx-enquiry-field option {
-    background: var(--nx-dark);
-    color: #fff;
-}
-
-textarea.nx-enquiry-field {
-    height: 105px;
-    padding-top: 16px;
-    resize: vertical;
-}
-
+.nx-enquiry-field:focus { border-color: var(--nx-red); background: rgba(255,255,255,.09); }
+.nx-enquiry-field option { background: var(--nx-dark); color: #fff; }
+textarea.nx-enquiry-field { height: 105px; padding-top: 16px; resize: vertical; }
 .nx-enquiry-submit {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    min-height: 54px;
-    margin-top: 7px;
-    padding: 0 19px;
-    border: 0;
-    border-radius: 2px;
-    background: var(--nx-red);
-    color: #fff;
-    cursor: pointer;
-    font-family: var(--nx-sans);
-    font-size: 11px;
-    font-weight: 700;
+    position: relative; display: flex; align-items: center; justify-content: space-between; width: 100%;
+    min-height: 54px; margin-top: 7px; padding: 0 19px; border: 0; border-radius: 2px; background: var(--nx-red);
+    color: #fff; cursor: pointer; font-family: var(--nx-sans); font-size: 11px; font-weight: 700;
     transition: background .3s ease, transform .25s ease;
 }
-
 .nx-enquiry-submit span { font-size: 17px; }
+.nx-enquiry-submit:hover { background: var(--nx-red-dark); transform: translateY(-2px); }
+.nx-enquiry-trust { display: flex; align-items: center; gap: 9px; margin-top: 18px; color: rgba(255,255,255,.4); font-size: 10px; line-height: 1.5; }
+.nx-enquiry-trust::before { content:""; width:5px; height:5px; flex:0 0 5px; background: var(--nx-red); border-radius: 50%; }
 
-.nx-enquiry-submit:hover {
-    background: var(--nx-red-dark);
-    transform: translateY(-2px);
-}
+/* AGENT / PROJECT CARD */
+.nx-project-mini { margin-top: auto; padding: 24px; border: 1px solid var(--nx-line); border-radius: 3px; background: var(--nx-paper-deep); }
+.nx-project-mini-label { margin-bottom: 13px; color: var(--nx-soft); font-size: 10px; font-weight: 700; }
+.nx-project-mini-name { margin: 0; font-family: var(--nx-serif); font-size: 24px; font-weight: 400; }
+.nx-project-mini-meta { display: flex; justify-content: space-between; gap: 15px; margin-top: 17px; padding-top: 15px; border-top: 1px solid var(--nx-line); color: #77716a; font-size: 10px; }
 
-.nx-enquiry-trust {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-top: 18px;
-    color: rgba(255,255,255,.4);
-    font-size: 10px;
-    line-height: 1.5;
-}
-
-.nx-enquiry-trust::before {
-    content: "";
-    width: 5px;
-    height: 5px;
-    flex: 0 0 5px;
-    background: var(--nx-red);
-    border-radius: 50%;
-}
-
-
-/* =========================================================
-   AGENT / PROJECT CARD
-========================================================= */
-
-.nx-project-mini {
-    margin-top: auto;
-    padding: 24px;
-    border: 1px solid var(--nx-line);
-    border-radius: 3px;
-    background: var(--nx-paper-deep);
-}
-
-.nx-project-mini-label {
-    margin-bottom: 13px;
-    color: var(--nx-soft);
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.nx-project-mini-name {
-    margin: 0;
-    font-family: var(--nx-serif);
-    font-size: 24px;
-    font-weight: 400;
-}
-
-.nx-project-mini-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 17px;
-    padding-top: 15px;
-    border-top: 1px solid var(--nx-line);
-    color: #77716a;
-    font-size: 10px;
-}
-
-
-/* =========================================================
-   RELATED PROPERTIES
-========================================================= */
-
+/* RELATED PROPERTIES */
 .nx-related-section { padding: 0 0 130px; }
-
-.nx-related-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 40px;
-    margin-bottom: 42px;
-    flex-wrap: wrap;
-}
-
-.nx-related-title {
-    margin: 0;
-    font-family: var(--nx-serif);
-    font-size: clamp(38px, 4.6vw, 58px);
-    font-weight: 400;
-    line-height: 1.02;
-    letter-spacing: -.03em;
-}
-
-.nx-related-copy {
-    max-width: 320px;
-    margin: 0;
-    color: #77716a;
-    font-size: 12px;
-    line-height: 1.75;
-}
-
-.nx-related-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-}
-
-.nx-related-card {
-    position: relative;
-    display: block;
-    min-height: 430px;
-    overflow: hidden;
-    background: #111;
-    color: #fff;
-    text-decoration: none;
-}
-
-.nx-related-card-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 1s cubic-bezier(.22,1,.36,1);
-}
-
+.nx-related-header { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 42px; flex-wrap: wrap; }
+.nx-related-title { margin: 0; font-family: var(--nx-serif); font-size: clamp(38px, 4.6vw, 58px); font-weight: 400; line-height: 1.02; letter-spacing: -.03em; }
+.nx-related-copy { max-width: 320px; margin: 0; color: #77716a; font-size: 12px; line-height: 1.75; }
+.nx-related-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.nx-related-card { position: relative; display: block; min-height: 430px; overflow: hidden; background: #111; color: #fff; text-decoration: none; }
+.nx-related-card-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(.22,1,.36,1); }
 .nx-related-card:hover .nx-related-card-image { transform: scale(1.06); }
-
-.nx-related-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,.95), rgba(0,0,0,.08) 70%);
-}
-
-.nx-related-card-content {
-    position: absolute;
-    left: 24px;
-    right: 24px;
-    bottom: 24px;
-    z-index: 2;
-}
-
-.nx-related-tag {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    color: var(--nx-red);
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.nx-related-name {
-    margin: 0;
-    font-family: var(--nx-serif);
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 1.06;
-}
-
-.nx-related-location {
-    margin-top: 9px;
-    color: rgba(255,255,255,.6);
-    font-size: 11px;
-}
-
-.nx-related-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255,255,255,.2);
-}
-
+.nx-related-card::after { content:""; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,.95), rgba(0,0,0,.08) 70%); }
+.nx-related-card-content { position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 2; }
+.nx-related-tag { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--nx-red); font-size: 10px; font-weight: 700; }
+.nx-related-name { margin: 0; font-family: var(--nx-serif); font-size: 28px; font-weight: 400; line-height: 1.06; }
+.nx-related-location { margin-top: 9px; color: rgba(255,255,255,.6); font-size: 11px; }
+.nx-related-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.2); }
 .nx-related-price { font-size: 11px; font-weight: 700; }
+.nx-related-arrow { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.35); color: #fff; transition: background .3s ease, border-color .3s ease; }
+.nx-related-card:hover .nx-related-arrow { background: var(--nx-red); border-color: var(--nx-red); }
 
-.nx-related-arrow {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(255,255,255,.35);
-    color: #fff;
-    transition: background .3s ease, border-color .3s ease;
-}
-
-.nx-related-card:hover .nx-related-arrow {
-    background: var(--nx-red);
-    border-color: var(--nx-red);
-}
-
-
-/* =========================================================
-   FINAL CTA
-========================================================= */
-
-.nx-property-final {
-    margin-bottom: 100px;
-    padding: 70px;
-    position: relative;
-    overflow: hidden;
-    background: var(--nx-dark);
-    color: #fff;
-}
-
-.nx-property-final::after {
-    content: "";
-    position: absolute;
-    right: -160px;
-    top: -230px;
-    width: 470px;
-    height: 470px;
-    border: 1px solid rgba(255,29,12,.3);
-    border-radius: 50%;
-}
-
-.nx-final-label {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin: 0 0 18px;
-    color: var(--nx-red);
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.nx-final-label::before {
-    content: "";
-    width: 16px;
-    height: 1px;
-    background: var(--nx-red);
-}
-
-.nx-final-title {
-    max-width: 800px;
-    margin: 0;
-    font-family: var(--nx-serif);
-    font-size: clamp(38px, 4.6vw, 58px);
-    font-weight: 400;
-    line-height: 1.06;
-    letter-spacing: -.03em;
-}
-
-.nx-final-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 26px;
-    margin-top: 30px;
-    padding: 15px 20px;
-    border: 1px solid var(--nx-red);
-    color: #fff;
-    text-decoration: none;
-    font-size: 10px;
-    font-weight: 700;
-    transition: .3s ease;
-}
-
+/* FINAL CTA */
+.nx-property-final { margin-bottom: 100px; padding: 70px; position: relative; overflow: hidden; background: var(--nx-dark); color: #fff; }
+.nx-property-final::after { content:""; position:absolute; right:-160px; top:-230px; width:470px; height:470px; border:1px solid rgba(255,29,12,.3); border-radius:50%; }
+.nx-final-label { display: flex; align-items: center; gap: 9px; margin: 0 0 18px; color: var(--nx-red); font-size: 11px; font-weight: 700; }
+.nx-final-label::before { content:""; width:16px; height:1px; background: var(--nx-red); }
+.nx-final-title { max-width: 800px; margin: 0; font-family: var(--nx-serif); font-size: clamp(38px, 4.6vw, 58px); font-weight: 400; line-height: 1.06; letter-spacing: -.03em; }
+.nx-final-button { display: inline-flex; align-items: center; gap: 26px; margin-top: 30px; padding: 15px 20px; border: 1px solid var(--nx-red); color: #fff; text-decoration: none; font-size: 10px; font-weight: 700; transition: .3s ease; }
 .nx-final-button span { color: var(--nx-red); font-size: 16px; }
-
-.nx-final-button:hover {
-    background: var(--nx-red);
-    border-color: var(--nx-red);
-}
-
+.nx-final-button:hover { background: var(--nx-red); border-color: var(--nx-red); }
 .nx-final-button:hover span { color: #fff; }
 
-
-/* =========================================================
-   TABLET
-========================================================= */
-
+/* TABLET */
 @media (max-width: 1100px) {
-
     .nx-property-shell { width: min(100% - 70px, 1440px); }
-
     .nx-hero-copy { padding-right: 5%; }
     .nx-hero-price-card { position: static; width: 100%; max-width: 100%; margin-top: 20px; }
     .nx-hero-thumbs { display: none; }
-
-    .nx-property-detail-grid {
-        grid-template-columns: minmax(0, 1fr) 330px;
-        gap: 55px;
-    }
-
+    .nx-property-detail-grid { grid-template-columns: minmax(0, 1fr) 330px; gap: 55px; }
     .nx-property-facts { grid-template-columns: repeat(3, 1fr); }
     .nx-property-fact:nth-child(3) { border-right: 0; }
     .nx-property-fact:nth-child(n+4) { border-top: 1px solid rgba(255,255,255,.1); }
-
     .nx-amenities-grid { grid-template-columns: repeat(2, 1fr); }
     .nx-scale-grid { grid-template-columns: repeat(2, 1fr); }
     .nx-related-grid { grid-template-columns: repeat(2, 1fr); }
     .nx-related-card:last-child { display: none; }
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
+/* MOBILE */
 @media (max-width: 767px) {
-
     .nx-property-shell { width: calc(100% - 36px); }
     .nx-property-hero { padding: 100px 0 0; }
-
     .nx-hero-stage { height: auto; min-height: 0; max-height: none; }
     .nx-hero-bg { position: static; height: 420px; animation: none; transform: none; filter: none; }
     .nx-hero-scrim { display: none; }
-
-    .nx-hero-copy {
-        position: static;
-        padding: 26px 0 0;
-        background: none;
-    }
+    .nx-hero-copy { position: static; padding: 26px 0 0; background: none; }
     .nx-hero-kicker { color: var(--nx-red); }
     .nx-hero-kicker::before { background: var(--nx-red); }
     .nx-hero-title { color: var(--nx-ink); font-size: clamp(38px, 11vw, 56px); }
     .nx-hero-location { color: var(--nx-muted); }
-
-    .nx-hero-price-card {
-        position: static;
-        margin-top: 22px;
-        width: 100%;
-        max-width: 100%;
-        box-shadow: none;
-        border: 1px solid var(--nx-line);
-        background: var(--nx-paper);
-    }
-
+    .nx-hero-price-card { position: static; margin-top: 22px; width: 100%; max-width: 100%; box-shadow: none; border: 1px solid var(--nx-line); background: var(--nx-paper); }
     .nx-hero-thumbs { display: none; }
-
     .nx-property-facts { grid-template-columns: repeat(2, 1fr); margin-top: 26px; }
     .nx-property-fact { min-height: 100px; padding: 20px; }
     .nx-property-fact:nth-child(2n) { border-right: 0; }
     .nx-property-fact:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.1); }
-
     .nx-property-detail-section { padding: 75px 0 80px; }
     .nx-property-detail-grid { display: block; }
     .nx-property-aside { margin-top: 65px; }
     .nx-enquiry-sticky { position: relative; top: auto; height: auto; }
     .nx-project-mini { margin-top: 18px; }
-
     .nx-property-block { margin-top: 70px; }
     .nx-property-block-header { display: block; }
     .nx-property-block-copy { margin-top: 16px; }
-
     .nx-amenities-grid { grid-template-columns: 1fr; }
     .nx-amenities-grid.is-capped { max-height: 460px; }
     .nx-payment-grid { grid-template-columns: repeat(2, 1fr); }
     .nx-scale-grid { grid-template-columns: repeat(2, 1fr); }
-
+    .nx-unittypes-grid { grid-template-columns: 1fr 1fr; }
     .nx-investment-box { padding: 32px 22px; }
     .nx-investment-title { font-size: 32px; }
     .nx-investment-metrics { grid-template-columns: 1fr; }
-
     .nx-location-box { height: 320px; }
     .nx-nearby-list { grid-template-columns: 1fr; }
-
     .nx-related-section { padding-bottom: 80px; }
     .nx-related-header { display: block; }
     .nx-related-copy { margin-top: 18px; }
     .nx-related-grid { grid-template-columns: 1fr; }
     .nx-related-card:last-child { display: block; }
     .nx-related-card { min-height: 400px; }
-
     .nx-property-final { margin-bottom: 55px; padding: 36px 22px; }
 }
 
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
 @media (max-width: 480px) {
-
     .nx-property-shell { width: calc(100% - 30px); }
     .nx-hero-bg { height: 340px; }
     .nx-property-fact-value { font-size: 21px; }
     .nx-property-section-title { font-size: 34px; }
     .nx-property-block-title { font-size: 30px; }
     .nx-payment-percent { font-size: 28px; }
+    .nx-unittypes-grid { grid-template-columns: 1fr; }
     .nx-enquiry-card { padding: 25px 20px; }
     .nx-enquiry-title { font-size: 30px; }
 }
 
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-    }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
 </style>
@@ -1439,8 +436,7 @@ textarea.nx-enquiry-field {
                     <span>/</span>
 
                     {% if p.place %}
-                      <a href="{% url 'area_detail' p.place|slugify %}" class="nx-nav-link">{{ p.place }}</a>
-
+                        <a href="{% url 'area_detail' p.place|slugify %}" class="nx-nav-link">{{ p.place }}</a>
                         <span>/</span>
                     {% endif %}
 
@@ -1449,18 +445,12 @@ textarea.nx-enquiry-field {
 
                 {% if p.sales_status or p.property_status %}
                 <div class="nx-property-status">
-                    {% if p.sales_status %}
-                        {{ p.sales_status }}
-                    {% else %}
-                        {{ p.property_status }}
-                    {% endif %}
+                    {% if p.sales_status %}{{ p.sales_status }}{% else %}{{ p.property_status }}{% endif %}
                 </div>
                 {% endif %}
 
             </div>
 
-
-            <!-- HERO STAGE -->
 
             <div class="nx-hero-stage">
 
@@ -1511,9 +501,6 @@ textarea.nx-enquiry-field {
             </div>
 
 
-            <!-- QUICK FACTS — only rendered when at least one fact exists;
-                 each individual fact only renders when its own value exists -->
-
             {% if p.bedrooms or p.area_sqft or p.property_type or p.handover or p.developer %}
             <div class="nx-property-facts">
 
@@ -1527,9 +514,7 @@ textarea.nx-enquiry-field {
                 {% if p.area_sqft %}
                 <div class="nx-property-fact">
                     <span class="nx-property-fact-label">Area</span>
-                    <span class="nx-property-fact-value">
-                        {{ p.area_sqft|floatformat:0 }} <small>sq.ft</small>
-                    </span>
+                    <span class="nx-property-fact-value">{{ p.area_sqft|floatformat:0 }} <small>sq.ft</small></span>
                 </div>
                 {% endif %}
 
@@ -1580,29 +565,22 @@ textarea.nx-enquiry-field {
 
                     <p class="nx-section-eyebrow">The property</p>
 
-                    <h2 class="nx-property-section-title">
-                        {{ p.name }}
-                    </h2>
+                    <h2 class="nx-property-section-title">{{ p.name }}</h2>
 
                     {% if p.description %}
                         <div class="nx-property-copy nx-readmore-wrap is-collapsed"
-                             style="--nx-clamp:220px; --nx-fade-bg:#f6f2ea;"
+                             style="--nx-clamp:220px; --nx-fade-bg:#ffffff;"
                              data-readmore>
                             {{ p.description|linebreaksbr }}
                         </div>
-                        <button type="button" class="nx-readmore-btn" data-readmore-toggle>
-                            Read more
-                        </button>
+                        <button type="button" class="nx-readmore-btn" data-readmore-toggle>Read more</button>
                     {% endif %}
 
 
-                    <!-- PROJECT SCALE — only rendered when at least one scale figure exists -->
-
+                    <!-- PROJECT SCALE -->
                     {% if p.residential_units or p.commercial_units or p.units_count or p.completion_rate is not None %}
                     <div class="nx-property-block">
-
                         <p class="nx-section-eyebrow">Project scale</p>
-
                         <div class="nx-scale-grid">
 
                             {% if p.residential_units %}
@@ -1634,55 +612,46 @@ textarea.nx-enquiry-field {
                             {% endif %}
 
                         </div>
-
                     </div>
                     {% endif %}
 
 
-                    <!-- AMENITIES — only rendered when amenity data exists -->
-
+                    <!-- AMENITIES -->
                     {% if p.amenities %}
                     <div class="nx-property-block">
-
                         <div class="nx-property-block-header">
                             <div>
                                 <p class="nx-section-eyebrow">Amenities</p>
                                 <h3 class="nx-property-block-title">Everything considered</h3>
                             </div>
-                            <p class="nx-property-block-copy">
-                                A collection of resident-focused amenities
-                                designed to elevate everyday living.
-                            </p>
+                            <p class="nx-property-block-copy">A collection of resident-focused amenities designed to elevate everyday living.</p>
                         </div>
 
                         <div class="nx-amenities-grid{% if p.amenities|length > 9 %} is-capped{% endif %}" data-amenities-grid>
                             {% for amenity in p.amenities %}
                                 <div class="nx-amenity">
-                                    <span class="nx-amenity-index">
-                                        {{ forloop.counter|stringformat:"02d" }}
-                                    </span>
-                                    <span class="nx-amenity-name">
-                                        {{ amenity }}
-                                    </span>
+                                    <span class="nx-amenity-mark"></span>
+                                    <span class="nx-amenity-name">{{ amenity }}</span>
                                 </div>
                             {% endfor %}
                         </div>
 
                         {% if p.amenities|length > 9 %}
-                        <button type="button" class="nx-showmore-btn" data-amenities-toggle>
+                        <button type="button" class="nx-showmore-btn" data-amenities-toggle data-more-label="Show all {{ p.amenities|length }} amenities" data-less-label="Show less">
                             Show all {{ p.amenities|length }} amenities
                         </button>
                         {% endif %}
-
                     </div>
                     {% endif %}
 
 
-                    <!-- PAYMENT PLAN(S) — only rendered when at least one plan exists -->
-
+                    <!-- PAYMENT PLAN(S) — the block starts hidden (display:none) and a
+                         tiny inline script un-hides it the moment a plan with real
+                         numbers is rendered. Net effect: if every plan in
+                         p.payment_plans is empty, the whole "Payment plan" heading
+                         and section stay invisible instead of showing an empty shell. -->
                     {% if p.payment_plans %}
-                    <div class="nx-property-block">
-
+                    <div class="nx-property-block" data-payment-block style="display:none;">
                         <div class="nx-property-block-header">
                             <div>
                                 <p class="nx-section-eyebrow">Payment plan</p>
@@ -1691,7 +660,6 @@ textarea.nx-enquiry-field {
                         </div>
 
                         {% for plan in p.payment_plans %}
-
                             {% if plan.down_payment_pct or plan.during_construction_pct or plan.on_handover_pct or plan.post_delivery_payment %}
 
                                 {% if p.payment_plans|length > 1 %}
@@ -1699,7 +667,6 @@ textarea.nx-enquiry-field {
                                 {% endif %}
 
                                 <div class="nx-payment-grid">
-
                                     {% if plan.down_payment_pct %}
                                     <div class="nx-payment-item">
                                         <strong class="nx-payment-percent">{{ plan.down_payment_pct }}%</strong>
@@ -1727,63 +694,70 @@ textarea.nx-enquiry-field {
                                         <span class="nx-payment-step">Post-handover payments</span>
                                     </div>
                                     {% endif %}
-
                                 </div>
 
+                                <script>document.currentScript.closest('[data-payment-block]').style.display = '';</script>
+
                             {% endif %}
-
                         {% endfor %}
-
                     </div>
                     {% endif %}
 
 
-                    <!-- AVAILABLE UNITS — only rendered when unit-level data exists -->
-                    <!--
-                        Requires the view to pass a `units` list (from
-                        GET /properties/{id}/units/) plus pagination
-                        context (units_page, units_total_pages) once
-                        services.py exposes that endpoint.
-                    -->
+                    <!-- =====================================================
+                         UNIT TYPES — old table style, kept to only the data a
+                         common buyer needs: unit type, bedrooms, area, price.
+                         No floor/bathroom/view/status columns.
 
-                    {% if units %}
+                         Matches the real shape returned by build_unit_types():
+                            {
+                                "name": "2",              # bedroom count as a string; "0" = studio
+                                "count": 2,
+                                "available_count": 2,
+                                "min_price": 18500000.0, "max_price": 24700000.0,
+                                "min_area": 3098.0, "max_area": 3920.0,
+                                "units": [ ...raw unit dicts... ]
+                            }
+                    ====================================================== -->
+
+                    {% if unit_types %}
                     <div class="nx-property-block">
-
                         <div class="nx-property-block-header">
                             <div>
-                                <p class="nx-section-eyebrow">Available units</p>
-                                <h3 class="nx-property-block-title">Choose your exact unit</h3>
+                                <p class="nx-section-eyebrow">Unit types</p>
+                                <h3 class="nx-property-block-title">Find your fit</h3>
                             </div>
+                            <p class="nx-property-block-copy">A quick look at what's on offer — no need to compare every single unit.</p>
                         </div>
 
                         <div class="nx-units-table-wrap">
                             <table class="nx-units-table" data-units-table>
                                 <thead>
                                     <tr>
-                                        <th>Unit</th>
-                                        <th>Floor</th>
+                                        <th>Unit type</th>
                                         <th>Bedrooms</th>
-                                        <th>Bathrooms</th>
                                         <th>Area</th>
-                                        <th>View</th>
                                         <th>Price</th>
-                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for unit in units %}
+                                    {% for ut in unit_types %}
                                     <tr{% if forloop.counter > 6 %} class="nx-unit-hidden"{% endif %}>
-                                        <td>{{ unit.unit_no|default:"—" }}</td>
-                                        <td>{{ unit.floor_no|default:"—" }}</td>
-                                        <td>{{ unit.bedroom_label|default:"—" }}</td>
-                                        <td>{{ unit.bathrooms|default:"—" }}</td>
-                                        <td>{% if unit.area %}{{ unit.area|floatformat:0 }} sq.ft{% else %}—{% endif %}</td>
-                                        <td>{{ unit.view|default:"—" }}</td>
-                                        <td>{% if unit.price %}AED {{ unit.price|floatformat:0 }}{% else %}—{% endif %}</td>
                                         <td>
-                                            <span class="nx-unit-status {{ unit.status|default:'unknown' }}">
-                                                {{ unit.status|default:"—" }}
-                                            </span>
+                                            {% if ut.name == "0" or ut.name == "0.0" %}Studio{% else %}{{ ut.name }} Bedroom{{ ut.name|pluralize }}{% endif %}
+                                        </td>
+                                        <td>
+                                            {% if ut.name == "0" or ut.name == "0.0" %}Studio{% else %}{{ ut.name }}{% endif %}
+                                        </td>
+                                        <td>
+                                            {% if ut.min_area %}
+                                                {{ ut.min_area|floatformat:0 }}{% if ut.max_area and ut.max_area != ut.min_area %}&ndash;{{ ut.max_area|floatformat:0 }}{% endif %} sq.ft
+                                            {% else %}
+                                                &mdash;
+                                            {% endif %}
+                                        </td>
+                                        <td class="nx-unit-price">
+                                            {% if ut.min_price %}From AED {{ ut.min_price|floatformat:0|intcomma }}{% else %}&mdash;{% endif %}
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -1791,47 +765,26 @@ textarea.nx-enquiry-field {
                             </table>
                         </div>
 
-                        {% if units|length > 6 %}
-                        <button type="button" class="nx-showmore-btn" data-units-toggle>
-                            Show all {{ units|length }} units
+                        {% if unit_types|length > 6 %}
+                        <button type="button" class="nx-showmore-btn" data-units-toggle data-more-label="Show all {{ unit_types|length }} unit types" data-less-label="Show less">
+                            Show all {{ unit_types|length }} unit types
                         </button>
                         {% endif %}
-
-                        {% if units_total_pages > 1 %}
-                        <div class="nx-units-pagination">
-                            {% for page in units_page_numbers %}
-                                <a href="?tab=units&units_page={{ page }}" class="{% if page == units_page %}active{% endif %}">{{ page }}</a>
-                            {% endfor %}
-                        </div>
-                        {% endif %}
-
                     </div>
                     {% endif %}
 
 
-                    <!-- INVESTMENT / RENTAL GUARANTEE — only rendered when a guarantee exists -->
-
+                    <!-- INVESTMENT / RENTAL GUARANTEE -->
                     {% if p.has_rental_guarantee and p.rental_guarantee_pct %}
                     <div class="nx-property-block">
-
                         <p class="nx-section-eyebrow">Investment perspective</p>
 
                         <div class="nx-investment-box">
-
                             <div class="nx-investment-label">Nexurban insight</div>
-
-                            <h3 class="nx-investment-title">
-                                Built for today, positioned for tomorrow
-                            </h3>
-
-                            <p class="nx-investment-copy">
-                                This property comes with a rental guarantee,
-                                offering added confidence for investors
-                                evaluating long-term returns.
-                            </p>
+                            <h3 class="nx-investment-title">Built for today, positioned for tomorrow</h3>
+                            <p class="nx-investment-copy">This property comes with a rental guarantee, offering added confidence for investors evaluating long-term returns.</p>
 
                             <div class="nx-investment-metrics">
-
                                 {% if p.rental_guarantee_pct %}
                                 <div class="nx-investment-metric">
                                     <strong>{{ p.rental_guarantee_pct }}%</strong>
@@ -1852,42 +805,36 @@ textarea.nx-enquiry-field {
                                     <span>Status</span>
                                 </div>
                                 {% endif %}
-
                             </div>
-
                         </div>
-
                     </div>
                     {% endif %}
 
 
-                    <!-- LOCATION — only rendered when there is at least a place name,
-                         coordinates, or nearby places to show -->
-
+                    <!-- LOCATION -->
                     {% if p.place or p.nearby_places or p.latitude is not None and p.longitude is not None %}
                     <div class="nx-property-block">
-
                         <p class="nx-section-eyebrow">Location</p>
-
                         <h3 class="nx-property-block-title">Where everything connects</h3>
 
                         {% if p.place %}
                         <p class="nx-property-copy">
-                            Located in {{ p.place }}, the property
-                            offers convenient access to Dubai's
-                            key destinations, lifestyle attractions,
-                            business districts and transport links.
+                            Located in {{ p.place }}, the property offers convenient access to
+                            key destinations, lifestyle attractions, business districts and transport links.
                         </p>
                         {% endif %}
 
                         {% if p.latitude is not None and p.longitude is not None %}
                         <div class="nx-location-box has-map">
-
+                            {% localize off %}
                             <iframe
-                                src="https://maps.google.com/maps?q={{ p.latitude }},{{ p.longitude }}&z=14&output=embed"
+                                src="https://www.google.com/maps?q={{ p.latitude }},{{ p.longitude }}&z=15&output=embed"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
+                                allowfullscreen
+                                title="{{ p.name|default:'Property' }} location map"
                             ></iframe>
+                            {% endlocalize %}
 
                             {% if p.place %}
                             <div class="nx-location-info">
@@ -1895,23 +842,21 @@ textarea.nx-enquiry-field {
                                 <strong>{{ p.place }}</strong>
                             </div>
                             {% endif %}
-
                         </div>
                         {% endif %}
 
                         {% if p.nearby_places %}
-                            <div class="nx-nearby-list">
-                                {% for place in p.nearby_places %}
-                                    {% if place.name %}
-                                    <div class="nx-nearby-item">
-                                        <span>{{ place.name }}</span>
-                                        {% if place.distance %}<strong>{{ place.distance }}</strong>{% endif %}
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                        <div class="nx-nearby-list">
+                            {% for place in p.nearby_places %}
+                                {% if place.name %}
+                                <div class="nx-nearby-item">
+                                    <span>{{ place.name }}</span>
+                                    {% if place.distance %}<strong>{{ place.distance }}</strong>{% endif %}
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                         {% endif %}
-
                     </div>
                     {% endif %}
 
@@ -1922,28 +867,17 @@ textarea.nx-enquiry-field {
                 <!-- RIGHT FORM -->
 
                 <aside class="nx-property-aside">
-
                     <div class="nx-enquiry-sticky">
 
                         <div class="nx-enquiry-card">
-
                             <div class="nx-enquiry-label">Private enquiry</div>
-
                             <h2 class="nx-enquiry-title">Make this your next move</h2>
+                            <p class="nx-enquiry-copy">Speak directly with a Nexurban property advisor about availability, pricing, payment plans and viewings.</p>
 
-                            <p class="nx-enquiry-copy">
-                                Speak directly with a Nexurban
-                                property advisor about availability,
-                                pricing, payment plans and viewings.
-                            </p>
-
-                           <form class="nx-enquiry-form" method="POST" action="{% url 'propertydetail' slug=p.slug %}">
-
+                            <form class="nx-enquiry-form" method="POST" action="{% url 'propertydetail' slug=p.slug %}">
                                 {% csrf_token %}
-
                                 <input type="hidden" name="property_slug" value="{{ p.slug }}">
                                 <input type="hidden" name="property_name" value="{{ p.name }}">
-
 
                                 <input type="text" name="name" class="nx-enquiry-field" placeholder="Your name" required>
                                 <input type="email" name="email" class="nx-enquiry-field" placeholder="Email address" required>
@@ -1963,16 +897,10 @@ textarea.nx-enquiry-field {
                                     Request details
                                     <span>&rarr;</span>
                                 </button>
-
                             </form>
 
-                            <div class="nx-enquiry-trust">
-                                Your information remains
-                                completely confidential.
-                            </div>
-
+                            <div class="nx-enquiry-trust">Your information remains completely confidential.</div>
                         </div>
-
 
                         {% if p.name or p.place or p.price %}
                         <div class="nx-project-mini">
@@ -1988,7 +916,6 @@ textarea.nx-enquiry-field {
                         {% endif %}
 
                     </div>
-
                 </aside>
 
             </div>
@@ -2000,14 +927,12 @@ textarea.nx-enquiry-field {
 
 
     <!-- =====================================================
-         RELATED PROPERTIES — only rendered when there is at
-         least one other property to show
+         RELATED PROPERTIES
     ====================================================== -->
 
     {% with related_count=properties|length %}
     {% if related_count > 0 %}
     <section class="nx-related-section">
-
         <div class="nx-property-shell">
 
             <div class="nx-related-header">
@@ -2015,32 +940,20 @@ textarea.nx-enquiry-field {
                     <p class="nx-section-eyebrow">Similar opportunities</p>
                     <h2 class="nx-related-title">More places worth considering</h2>
                 </div>
-
-                <p class="nx-related-copy">
-                    Explore other carefully selected
-                    properties that may complement
-                    your investment or lifestyle goals.
-                </p>
+                <p class="nx-related-copy">Explore other carefully selected properties that may complement your investment or lifestyle goals.</p>
             </div>
 
-
             <div class="nx-related-grid">
-
                 {% for property in properties %}
-
                     {% if property.slug != p.slug and property.name %}
-
-                    <a href="" class="nx-related-card">
-
+                    <a href="{% url 'propertydetail' slug=property.slug %}" class="nx-related-card">
                         <img
                             src="{{ property.image|default:'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&auto=format&fit=crop' }}"
                             alt="{{ property.name }}"
                             class="nx-related-card-image"
                             loading="lazy"
                         >
-
                         <div class="nx-related-card-content">
-
                             {% if property.tag %}<span class="nx-related-tag">{{ property.tag }}</span>{% endif %}
                             <h3 class="nx-related-name">{{ property.name }}</h3>
                             {% if property.place %}<div class="nx-related-location">{{ property.place }}</div>{% endif %}
@@ -2051,19 +964,13 @@ textarea.nx-enquiry-field {
                                 <span class="nx-related-arrow">&rarr;</span>
                             </div>
                             {% endif %}
-
                         </div>
-
                     </a>
-
                     {% endif %}
-
                 {% endfor %}
-
             </div>
 
         </div>
-
     </section>
     {% endif %}
     {% endwith %}
@@ -2075,27 +982,16 @@ textarea.nx-enquiry-field {
     ====================================================== -->
 
     <section>
-
         <div class="nx-property-shell">
-
             <div class="nx-property-final">
-
                 <p class="nx-final-label">Your next move</p>
-
-                <h2 class="nx-final-title">
-                    The right property is more than an address.
-                    It's a decision.
-                </h2>
-
+                <h2 class="nx-final-title">The right property is more than an address. It's a decision.</h2>
                 <a href="{% url 'contact' %}" class="nx-final-button">
                     Speak with a property advisor
                     <span>&rarr;</span>
                 </a>
-
             </div>
-
         </div>
-
     </section>
 
 </div>
@@ -2104,12 +1000,9 @@ textarea.nx-enquiry-field {
 <script>
 function nxSetMainImage(thumbEl, src, index) {
     var mainImg = document.getElementById('nx-main-image');
-    if (mainImg) {
-        mainImg.src = src;
-    }
-    document.querySelectorAll('.nx-hero-thumb').forEach(function (t) {
-        t.classList.remove('active');
-    });
+    if (mainImg) mainImg.src = src;
+
+    document.querySelectorAll('.nx-hero-thumb').forEach(function (t) { t.classList.remove('active'); });
     thumbEl.classList.add('active');
 
     var counter = document.querySelector('[data-hero-counter]');
@@ -2119,7 +1012,7 @@ function nxSetMainImage(thumbEl, src, index) {
     }
 }
 
-/* ---------- READ MORE (description blocks) ---------- */
+/* ---------- READ MORE (description) ---------- */
 document.querySelectorAll('[data-readmore-toggle]').forEach(function (btn) {
     var wrap = btn.previousElementSibling;
     if (!wrap || !wrap.hasAttribute('data-readmore')) return;
@@ -2131,7 +1024,6 @@ document.querySelectorAll('[data-readmore-toggle]').forEach(function (btn) {
         btn.classList.toggle('is-open', !collapsed);
     });
 
-    // Only show the button if content actually overflows the clamp
     requestAnimationFrame(function () {
         var clampPx = parseInt(getComputedStyle(wrap).getPropertyValue('--nx-clamp')) || 120;
         if (wrap.scrollHeight <= clampPx + 10) {
@@ -2142,35 +1034,45 @@ document.querySelectorAll('[data-readmore-toggle]').forEach(function (btn) {
     });
 });
 
-/* ---------- SHOW MORE (amenities) ---------- */
-document.querySelectorAll('[data-amenities-toggle]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-        var grid = btn.previousElementSibling;
-        if (!grid || !grid.hasAttribute('data-amenities-grid')) return;
-        var isCapped = grid.classList.toggle('is-capped');
-        btn.textContent = isCapped
-            ? 'Show all amenities'
-            : 'Show less';
+/* ---------- Generic "show more / show less" toggle ----------
+   Used for amenities and unit types. Reads its own labels from
+   data-more-label / data-less-label so the text is always
+   correct in both directions (this replaces the old buggy
+   inline string-replace logic that could get stuck on the
+   wrong label). */
+function nxWireShowMoreToggle(button, targetSelector, expandedClassOrNull, hideItemsSelector, hiddenClass) {
+    var target = button.parentElement.querySelector(targetSelector);
+    if (!target) return;
+
+    var moreLabel = button.getAttribute('data-more-label') || button.textContent.trim();
+    var lessLabel = button.getAttribute('data-less-label') || 'Show less';
+    var expanded = false;
+
+    button.addEventListener('click', function () {
+        expanded = !expanded;
+
+        if (expandedClassOrNull) {
+            target.classList.toggle(expandedClassOrNull, !expanded);
+        }
+        if (hideItemsSelector) {
+            target.querySelectorAll(hideItemsSelector).forEach(function (el) {
+                el.classList.toggle(hiddenClass, !expanded);
+            });
+        }
+
+        button.textContent = expanded ? lessLabel : moreLabel;
     });
+}
+
+document.querySelectorAll('[data-amenities-toggle]').forEach(function (btn) {
+    nxWireShowMoreToggle(btn, '[data-amenities-grid]', 'is-capped', null, null);
 });
 
-/* ---------- SHOW MORE (units table) ---------- */
+/* Unit-types table: several "Show all X units" buttons can exist on the
+   page (rare, but be safe), so wire each one to the table inside the
+   same block rather than assuming there's only one. */
 document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-        var wrap = btn.parentElement.querySelector('[data-units-table]');
-        if (!wrap) return;
-        var hiddenRows = wrap.querySelectorAll('tbody tr.nx-unit-hidden');
-        var isExpanded = btn.getAttribute('data-expanded') === 'true';
-
-        hiddenRows.forEach(function (row) {
-            row.classList.toggle('nx-unit-hidden', isExpanded);
-        });
-
-        btn.setAttribute('data-expanded', String(!isExpanded));
-        btn.textContent = isExpanded
-            ? 'Show less'
-            : btn.textContent.replace('Show less', 'Show all units');
-    });
+    nxWireShowMoreToggle(btn, '[data-units-table]', null, 'tbody tr', 'nx-unit-hidden');
 });
 </script>
 
