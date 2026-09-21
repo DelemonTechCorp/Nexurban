@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load static %}
-
+{% block title %}Real Estate Company in Dubai | Nexurban Properties {% endblock %}
+{% block meta_description %}Nexurban Properties is a leading real estate company in Dubai offering property sales, off-plan investments, and expert advisory services. {% endblock %}
 {% block extra_css %}
 
 {% endblock %}
@@ -647,9 +648,9 @@
          SITS DIRECTLY BELOW THE BUTTON ROW, IN NORMAL FLOW
     ======================================================== -->
 
-    <form method="get" action="{% url 'buy' %}" class="nx-hero-search">
+    <!-- <form method="get" action="{% url 'buy' %}" class="nx-hero-search"> -->
 
-      <div class="nx-hero-search-item">
+      <!-- <div class="nx-hero-search-item">
         <small>PROPERTY NAME</small>
         <input
           type="text"
@@ -664,9 +665,9 @@
             <option value="{{ name }}"></option>
           {% endfor %}
         </datalist>
-      </div>
+      </div> -->
 
-      <div class="nx-hero-search-item">
+      <!-- <div class="nx-hero-search-item">
         <small>PROPERTY TYPE</small>
         <select name="property_status" class="nx-hero-custom-select">
           <option value="">ALL TYPES</option>
@@ -704,9 +705,9 @@
       <Button variant="bronze" class="nx-hero-search-button" type="submit">
         SEARCH
         <Search />
-      </Button>
+      </Button> -->
 
-    </form>
+    <!-- </form> -->
 
   </div>
 
@@ -867,9 +868,9 @@ window.addEventListener('pageshow', function (event) {
 
                 </div>
 
-                <span class="nx-difference-arrow">
+                <!-- <span class="nx-difference-arrow">
                     ↗
-                </span>
+                </span> -->
 
             </div>
 
@@ -893,9 +894,9 @@ window.addEventListener('pageshow', function (event) {
 
                 </div>
 
-                <span class="nx-difference-arrow">
+                <!-- <span class="nx-difference-arrow">
                     ↗
-                </span>
+                </span> -->
 
             </div>
 
@@ -919,9 +920,9 @@ window.addEventListener('pageshow', function (event) {
 
                 </div>
 
-                <span class="nx-difference-arrow">
+                <!-- <span class="nx-difference-arrow">
                     ↗
-                </span>
+                </span> -->
 
             </div>
 
@@ -945,9 +946,9 @@ window.addEventListener('pageshow', function (event) {
 
                 </div>
 
-                <span class="nx-difference-arrow">
+                <!-- <span class="nx-difference-arrow">
                     ↗
-                </span>
+                </span> -->
 
             </div>
 
@@ -2832,7 +2833,7 @@ font-style: italic;
           <span class="lux-goal-number">09</span>
    
           <h3>LAND DEALS</h3>
- <span class="lux-goal-arrow">↗</span>
+     <span class="lux-goal-arrow">↗</span>
           <p>
             Identify, evaluate and structure strategic land
             opportunities across Dubai with a focus on
@@ -2845,7 +2846,7 @@ font-style: italic;
  
  
      
-      <a href="{% url 'property-advisory' %}" class="lux-goal-card">
+      <!-- <a href="{% url 'property-advisory' %}" class="lux-goal-card">
         <img
           src="{% static 'img/propertyadvisor.jpg' %}"
           alt="Property Advisory"
@@ -2868,12 +2869,12 @@ font-style: italic;
  
           <span class="lux-goal-arrow">↗</span>
         </div>
-      </a>
+      </a> -->
  
       
 
 
-       <a href="{% url 'property-advisory' %}" class="lux-goal-card">
+       <!-- <a href="{% url 'property-advisory' %}" class="lux-goal-card">
         <img
           src="{% static 'img/property2.jpg' %}"
           alt="Property Advisory"
@@ -2905,7 +2906,7 @@ font-style: italic;
          
  
         </div>
-      </a>
+      </a> -->
     </div>
   </div>
 </section>
@@ -5032,6 +5033,7 @@ font-style: italic;
 }
 
 </style>
+
 <style>
 /* =========================================================
    NEXURBAN PRIVATE COLLECTION
@@ -6097,7 +6099,7 @@ font-style: italic;
     <!-- WHATSAPP -->
 
     <a
-        href="https://wa.me/971559025646"
+        href="https://wa.me/971581052757"
         class="nx-whatsapp-button"
         target="_blank"
         rel="noopener noreferrer"
@@ -6105,7 +6107,7 @@ font-style: italic;
     >
 
         <span class="nx-whatsapp-label">
-            WHATSAPP · 055 902 5646
+            WHATSAPP · 971581052757
         </span>
 
         <svg
@@ -6175,6 +6177,7 @@ font-style: italic;
     </button>
 
 </div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -7821,12 +7824,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<section class="nx-global-section">
+<!-- <section class="nx-global-section">
 
     <div class="nx-global-container">
 
         <!-- LEFT CONTENT -->
-        <div class="nx-global-content">
+        <!-- <div class="nx-global-content">
 
             <p class="nx-global-eyebrow">
                 GLOBAL CAPITAL. DUBAI OPPORTUNITIES.
@@ -7863,7 +7866,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         <!-- RIGHT MAP VISUAL -->
-        <div class="nx-global-map">
+        <!-- <div class="nx-global-map">
 
             <div class="nx-global-oval">
 
@@ -7879,11 +7882,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             </div>
 
-        </div>
+        </div> -->
 
-    </div>
+    <!-- </div>
 
-</section>
+</section>   -->
 
 
 <style>
@@ -9386,7 +9389,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 
 
-<style>
+<!-- <style>
   /* =========================================================
    NEXURBAN — SOCIAL PROOF / STATS
 ========================================================= */
@@ -9698,8 +9701,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 }
-</style>
-<section class="nx-stats-section">
+</style> -->
+
+
+<!-- <section class="nx-stats-section">
 
     <div class="nx-stats-container">
 
@@ -9743,7 +9748,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     </div>
 
-</section>
+</section> -->
+
+
+
 <style>
 /* =========================================
    FINAL CTA SECTION
@@ -10122,7 +10130,7 @@ We'll help you find where to look.
 </h3>
         <!-- CONTACT -->
         <p class="nx-final-contact">
-            055 902 5646
+            971581052757
             <span>·</span>
             sales@nexurbanproperties.com
         </p>

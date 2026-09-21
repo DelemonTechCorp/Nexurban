@@ -403,8 +403,6 @@
 
 .nx-arrow {
  
-    
-
     font-size: 31px;
     line-height: 1;
 
@@ -467,37 +465,27 @@ body.nx-menu-open {
 }
 
 
-/* ========================================
-   TABLET
-======================================== */
+.nx-more { display: none; position: relative; cursor: pointer; }
 
-@media (max-width: 1200px) {
+@media (min-width: 901px) and (max-width: 1500px) {
 
-    .nx-navbar {
-        padding: 0 30px;
-    }
+    .nx-desktop-nav > .nx-nav-link:nth-child(n+5) { display: none; }
 
+    .nx-more { display: block; }
 
-    .nx-desktop-nav {
-        gap: 18px;
-    }
-
-
-    .nx-nav-link {
-        font-size: 11px;
-    }
-
-
-    .nx-header-actions {
+    .nx-more-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 15px 20px;
+        background: #121212;
+        flex-direction: column;
         gap: 15px;
+        white-space: nowrap;
     }
 
-
-    .nx-consultation-btn {
-        padding: 0 18px;
-        font-size: 12px;
-    }
-
+    .nx-more:hover .nx-more-menu { display: flex; }
 }
 
 
@@ -732,7 +720,7 @@ body.nx-menu-open {
 
             <!-- Search -->
             <a
-    href="https://wa.me/+971559025646"
+    href="https://wa.me/+971581052757"
     class="nx-whatsapp-btn"
     target="_blank"
     rel="noopener noreferrer"
@@ -902,6 +890,20 @@ body.nx-menu-open {
             </span>
         </a>
 
+<div class="nx-more">
+    <span class="nx-nav-link">MORE ▾</span>
+    <div class="nx-more-menu">
+        <a href="{% url 'buy' %}" class="nx-nav-link">BUY</a>
+        <a href="{% url 'sell' %}" class="nx-nav-link">SELL</a>
+        <a href="{% url 'offplan' %}" class="nx-nav-link">OFF-PLAN</a>
+        <a href="{% url 'ready' %}" class="nx-nav-link">READY</a>
+        <a href="{% url 'luxury' %}" class="nx-nav-link">LUXURY</a>
+        <a href="{% url 'area' %}" class="nx-nav-link">COMMUNITIES</a>
+        <a href="{% url 'investmentadvisory' %}" class="nx-nav-link">INVESTMENT ADVISORY</a>
+        <a href="{% url 'property_map_search' %}" class="nx-nav-link">MAP</a>
+        <a href="{% url 'about' %}" class="nx-nav-link">ABOUT</a>
+    </div>
+</div>
 
     </nav>
 
