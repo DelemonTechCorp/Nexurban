@@ -7,7 +7,8 @@
 
 /* =========================================================
    NEXURBAN — PROPERTY ADVISORY
-   Same editorial typography/style as OFF-PLAN / JV pages
+   PREMIUM EDITORIAL PAGE
+   SAME STYLE AS LAND DEALS / JV PAGE / OFF-PLAN PAGE
 ========================================================= */
 
 .pa-page {
@@ -22,20 +23,16 @@
    HERO
 ========================================================= */
 
-.pa-hero {
+.pa-page-hero {
     position: relative;
-
     width: 100%;
     min-height: 720px;
-
     display: flex;
     align-items: flex-end;
-
     overflow: hidden;
-
     color: #f7f4ed;
 
-    background:
+    background-image:
         linear-gradient(
             90deg,
             rgba(8,8,8,.91) 0%,
@@ -47,325 +44,172 @@
             to top,
             rgba(8,8,8,.94) 0%,
             rgba(8,8,8,.18) 55%,
-            rgba(8,8,8,.384) 100%
+            rgba(8,8,8,.38) 100%
         ),
         url("{% static 'img/pahero.jpg' %}");
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     isolation: isolate;
-
     animation: nxPAHeroReveal 1.2s ease-out both;
 }
 
-
 @keyframes nxPAHeroReveal {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-
-/* =========================================================
-   RIGHT SIDE PANEL
-========================================================= */
-
-.pa-hero::after {
-
+.pa-page-hero::after {
     content: "";
-
     position: absolute;
-
     top: 0;
     right: 0;
-
     width: 24%;
     height: 100%;
-
     z-index: -1;
-
     background:
         linear-gradient(
             180deg,
             rgba(255,29,12,.025),
             rgba(255,29,12,.10)
         );
-
-    border-left:
-        1px solid rgba(255,29,12,.12);
-
+    border-left: 1px solid rgba(255,29,12,.12);
     pointer-events: none;
 }
 
-
-/* =========================================================
-   HERO INNER
-========================================================= */
-
 .pa-hero-inner {
-
     position: relative;
-
     z-index: 3;
-
-    width:
-        min(
-            1400px,
-            calc(100% - 100px)
-        );
-
+    width: min(1400px, calc(100% - 100px));
     margin: 0 auto;
-
-    padding:
-        155px 0 90px;
+    padding: 155px 0 90px;
 }
-
-
-/* =========================================================
-   HERO EYEBROW
-========================================================= */
 
 .pa-hero-eyebrow {
-
     position: relative;
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
-    margin:
-        0 0 22px;
-
+    margin: 0 0 22px;
     color: #ff4c3fd3;
-
     font-family: "Manrope", sans-serif;
-
     font-size: 10px;
-
     font-weight: 700;
-
     line-height: 1.4;
-
     letter-spacing: .22em;
-
     text-transform: uppercase;
-
     opacity: 0;
-
-    animation:
-        nxPAFade .8s cubic-bezier(.22,1,.36,1)
-        .1s forwards;
+    animation: nxPAFade .8s cubic-bezier(.22,1,.36,1) .1s forwards;
 }
-
 
 .pa-hero-eyebrow::before {
-
     content: "";
-
     width: 32px;
-
     height: 1px;
-
     flex-shrink: 0;
-
     background: #ff1d0c;
 }
 
-
 .pa-hero-eyebrow::after {
-
     content: "";
-
     width: 5px;
-
     height: 5px;
-
     margin-left: -5px;
-
     border-radius: 50%;
-
     background: #ff1d0c;
-
     box-shadow:
         0 0 0 5px rgba(255,29,12,.08),
         0 0 13px rgba(255,29,12,.45);
 }
 
-
-/* =========================================================
-   HERO TITLE
-========================================================= */
-
 .pa-hero-title {
-
     max-width: 920px;
-
     margin: 0;
-
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(52px, 6.3vw, 90px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(52px, 6.3vw, 90px);
     font-weight: 400;
-
     line-height: .96;
-
     letter-spacing: -.045em;
-
     opacity: 0;
-
-    animation:
-        nxPAFade 1s cubic-bezier(.22,1,.36,1)
-        .22s forwards;
+    animation: nxPAFade 1s cubic-bezier(.22,1,.36,1) .22s forwards;
 }
-
 
 .pa-hero-title em {
-
     color: #e8dfd1;
-
     font-style: italic;
-
     font-weight: 400;
 }
-
-
-/* =========================================================
-   HERO LINE
-========================================================= */
 
 .pa-hero-line {
-
-    width: 100%;
-
-    max-width: 430px;
-
+    width: 55px;
     height: 1px;
-
-    margin-top: 32px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff1d0c,
-            rgba(255,29,12,.12)
-        );
-
+    margin-top: 30px;
+    background: #ff1d0c;
     opacity: 0;
-
-    animation:
-        nxPAFade .8s ease
-        .32s forwards;
+    animation: nxPAFade .8s cubic-bezier(.22,1,.36,1) .40s forwards;
 }
-
-
-/* =========================================================
-   HERO DESCRIPTION
-========================================================= */
 
 .pa-hero-description {
-
-    max-width: 580px;
-
-    margin:
-        27px 0 0;
-
-    color:
-        rgba(247,244,237,.66);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
-    font-size: 14px;
-
+    max-width: 640px;
+    margin: 27px 0 0;
+    color: rgba(247,244,237,.66);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
     font-weight: 400;
-
     line-height: 1.85;
-
     opacity: 0;
-
-    animation:
-        nxPAFade .9s cubic-bezier(.22,1,.36,1)
-        .38s forwards;
+    animation: nxPAFade .9s cubic-bezier(.22,1,.36,1) .38s forwards;
 }
 
-
-/* =========================================================
-   HERO BUTTONS
-========================================================= */
-
-.pa-hero-buttons {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
+.pa-hero-actions {
     margin-top: 32px;
-
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
     opacity: 0;
+    animation: nxPAFade .9s cubic-bezier(.22,1,.36,1) .48s forwards;
+}
 
-    animation:
-        nxPAFade .9s cubic-bezier(.22,1,.36,1)
-        .48s forwards;
+.pa-hero-inner::after {
+    content: "NEXURBAN · DUBAI · PROPERTY ADVISORY";
+    display: block;
+    margin-top: 58px;
+    color: rgba(247,244,237,.38);
+    font-family: "Manrope", sans-serif;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: nxPAFade .8s ease .58s forwards;
+}
+
+@keyframes nxPAFade {
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 
 /* =========================================================
-   BUTTON
+   BUTTONS
 ========================================================= */
 
-.pa-button {
-
-    min-height: 48px;
-
-    padding:
-        0 22px;
-
+.pa-btn {
+    min-height: 52px;
+    padding: 0 25px;
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 12px;
-
-    border: 1px solid transparent;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: .15em;
-
     text-decoration: none;
-
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
     text-transform: uppercase;
-
-    cursor: pointer;
-
     transition:
         background .3s ease,
         color .3s ease,
@@ -373,137 +217,40 @@
         transform .3s ease;
 }
 
-
-/* PRIMARY */
-
-.pa-button-primary {
-
+.pa-btn-primary {
     background: #ff1d0c;
-
     color: #ffffff;
-
-    border-color: #ff1d0c;
+    border: 1px solid #ff1d0c;
 }
 
-
-.pa-button-primary:hover {
-
+.pa-btn-primary:hover {
     background: #d9180b;
-
     border-color: #d9180b;
-
     color: #ffffff;
-
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 }
 
-
-/* SECONDARY */
-
-.pa-button-outline {
-
+.pa-btn-outline {
     background: transparent;
-
     color: #f7f4ed;
-
-    border-color:
-        rgba(247,244,237,.35);
+    border: 1px solid rgba(247,244,237,.42);
 }
 
-
-.pa-button-outline:hover {
-
+.pa-btn-outline:hover {
     background: #f7f4ed;
-
-    color: #111111;
-
     border-color: #f7f4ed;
-
-    transform:
-        translateY(-2px);
+    color: #111111;
+    transform: translateY(-2px);
 }
 
-
-/* ARROW */
-
-.pa-button-arrow {
-
+.pa-btn-arrow {
     font-size: 17px;
-
     line-height: 1;
-
-    transition:
-        transform .3s ease;
+    transition: transform .3s ease;
 }
 
-
-.pa-button:hover
-.pa-button-arrow {
-
-    transform:
-        translate(3px,-3px);
-}
-
-
-/* =========================================================
-   HERO BOTTOM DETAIL
-========================================================= */
-
-.pa-hero-inner::after {
-
-    content:
-        "NEXURBAN · DUBAI · PROPERTY ADVISORY";
-
-    display: block;
-
-    margin-top: 52px;
-
-    color:
-        rgba(247,244,237,.38);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
-    font-size: 8px;
-
-    font-weight: 600;
-
-    letter-spacing: .22em;
-
-    text-transform: uppercase;
-
-    opacity: 0;
-
-    animation:
-        nxPAFade .8s ease
-        .58s forwards;
-}
-
-
-/* =========================================================
-   FADE
-========================================================= */
-
-@keyframes nxPAFade {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(25px);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-    }
-
+.pa-btn:hover .pa-btn-arrow {
+    transform: translate(3px,-3px);
 }
 
 
@@ -512,476 +259,534 @@
 ========================================================= */
 
 .pa-marquee {
-
     width: 100%;
-
     overflow: hidden;
-
     background: #111111;
-
-    border-top:
-        1px solid rgba(255,255,255,.08);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
-
-    white-space: nowrap;
+    border-top: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    padding: 21px 0;
 }
-
 
 .pa-marquee-track {
-
     width: max-content;
-
     display: flex;
-
-    align-items: center;
-
-    animation:
-        paMarquee 28s linear infinite;
+    white-space: nowrap;
+    animation: paMarquee 30s linear infinite;
 }
 
-
 .pa-marquee-track span {
-
-    display: flex;
-
+    display: inline-flex;
     align-items: center;
-
-    gap: 34px;
-
-    padding:
-        23px 17px;
-
-    color:
-        rgba(247,244,237,.72);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    color: rgba(247,244,237,.72);
+    font-family: "Manrope", sans-serif;
     font-size: 9px;
-
     font-weight: 700;
-
-    letter-spacing: .20em;
-
+    letter-spacing: .22em;
     text-transform: uppercase;
 }
 
-
 .pa-marquee-track i {
-
-    width: 5px;
-
-    height: 5px;
-
-    flex-shrink: 0;
-
-    display: inline-block;
-
+    width: 4px;
+    height: 4px;
+    margin: 0 30px;
     border-radius: 50%;
-
     background: #ff1d0c;
-
-    box-shadow:
-        0 0 10px rgba(255,29,12,.5);
+    display: inline-block;
 }
 
-
 @keyframes paMarquee {
-
-    from {
-        transform:
-            translateX(0);
-    }
-
-    to {
-        transform:
-            translateX(-50%);
-    }
-
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
 
 /* =========================================================
-   APPROACH SECTION
+   MAIN + SECTION SHELL
 ========================================================= */
 
-.pa-approach {
-
+.pa-main {
     width: 100%;
-
     background: #111111;
-
     color: #f7f4ed;
 }
 
-
 .pa-site-shell {
-
-    width:
-        min(
-            calc(100% - 100px),
-            1400px
-        );
-
+    width: min(calc(100% - 100px), 1400px);
     margin: 0 auto;
 }
 
-
-.pa-section-pad {
-
-    padding:
-        120px 0 130px;
+.pa-section {
+    padding: 115px 0 125px;
 }
 
-
-/* =========================================================
-   EYEBROW
-========================================================= */
-
 .pa-section-eyebrow {
-
     display: flex;
-
     align-items: center;
-
     gap: 11px;
-
     margin: 0;
-
-    color: #ff4c3fd3;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    color: #e8dfd1;
+    font-family: "Manrope", sans-serif;
     font-size: 10px;
-
     font-weight: 700;
-
     letter-spacing: .20em;
-
     text-transform: uppercase;
 }
 
-
 .pa-section-eyebrow::before {
-
     content: "";
-
     width: 28px;
-
     height: 1px;
-
     background: #ff1d0c;
 }
 
 
 /* =========================================================
-   APPROACH QUOTE
+   SECTION HEADING
 ========================================================= */
 
-.pa-quote {
-
-    max-width: 1100px;
-
-    margin-top: 48px;
+.pa-approach-heading {
+    margin-top: 55px;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(280px,420px);
+    gap: 80px;
+    align-items: end;
 }
 
-
-.pa-quote p {
-
+.pa-approach-title {
+    max-width: 780px;
     margin: 0;
-
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(38px, 4.7vw, 67px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(48px, 5.8vw, 78px);
     font-weight: 400;
-
-    line-height: 1.02;
-
-    letter-spacing: -.04em;
+    line-height: .96;
+    letter-spacing: -.045em;
 }
 
-
-.pa-quote em {
-
+.pa-approach-title em {
     color: #e8dfd1;
-
     font-style: italic;
 }
 
-
-/* =========================================================
-   SERVICE GRID
-========================================================= */
-
-.pa-service-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0,1fr));
-
-    margin-top: 75px;
-
-    border-top:
-        1px solid rgba(247,244,237,.14);
-
-    border-left:
-        1px solid rgba(247,244,237,.14);
-}
-
-
-/* =========================================================
-   SERVICE TILE
-========================================================= */
-
-.pa-service-tile {
-
-    min-height: 310px;
-
-    padding:
-        36px 30px;
-
-    border-right:
-        1px solid rgba(247,244,237,.14);
-
-    border-bottom:
-        1px solid rgba(247,244,237,.14);
-
-    transition:
-        background .4s ease;
-}
-
-
-.pa-service-tile:hover {
-
-    background:
-        rgba(247,244,237,.035);
-}
-
-
-.pa-service-number {
-
-    display: block;
-
-    color:
-        rgba(247,244,237,.38);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: .16em;
-}
-
-
-.pa-service-title {
-
-    margin:
-        70px 0 0;
-
-    color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size: 26px;
-
+.pa-approach-copy {
+    max-width: 420px;
+    margin: 0;
+    color: rgba(247,244,237,.56);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
     font-weight: 400;
+    line-height: 1.85;
+}
 
+
+/* =========================================================
+   DARK SECTION (circles)
+========================================================= */
+
+.pa-dark-section {
+    position: relative;
+    overflow: hidden;
+    background: #111111;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.pa-dark-section::before {
+    content: "";
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    right: -200px;
+    top: -260px;
+    border: 1px solid rgba(255,29,12,.16);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.pa-dark-section::after {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    left: -160px;
+    bottom: -190px;
+    border: 1px solid rgba(255,29,12,.10);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.pa-dark-section .pa-site-shell {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   LIGHT SECTION
+========================================================= */
+
+.pa-light-section {
+    background: #f7f4ed;
+    color: #111111;
+    border-top: 1px solid rgba(17,17,17,.08);
+}
+
+.pa-light-section .pa-section-eyebrow { color: #ff1d0c; }
+.pa-light-section .pa-approach-title { color: #111111; }
+.pa-light-section .pa-approach-title em { color: #55504a; }
+.pa-light-section .pa-approach-copy { color: rgba(17,17,17,.62); }
+
+
+/* =========================================================
+   OPTION GRID (light cells)
+========================================================= */
+
+.pa-option-grid {
+    margin-top: 75px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 1px;
+    background: rgba(17,17,17,.13);
+    border: 1px solid rgba(17,17,17,.13);
+}
+
+.pa-option-grid.is-three {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.pa-option-item {
+    position: relative;
+    min-height: 220px;
+    padding: 34px 30px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 38px;
+    background: #ffffff;
+    transition: background .35s ease;
+}
+
+.pa-option-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff1d0c;
+    transition: width .45s cubic-bezier(.22,1,.36,1);
+}
+
+.pa-option-item:hover { background: #faf9f6; }
+.pa-option-item:hover::before { width: 100%; }
+
+.pa-option-num {
+    color: #ff1d0c;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.pa-option-item h3 {
+    margin: 0;
+    color: #111111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 400;
     line-height: 1.08;
-
     letter-spacing: -.025em;
 }
 
 
-.pa-service-description {
+/* =========================================================
+   EVAL GRID (dark cells)
+========================================================= */
 
-    max-width: 300px;
+.pa-eval-grid {
+    margin-top: 75px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 1px;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.09);
+}
 
-    margin:
-        20px 0 0;
+/* five-tile variant: 3 across, then 2 across */
+.pa-eval-grid.is-five {
+    grid-template-columns: repeat(6, minmax(0,1fr));
+}
 
-    color:
-        rgba(247,244,237,.53);
+.pa-eval-grid.is-five .pa-eval-item { grid-column: span 2; }
+.pa-eval-grid.is-five .pa-eval-item:nth-child(n+4) { grid-column: span 3; }
 
-    font-family:
-        "Manrope",
-        sans-serif;
+.pa-eval-item {
+    position: relative;
+    min-height: 240px;
+    padding: 34px 30px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 38px;
+    background: #111111;
+    transition: background .35s ease;
+}
 
-    font-size: 12px;
+.pa-eval-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff1d0c;
+    transition: width .45s cubic-bezier(.22,1,.36,1);
+}
 
+.pa-eval-item:hover { background: #181818; }
+.pa-eval-item:hover::before { width: 100%; }
+
+.pa-eval-num {
+    color: #ff1d0c;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.pa-eval-item h3 {
+    margin: 0;
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(26px, 2.6vw, 34px);
     font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -.025em;
+}
 
+.pa-eval-item p {
+    max-width: 380px;
+    margin: 16px 0 0;
+    color: rgba(247,244,237,.55);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 1.8;
 }
 
 
 /* =========================================================
-   CTA BAND
+   FAQ ACCORDION
 ========================================================= */
 
-.pa-cta-band {
-
-    width: 100%;
-
-    min-height: 360px;
-
-    padding:
-        75px 40px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 50px;
-
-    background: #f7f4ed;
-
-    color: #111111;
-
-    border-top:
-        1px solid rgba(17,17,17,.12);
+.pa-faq-list {
+    margin-top: 85px;
+    border-top: 1px solid rgba(17,17,17,.13);
 }
 
-
-.pa-cta-band-inner {
-
-    width:
-        min(
-            1400px,
-            100%
-        );
-
-    margin: 0 auto;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 50px;
+.pa-faq-item {
+    border-bottom: 1px solid rgba(17,17,17,.13);
+    transition: background .35s ease;
 }
 
+.pa-faq-item:hover,
+.pa-faq-item[open] { background: #faf9f6; }
 
-.pa-cta-text {
+.pa-faq-item summary {
+    display: grid;
+    grid-template-columns: 90px minmax(0,1fr) 46px;
+    gap: 30px;
+    align-items: center;
+    padding: 34px 15px 34px 0;
+    cursor: pointer;
+    list-style: none;
+}
 
+.pa-faq-item summary::-webkit-details-marker { display: none; }
+
+.pa-faq-item summary:focus-visible {
+    outline: 2px solid #ff1d0c;
+    outline-offset: -2px;
+}
+
+.pa-faq-num {
+    padding-left: 15px;
+    color: #ff1d0c;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+}
+
+.pa-faq-q {
     margin: 0;
-
     color: #111111;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(42px, 5vw, 70px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(22px, 2.4vw, 32px);
     font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -.025em;
+}
 
-    line-height: .98;
+.pa-faq-icon {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255,29,12,.28);
+    border-radius: 50%;
+    transition: background .3s ease, border-color .3s ease, transform .4s ease;
+}
 
-    letter-spacing: -.045em;
+.pa-faq-icon::before,
+.pa-faq-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1px;
+    background: #ff1d0c;
+    transform: translate(-50%, -50%);
+    transition: background .3s ease, transform .4s ease;
+}
+
+.pa-faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+
+.pa-faq-item[open] .pa-faq-icon {
+    background: #ff1d0c;
+    border-color: #ff1d0c;
+    transform: rotate(180deg);
+}
+
+.pa-faq-item[open] .pa-faq-icon::before { background: #ffffff; }
+
+.pa-faq-item[open] .pa-faq-icon::after {
+    background: #ffffff;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.pa-faq-answer {
+    padding: 0 76px 40px 120px;
+}
+
+.pa-faq-answer p {
+    max-width: 760px;
+    margin: 0;
+    color: rgba(17,17,17,.62);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+.pa-faq-item[open] .pa-faq-answer {
+    animation: paFaqOpen .45s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes paFaqOpen {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 
 /* =========================================================
-   CTA BUTTON
+   CTA
 ========================================================= */
 
-.pa-cta-button {
-
-    min-height: 56px;
-
-    padding:
-        0 26px;
-
-    display: inline-flex;
-
+.pa-cta-band {
+    min-height: 420px;
+    padding: 100px 40px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-
     justify-content: center;
+    text-align: center;
+    background:
+        linear-gradient(
+            135deg,
+            #111111 0%,
+            #181818 50%,
+            #0d0d0d 100%
+        );
+    color: #f7f4ed;
+    position: relative;
+    overflow: hidden;
+}
 
+.pa-cta-band::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    right: -180px;
+    top: -240px;
+    border: 1px solid rgba(255,29,12,.16);
+    border-radius: 50%;
+}
+
+.pa-cta-band::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: -150px;
+    bottom: -180px;
+    border: 1px solid rgba(255,29,12,.10);
+    border-radius: 50%;
+}
+
+.pa-cta-band p {
+    position: relative;
+    z-index: 2;
+    margin: 0 0 38px;
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(45px, 6vw, 78px);
+    font-weight: 400;
+    line-height: .98;
+    letter-spacing: -.045em;
+}
+
+.pa-cta-band p em {
+    color: #e8dfd1;
+    font-style: italic;
+}
+
+.pa-cta-button {
+    position: relative;
+    z-index: 2;
+    min-height: 56px;
+    padding: 0 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     gap: 13px;
-
-    flex-shrink: 0;
-
     background: #ff1d0c;
-
-    border: 1px solid #ff1d0c;
-
     color: #ffffff;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: .16em;
-
+    border: 1px solid #ff1d0c;
     text-decoration: none;
-
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .17em;
     text-transform: uppercase;
-
     transition:
         background .3s ease,
         transform .3s ease;
 }
 
-
 .pa-cta-button:hover {
-
     background: #d9180b;
-
     border-color: #d9180b;
-
     color: #ffffff;
-
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 }
 
-
-.pa-cta-arrow {
-
+.pa-cta-button span {
     font-size: 18px;
-
-    line-height: 1;
-
-    transition:
-        transform .3s ease;
+    transition: transform .3s ease;
 }
 
-
-.pa-cta-button:hover
-.pa-cta-arrow {
-
-    transform:
-        translate(3px,-3px);
+.pa-cta-button:hover span {
+    transform: translate(3px,-3px);
 }
 
 
@@ -991,46 +796,36 @@
 
 @media (max-width: 1100px) {
 
-    .pa-site-shell {
-
-        width:
-            min(
-                calc(100% - 70px),
-                1400px
-            );
-    }
-
-
+    .pa-site-shell,
     .pa-hero-inner {
-
-        width:
-            min(
-                calc(100% - 70px),
-                1400px
-            );
+        width: min(calc(100% - 70px), 1400px);
     }
 
+    .pa-page-hero { min-height: 650px; }
 
-    .pa-hero {
+    .pa-approach-heading { gap: 50px; }
 
-        min-height: 650px;
+    .pa-option-grid,
+    .pa-option-grid.is-three {
+        grid-template-columns: repeat(2, minmax(0,1fr));
     }
 
-
-    .pa-service-grid {
-
-        grid-template-columns:
-            repeat(2, minmax(0,1fr));
+    .pa-eval-grid,
+    .pa-eval-grid.is-five {
+        grid-template-columns: repeat(2, minmax(0,1fr));
     }
 
-
-    .pa-cta-band-inner {
-
-        flex-direction: column;
-
-        align-items: flex-start;
+    .pa-eval-grid.is-five .pa-eval-item,
+    .pa-eval-grid.is-five .pa-eval-item:nth-child(n+4) {
+        grid-column: auto;
     }
 
+    .pa-eval-grid.is-five .pa-eval-item:last-child {
+        grid-column: 1 / -1;
+        min-height: 200px;
+    }
+
+    .pa-faq-answer { padding: 0 20px 36px 120px; }
 }
 
 
@@ -1040,246 +835,147 @@
 
 @media (max-width: 767px) {
 
-    .pa-site-shell {
-
-        width:
-            calc(100% - 36px);
-    }
-
+    .pa-site-shell { width: calc(100% - 36px); }
 
     .pa-hero-inner {
-
-        width:
-            calc(100% - 36px);
-
-        padding:
-            125px 0 65px;
+        width: calc(100% - 36px);
+        padding: 125px 0 65px;
     }
 
-
-    .pa-hero {
-
-        min-height: 620px;
-
-        align-items: flex-end;
-
-        background-position:
-            60% center;
+    .pa-page-hero {
+        min-height: 680px;
+        background-position: 60% center;
     }
 
-
-    .pa-hero::after {
-
+    .pa-page-hero::after {
         width: 100%;
-
         background:
             linear-gradient(
                 to bottom,
                 rgba(255,29,12,.015),
                 rgba(255,29,12,.055)
             );
-
         border-left: 0;
-
-        border-top:
-            1px solid rgba(255,29,12,.06);
+        border-top: 1px solid rgba(255,29,12,.06);
     }
 
-
-    /* HERO EYEBROW */
-
     .pa-hero-eyebrow {
-
         font-size: 8px;
-
         letter-spacing: .16em;
-
         gap: 8px;
     }
 
-
-    .pa-hero-eyebrow::before {
-
-        width: 22px;
-    }
-
-
-    /* HERO TITLE */
+    .pa-hero-eyebrow::before { width: 22px; }
 
     .pa-hero-title {
-
-        font-size:
-            clamp(45px, 13vw, 64px);
-
+        font-size: clamp(45px, 13vw, 64px);
         line-height: .97;
     }
 
-
-    /* DESCRIPTION */
-
     .pa-hero-description {
-
         max-width: 100%;
-
         margin-top: 22px;
-
-        font-size: 13px;
-
         line-height: 1.75;
     }
 
+    .pa-hero-line { margin-top: 25px; }
 
-    /* BUTTONS */
-
-    .pa-hero-buttons {
-
-        margin-top: 27px;
-
+    .pa-hero-actions {
+        width: 100%;
+        margin-top: 25px;
         gap: 9px;
     }
 
-
-    .pa-button {
-
-        min-height: 45px;
-
-        padding:
-            0 17px;
-
+    .pa-btn {
+        min-height: 49px;
+        padding: 0 18px;
         font-size: 8px;
-
         letter-spacing: .12em;
     }
 
-
-    /* HERO FOOTER */
-
     .pa-hero-inner::after {
-
         margin-top: 42px;
-
         font-size: 7px;
-
-        letter-spacing: .16em;
+        letter-spacing: .15em;
     }
 
-
-    /* MARQUEE */
+    .pa-marquee { padding: 17px 0; }
 
     .pa-marquee-track span {
-
-        padding:
-            19px 14px;
-
         font-size: 8px;
-
-        gap: 25px;
-
-        letter-spacing: .16em;
+        letter-spacing: .17em;
     }
 
+    .pa-marquee-track i { margin: 0 20px; }
 
-    /* APPROACH */
+    .pa-section { padding: 70px 0 80px; }
 
-    .pa-section-pad {
-
-        padding:
-            75px 0 80px;
+    .pa-approach-heading {
+        display: block;
+        margin-top: 45px;
     }
 
-
-    .pa-section-eyebrow {
-
-        font-size: 8px;
-
-        letter-spacing: .16em;
+    .pa-approach-title {
+        font-size: clamp(45px, 13vw, 60px);
+        line-height: .97;
     }
 
-
-    .pa-quote {
-
-        margin-top: 32px;
+    .pa-approach-copy {
+        max-width: 100%;
+        margin-top: 25px;
     }
 
-
-    .pa-quote p {
-
-        font-size:
-            clamp(39px, 11.5vw, 58px);
-
-        line-height: .98;
-    }
-
-
-    /* SERVICE GRID */
-
-    .pa-service-grid {
-
+    .pa-option-grid,
+    .pa-option-grid.is-three {
+        margin-top: 50px;
         grid-template-columns: 1fr;
-
-        margin-top: 48px;
     }
 
-
-    .pa-service-tile {
-
-        min-height: 250px;
-
-        padding:
-            28px 24px;
+    .pa-option-item {
+        min-height: 160px;
+        padding: 28px 24px 30px;
+        gap: 26px;
     }
 
-
-    .pa-service-title {
-
-        margin-top: 55px;
-
-        font-size: 26px;
+    .pa-eval-grid,
+    .pa-eval-grid.is-five {
+        margin-top: 50px;
+        grid-template-columns: 1fr;
     }
 
+    .pa-eval-grid.is-five .pa-eval-item:last-child { grid-column: auto; }
 
-    .pa-service-description {
-
-        font-size: 11.5px;
+    .pa-eval-item,
+    .pa-eval-grid.is-five .pa-eval-item:last-child {
+        min-height: 0;
+        padding: 28px 24px 30px;
+        gap: 26px;
     }
 
+    .pa-faq-list { margin-top: 55px; }
 
-    /* CTA */
+    .pa-faq-item summary {
+        grid-template-columns: 34px minmax(0,1fr) 38px;
+        gap: 14px;
+        padding: 26px 10px 26px 0;
+    }
+
+    .pa-faq-num { padding-left: 8px; }
+    .pa-faq-icon { width: 38px; height: 38px; }
+    .pa-faq-answer { padding: 0 10px 30px 48px; }
 
     .pa-cta-band {
-
-        min-height: 350px;
-
-        padding:
-            65px 18px;
+        min-height: 400px;
+        padding: 80px 25px;
     }
 
-
-    .pa-cta-band-inner {
-
-        width: 100%;
-
-        gap: 35px;
-    }
-
-
-    .pa-cta-text {
-
-        font-size:
-            clamp(42px, 12vw, 57px);
-    }
-
+    .pa-cta-band p { font-size: clamp(43px, 12vw, 60px); }
 
     .pa-cta-button {
-
         min-height: 52px;
-
-        padding:
-            0 21px;
-
+        padding: 0 21px;
         font-size: 8px;
     }
-
 }
 
 
@@ -1289,51 +985,15 @@
 
 @media (max-width: 420px) {
 
-    .pa-site-shell {
+    .pa-site-shell,
+    .pa-hero-inner { width: calc(100% - 30px); }
 
-        width:
-            calc(100% - 30px);
-    }
-
-
-    .pa-hero-inner {
-
-        width:
-            calc(100% - 30px);
-
-        padding-top: 112px;
-    }
-
-
-    .pa-hero-title {
-
-        font-size: 44px;
-    }
-
-
-    .pa-hero-description {
-
-        font-size: 12.5px;
-    }
-
-
-    .pa-button {
-
-        width: 100%;
-    }
-
-
-    .pa-service-title {
-
-        font-size: 25px;
-    }
-
-
-    .pa-cta-text {
-
-        font-size: 43px;
-    }
-
+    .pa-hero-inner { padding-top: 112px; }
+    .pa-page-hero { min-height: 670px; }
+    .pa-hero-title { font-size: 44px; }
+    .pa-approach-title { font-size: 43px; }
+    .pa-cta-band p { font-size: 42px; }
+    .pa-btn { width: 100%; }
 }
 
 
@@ -1343,378 +1003,451 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-    .pa-hero,
+    .pa-page-hero,
     .pa-hero-eyebrow,
     .pa-hero-title,
-    .pa-hero-line,
     .pa-hero-description,
-    .pa-hero-buttons,
+    .pa-hero-line,
+    .pa-hero-actions,
     .pa-hero-inner::after {
-
         animation: none !important;
-
         opacity: 1;
-
         transform: none;
     }
 
+    .pa-marquee-track { animation: none !important; }
 
-    .pa-marquee-track {
-
-        animation: none !important;
-    }
-
-
-    .pa-button,
+    .pa-btn,
     .pa-cta-button,
-    .pa-service-tile {
-
+    .pa-option-item, .pa-option-item::before,
+    .pa-eval-item, .pa-eval-item::before,
+    .pa-faq-item, .pa-faq-icon,
+    .pa-faq-icon::before, .pa-faq-icon::after {
         transition: none !important;
     }
 
+    .pa-faq-item[open] .pa-faq-answer { animation: none !important; }
 }
 
 </style>
 
 {% endblock %}
 
+
 {% block content %}
 
 <div class="pa-page">
 
 
-<!-- =====================================================
-     HERO
-====================================================== -->
-
-<section class="pa-hero">
-
-    <div class="pa-hero-inner">
-
-
-        <!-- EYEBROW -->
-
-        <p class="pa-hero-eyebrow">
-            PROPERTY ADVISORY
-        </p>
-
-
-        <!-- TITLE -->
-
-        <h1 class="pa-hero-title">
-
-            Go Beyond Listings<br>
-
-            <em>With Market Intelligence.</em>
-
-        </h1>
-
-
-        <!-- LINE -->
-
-        <div class="pa-hero-line"></div>
-
-
-        <!-- DESCRIPTION -->
-
-        <p class="pa-hero-description">
-
-            Go beyond listings with market intelligence,
-            location analysis, investment assessment
-            and personalised property strategy.
-
-        </p>
-
-
-        <!-- BUTTONS -->
-
-        <div class="pa-hero-buttons">
-
-
-            <a
-                href="{% url 'contact' %}"
-                class="pa-button pa-button-primary"
-            >
-
-                START A CONVERSATION
-
-                <span class="pa-button-arrow">
-                    ↗
-                </span>
-
-            </a>
-
-
-            <a
-                href=""
-                class="pa-button pa-button-outline"
-            >
-
-                JOINT VENTURES
-
-            </a>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     MARQUEE
-====================================================== -->
-
-<div class="pa-marquee">
-
-    <div class="pa-marquee-track">
-
-
-        <span>
-
-            <i></i>
-
-            MARKET INTELLIGENCE
-
-            <i></i>
-
-            LOCATION ANALYSIS
-
-            <i></i>
-
-            INVESTMENT ASSESSMENT
-
-            <i></i>
-
-            PERSONALISED PROPERTY STRATEGY
-
-        </span>
-
-
-        <span>
-
-            <i></i>
-
-            MARKET INTELLIGENCE
-
-            <i></i>
-
-            LOCATION ANALYSIS
-
-            <i></i>
-
-            INVESTMENT ASSESSMENT
-
-            <i></i>
-
-            PERSONALISED PROPERTY STRATEGY
-
-        </span>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     PA APPROACH
-====================================================== -->
-
-<section class="pa-approach">
-
-    <div class="pa-site-shell pa-section-pad">
-
-
-        <!-- EYEBROW -->
-
-        <p class="pa-section-eyebrow">
-
-            THE ADVISORY APPROACH
-
-        </p>
-
-
-        <!-- QUOTE -->
-
-        <div class="pa-quote">
-
-            <p>
-
-                Go beyond listings with
-
-                <em>
-                    market intelligence
-                </em>,
-
-                location analysis, investment
-                assessment and personalised
-                property strategy.
-
+    <!-- HERO -->
+    <section class="pa-page-hero">
+        <div class="pa-hero-inner">
+
+            <p class="pa-hero-eyebrow">PROPERTY ADVISORY</p>
+
+            <h1 class="pa-hero-title">
+                Property Advisory in Dubai<br>
+                <em>Go Beyond the Listing.</em>
+            </h1>
+
+            <div class="pa-hero-line"></div>
+
+            <p class="pa-hero-description">
+                Choosing the right property in Dubai isn't about browsing more
+                listings — it's about having the right analysis behind the
+                decision. Nexurban's property advisory Dubai service goes beyond
+                sales, offering market intelligence, location analysis and
+                personalised property strategy for every client.
             </p>
 
-        </div>
-
-
-        <!-- SERVICE GRID -->
-
-        <div class="pa-service-grid">
-
-
-            <!-- 01 -->
-
-            <div class="pa-service-tile">
-
-                <span class="pa-service-number">
-                    01
-                </span>
-
-
-                <h3 class="pa-service-title">
-                    MARKET<br>
-                    INTELLIGENCE
-                </h3>
-
-
-                <p class="pa-service-description">
-
-                    Data-led reads on pricing, absorption
-                    and demand across Dubai's key
-                    submarkets, so every decision is
-                    grounded in evidence.
-
-                </p>
-
+            <div class="pa-hero-actions">
+                <a href="{% url 'contact' %}" class="pa-btn pa-btn-primary">
+                    BOOK A PROPERTY ADVISORY CONSULTATION
+                    <span class="pa-btn-arrow">↗</span>
+                </a>
+                <a href="#pa-covers" class="pa-btn pa-btn-outline">
+                    WHAT WE COVER
+                </a>
             </div>
-
-
-
-            <!-- 02 -->
-
-            <div class="pa-service-tile">
-
-                <span class="pa-service-number">
-                    02
-                </span>
-
-
-                <h3 class="pa-service-title">
-                    LOCATION<br>
-                    ANALYSIS
-                </h3>
-
-
-                <p class="pa-service-description">
-
-                    Granular assessment of infrastructure,
-                    connectivity and growth corridors to
-                    identify where value is heading next.
-
-                </p>
-
-            </div>
-
-
-
-            <!-- 03 -->
-
-            <div class="pa-service-tile">
-
-                <span class="pa-service-number">
-                    03
-                </span>
-
-
-                <h3 class="pa-service-title">
-                    INVESTMENT<br>
-                    ASSESSMENT
-                </h3>
-
-
-                <p class="pa-service-description">
-
-                    Rigorous evaluation of yield, exit
-                    timelines and risk, tailored to your
-                    capital and appetite for return.
-
-                </p>
-
-            </div>
-
-
-
-            <!-- 04 -->
-
-            <div class="pa-service-tile">
-
-                <span class="pa-service-number">
-                    04
-                </span>
-
-
-                <h3 class="pa-service-title">
-                    PERSONALISED<br>
-                    STRATEGY
-                </h3>
-
-
-                <p class="pa-service-description">
-
-                    A property plan shaped around your
-                    goals, timeline and portfolio, not a
-                    generic listing recommendation.
-
-                </p>
-
-            </div>
-
 
         </div>
-
-    </div>
-
-</section>
+    </section>
 
 
-
-<!-- =====================================================
-     CTA
-====================================================== -->
-
-<section class="pa-cta-band">
-
-    <div class="pa-cta-band-inner">
-
-
-        <p class="pa-cta-text">
-
-            Your next opportunity may start<br>
-            with the right advice.
-
-        </p>
-
-
-        <a
-            href="{% url 'contact' %}"
-            class="pa-cta-button"
-        >
-
-            SPEAK TO AN EXPERT
-
-            <span class="pa-cta-arrow">
-                ↗
+    <!-- MARQUEE -->
+    <div class="pa-marquee">
+        <div class="pa-marquee-track">
+            <span>
+                <i></i> MARKET INTELLIGENCE
+                <i></i> LOCATION ANALYSIS
+                <i></i> INVESTMENT ASSESSMENT
+                <i></i> PERSONALISED PROPERTY STRATEGY
+                <i></i>
             </span>
-
-        </a>
-
-
+            <span>
+                <i></i> MARKET INTELLIGENCE
+                <i></i> LOCATION ANALYSIS
+                <i></i> INVESTMENT ASSESSMENT
+                <i></i> PERSONALISED PROPERTY STRATEGY
+                <i></i>
+            </span>
+        </div>
     </div>
 
-</section>
+
+    <main class="pa-main">
+
+        <!-- 1. ADVISOR VS BROKER (light) -->
+        <section class="pa-section pa-light-section">
+            <div class="pa-site-shell">
+
+                <p class="pa-section-eyebrow">THE ADVISORY APPROACH</p>
+
+                <div class="pa-approach-heading">
+                    <div>
+                        <h2 class="pa-approach-title">
+                            Why Work With a Real Estate Advisor
+                            <em>Instead of Just a Broker</em>
+                        </h2>
+                    </div>
+
+                    <p class="pa-approach-copy">
+                        A broker's incentive is closing a transaction. A real
+                        estate advisor Dubai — like Nexurban — is incentivised to
+                        get the decision right, even if that means recommending
+                        you wait, look elsewhere, or reconsider a property you
+                        were drawn to. That distinction is the foundation of our
+                        advisory model.
+                    </p>
+                </div>
+
+                <div class="pa-option-grid is-three">
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">01</span>
+                        <h3>Wait for the right moment</h3>
+                    </div>
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">02</span>
+                        <h3>Look elsewhere</h3>
+                    </div>
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">03</span>
+                        <h3>Reconsider a property you were drawn to</h3>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 2. WHAT WE COVER (black) -->
+        <section class="pa-section pa-dark-section" id="pa-covers">
+            <div class="pa-site-shell">
+
+                <p class="pa-section-eyebrow">WHAT WE COVER</p>
+
+                <div class="pa-approach-heading">
+                    <div>
+                        <h2 class="pa-approach-title">
+                            What Our Property Advisory
+                            <em>Covers</em>
+                        </h2>
+                    </div>
+
+                    <p class="pa-approach-copy">
+                        As a full-service real estate consultancy Dubai, our
+                        advisory extends across five areas.
+                    </p>
+                </div>
+
+                <div class="pa-eval-grid is-five">
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">01</span>
+                        <div>
+                            <h3>Market intelligence</h3>
+                            <p>Pricing trends, demand signals and supply pipeline analysis.</p>
+                        </div>
+                    </div>
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">02</span>
+                        <div>
+                            <h3>Location analysis</h3>
+                            <p>Infrastructure, connectivity and community growth trajectory.</p>
+                        </div>
+                    </div>
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">03</span>
+                        <div>
+                            <h3>Investment assessment</h3>
+                            <p>Yield potential, appreciation outlook and risk factors.</p>
+                        </div>
+                    </div>
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">04</span>
+                        <div>
+                            <h3>Personalised property strategy</h3>
+                            <p>Aligned to your objective, capital and timeline.</p>
+                        </div>
+                    </div>
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">05</span>
+                        <div>
+                            <h3>Portfolio-level guidance</h3>
+                            <p>For clients holding or building multiple properties.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 3. DATA-BACKED (light) -->
+        <section class="pa-section pa-light-section">
+            <div class="pa-site-shell">
+
+                <p class="pa-section-eyebrow">OUR EVIDENCE</p>
+
+                <div class="pa-approach-heading">
+                    <div>
+                        <h2 class="pa-approach-title">
+                            Data-Backed,
+                            <em>Not Sales-Backed</em>
+                        </h2>
+                    </div>
+
+                    <p class="pa-approach-copy">
+                        Every recommendation we make is supported by market
+                        intelligence Dubai property data rather than sales
+                        narratives. Our location analysis Dubai process examines
+                        current infrastructure alongside planned developments
+                        that could shape future value.
+                    </p>
+                </div>
+
+                <div class="pa-option-grid">
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">01</span>
+                        <h3>Historical transaction trends</h3>
+                    </div>
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">02</span>
+                        <h3>Comparable pricing</h3>
+                    </div>
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">03</span>
+                        <h3>Demand indicators</h3>
+                    </div>
+
+                    <div class="pa-option-item">
+                        <span class="pa-option-num">04</span>
+                        <h3>Planned developments</h3>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 4. PROPERTY STRATEGY (black) -->
+        <section class="pa-section pa-dark-section">
+            <div class="pa-site-shell">
+
+                <p class="pa-section-eyebrow">YOUR STRATEGY</p>
+
+                <div class="pa-approach-heading">
+                    <div>
+                        <h2 class="pa-approach-title">
+                            A Property Strategy
+                            <em>Built Around You</em>
+                        </h2>
+                    </div>
+
+                    <p class="pa-approach-copy">
+                        Whether you're purchasing a home, building a rental
+                        portfolio, or evaluating your first Dubai investment, our
+                        property strategy Dubai approach starts with
+                        understanding your objective — then works backward to the
+                        right property, structure and timing.
+                    </p>
+                </div>
+
+                <div class="pa-eval-grid">
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">01 / OBJECTIVE</span>
+                        <h3>Understand your objective</h3>
+                    </div>
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">02 / PROPERTY</span>
+                        <h3>Find the right property</h3>
+                    </div>
+
+                    <div class="pa-eval-item">
+                        <span class="pa-eval-num">03 / STRUCTURE &amp; TIMING</span>
+                        <h3>Set the structure and timing</h3>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 5. FAQ ACCORDION (light) -->
+        <section class="pa-section pa-light-section">
+            <div class="pa-site-shell">
+
+                <p class="pa-section-eyebrow">FAQ</p>
+
+                <div class="pa-approach-heading">
+                    <div>
+                        <h2 class="pa-approach-title">
+                            Property Advisory
+                            <em>Questions Answered</em>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="pa-faq-list">
+
+                    <details class="pa-faq-item" open>
+                        <summary>
+                            <span class="pa-faq-num">01</span>
+                            <h3 class="pa-faq-q">What does a property advisory service actually do?</h3>
+                            <span class="pa-faq-icon"></span>
+                        </summary>
+                        <div class="pa-faq-answer">
+                            <p>
+                                A property advisory service evaluates the market,
+                                location and investment fundamentals of a potential
+                                purchase — going beyond simply showing listings —
+                                to help you make a decision based on data and
+                                strategy rather than presentation alone.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="pa-faq-item">
+                        <summary>
+                            <span class="pa-faq-num">02</span>
+                            <h3 class="pa-faq-q">Is property advisory different from using a real estate agent?</h3>
+                            <span class="pa-faq-icon"></span>
+                        </summary>
+                        <div class="pa-faq-answer">
+                            <p>
+                                Yes. A traditional agent typically focuses on
+                                matching you to available listings and closing a
+                                sale, while a property advisor provides independent
+                                analysis on market conditions, location growth and
+                                investment merit — sometimes recommending you avoid
+                                a property or wait for a better opportunity.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="pa-faq-item">
+                        <summary>
+                            <span class="pa-faq-num">03</span>
+                            <h3 class="pa-faq-q">Does Nexurban charge separately for property advisory services?</h3>
+                            <span class="pa-faq-icon"></span>
+                        </summary>
+                        <div class="pa-faq-answer">
+                            <p>
+                                Advisory is integrated into our client relationship
+                                at no separate upfront cost for standard
+                                consultations — book a consultation to discuss your
+                                specific requirement and scope.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="pa-faq-item">
+                        <summary>
+                            <span class="pa-faq-num">04</span>
+                            <h3 class="pa-faq-q">Can property advisory help me choose between two locations in Dubai?</h3>
+                            <span class="pa-faq-icon"></span>
+                        </summary>
+                        <div class="pa-faq-answer">
+                            <p>
+                                Yes — this is one of the most common uses of
+                                advisory services. We compare infrastructure,
+                                planned developments, demand trends and pricing
+                                trajectory between communities to support a
+                                clearer, evidence-based decision.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="pa-faq-item">
+                        <summary>
+                            <span class="pa-faq-num">05</span>
+                            <h3 class="pa-faq-q">Is property advisory only for investors, or also for homebuyers?</h3>
+                            <span class="pa-faq-icon"></span>
+                        </summary>
+                        <div class="pa-faq-answer">
+                            <p>
+                                Both. Homebuyers benefit from location and
+                                lifestyle-fit analysis, while investors benefit
+                                from yield, appreciation and exit-focused
+                                evaluation. Our advisory approach adapts to your
+                                specific objective.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CTA (black) -->
+        <section class="pa-cta-band">
+
+            <p>
+                Your Next Opportunity May Start
+                <br>
+                <em>With the Right Advice.</em>
+            </p>
+
+            <a href="{% url 'contact' %}" class="pa-cta-button">
+                BOOK A PROPERTY ADVISORY CONSULTATION
+                <span>↗</span>
+            </a>
+
+        </section>
+
+    </main>
 
 </div>
+
+<script>
+    /* Keep only one FAQ open at a time */
+    document.querySelectorAll('.pa-faq-item').forEach(function (item) {
+        item.addEventListener('toggle', function () {
+            if (item.open) {
+                document.querySelectorAll('.pa-faq-item[open]').forEach(function (other) {
+                    if (other !== item) other.removeAttribute('open');
+                });
+            }
+        });
+    });
+</script>
 
 {% endblock %}

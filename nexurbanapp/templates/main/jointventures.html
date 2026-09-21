@@ -1374,6 +1374,297 @@
 
 }
 
+
+/* =========================================================
+   JV CONTENT SECTIONS + FAQ
+========================================================= */
+
+.jv-content-section {
+    width: 100%;
+    background: #f7f4ed;
+    color: #111111;
+}
+
+.jv-content-section.dark {
+    background: #111111;
+    color: #f7f4ed;
+}
+
+.jv-content-pad {
+    padding: 120px 0 130px;
+}
+
+.jv-content-heading {
+    max-width: 1050px;
+    margin: 45px 0 0;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(40px, 5vw, 68px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -.04em;
+}
+
+.jv-content-heading em {
+        color: #55504a;
+    font-style: italic;
+}
+
+.jv-content-paragraph {
+    max-width: 920px;
+    margin: 28px 0 0;
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.85;
+}
+
+.jv-content-section:not(.dark) .jv-content-paragraph {
+    color: rgba(17,17,17,.68);
+}
+
+.jv-content-section.dark .jv-content-paragraph {
+    color: rgba(247,244,237,.62);
+}
+
+.jv-evaluation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 65px;
+    border-top: 1px solid rgba(247,244,237,.14);
+    border-left: 1px solid rgba(247,244,237,.14);
+}
+
+.jv-evaluation-card {
+    min-height: 220px;
+    padding: 30px 28px;
+    border-right: 1px solid rgba(247,244,237,.14);
+    border-bottom: 1px solid rgba(247,244,237,.14);
+    transition: background .35s ease, transform .35s ease;
+}
+
+.jv-evaluation-card:hover {
+    background: rgba(247,244,237,.035);
+    transform: translateY(-4px);
+}
+
+.jv-evaluation-number {
+    display: block;
+    color: rgba(247,244,237,.38);
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.jv-evaluation-card h3 {
+    margin: 48px 0 0;
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.08;
+}
+
+.jv-evaluation-card p {
+    margin: 14px 0 0;
+    color: rgba(247,244,237,.54);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.jv-suit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 65px;
+    border-top: 1px solid rgba(17,17,17,.14);
+    border-left: 1px solid rgba(17,17,17,.14);
+}
+
+.jv-suit-card {
+    min-height: 255px;
+    padding: 30px 28px;
+    border-right: 1px solid rgba(17,17,17,.14);
+    border-bottom: 1px solid rgba(17,17,17,.14);
+    transition: background .35s ease, transform .35s ease;
+}
+
+.jv-suit-card:hover {
+    background: rgba(17,17,17,.035);
+    transform: translateY(-4px);
+}
+
+.jv-suit-card span {
+    display: block;
+    color: rgba(17,17,17,.38);
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.jv-suit-card h3 {
+    margin: 48px 0 0;
+    color: #111111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.jv-suit-card p {
+    margin: 14px 0 0;
+    color: rgba(17,17,17,.60);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.jv-faq-section {
+    background: #f7f4ed;
+    color: #111111;
+}
+
+.jv-faq-list {
+    margin-top: 60px;
+    border-top: 1px solid rgba(17,17,17,.14);
+}
+
+.jv-faq-item {
+    border-bottom: 1px solid rgba(17,17,17,.14);
+}
+
+.jv-faq-question {
+    width: 100%;
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    background: transparent;
+    border: 0;
+    color: #111111;
+    text-align: left;
+    cursor: pointer;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.jv-faq-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(17,17,17,.20);
+    border-radius: 50%;
+    font-family: "Manrope", sans-serif;
+    font-size: 17px;
+    line-height: 1;
+    transition: transform .35s ease, background .35s ease, color .35s ease;
+}
+
+.jv-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height .45s ease, opacity .3s ease, padding .45s ease;
+}
+
+.jv-faq-answer p {
+    max-width: 900px;
+    margin: 0;
+    padding: 0;
+    color: rgba(17,17,17,.60);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+.jv-faq-item.is-open .jv-faq-question {
+    color: #ff1d0c;
+}
+
+.jv-faq-item.is-open .jv-faq-icon {
+    transform: rotate(45deg);
+    background: #ff1d0c;
+    border-color: #ff1d0c;
+    color: #ffffff;
+}
+
+.jv-faq-item.is-open .jv-faq-answer {
+    max-height: 300px;
+    opacity: 1;
+    padding-bottom: 28px;
+}
+
+@media (max-width: 1100px) {
+    .jv-evaluation-grid,
+    .jv-suit-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .jv-content-pad {
+        padding: 75px 0 80px;
+    }
+
+    .jv-content-heading {
+        margin-top: 32px;
+        font-size: clamp(39px, 11vw, 58px);
+    }
+
+    .jv-content-paragraph {
+        font-size: 15px;
+        line-height: 1.78;
+    }
+
+    .jv-evaluation-grid,
+    .jv-suit-grid {
+        grid-template-columns: 1fr;
+        margin-top: 48px;
+    }
+
+    .jv-evaluation-card,
+    .jv-suit-card {
+        min-height: 220px;
+        padding: 28px 24px;
+    }
+
+    .jv-evaluation-card h3,
+    .jv-suit-card h3 {
+        margin-top: 42px;
+        font-size: 27px;
+    }
+
+    .jv-faq-list {
+        margin-top: 45px;
+    }
+
+    .jv-faq-question {
+        padding: 23px 0;
+        font-size: 21px;
+    }
+
+    .jv-faq-icon {
+        width: 27px;
+        height: 27px;
+        font-size: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .jv-evaluation-card,
+    .jv-suit-card,
+    .jv-faq-answer,
+    .jv-faq-icon {
+        transition: none !important;
+    }
+}
+
 </style>
 
 {% endblock %}
@@ -1382,314 +1673,382 @@
 
 <div class="jv-page">
 
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+    <section class="jv-hero">
+        <div class="jv-hero-inner">
 
-<!-- =====================================================
-     HERO
-====================================================== -->
+            <p class="jv-hero-eyebrow">
+                JOINT VENTURES (JV)
+            </p>
 
-<section class="jv-hero">
+            <h1 class="jv-hero-title">
+                Real Estate Joint Ventures<br>
+                <em>in Dubai — Build Together, Create Greater Value.</em>
+            </h1>
 
-    <div class="jv-hero-inner">
+            <div class="jv-hero-line"></div>
 
+            <p class="jv-hero-description">
+                Some of Dubai's most valuable real estate opportunities aren't found — they're structured.
+                Nexurban facilitates <strong>real estate joint ventures Dubai</strong>-wide, bringing together
+                landowners, investors, developers and strategic partners to unlock deals that no single party
+                could achieve alone.
+            </p>
 
-        <!-- EYEBROW -->
-
-        <p class="jv-hero-eyebrow">
-            JOINT VENTURES (JV)
-        </p>
-
-
-        <!-- TITLE -->
-
-        <h1 class="jv-hero-title">
-
-            Unlock Strategic<br>
-
-            <em>Real Estate Opportunities.</em>
-
-        </h1>
-
-
-        <!-- LINE -->
-
-        <div class="jv-hero-line"></div>
-
-
-        <!-- DESCRIPTION -->
-
-        <p class="jv-hero-description">
-
-            Unlock strategic real estate opportunities
-            through structured partnerships, shared
-            expertise and aligned investment objectives.
-
-        </p>
-
-
-        <!-- BUTTONS -->
-
-        <div class="jv-hero-buttons">
-
-
-            <a
-                href="{% url 'contact' %}"
-                class="jv-button jv-button-primary"
-            >
-
-                START A CONVERSATION
-
-                <span class="jv-button-arrow">
-                    ↗
-                </span>
-
-            </a>
-
-
-            <a
-                href=""
-                class="jv-button jv-button-outline"
-            >
-
-                PROPERTY ADVISORY
-
-            </a>
-
+            <div class="jv-hero-buttons">
+                <a href="{% url 'contact' %}" class="jv-button jv-button-primary">
+                    EXPLORE JV OPPORTUNITIES
+                    <span class="jv-button-arrow">↗</span>
+                </a>
+                <a href="{% url 'contact' %}" class="jv-button jv-button-outline">
+                    BOOK A CONSULTATION
+                </a>
+            </div>
 
         </div>
+    </section>
 
+    <!-- =====================================================
+         MARQUEE
+    ====================================================== -->
+    <div class="jv-marquee">
+        <div class="jv-marquee-track">
+            <span>
+                <i></i>
+                LAND + CAPITAL
+                <i></i>
+                STRATEGIC PARTNERSHIPS
+                <i></i>
+                DEVELOPMENT EXPERTISE
+                <i></i>
+                SHARED VALUE
+            </span>
+            <span>
+                <i></i>
+                LAND + CAPITAL
+                <i></i>
+                STRATEGIC PARTNERSHIPS
+                <i></i>
+                DEVELOPMENT EXPERTISE
+                <i></i>
+                SHARED VALUE
+            </span>
+        </div>
     </div>
 
-</section>
+    <!-- =====================================================
+         JV APPROACH
+    ====================================================== -->
+    <section class="jv-content-section dark">
+        <div class="jv-site-shell jv-content-pad">
 
+            <p class="jv-section-eyebrow">
+                THE JV APPROACH
+            </p>
 
+            <div class="jv-quote">
+                <p>
+                    What a Nexurban-Facilitated
+                    <em>JV Looks Like.</em>
+                </p>
+            </div>
 
-<!-- =====================================================
-     MARQUEE
-====================================================== -->
-
-<div class="jv-marquee">
-
-    <div class="jv-marquee-track">
-
-
-        <span>
-
-            <i></i>
-
-            STRUCTURED PARTNERSHIPS
-
-            <i></i>
-
-            SHARED EXPERTISE
-
-            <i></i>
-
-            ALIGNED INVESTMENT OBJECTIVES
-
-            <i></i>
-
-            STRATEGIC OPPORTUNITIES
-
-        </span>
-
-
-        <span>
-
-            <i></i>
-
-            STRUCTURED PARTNERSHIPS
-
-            <i></i>
-
-            SHARED EXPERTISE
-
-            <i></i>
-
-            ALIGNED INVESTMENT OBJECTIVES
-
-            <i></i>
-
-            STRATEGIC OPPORTUNITIES
-
-        </span>
-
-
-    </div>
-
-</div>
-
-
-
-<!-- =====================================================
-     JV APPROACH
-====================================================== -->
-
-<section class="jv-approach">
-
-    <div class="jv-site-shell jv-section-pad">
-
-
-        <!-- EYEBROW -->
-
-        <p class="jv-section-eyebrow">
-
-            THE JV APPROACH
-
-        </p>
-
-
-        <!-- QUOTE -->
-
-        <div class="jv-quote">
-
-            <p>
-
-                Unlock strategic real estate
-                opportunities through
-
-                <em>
-                    structured partnerships
-                </em>,
-
-                shared expertise and aligned
-                investment objectives.
-
+            <p class="jv-content-paragraph">
+                A <strong>JV real estate Dubai</strong> partnership works when capital, land, expertise and
+                execution are aligned from day one. We act as the connective layer — identifying the right
+                <strong>property joint venture partner</strong>, structuring the commercial terms, and
+                de-risking the arrangement for every stakeholder involved.
             </p>
 
         </div>
+    </section>
 
+    <!-- =====================================================
+         EVALUATION
+    ====================================================== -->
+    <section class="jv-content-section dark">
+        <div class="jv-site-shell jv-content-pad" style="padding-top:0;">
 
-        <!-- SERVICE GRID -->
+            <p class="jv-section-eyebrow">
+                BEFORE WE STRUCTURE
+            </p>
 
-        <div class="jv-service-grid">
-
-
-            <!-- 01 -->
-
-            <div class="jv-service-tile">
-
-                <span class="jv-service-number">
-                    01
-                </span>
-
-
-                <h3 class="jv-service-title">
-                    STRUCTURED<br>
-                    PARTNERSHIPS
-                </h3>
-
-
-                <p class="jv-service-description">
-
-                    Unlock strategic real estate
-                    opportunities through structured
-                    partnerships, shared expertise and
-                    aligned investment objectives.
-
-                </p>
-
+            <div class="jv-content-heading">
+                What We Evaluate Before Structuring a <em>Joint Venture.</em>
             </div>
 
+            <p class="jv-content-paragraph">
+                Not every opportunity deserves a partnership. Before we bring parties together, we assess
+                the commercial, strategic and development fundamentals of the opportunity.
+            </p>
 
+            <div class="jv-evaluation-grid">
 
-            <!-- 02 -->
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">01</span>
+                    <h3>Strategic Partner Alignment</h3>
+                    <p>Objectives, risk appetite and track record.</p>
+                </div>
 
-            <div class="jv-service-tile">
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">02</span>
+                    <h3>Land &amp; Asset Potential</h3>
+                    <p>Assessing the underlying value and opportunity of the land or asset.</p>
+                </div>
 
-                <span class="jv-service-number">
-                    02
-                </span>
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">03</span>
+                    <h3>Capital Requirements</h3>
+                    <p>Understanding funding needs and the proposed capital structure.</p>
+                </div>
 
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">04</span>
+                    <h3>Development Feasibility</h3>
+                    <p>Evaluating whether the proposed development can be practically executed.</p>
+                </div>
 
-                <h3 class="jv-service-title">
-                    SHARED<br>
-                    EXPERTISE
-                </h3>
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">05</span>
+                    <h3>Market Demand</h3>
+                    <p>Assessing demand for the proposed use and target market.</p>
+                </div>
 
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">06</span>
+                    <h3>Project Positioning</h3>
+                    <p>Understanding the project's position within the competitive landscape.</p>
+                </div>
 
-                <p class="jv-service-description">
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">07</span>
+                    <h3>Commercial Structure</h3>
+                    <p>Profit share, governance and control across the partnership.</p>
+                </div>
 
-                    Unlock strategic real estate
-                    opportunities through structured
-                    partnerships, shared expertise and
-                    aligned investment objectives.
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">08</span>
+                    <h3>Risk &amp; Return Potential</h3>
+                    <p>Assessing the relationship between the opportunity, risk and potential returns.</p>
+                </div>
 
-                </p>
+                <div class="jv-evaluation-card">
+                    <span class="jv-evaluation-number">09</span>
+                    <h3>Exit Strategy</h3>
+                    <p>Considering the future exit requirements and objectives of all parties.</p>
+                </div>
 
             </div>
-
-
-
-            <!-- 03 -->
-
-            <div class="jv-service-tile">
-
-                <span class="jv-service-number">
-                    03
-                </span>
-
-
-                <h3 class="jv-service-title">
-                    ALIGNED INVESTMENT<br>
-                    OBJECTIVES
-                </h3>
-
-
-                <p class="jv-service-description">
-
-                    Unlock strategic real estate
-                    opportunities through structured
-                    partnerships, shared expertise and
-                    aligned investment objectives.
-
-                </p>
-
-            </div>
-
 
         </div>
+    </section>
 
-    </div>
+    <!-- =====================================================
+         WHO IT SUITS
+    ====================================================== -->
+    <section class="jv-content-section">
+        <div class="jv-site-shell jv-content-pad">
 
-</section>
+            <p class="jv-section-eyebrow">
+                WHO IT SUITS
+            </p>
 
+            <div class="jv-content-heading">
+                Who a Real Estate Joint Venture <em>Suits.</em>
+            </div>
 
+            <p class="jv-content-paragraph">
+                This structure suits landowners without development capital or expertise, investors seeking
+                direct exposure to development-stage returns, and developers looking for
+                <strong>real estate partnership Dubai</strong> access to land or capital without a full
+                outright acquisition. Nexurban's role is to make sure every party enters with clear,
+                aligned expectations.
+            </p>
 
-<!-- =====================================================
-     CTA
-====================================================== -->
+            <div class="jv-suit-grid">
 
-<section class="jv-cta-band">
+                <div class="jv-suit-card">
+                    <span>01 · LANDOWNERS</span>
+                    <h3>Landowners</h3>
+                    <p>For landowners without the development capital or expertise to unlock the full potential of their asset.</p>
+                </div>
 
-    <div class="jv-cta-band-inner">
+                <div class="jv-suit-card">
+                    <span>02 · INVESTORS</span>
+                    <h3>Investors</h3>
+                    <p>For investors seeking direct exposure to development-stage returns through structured opportunities.</p>
+                </div>
 
+                <div class="jv-suit-card">
+                    <span>03 · DEVELOPERS</span>
+                    <h3>Developers</h3>
+                    <p>For developers seeking access to land or capital without a full outright acquisition.</p>
+                </div>
 
-        <p class="jv-cta-text">
+            </div>
 
-            Your next opportunity may start<br>
-            with the right partner.
+        </div>
+    </section>
 
-        </p>
+    <!-- =====================================================
+         STRUCTURING
+    ====================================================== -->
+    <section class="jv-content-section dark">
+        <div class="jv-site-shell jv-content-pad">
 
+            <p class="jv-section-eyebrow">
+                FROM INTRODUCTION TO PARTNERSHIP
+            </p>
 
-        <a
-            href="{% url 'contact' %}"
-            class="jv-cta-button"
-        >
+            <div class="jv-content-heading">
+                From Introduction to <em>Structured Partnership.</em>
+            </div>
 
-            SPEAK TO AN EXPERT
+            <p class="jv-content-paragraph">
+                We don't just make introductions — we support <strong>JV investment structuring</strong>
+                through commercial term-sheet guidance, risk allocation discussions and coordination with
+                legal and financial advisors, so the partnership is built on a sound foundation, not just a
+                handshake.
+            </p>
 
-            <span class="jv-cta-arrow">
-                ↗
-            </span>
+        </div>
+    </section>
 
-        </a>
+    <!-- =====================================================
+         FAQ
+    ====================================================== -->
+    <section class="jv-faq-section">
+        <div class="jv-site-shell jv-content-pad">
 
+            <p class="jv-section-eyebrow">
+                FAQ
+            </p>
 
-    </div>
+            <div class="jv-content-heading">
+                Joint Venture <em>Questions.</em>
+            </div>
 
-</section>
+            <div class="jv-faq-list">
+
+                <div class="jv-faq-item">
+                    <button class="jv-faq-question" type="button" aria-expanded="false">
+                        <span>What is a real estate joint venture in Dubai?</span>
+                        <span class="jv-faq-icon">+</span>
+                    </button>
+                    <div class="jv-faq-answer">
+                        <p>
+                            A real estate joint venture is a partnership where two or more parties —
+                            typically a landowner, investor, and/or developer — combine resources such as
+                            land, capital and expertise to develop a property project and share in the
+                            resulting profits and risks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="jv-faq-item">
+                    <button class="jv-faq-question" type="button" aria-expanded="false">
+                        <span>Who typically enters a property joint venture in Dubai?</span>
+                        <span class="jv-faq-icon">+</span>
+                    </button>
+                    <div class="jv-faq-answer">
+                        <p>
+                            Common participants include landowners without development capacity, investors
+                            seeking direct project-level returns, and developers seeking access to land or
+                            additional capital. Nexurban structures these relationships so each party's
+                            contribution and return are clearly defined.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="jv-faq-item">
+                    <button class="jv-faq-question" type="button" aria-expanded="false">
+                        <span>How is profit typically shared in a Dubai real estate JV?</span>
+                        <span class="jv-faq-icon">+</span>
+                    </button>
+                    <div class="jv-faq-answer">
+                        <p>
+                            Profit-sharing structures vary widely — from fixed land value plus percentage
+                            upside, to full equity partnerships with proportional returns. The right
+                            structure depends on each party's contribution, risk tolerance and capital
+                            commitment.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="jv-faq-item">
+                    <button class="jv-faq-question" type="button" aria-expanded="false">
+                        <span>What legal structure is used for real estate joint ventures in the UAE?</span>
+                        <span class="jv-faq-icon">+</span>
+                    </button>
+                    <div class="jv-faq-answer">
+                        <p>
+                            JVs in Dubai are commonly structured through a Special Purpose Vehicle (SPV),
+                            a shareholder agreement, or a development management agreement, depending on
+                            the scale and complexity of the project. Nexurban coordinates with legal
+                            advisors to determine the appropriate structure for each deal.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="jv-faq-item">
+                    <button class="jv-faq-question" type="button" aria-expanded="false">
+                        <span>How does Nexurban identify suitable JV partners?</span>
+                        <span class="jv-faq-icon">+</span>
+                    </button>
+                    <div class="jv-faq-answer">
+                        <p>
+                            We evaluate potential partners against the specific project's requirements —
+                            assessing financial capacity, development track record, strategic alignment and
+                            risk appetite — before facilitating any introduction, to ensure long-term
+                            partnership viability.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+    <section class="jv-cta-band">
+        <div class="jv-cta-band-inner">
+
+            <p class="jv-cta-text">
+                Explore JV<br>
+                Opportunities.
+            </p>
+
+            <a href="{% url 'contact' %}" class="jv-cta-button">
+                BOOK A CONSULTATION
+                <span class="jv-cta-arrow">↗</span>
+            </a>
+
+        </div>
+    </section>
 
 </div>
 
+<script>
+document.querySelectorAll(".jv-faq-question").forEach(function(button) {
+    button.addEventListener("click", function() {
+        const item = button.closest(".jv-faq-item");
+        const isOpen = item.classList.contains("is-open");
+
+        document.querySelectorAll(".jv-faq-item.is-open").forEach(function(openItem) {
+            openItem.classList.remove("is-open");
+            openItem.querySelector(".jv-faq-question").setAttribute("aria-expanded", "false");
+        });
+
+        if (!isOpen) {
+            item.classList.add("is-open");
+            button.setAttribute("aria-expanded", "true");
+        }
+    });
+});
+</script>
 {% endblock %}

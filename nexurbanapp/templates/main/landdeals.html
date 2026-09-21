@@ -10,6 +10,9 @@
    PREMIUM EDITORIAL PAGE
    SAME STYLE AS JD PAGE / OFF-PLAN PAGE
 ========================================================= */
+p{
+    font-size: 15px;
+}
 
 .land-page {
     width: 100%;
@@ -25,15 +28,11 @@
 
 .land-page-hero {
     position: relative;
-
     width: 100%;
     min-height: 720px;
-
     display: flex;
     align-items: flex-end;
-
     overflow: hidden;
-
     color: #f7f4ed;
 
     background-image:
@@ -53,28 +52,15 @@
         url("{% static 'img/landdealshero.webp' %}");
 
     background-size: cover;
-
     background-position: center;
-
     background-repeat: no-repeat;
-
     isolation: isolate;
-
-    animation:
-        nxLandHeroReveal 1.2s ease-out both;
+    animation: nxLandHeroReveal 1.2s ease-out both;
 }
 
-
 @keyframes nxLandHeroReveal {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 
@@ -83,29 +69,20 @@
 ========================================================= */
 
 .land-page-hero::after {
-
     content: "";
-
     position: absolute;
-
     top: 0;
     right: 0;
-
     width: 24%;
     height: 100%;
-
     z-index: -1;
-
     background:
         linear-gradient(
             180deg,
             rgba(255,29,12,.025),
             rgba(255,29,12,.10)
         );
-
-    border-left:
-        1px solid rgba(255,29,12,.12);
-
+    border-left: 1px solid rgba(255,29,12,.12);
     pointer-events: none;
 }
 
@@ -115,21 +92,11 @@
 ========================================================= */
 
 .land-hero-inner {
-
     position: relative;
-
     z-index: 3;
-
-    width:
-        min(
-            1400px,
-            calc(100% - 100px)
-        );
-
+    width: min(1400px, calc(100% - 100px));
     margin: 0 auto;
-
-    padding:
-        155px 0 90px;
+    padding: 155px 0 90px;
 }
 
 
@@ -138,71 +105,37 @@
 ========================================================= */
 
 .land-hero-eyebrow {
-
     position: relative;
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
-    margin:
-        0 0 22px;
-
+    margin: 0 0 22px;
     color: #ff4c3fd3;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    font-family: "Manrope", sans-serif;
     font-size: 10px;
-
     font-weight: 700;
-
     line-height: 1.4;
-
     letter-spacing: .22em;
-
     text-transform: uppercase;
-
     opacity: 0;
-
-    animation:
-        nxLandFade
-        .8s cubic-bezier(.22,1,.36,1)
-        .1s forwards;
+    animation: nxLandFade .8s cubic-bezier(.22,1,.36,1) .1s forwards;
 }
-
 
 .land-hero-eyebrow::before {
-
     content: "";
-
     width: 32px;
-
     height: 1px;
-
     flex-shrink: 0;
-
     background: #ff1d0c;
 }
 
-
 .land-hero-eyebrow::after {
-
     content: "";
-
     width: 5px;
-
     height: 5px;
-
     margin-left: -5px;
-
     border-radius: 50%;
-
     background: #ff1d0c;
-
     box-shadow:
         0 0 0 5px rgba(255,29,12,.08),
         0 0 13px rgba(255,29,12,.45);
@@ -214,42 +147,21 @@
 ========================================================= */
 
 .land-hero-title {
-
     max-width: 920px;
-
     margin: 0;
-
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(52px, 6.3vw, 90px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(52px, 6.3vw, 90px);
     font-weight: 400;
-
     line-height: .96;
-
     letter-spacing: -.045em;
-
     opacity: 0;
-
-    animation:
-        nxLandFade
-        1s cubic-bezier(.22,1,.36,1)
-        .22s forwards;
+    animation: nxLandFade 1s cubic-bezier(.22,1,.36,1) .22s forwards;
 }
 
-
 .land-hero-title em {
-
     color: #e8dfd1;
-
     font-style: italic;
-
     font-weight: 400;
 }
 
@@ -259,21 +171,12 @@
 ========================================================= */
 
 .land-hero-line {
-
     width: 55px;
-
     height: 1px;
-
     margin-top: 30px;
-
     background: #ff1d0c;
-
     opacity: 0;
-
-    animation:
-        nxLandFade
-        .8s cubic-bezier(.22,1,.36,1)
-        .40s forwards;
+    animation: nxLandFade .8s cubic-bezier(.22,1,.36,1) .40s forwards;
 }
 
 
@@ -282,31 +185,15 @@
 ========================================================= */
 
 .land-hero-description {
-
     max-width: 580px;
-
-    margin:
-        27px 0 0;
-
-    color:
-        rgba(247,244,237,.66);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    margin: 27px 0 0;
+    color: rgba(247,244,237,.66);
+    font-family: "Manrope", sans-serif;
     font-size: 14px;
-
     font-weight: 400;
-
     line-height: 1.85;
-
     opacity: 0;
-
-    animation:
-        nxLandFade
-        .9s cubic-bezier(.22,1,.36,1)
-        .38s forwards;
+    animation: nxLandFade .9s cubic-bezier(.22,1,.36,1) .38s forwards;
 }
 
 
@@ -315,55 +202,28 @@
 ========================================================= */
 
 .land-hero-actions {
-
     margin-top: 32px;
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     flex-wrap: wrap;
-
     opacity: 0;
-
-    animation:
-        nxLandFade
-        .9s cubic-bezier(.22,1,.36,1)
-        .48s forwards;
+    animation: nxLandFade .9s cubic-bezier(.22,1,.36,1) .48s forwards;
 }
 
-
 .land-btn {
-
     min-height: 52px;
-
-    padding:
-        0 25px;
-
+    padding: 0 25px;
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 12px;
-
     text-decoration: none;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    font-family: "Manrope", sans-serif;
     font-size: 9px;
-
     font-weight: 700;
-
     letter-spacing: .16em;
-
     text-transform: uppercase;
-
     transition:
         background .3s ease,
         color .3s ease,
@@ -377,26 +237,16 @@
 ========================================================= */
 
 .land-btn-primary {
-
     background: #ff1d0c;
-
     color: #ffffff;
-
-    border:
-        1px solid #ff1d0c;
+    border: 1px solid #ff1d0c;
 }
 
-
 .land-btn-primary:hover {
-
     background: #d9180b;
-
     border-color: #d9180b;
-
     color: #ffffff;
-
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 }
 
 
@@ -405,26 +255,16 @@
 ========================================================= */
 
 .land-btn-outline {
-
     background: transparent;
-
     color: #f7f4ed;
-
-    border:
-        1px solid rgba(247,244,237,.42);
+    border: 1px solid rgba(247,244,237,.42);
 }
 
-
 .land-btn-outline:hover {
-
     background: #f7f4ed;
-
     border-color: #f7f4ed;
-
     color: #111111;
-
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 }
 
 
@@ -433,20 +273,13 @@
 ========================================================= */
 
 .land-btn-arrow {
-
     font-size: 17px;
-
     line-height: 1;
-
-    transition:
-        transform .3s ease;
+    transition: transform .3s ease;
 }
 
-
 .land-btn:hover .land-btn-arrow {
-
-    transform:
-        translate(3px,-3px);
+    transform: translate(3px,-3px);
 }
 
 
@@ -455,35 +288,17 @@
 ========================================================= */
 
 .land-hero-inner::after {
-
-    content:
-        "NEXURBAN · DUBAI · LAND DEALS";
-
+    content: "NEXURBAN · DUBAI · LAND DEALS";
     display: block;
-
     margin-top: 58px;
-
-    color:
-        rgba(247,244,237,.38);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    color: rgba(247,244,237,.38);
+    font-family: "Manrope", sans-serif;
     font-size: 8px;
-
     font-weight: 600;
-
     letter-spacing: .22em;
-
     text-transform: uppercase;
-
     opacity: 0;
-
-    animation:
-        nxLandFade
-        .8s ease
-        .58s forwards;
+    animation: nxLandFade .8s ease .58s forwards;
 }
 
 
@@ -492,23 +307,14 @@
 ========================================================= */
 
 @keyframes nxLandFade {
-
     from {
-
         opacity: 0;
-
-        transform:
-            translateY(25px);
+        transform: translateY(25px);
     }
-
     to {
-
         opacity: 1;
-
-        transform:
-            translateY(0);
+        transform: translateY(0);
     }
-
 }
 
 
@@ -517,88 +323,44 @@
 ========================================================= */
 
 .land-marquee {
-
     width: 100%;
-
     overflow: hidden;
-
     background: #111111;
-
-    border-top:
-        1px solid rgba(255,255,255,.06);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.06);
-
-    padding:
-        21px 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    padding: 21px 0;
 }
-
 
 .land-marquee-track {
-
     width: max-content;
-
     display: flex;
-
     white-space: nowrap;
-
-    animation:
-        landMarquee
-        30s linear infinite;
+    animation: landMarquee 30s linear infinite;
 }
 
-
 .land-marquee-track span {
-
     display: inline-flex;
-
     align-items: center;
-
-    color:
-        rgba(247,244,237,.72);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    color: rgba(247,244,237,.72);
+    font-family: "Manrope", sans-serif;
     font-size: 9px;
-
     font-weight: 700;
-
     letter-spacing: .22em;
-
     text-transform: uppercase;
 }
 
-
 .land-marquee-track i {
-
     width: 4px;
-
     height: 4px;
-
-    margin:
-        0 30px;
-
+    margin: 0 30px;
     border-radius: 50%;
-
     background: #ff1d0c;
-
     display: inline-block;
 }
 
-
 @keyframes landMarquee {
-
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-50%);
-    }
-
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
 
@@ -607,11 +369,8 @@
 ========================================================= */
 
 .land-main {
-
     width: 100%;
-
     background: #111111;
-
     color: #f7f4ed;
 }
 
@@ -621,13 +380,7 @@
 ========================================================= */
 
 .land-site-shell {
-
-    width:
-        min(
-            calc(100% - 100px),
-            1400px
-        );
-
+    width: min(calc(100% - 100px), 1400px);
     margin: 0 auto;
 }
 
@@ -637,9 +390,7 @@
 ========================================================= */
 
 .land-section {
-
-    padding:
-        115px 0 125px;
+    padding: 115px 0 125px;
 }
 
 
@@ -648,39 +399,22 @@
 ========================================================= */
 
 .land-section-eyebrow {
-
     display: flex;
-
     align-items: center;
-
     gap: 11px;
-
     margin: 0;
-
     color: #e8dfd1;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    font-family: "Manrope", sans-serif;
     font-size: 10px;
-
     font-weight: 700;
-
     letter-spacing: .20em;
-
     text-transform: uppercase;
 }
 
-
 .land-section-eyebrow::before {
-
     content: "";
-
     width: 28px;
-
     height: 1px;
-
     background: #ff1d0c;
 }
 
@@ -690,70 +424,36 @@
 ========================================================= */
 
 .land-approach-heading {
-
     margin-top: 55px;
-
     display: grid;
-
-    grid-template-columns:
-        minmax(0,1fr)
-        minmax(280px,390px);
-
+    grid-template-columns: minmax(0,1fr) minmax(280px,390px);
     gap: 80px;
-
     align-items: end;
 }
 
-
 .land-approach-title {
-
     max-width: 780px;
-
     margin: 0;
-
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(48px, 5.8vw, 78px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(48px, 5.8vw, 78px);
     font-weight: 400;
-
     line-height: .96;
-
     letter-spacing: -.045em;
 }
 
-
 .land-approach-title em {
-
     color: #e8dfd1;
-
     font-style: italic;
 }
 
-
 .land-approach-copy {
-
     max-width: 390px;
-
     margin: 0;
-
-    color:
-        rgba(247,244,237,.56);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    color: rgba(247,244,237,.56);
+    font-family: "Manrope", sans-serif;
     font-size: 13px;
-
     font-weight: 400;
-
     line-height: 1.85;
 }
 
@@ -763,45 +463,24 @@
 ========================================================= */
 
 .land-quote {
-
     max-width: 1040px;
-
     margin-top: 90px;
-
-    padding:
-        50px 0 50px 55px;
-
-    border-left:
-        2px solid #ff1d0c;
+    padding: 50px 0 50px 55px;
+    border-left: 2px solid #ff1d0c;
 }
 
-
 .land-quote p {
-
     margin: 0;
-
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(34px, 4vw, 58px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(34px, 4vw, 58px);
     font-weight: 400;
-
     line-height: 1.03;
-
     letter-spacing: -.035em;
 }
 
-
 .land-quote em {
-
     color: #e8dfd1;
-
     font-style: italic;
 }
 
@@ -811,18 +490,11 @@
 ========================================================= */
 
 .land-service-grid {
-
     margin-top: 85px;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3,minmax(0,1fr));
-
+    grid-template-columns: repeat(3,minmax(0,1fr));
     gap: 1px;
-
-    background:
-        rgba(247,244,237,.15);
+    background: rgba(247,244,237,.15);
 }
 
 
@@ -831,85 +503,44 @@
 ========================================================= */
 
 .land-service-tile {
-
     min-height: 340px;
-
-    padding:
-        35px 30px;
-
+    padding: 35px 30px;
     background: #111111;
-
     transition:
         background .35s ease,
         transform .35s ease;
 }
 
-
 .land-service-tile:hover {
-
     background: #181818;
-
-    transform:
-        translateY(-4px);
+    transform: translateY(-4px);
 }
 
-
 .land-service-number {
-
     display: block;
-
     color: #ff1d0c;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    font-family: "Manrope", sans-serif;
     font-size: 9px;
-
     font-weight: 700;
-
     letter-spacing: .18em;
 }
 
-
 .land-service-tile h3 {
-
-    margin:
-        65px 0 0;
-
+    margin: 65px 0 0;
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
+    font-family: "Times New Roman", Times, serif;
     font-size: 38px;
-
     font-weight: 400;
-
     line-height: 1;
-
     letter-spacing: -.025em;
 }
 
-
 .land-service-tile p {
-
     max-width: 350px;
-
-    margin:
-        25px 0 0;
-
-    color:
-        rgba(247,244,237,.55);
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    margin: 25px 0 0;
+    color: rgba(247,244,237,.55);
+    font-family: "Manrope", sans-serif;
     font-size: 12px;
-
     line-height: 1.8;
 }
 
@@ -919,43 +550,26 @@
 ========================================================= */
 
 .land-service-tile::after {
-
     content: "↗";
-
     width: 39px;
-
     height: 39px;
-
     margin-top: 30px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    border:
-        1px solid rgba(255,29,12,.28);
-
+    border: 1px solid rgba(255,29,12,.28);
     border-radius: 50%;
-
     color: #ff1d0c;
-
     font-size: 17px;
-
     transition:
         background .3s ease,
         color .3s ease,
         border-color .3s ease;
 }
 
-
 .land-service-tile:hover::after {
-
     background: #ff1d0c;
-
     border-color: #ff1d0c;
-
     color: #ffffff;
 }
 
@@ -965,22 +579,13 @@
 ========================================================= */
 
 .land-cta-band {
-
     min-height: 420px;
-
-    padding:
-        100px 40px;
-
+    padding: 100px 40px;
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     text-align: center;
-
     background:
         linear-gradient(
             135deg,
@@ -988,11 +593,8 @@
             #181818 50%,
             #0d0d0d 100%
         );
-
     color: #f7f4ed;
-
     position: relative;
-
     overflow: hidden;
 }
 
@@ -1002,43 +604,24 @@
 ========================================================= */
 
 .land-cta-band::before {
-
     content: "";
-
     position: absolute;
-
     width: 520px;
-
     height: 520px;
-
     right: -180px;
-
     top: -240px;
-
-    border:
-        1px solid rgba(255,29,12,.16);
-
+    border: 1px solid rgba(255,29,12,.16);
     border-radius: 50%;
 }
 
-
 .land-cta-band::after {
-
     content: "";
-
     position: absolute;
-
     width: 300px;
-
     height: 300px;
-
     left: -150px;
-
     bottom: -180px;
-
-    border:
-        1px solid rgba(255,29,12,.10);
-
+    border: 1px solid rgba(255,29,12,.10);
     border-radius: 50%;
 }
 
@@ -1048,29 +631,20 @@
 ========================================================= */
 
 .land-cta-band p {
-
     position: relative;
-
     z-index: 2;
-
-    margin:
-        0 0 38px;
-
+    margin: 0 0 38px;
     color: #f7f4ed;
-
-    font-family:
-        "Times New Roman",
-        Times,
-        serif;
-
-    font-size:
-        clamp(45px, 6vw, 78px);
-
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(45px, 6vw, 78px);
     font-weight: 400;
-
     line-height: .98;
-
     letter-spacing: -.045em;
+}
+
+.land-cta-band p em {
+    color: #e8dfd1;
+    font-style: italic;
 }
 
 
@@ -1079,77 +653,42 @@
 ========================================================= */
 
 .land-cta-button {
-
     position: relative;
-
     z-index: 2;
-
     min-height: 56px;
-
-    padding:
-        0 28px;
-
+    padding: 0 28px;
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 13px;
-
     background: #ff1d0c;
-
     color: #ffffff;
-
-    border:
-        1px solid #ff1d0c;
-
+    border: 1px solid #ff1d0c;
     text-decoration: none;
-
-    font-family:
-        "Manrope",
-        sans-serif;
-
+    font-family: "Manrope", sans-serif;
     font-size: 9px;
-
     font-weight: 700;
-
     letter-spacing: .17em;
-
     text-transform: uppercase;
-
     transition:
         background .3s ease,
         transform .3s ease;
 }
 
-
 .land-cta-button:hover {
-
     background: #d9180b;
-
     border-color: #d9180b;
-
     color: #ffffff;
-
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 }
-
 
 .land-cta-button span {
-
     font-size: 18px;
-
-    transition:
-        transform .3s ease;
+    transition: transform .3s ease;
 }
 
-
 .land-cta-button:hover span {
-
-    transform:
-        translate(3px,-3px);
+    transform: translate(3px,-3px);
 }
 
 
@@ -1160,41 +699,23 @@
 @media (max-width: 1100px) {
 
     .land-site-shell {
-
-        width:
-            min(
-                calc(100% - 70px),
-                1400px
-            );
+        width: min(calc(100% - 70px), 1400px);
     }
-
 
     .land-hero-inner {
-
-        width:
-            min(
-                calc(100% - 70px),
-                1400px
-            );
+        width: min(calc(100% - 70px), 1400px);
     }
 
-
     .land-page-hero {
-
         min-height: 650px;
     }
 
-
     .land-approach-heading {
-
         gap: 50px;
     }
 
-
     .land-service-grid {
-
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
+        grid-template-columns: repeat(2,minmax(0,1fr));
     }
 
 }
@@ -1207,285 +728,167 @@
 @media (max-width: 767px) {
 
     .land-site-shell {
-
-        width:
-            calc(100% - 36px);
+        width: calc(100% - 36px);
     }
-
 
     .land-hero-inner {
-
-        width:
-            calc(100% - 36px);
-
-        padding:
-            125px 0 65px;
+        width: calc(100% - 36px);
+        padding: 125px 0 65px;
     }
-
 
     .land-page-hero {
-
         min-height: 680px;
-
         align-items: flex-end;
-
-        background-position:
-            60% center;
+        background-position: 60% center;
     }
 
-
     .land-page-hero::after {
-
         width: 100%;
-
         background:
             linear-gradient(
                 to bottom,
                 rgba(255,29,12,.015),
                 rgba(255,29,12,.055)
             );
-
         border-left: 0;
-
-        border-top:
-            1px solid rgba(255,29,12,.06);
+        border-top: 1px solid rgba(255,29,12,.06);
     }
-
 
     /* HERO */
 
     .land-hero-eyebrow {
-
         font-size: 8px;
-
         letter-spacing: .16em;
-
         gap: 8px;
     }
 
-
     .land-hero-eyebrow::before {
-
         width: 22px;
     }
 
-
     .land-hero-title {
-
-        font-size:
-            clamp(45px,13vw,64px);
-
+        font-size: clamp(45px,13vw,64px);
         line-height: .97;
     }
 
-
     .land-hero-description {
-
         max-width: 100%;
-
         margin-top: 22px;
-
         font-size: 13px;
-
         line-height: 1.75;
     }
 
-
     .land-hero-line {
-
         margin-top: 25px;
     }
 
-
     .land-hero-actions {
-
         width: 100%;
-
         margin-top: 25px;
-
         gap: 9px;
     }
 
-
     .land-btn {
-
         min-height: 49px;
-
-        padding:
-            0 18px;
-
+        padding: 0 18px;
         font-size: 8px;
-
         letter-spacing: .12em;
     }
 
-
     .land-hero-inner::after {
-
         margin-top: 42px;
-
         font-size: 7px;
-
         letter-spacing: .15em;
     }
 
-
-    /* =====================================================
-       MARQUEE
-    ===================================================== */
+    /* MARQUEE */
 
     .land-marquee {
-
-        padding:
-            17px 0;
+        padding: 17px 0;
     }
 
-
     .land-marquee-track span {
-
         font-size: 8px;
-
         letter-spacing: .17em;
     }
 
-
     .land-marquee-track i {
-
-        margin:
-            0 20px;
+        margin: 0 20px;
     }
 
-
-    /* =====================================================
-       SECTION
-    ===================================================== */
+    /* SECTION */
 
     .land-section {
-
-        padding:
-            70px 0 80px;
+        padding: 70px 0 80px;
     }
 
-
-    /* =====================================================
-       APPROACH HEADING
-    ===================================================== */
+    /* APPROACH HEADING */
 
     .land-approach-heading {
-
         display: block;
-
         margin-top: 45px;
     }
 
-
     .land-approach-title {
-
-        font-size:
-            clamp(45px,13vw,60px);
-
+        font-size: clamp(45px,13vw,60px);
         line-height: .97;
     }
 
-
     .land-approach-copy {
-
         max-width: 100%;
-
         margin-top: 25px;
-
         font-size: 12.5px;
     }
 
-
-    /* =====================================================
-       QUOTE
-    ===================================================== */
+    /* QUOTE */
 
     .land-quote {
-
         margin-top: 65px;
-
-        padding:
-            30px 0 30px 25px;
+        padding: 30px 0 30px 25px;
     }
 
-
     .land-quote p {
-
-        font-size:
-            clamp(31px,9vw,46px);
-
+        font-size: clamp(31px,9vw,46px);
         line-height: 1.02;
     }
 
-
-    /* =====================================================
-       SERVICE GRID
-    ===================================================== */
+    /* SERVICE GRID */
 
     .land-service-grid {
-
         margin-top: 60px;
-
         grid-template-columns: 1fr;
-
         gap: 1px;
     }
 
-
     .land-service-tile {
-
         min-height: 285px;
-
-        padding:
-            28px 24px;
+        padding: 28px 24px;
     }
 
-
     .land-service-tile h3 {
-
         margin-top: 45px;
-
         font-size: 31px;
     }
 
-
     .land-service-tile p {
-
         margin-top: 20px;
-
         font-size: 11.5px;
     }
 
-
-    /* =====================================================
-       CTA
-    ===================================================== */
+    /* CTA */
 
     .land-cta-band {
-
         min-height: 400px;
-
-        padding:
-            80px 25px;
+        padding: 80px 25px;
     }
-
 
     .land-cta-band p {
-
-        font-size:
-            clamp(43px,12vw,60px);
+        font-size: clamp(43px,12vw,60px);
     }
 
-
     .land-cta-button {
-
         min-height: 52px;
-
-        padding:
-            0 21px;
-
+        padding: 0 21px;
         font-size: 8px;
     }
 
@@ -1499,65 +902,43 @@
 @media (max-width: 420px) {
 
     .land-site-shell {
-
-        width:
-            calc(100% - 30px);
+        width: calc(100% - 30px);
     }
 
-
     .land-hero-inner {
-
-        width:
-            calc(100% - 30px);
-
+        width: calc(100% - 30px);
         padding-top: 112px;
     }
 
-
     .land-page-hero {
-
         min-height: 670px;
     }
 
-
     .land-hero-title {
-
         font-size: 44px;
     }
 
-
     .land-approach-title {
-
         font-size: 43px;
     }
 
-
     .land-quote p {
-
         font-size: 30px;
     }
 
-
     .land-service-tile h3 {
-
         font-size: 28px;
     }
 
-
     .land-cta-band p {
-
         font-size: 42px;
     }
 
-
     .land-btn {
-
         width: 100%;
     }
 
-
     .land-hero-actions {
-
         width: 100%;
     }
 
@@ -1577,28 +958,347 @@
     .land-hero-line,
     .land-hero-actions,
     .land-hero-inner::after {
-
         animation: none !important;
-
         opacity: 1;
-
         transform: none;
     }
 
-
     .land-marquee-track {
-
         animation: none !important;
     }
-
 
     .land-service-tile,
     .land-btn,
     .land-cta-button {
-
         transition: none !important;
     }
 
+}
+
+
+/* =========================================================
+   ADDITIONS: 15px PARAGRAPHS, LIGHT SECTIONS, GRIDS, FAQ
+========================================================= */
+
+/* 15px paragraphs (overrides the smaller class sizes, including mobile) */
+.land-hero-description,
+.land-approach-copy,
+.land-service-tile p,
+.land-faq-answer p {
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+
+/* ---------- DARK SECTION EXTRAS (circles) ---------- */
+
+.land-dark-section {
+    position: relative;
+    overflow: hidden;
+    background: #111111;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.land-dark-section::before {
+    content: "";
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    right: -200px;
+    top: -260px;
+    border: 1px solid rgba(255,29,12,.16);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.land-dark-section::after {
+    content: "";
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    left: -160px;
+    bottom: -190px;
+    border: 1px solid rgba(255,29,12,.10);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.land-dark-section .land-site-shell {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* ---------- LIGHT SECTIONS ---------- */
+
+.land-light-section {
+    background: #f7f4ed;
+    color: #111111;
+    border-top: 1px solid rgba(17,17,17,.08);
+}
+
+.land-light-section .land-section-eyebrow { color: #ff1d0c; }
+.land-light-section .land-approach-title { color: #111111; }
+.land-light-section .land-approach-title em { color: #55504a; }
+.land-light-section .land-approach-copy { color: rgba(17,17,17,.62); }
+
+
+/* ---------- OPTION GRID (light cells) ---------- */
+
+.land-option-grid {
+    margin-top: 75px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 1px;
+    background: rgba(17,17,17,.13);
+    border: 1px solid rgba(17,17,17,.13);
+}
+
+.land-option-grid.is-three {
+    grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.land-option-item {
+    position: relative;
+    min-height: 220px;
+    padding: 34px 30px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 38px;
+    background: #ffffff;
+    transition: background .35s ease;
+}
+
+.land-option-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff1d0c;
+    transition: width .45s cubic-bezier(.22,1,.36,1);
+}
+
+.land-option-item:hover { background: #faf9f6; }
+.land-option-item:hover::before { width: 100%; }
+
+.land-option-num {
+    color: #ff1d0c;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.land-option-item h3 {
+    margin: 0;
+    color: #111111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(26px, 2.6vw, 34px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -.025em;
+}
+
+
+/* ---------- EVALUATION GRID (dark cells) ---------- */
+
+.land-eval-grid {
+    margin-top: 75px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 1px;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.09);
+}
+
+.land-eval-item {
+    position: relative;
+    min-height: 200px;
+    padding: 34px 30px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 38px;
+    background: #111111;
+    transition: background .35s ease;
+}
+
+.land-eval-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff1d0c;
+    transition: width .45s cubic-bezier(.22,1,.36,1);
+}
+
+.land-eval-item:hover { background: #181818; }
+.land-eval-item:hover::before { width: 100%; }
+
+.land-eval-item.is-wide { grid-column: 1 / -1; min-height: 160px; }
+
+.land-eval-num {
+    color: #ff1d0c;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+}
+
+.land-eval-item h3 {
+    margin: 0;
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(23px, 2.2vw, 29px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -.02em;
+}
+
+
+/* ---------- FAQ ACCORDION ---------- */
+
+.land-faq-list {
+    margin-top: 85px;
+    border-top: 1px solid rgba(17,17,17,.13);
+}
+
+.land-faq-item {
+    border-bottom: 1px solid rgba(17,17,17,.13);
+    transition: background .35s ease;
+}
+
+.land-faq-item:hover,
+.land-faq-item[open] { background: #faf9f6; }
+
+.land-faq-item summary {
+    display: grid;
+    grid-template-columns: 90px minmax(0,1fr) 46px;
+    gap: 30px;
+    align-items: center;
+    padding: 34px 15px 34px 0;
+    cursor: pointer;
+    list-style: none;
+}
+
+.land-faq-item summary::-webkit-details-marker { display: none; }
+
+.land-faq-num {
+    padding-left: 15px;
+    color: #ff1d0c;
+    font-family: "Manrope", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+}
+
+.land-faq-q {
+    margin: 0;
+    color: #111111;
+    font-family: "Times New Roman", Times, serif;
+    font-size: clamp(22px, 2.4vw, 32px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -.025em;
+}
+
+.land-faq-icon {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255,29,12,.28);
+    border-radius: 50%;
+    transition: background .3s ease, border-color .3s ease, transform .4s ease;
+}
+
+.land-faq-icon::before,
+.land-faq-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 1px;
+    background: #ff1d0c;
+    transform: translate(-50%, -50%);
+    transition: background .3s ease, transform .4s ease;
+}
+
+.land-faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+
+.land-faq-item[open] .land-faq-icon {
+    background: #ff1d0c;
+    border-color: #ff1d0c;
+    transform: rotate(180deg);
+}
+
+.land-faq-item[open] .land-faq-icon::before { background: #ffffff; }
+
+.land-faq-item[open] .land-faq-icon::after {
+    background: #ffffff;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.land-faq-answer {
+    padding: 0 76px 40px 120px;
+}
+
+.land-faq-answer p {
+    max-width: 760px;
+    margin: 0;
+    color: rgba(17,17,17,.62);
+    font-family: "Manrope", sans-serif;
+}
+
+.land-faq-item[open] .land-faq-answer {
+    animation: landFaqOpen .45s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes landFaqOpen {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ---------- RESPONSIVE (ADDITIONS) ---------- */
+
+@media (max-width: 1100px) {
+    .land-option-grid,
+    .land-option-grid.is-three { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .land-eval-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .land-eval-item.is-wide { grid-column: auto; min-height: 200px; }
+    .land-faq-answer { padding: 0 20px 36px 120px; }
+}
+
+@media (max-width: 767px) {
+    .land-option-grid,
+    .land-option-grid.is-three { margin-top: 50px; grid-template-columns: 1fr; }
+    .land-option-item { min-height: 160px; padding: 28px 24px 30px; gap: 26px; }
+    .land-eval-grid { margin-top: 50px; grid-template-columns: 1fr; }
+    .land-eval-item { min-height: 160px; padding: 28px 24px 30px; gap: 26px; }
+    .land-faq-list { margin-top: 55px; }
+    .land-faq-item summary {
+        grid-template-columns: 34px minmax(0,1fr) 38px;
+        gap: 14px;
+        padding: 26px 10px 26px 0;
+    }
+    .land-faq-num { padding-left: 8px; }
+    .land-faq-icon { width: 38px; height: 38px; }
+    .land-faq-answer { padding: 0 10px 30px 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .land-option-item, .land-option-item::before,
+    .land-eval-item, .land-eval-item::before,
+    .land-faq-item, .land-faq-icon, .land-faq-icon::before, .land-faq-icon::after {
+        transition: none !important;
+    }
+    .land-faq-item[open] .land-faq-answer { animation: none !important; }
 }
 
 </style>
@@ -1611,387 +1311,426 @@
 <div class="land-page">
 
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
-
+    <!-- HERO -->
     <section class="land-page-hero">
-
         <div class="land-hero-inner">
 
-
-            <!-- EYEBROW -->
-
-            <p class="land-hero-eyebrow">
-
-                LAND DEALS
-
-            </p>
-
-
-            <!-- TITLE -->
+            <p class="land-hero-eyebrow">LAND DEALS</p>
 
             <h1 class="land-hero-title">
-
-                The Right Land Creates<br>
-
-                <em>the Next Big Opportunity.</em>
-
+                Land Deals in Dubai<br>
+                <em>The Foundation of Real Value Creation.</em>
             </h1>
-
-
-            <!-- RED LINE -->
 
             <div class="land-hero-line"></div>
 
-
-            <!-- DESCRIPTION -->
-
             <p class="land-hero-description">
-
-                Identify, evaluate and structure strategic
-                land opportunities across Dubai with a focus
-                on location, development potential and
-                long-term value creation.
-
+                In Dubai, land for sale Dubai-wide isn't just square footage —
+                it's the foundation of every future development, yield and
+                long-term value gain. Nexurban connects qualified investors,
+                developers and strategic buyers with carefully identified land
+                for sale Dubai opportunities across high-potential locations.
             </p>
 
-
-            <!-- BUTTONS -->
-
             <div class="land-hero-actions">
-
-
-                <a
-                    href="{% url 'contact' %}"
-                    class="land-btn land-btn-primary"
-                >
-
-                    START A CONVERSATION
-
-                    <span class="land-btn-arrow">
-                        ↗
-                    </span>
-
+                <a href="#land-evaluation" class="land-btn land-btn-primary">
+                    EXPLORE LAND OPPORTUNITIES
+                    <span class="land-btn-arrow">↗</span>
                 </a>
-
-
-                <a
-                    href="{% url 'joint-development' %}"
-                    class="land-btn land-btn-outline"
-                >
-
-                    JOINT DEVELOPMENTS
-
+                <a href="{% url 'contact' %}" class="land-btn land-btn-outline">
+                    BOOK A CONSULTATION
                 </a>
-
-
             </div>
 
         </div>
-
     </section>
 
 
-
-    <!-- =====================================================
-         MARQUEE
-    ====================================================== -->
-
+    <!-- MARQUEE -->
     <div class="land-marquee">
-
         <div class="land-marquee-track">
-
-
             <span>
-
+                <i></i> LAND FOR SALE DUBAI
+                <i></i> DUBAI LAND INVESTMENT
+                <i></i> FREEHOLD LAND DUBAI
+                <i></i> LAND ACQUISITION DUBAI
+                <i></i> PLOT FOR SALE DUBAI
                 <i></i>
-                IDENTIFY
-
-                <i></i>
-                EVALUATE
-
-                <i></i>
-                STRUCTURE
-
-                <i></i>
-                LOCATION
-
-                <i></i>
-                DEVELOPMENT POTENTIAL
-
-                <i></i>
-                LONG-TERM VALUE
-
-                <i></i>
-
             </span>
-
-
             <span>
-
+                <i></i> LAND FOR SALE DUBAI
+                <i></i> DUBAI LAND INVESTMENT
+                <i></i> FREEHOLD LAND DUBAI
+                <i></i> LAND ACQUISITION DUBAI
+                <i></i> PLOT FOR SALE DUBAI
                 <i></i>
-                IDENTIFY
-
-                <i></i>
-                EVALUATE
-
-                <i></i>
-                STRUCTURE
-
-                <i></i>
-                LOCATION
-
-                <i></i>
-                DEVELOPMENT POTENTIAL
-
-                <i></i>
-                LONG-TERM VALUE
-
-                <i></i>
-
             </span>
-
-
         </div>
-
     </div>
 
 
-
-    <!-- =====================================================
-         MAIN CONTENT
-    ====================================================== -->
-
     <main class="land-main">
 
-
-        <!-- =================================================
-             LAND APPROACH
-        ================================================== -->
-
-        <section class="land-section">
-
+        <!-- 1. WHY INVESTORS BUY LAND (light) -->
+        <section class="land-section land-light-section">
             <div class="land-site-shell">
 
-
-                <!-- EYEBROW -->
-
-                <p class="land-section-eyebrow">
-
-                    THE LAND APPROACH
-
-                </p>
-
-
-
-                <!-- HEADING -->
+                <p class="land-section-eyebrow">WHY LAND</p>
 
                 <div class="land-approach-heading">
-
-
                     <div>
-
                         <h2 class="land-approach-title">
-
-                            Strategic land.
+                            Why Investors
                             <br>
-
-                            <em>Real opportunity.</em>
-
+                            <em>Buy Land in Dubai</em>
                         </h2>
-
                     </div>
-
 
                     <p class="land-approach-copy">
-
-                        Identify, evaluate and structure strategic
-                        land opportunities across Dubai with a
-                        focus on location, development potential
-                        and long-term value creation.
-
+                        Investors choose to buy land in Dubai for the flexibility
+                        it offers — the ability to develop, hold, joint-venture or
+                        resell as the market and master-plan infrastructure mature
+                        around a site. Compared to completed property, a Dubai land
+                        investment offers a longer value-creation runway and greater
+                        control over eventual use.
                     </p>
-
-
                 </div>
 
+                <div class="land-option-grid">
 
+                    <div class="land-option-item">
+                        <span class="land-option-num">01</span>
+                        <h3>Develop</h3>
+                    </div>
 
-                <!-- =================================================
-                     QUOTE
-                ================================================== -->
+                    <div class="land-option-item">
+                        <span class="land-option-num">02</span>
+                        <h3>Hold</h3>
+                    </div>
 
-                <div class="land-quote">
+                    <div class="land-option-item">
+                        <span class="land-option-num">03</span>
+                        <h3>Joint-venture</h3>
+                    </div>
 
-                    <p>
-
-                        Identify, evaluate and structure strategic
-                        land opportunities across Dubai with a
-                        focus on
-
-                        <em>
-                            location, development potential and
-                            long-term value creation
-                        </em>.
-
-                    </p>
+                    <div class="land-option-item">
+                        <span class="land-option-num">04</span>
+                        <h3>Resell</h3>
+                    </div>
 
                 </div>
-
-
-
-                <!-- =================================================
-                     SERVICE GRID
-                ================================================== -->
-
-                <div class="land-service-grid">
-
-
-                    <!-- IDENTIFY -->
-
-                    <div class="land-service-tile">
-
-
-                        <span class="land-service-number">
-
-                            01
-
-                        </span>
-
-
-                        <h3>
-
-                            IDENTIFY
-
-                        </h3>
-
-
-                        <p>
-
-                            Strategic land opportunities across
-                            Dubai with a focus on location,
-                            development potential and
-                            long-term value creation.
-
-                        </p>
-
-
-                    </div>
-
-
-
-                    <!-- EVALUATE -->
-
-                    <div class="land-service-tile">
-
-
-                        <span class="land-service-number">
-
-                            02
-
-                        </span>
-
-
-                        <h3>
-
-                            EVALUATE
-
-                        </h3>
-
-
-                        <p>
-
-                            Strategic land opportunities across
-                            Dubai with a focus on location,
-                            development potential and
-                            long-term value creation.
-
-                        </p>
-
-
-                    </div>
-
-
-
-                    <!-- STRUCTURE -->
-
-                    <div class="land-service-tile">
-
-
-                        <span class="land-service-number">
-
-                            03
-
-                        </span>
-
-
-                        <h3>
-
-                            STRUCTURE
-
-                        </h3>
-
-
-                        <p>
-
-                            Strategic land opportunities across
-                            Dubai with a focus on location,
-                            development potential and
-                            long-term value creation.
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
 
             </div>
-
         </section>
 
 
+        <!-- 2. HOW WE EVALUATE (black) -->
+        <section class="land-section land-dark-section" id="land-evaluation">
+            <div class="land-site-shell">
 
-        <!-- =================================================
-             CTA
-        ================================================== -->
+                <p class="land-section-eyebrow">OUR EVALUATION</p>
 
+                <div class="land-approach-heading">
+                    <div>
+                        <h2 class="land-approach-title">
+                            How We Evaluate Every
+                            <em>Land Opportunity</em>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="land-eval-grid">
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">01</span>
+                        <h3>Location &amp; connectivity to current and planned infrastructure</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">02</span>
+                        <h3>Plot size and configuration</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">03</span>
+                        <h3>Zoning &amp; development potential</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">04</span>
+                        <h3>Permitted use — residential, commercial, mixed-use</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">05</span>
+                        <h3>Market demand for the surrounding area</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">06</span>
+                        <h3>Development feasibility</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">07</span>
+                        <h3>Acquisition value relative to comparable transactions</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">08</span>
+                        <h3>Highest &amp; best use</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">09</span>
+                        <h3>Development potential</h3>
+                    </div>
+
+                    <div class="land-eval-item is-wide">
+                        <span class="land-eval-num">10</span>
+                        <h3>Exit strategy</h3>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 3. FREEHOLD LAND OWNERSHIP (light) -->
+        <section class="land-section land-light-section">
+            <div class="land-site-shell">
+
+                <p class="land-section-eyebrow">FREEHOLD OWNERSHIP</p>
+
+                <div class="land-approach-heading">
+                    <div>
+                        <h2 class="land-approach-title">
+                            Freehold Land Ownership
+                            <em>for Investors</em>
+                        </h2>
+                    </div>
+
+                    <p class="land-approach-copy">
+                        Selected zones in Dubai permit freehold land Dubai
+                        ownership for foreign investors, opening the door to
+                        direct land acquisition — not just completed units.
+                        Nexurban helps international buyers navigate eligible
+                        zones, title verification and the full land acquisition
+                        Dubai process from due diligence to registration.
+                    </p>
+                </div>
+
+                <div class="land-option-grid is-three">
+
+                    <div class="land-option-item">
+                        <span class="land-option-num">01</span>
+                        <h3>Eligible zones</h3>
+                    </div>
+
+                    <div class="land-option-item">
+                        <span class="land-option-num">02</span>
+                        <h3>Title verification</h3>
+                    </div>
+
+                    <div class="land-option-item">
+                        <span class="land-option-num">03</span>
+                        <h3>Due diligence to registration</h3>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 4. BUY / UNDERSTAND / BUILD (black) -->
+        <section class="land-section land-dark-section">
+            <div class="land-site-shell">
+
+                <p class="land-section-eyebrow">THE ADVISORY PROCESS</p>
+
+                <div class="land-approach-heading">
+                    <div>
+                        <h2 class="land-approach-title">
+                            Buy the Land. Understand the Potential.
+                            <em>Build the Value.</em>
+                        </h2>
+                    </div>
+
+                    <p class="land-approach-copy">
+                        A plot for sale Dubai is only valuable if its zoning,
+                        location and timing align with genuine demand. Our
+                        advisory process ensures you're not just acquiring land —
+                        you're acquiring a defined, evaluated opportunity with a
+                        clear path to value creation.
+                    </p>
+                </div>
+
+                <div class="land-eval-grid">
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">01 / BUY</span>
+                        <h3>Buy the land</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">02 / UNDERSTAND</span>
+                        <h3>Understand the potential</h3>
+                    </div>
+
+                    <div class="land-eval-item">
+                        <span class="land-eval-num">03 / BUILD</span>
+                        <h3>Build the value</h3>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 5. FAQ ACCORDION (light) -->
+        <section class="land-section land-light-section">
+            <div class="land-site-shell">
+
+                <p class="land-section-eyebrow">FAQ</p>
+
+                <div class="land-approach-heading">
+                    <div>
+                        <h2 class="land-approach-title">
+                            Land Buying
+                            <em>Questions Answered</em>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="land-faq-list">
+
+                    <details class="land-faq-item" open>
+                        <summary>
+                            <span class="land-faq-num">01</span>
+                            <h3 class="land-faq-q">Can foreigners buy land in Dubai?</h3>
+                            <span class="land-faq-icon"></span>
+                        </summary>
+                        <div class="land-faq-answer">
+                            <p>
+                                Yes — foreign nationals can acquire freehold land in
+                                designated investment zones across Dubai, subject to
+                                Dubai Land Department regulations. Nexurban confirms
+                                eligibility and zoning for every opportunity we
+                                present.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="land-faq-item">
+                        <summary>
+                            <span class="land-faq-num">02</span>
+                            <h3 class="land-faq-q">What should I check before buying land in Dubai?</h3>
+                            <span class="land-faq-icon"></span>
+                        </summary>
+                        <div class="land-faq-answer">
+                            <p>
+                                Key checks include zoning and permitted use, title
+                                deed verification, plot dimensions and boundaries,
+                                infrastructure access, and any outstanding service
+                                charges or development conditions attached to the
+                                plot.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="land-faq-item">
+                        <summary>
+                            <span class="land-faq-num">03</span>
+                            <h3 class="land-faq-q">Is buying land a good investment compared to buying a built property in Dubai?</h3>
+                            <span class="land-faq-icon"></span>
+                        </summary>
+                        <div class="land-faq-answer">
+                            <p>
+                                Land can offer higher long-term upside since value is
+                                unlocked through development or master-plan growth,
+                                but it also carries different risk — no immediate
+                                rental income and dependency on future zoning or
+                                infrastructure changes. It suits investors with a
+                                longer time horizon and development appetite.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="land-faq-item">
+                        <summary>
+                            <span class="land-faq-num">04</span>
+                            <h3 class="land-faq-q">What is the process for buying land in Dubai?</h3>
+                            <span class="land-faq-icon"></span>
+                        </summary>
+                        <div class="land-faq-answer">
+                            <p>
+                                The process typically involves identifying an
+                                eligible plot, verifying title and zoning with the
+                                relevant land authority, agreeing terms, and
+                                completing registration and transfer through the
+                                Dubai Land Department. Nexurban coordinates each step
+                                on the buyer's behalf.
+                            </p>
+                        </div>
+                    </details>
+
+                    <details class="land-faq-item">
+                        <summary>
+                            <span class="land-faq-num">05</span>
+                            <h3 class="land-faq-q">Can I develop the land myself after purchase, or do I need a partner?</h3>
+                            <span class="land-faq-icon"></span>
+                        </summary>
+                        <div class="land-faq-answer">
+                            <p>
+                                You can develop independently if you have the capital
+                                and expertise, or structure a joint development or
+                                joint venture with an experienced developer — a
+                                common approach for landowners who prefer to share
+                                execution risk. Nexurban can facilitate either path.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CTA (black) -->
         <section class="land-cta-band">
 
-
             <p>
-
-                Buy the land. Understand the potential.
+                The Right Land Creates
                 <br>
-
-                <em>Build the value.</em>
-
+                <em>the Next Big Opportunity.</em>
             </p>
 
-
-            <a
-                href="{% url 'contact' %}"
-                class="land-cta-button"
-            >
-
-                SPEAK TO AN EXPERT
-
-                <span>
-                    ↗
-                </span>
-
+            <a href="{% url 'contact' %}" class="land-cta-button">
+                BOOK A CONSULTATION
+                <span>↗</span>
             </a>
 
-
         </section>
-
 
     </main>
 
-
 </div>
+
+<script>
+    /* Keep only one FAQ open at a time */
+    document.querySelectorAll('.land-faq-item').forEach(function (item) {
+        item.addEventListener('toggle', function () {
+            if (item.open) {
+                document.querySelectorAll('.land-faq-item[open]').forEach(function (other) {
+                    if (other !== item) other.removeAttribute('open');
+                });
+            }
+        });
+    });
+</script>
 
 {% endblock %}

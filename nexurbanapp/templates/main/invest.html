@@ -293,7 +293,7 @@
         "Manrope",
         sans-serif;
 
-    font-size: 14px;
+    font-size: 15px;
 
     font-weight: 400;
 
@@ -826,7 +826,7 @@
         "Manrope",
         sans-serif;
 
-    font-size: 12px;
+    font-size: 15px;
 
     font-weight: 400;
 
@@ -1374,6 +1374,486 @@
 
 }
 
+
+/* =========================================================
+   ADDITIONS FOR NEW CONTENT SECTIONS
+   (reuses the same fonts, colours and grid language above —
+   nothing above this line was changed)
+========================================================= */
+
+/* ---------- Body copy under quotes ---------- */
+
+.inv-body-copy {
+
+    max-width: 760px;
+
+    margin:
+        36px 0 0;
+
+    color:
+        rgba(247,244,237,.62);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* ---------- Two-column variant of the dark grid ---------- */
+
+.inv-service-grid-two {
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+}
+
+
+.inv-service-grid-two .inv-service-description {
+
+    max-width: 460px;
+}
+
+
+/* ---------- Light section (mirrors the dark approach section) ---------- */
+
+.inv-light {
+
+    width: 100%;
+
+    background: #f7f4ed;
+
+    color: #111111;
+}
+
+
+.inv-light .inv-quote p {
+
+    color: #111111;
+}
+
+
+.inv-light .inv-quote em {
+    color: #55504a;
+}
+
+
+.inv-light .inv-body-copy {
+
+    color:
+        rgba(17,17,17,.62);
+}
+
+
+.inv-light-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0,1fr));
+
+    margin-top: 75px;
+
+    border-top:
+        1px solid rgba(17,17,17,.14);
+
+    border-left:
+        1px solid rgba(17,17,17,.14);
+}
+
+
+.inv-light-grid-four {
+
+    grid-template-columns:
+        repeat(4, minmax(0,1fr));
+}
+
+
+.inv-light-tile {
+
+    min-height: 250px;
+
+    padding:
+        36px 35px;
+
+    border-right:
+        1px solid rgba(17,17,17,.14);
+
+    border-bottom:
+        1px solid rgba(17,17,17,.14);
+
+    transition:
+        background .4s ease;
+}
+
+
+.inv-light-tile:hover {
+
+    background:
+        rgba(17,17,17,.03);
+}
+
+
+.inv-light-number {
+
+    display: block;
+
+    color:
+        rgba(17,17,17,.4);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .16em;
+}
+
+
+.inv-light-title {
+
+    margin:
+        60px 0 0;
+
+    color: #111111;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 26px;
+
+    font-weight: 400;
+
+    line-height: 1.08;
+
+    letter-spacing: -.025em;
+}
+
+
+.inv-light-description {
+
+    max-width: 340px;
+
+    margin:
+        20px 0 0;
+
+    color:
+        rgba(17,17,17,.6);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.8;
+}
+
+
+/* ---------- FAQ ---------- */
+
+.inv-faq-list {
+
+    margin-top: 65px;
+
+    border-top:
+        1px solid rgba(247,244,237,.14);
+}
+
+
+.inv-faq-item {
+
+    border-bottom:
+        1px solid rgba(247,244,237,.14);
+}
+
+
+.inv-faq-item summary {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    padding:
+        32px 0;
+
+    cursor: pointer;
+
+    list-style: none;
+}
+
+
+.inv-faq-item summary::-webkit-details-marker {
+
+    display: none;
+}
+
+
+.inv-faq-item summary:focus-visible {
+
+    outline: 1px solid #ff1d0c;
+
+    outline-offset: 4px;
+}
+
+
+.inv-faq-question {
+
+    margin: 0;
+
+    color: #f7f4ed;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size:
+        clamp(22px, 2.5vw, 32px);
+
+    font-weight: 400;
+
+    line-height: 1.12;
+
+    letter-spacing: -.025em;
+
+    transition:
+        color .3s ease;
+}
+
+
+.inv-faq-item summary:hover
+.inv-faq-question {
+
+    color: #e8dfd1;
+}
+
+
+.inv-faq-icon {
+
+    position: relative;
+
+    width: 16px;
+
+    height: 16px;
+
+    flex-shrink: 0;
+}
+
+
+.inv-faq-icon::before,
+.inv-faq-icon::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 1px;
+
+    background: #ff1d0c;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.inv-faq-icon::after {
+
+    transform:
+        rotate(90deg);
+}
+
+
+.inv-faq-item[open] .inv-faq-icon::after {
+
+    transform:
+        rotate(0deg);
+}
+
+
+.inv-faq-answer {
+
+    max-width: 800px;
+
+    margin: 0;
+
+    padding:
+        0 60px 34px 0;
+
+    color:
+        rgba(247,244,237,.6);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* ---------- CTA band copy ---------- */
+
+.inv-cta-copy {
+
+    max-width: 760px;
+}
+
+
+.inv-cta-description {
+
+    max-width: 560px;
+
+    margin:
+        28px 0 0;
+
+    color:
+        rgba(17,17,17,.62);
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* ---------- Additions: tablet ---------- */
+
+@media (max-width: 1100px) {
+
+    .inv-light-grid-four {
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+    }
+
+}
+
+
+/* ---------- Additions: mobile ---------- */
+
+@media (max-width: 767px) {
+
+    .inv-body-copy,
+    .inv-faq-answer,
+    .inv-cta-description {
+
+        font-size: 13px;
+
+        line-height: 1.75;
+    }
+
+
+    .inv-body-copy {
+
+        margin-top: 26px;
+    }
+
+
+    .inv-service-grid-two {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .inv-light-grid,
+    .inv-light-grid-four {
+
+        grid-template-columns: 1fr;
+
+        margin-top: 48px;
+    }
+
+
+    .inv-light-tile {
+
+        min-height: 200px;
+
+        padding:
+            28px 24px;
+    }
+
+
+    .inv-light-title {
+
+        margin-top: 45px;
+
+        font-size: 25px;
+    }
+
+
+    .inv-light-description {
+
+        font-size: 11.5px;
+    }
+
+
+    .inv-faq-list {
+
+        margin-top: 45px;
+    }
+
+
+    .inv-faq-item summary {
+
+        padding:
+            24px 0;
+
+        gap: 20px;
+    }
+
+
+    .inv-faq-answer {
+
+        padding:
+            0 0 26px;
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .inv-light-tile,
+    .inv-faq-question,
+    .inv-faq-icon::before,
+    .inv-faq-icon::after {
+
+        transition: none !important;
+    }
+
+}
+
 </style>
 
 {% endblock %}
@@ -1395,7 +1875,7 @@
         <!-- EYEBROW -->
 
         <p class="inv-hero-eyebrow">
-            INVEST
+            INVEST IN DUBAI
         </p>
 
 
@@ -1403,9 +1883,9 @@
 
         <h1 class="inv-hero-title">
 
-            Invest In Real Assets,<br>
+            Invest in Dubai Real Estate <br>
 
-            <em>Not Just Real Estate.</em>
+            <em>With Strategy, Not Guesswork.</em>
 
         </h1>
 
@@ -1419,11 +1899,7 @@
 
         <p class="inv-hero-description">
 
-            Identify properties with compelling
-            potential for capital appreciation,
-            rental income and long-term wealth
-            creation.
-
+         Dubai is a leading real estate investment destination, supported by population growth, tax advantages and a transparent regulatory framework. At Nexurban Properties, we help investors find opportunities aligned with their capital, timeline and goals — not just market trends.
         </p>
 
 
@@ -1437,7 +1913,7 @@
                 class="inv-button inv-button-primary"
             >
 
-                START A CONVERSATION
+                BOOK A CONSULTATION
 
                 <span class="inv-button-arrow">
                     ↗
@@ -1447,11 +1923,11 @@
 
 
             <a
-                href=""
+                href="#inv-evaluation"
                 class="inv-button inv-button-outline"
             >
 
-                INVESTMENT ADVISORY
+                HOW WE EVALUATE
 
             </a>
 
@@ -1477,19 +1953,23 @@
 
             <i></i>
 
-            CAPITAL APPRECIATION
+            DUBAI PROPERTY INVESTMENT
 
             <i></i>
 
-            RENTAL INCOME
+            RENTAL YIELD DUBAI
 
             <i></i>
 
-            LONG-TERM WEALTH CREATION
+            CAPITAL APPRECIATION DUBAI
 
             <i></i>
 
-            PROPERTY IDENTIFICATION
+            DUBAI INVESTMENT OPPORTUNITIES
+
+            <i></i>
+
+            BUY INVESTMENT PROPERTY DUBAI
 
         </span>
 
@@ -1498,19 +1978,23 @@
 
             <i></i>
 
-            CAPITAL APPRECIATION
+            DUBAI PROPERTY INVESTMENT
 
             <i></i>
 
-            RENTAL INCOME
+            RENTAL YIELD DUBAI
 
             <i></i>
 
-            LONG-TERM WEALTH CREATION
+            CAPITAL APPRECIATION DUBAI
 
             <i></i>
 
-            PROPERTY IDENTIFICATION
+            DUBAI INVESTMENT OPPORTUNITIES
+
+            <i></i>
+
+            BUY INVESTMENT PROPERTY DUBAI
 
         </span>
 
@@ -1522,7 +2006,7 @@
 
 
 <!-- =====================================================
-     INVEST APPROACH
+     WHY INVESTORS CHOOSE DUBAI
 ====================================================== -->
 
 <section class="inv-approach">
@@ -1530,13 +2014,13 @@
     <div class="inv-site-shell inv-section-pad">
 
 
-        <!-- EYEBROW -->
+        <!-- H2 -->
 
-        <p class="inv-section-eyebrow">
+        <h2 class="inv-section-eyebrow">
 
-            THE INVEST APPROACH
+            WHY INVESTORS CHOOSE DUBAI
 
-        </p>
+        </h2>
 
 
         <!-- QUOTE -->
@@ -1545,22 +2029,39 @@
 
             <p>
 
-                Identify properties with compelling
-                potential for
+                Zero property tax, freehold ownership
+                and rental yields of
 
                 <em>
-                    capital appreciation
-                </em>,
+                    6–9% gross
+                </em>
 
-                rental income and long-term
-                wealth creation.
+                in key communities.
 
             </p>
 
         </div>
 
 
-        <!-- SERVICE GRID -->
+        <!-- BODY -->
+
+        <p class="inv-body-copy">
+
+            Dubai's real estate market continues to attract
+            global investment destination status thanks to zero
+            property tax, high rental yield Dubai potential
+            (often 6–9% gross in key communities), freehold
+            ownership for foreign nationals, and a Golden Visa
+            pathway tied to property investment. Add to this
+            world-class infrastructure, safety and connectivity,
+            and it's easy to see why real estate investment Dubai
+            has become a core allocation for international
+            portfolios.
+
+        </p>
+
+
+        <!-- GRID -->
 
         <div class="inv-service-grid">
 
@@ -1575,17 +2076,16 @@
 
 
                 <h3 class="inv-service-title">
-                    CAPITAL<br>
-                    APPRECIATION
+                    ZERO<br>
+                    PROPERTY TAX
                 </h3>
 
 
                 <p class="inv-service-description">
 
-                    Identify properties positioned in
-                    high-growth corridors with strong
-                    fundamentals for long-term value
-                    uplift.
+                    Tax advantages and a transparent regulatory
+                    framework that support stronger net returns
+                    on every investment.
 
                 </p>
 
@@ -1603,17 +2103,15 @@
 
 
                 <h3 class="inv-service-title">
-                    RENTAL<br>
-                    INCOME
+                    HIGH RENTAL<br>
+                    YIELD
                 </h3>
 
 
                 <p class="inv-service-description">
 
-                    Access assets curated for stable,
-                    consistent yields and strong
-                    tenant demand across key
-                    submarkets.
+                    High rental yield Dubai potential — often
+                    6–9% gross in key communities.
 
                 </p>
 
@@ -1631,21 +2129,586 @@
 
 
                 <h3 class="inv-service-title">
-                    LONG-TERM WEALTH<br>
-                    CREATION
+                    FREEHOLD &amp;<br>
+                    GOLDEN VISA
                 </h3>
 
 
                 <p class="inv-service-description">
 
-                    Build a resilient portfolio
-                    designed around aligned
-                    objectives, sound advisory and
-                    disciplined execution.
+                    Freehold ownership for foreign nationals and
+                    a Golden Visa pathway tied to property
+                    investment.
 
                 </p>
 
             </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW NEXURBAN EVALUATES
+====================================================== -->
+
+<section class="inv-light" id="inv-evaluation">
+
+    <div class="inv-site-shell inv-section-pad">
+
+
+        <!-- H2 -->
+
+        <h2 class="inv-section-eyebrow">
+
+            HOW NEXURBAN EVALUATES EVERY INVESTMENT OPPORTUNITY
+
+        </h2>
+
+
+        <!-- QUOTE -->
+
+        <div class="inv-quote">
+
+            <p>
+
+                We don't sell listings — we
+
+                <em>
+                    underwrite opportunities.
+                </em>
+
+            </p>
+
+        </div>
+
+
+        <!-- BODY -->
+
+        <p class="inv-body-copy">
+
+            Our Dubai investment opportunities are assessed
+            across:
+
+        </p>
+
+
+        <!-- GRID -->
+
+        <div class="inv-light-grid inv-light-grid-four">
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">01</span>
+
+                <h3 class="inv-light-title">
+                    Entry price relative to comparable
+                    transactions
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">02</span>
+
+                <h3 class="inv-light-title">
+                    Payment structure and developer payment
+                    plan flexibility
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">03</span>
+
+                <h3 class="inv-light-title">
+                    Rental potential and realistic net yield
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">04</span>
+
+                <h3 class="inv-light-title">
+                    Capital appreciation trajectory and
+                    historic community performance
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">05</span>
+
+                <h3 class="inv-light-title">
+                    Service charges and their impact on net
+                    returns
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">06</span>
+
+                <h3 class="inv-light-title">
+                    Location dynamics — infrastructure,
+                    connectivity, master-plan growth
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">07</span>
+
+                <h3 class="inv-light-title">
+                    Developer track record and delivery
+                    history
+                </h3>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">08</span>
+
+                <h3 class="inv-light-title">
+                    Exit potential — resale liquidity and
+                    demand depth
+                </h3>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OFF-PLAN VS READY
+====================================================== -->
+
+<section class="inv-approach">
+
+    <div class="inv-site-shell inv-section-pad">
+
+
+        <!-- H2 -->
+
+        <h2 class="inv-section-eyebrow">
+
+            OFF-PLAN VS. READY — WHICH INVESTMENT FITS YOU?
+
+        </h2>
+
+
+        <!-- QUOTE -->
+
+        <div class="inv-quote">
+
+            <p>
+
+                Off-plan for capital growth. Ready for
+
+                <em>
+                    cash flow from day one.
+                </em>
+
+            </p>
+
+        </div>
+
+
+        <!-- GRID -->
+
+        <div class="inv-service-grid inv-service-grid-two">
+
+
+            <!-- 01 -->
+
+            <div class="inv-service-tile">
+
+                <span class="inv-service-number">
+                    01
+                </span>
+
+
+                <h3 class="inv-service-title">
+                    OFF-PLAN<br>
+                    INVESTMENT
+                </h3>
+
+
+                <p class="inv-service-description">
+
+                    For investors chasing capital growth and
+                    flexible payment plans, off-plan investment
+                    Dubai properties can offer entry pricing
+                    below market and structured payment
+                    schedules.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- 02 -->
+
+            <div class="inv-service-tile">
+
+                <span class="inv-service-number">
+                    02
+                </span>
+
+
+                <h3 class="inv-service-title">
+                    READY<br>
+                    PROPERTIES
+                </h3>
+
+
+                <p class="inv-service-description">
+
+                    For investors prioritising immediate cash
+                    flow, ready properties deliver rental income
+                    from day one.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- BODY -->
+
+        <p class="inv-body-copy">
+
+            Nexurban helps you decide which structure aligns
+            with your investment property Dubai strategy — and
+            sources the right project or unit accordingly.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WHO WE WORK WITH
+====================================================== -->
+
+<section class="inv-light">
+
+    <div class="inv-site-shell inv-section-pad">
+
+
+        <!-- H2 -->
+
+        <h2 class="inv-section-eyebrow">
+
+            WHO WE WORK WITH
+
+        </h2>
+
+
+        <!-- QUOTE -->
+
+        <div class="inv-quote">
+
+            <p>
+
+                From first-time investors to
+
+                <em>
+                    seasoned portfolio holders.
+                </em>
+
+            </p>
+
+        </div>
+
+
+        <!-- GRID -->
+
+        <div class="inv-light-grid">
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">01</span>
+
+                <h3 class="inv-light-title">
+                    FIRST-TIME<br>
+                    INVESTORS
+                </h3>
+
+                <p class="inv-light-description">
+
+                    Entering the Dubai market with full
+                    transaction support from discovery to
+                    handover.
+
+                </p>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">02</span>
+
+                <h3 class="inv-light-title">
+                    SEASONED<br>
+                    PORTFOLIO HOLDERS
+                </h3>
+
+                <p class="inv-light-description">
+
+                    Diversifying internationally with
+                    opportunities matched to capital, timeline
+                    and objective.
+
+                </p>
+
+            </div>
+
+
+            <div class="inv-light-tile">
+
+                <span class="inv-light-number">03</span>
+
+                <h3 class="inv-light-title">
+                    OVERSEAS<br>
+                    BUYERS
+                </h3>
+
+                <p class="inv-light-description">
+
+                    Buyers from India, the UK, Europe, the GCC,
+                    Africa and Asia looking to buy investment
+                    property Dubai remotely, with full
+                    transaction support from discovery to
+                    handover.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FAQ
+====================================================== -->
+
+<section class="inv-approach" id="inv-faq">
+
+    <div class="inv-site-shell inv-section-pad">
+
+
+        <!-- H2 -->
+
+        <h2 class="inv-section-eyebrow">
+
+            FAQ
+
+        </h2>
+
+
+        <!-- QUOTE -->
+
+        <div class="inv-quote">
+
+            <p>
+
+                Frequently asked
+
+                <em>
+                    questions.
+                </em>
+
+            </p>
+
+        </div>
+
+
+        <!-- LIST -->
+
+        <div class="inv-faq-list">
+
+
+            <!-- Q1 -->
+
+            <details class="inv-faq-item" open>
+
+                <summary>
+
+                    <h3 class="inv-faq-question">
+                        Is Dubai real estate a good investment in 2026?
+                    </h3>
+
+                    <span class="inv-faq-icon" aria-hidden="true"></span>
+
+                </summary>
+
+                <p class="inv-faq-answer">
+
+                    Yes — Dubai continues to record strong
+                    transaction volumes and rental demand,
+                    supported by population growth, no property
+                    tax and a stable regulatory environment.
+                    However, returns vary significantly by
+                    community, developer and entry price, which
+                    is why professional evaluation matters
+                    before you invest.
+
+                </p>
+
+            </details>
+
+
+            <!-- Q2 -->
+
+            <details class="inv-faq-item">
+
+                <summary>
+
+                    <h3 class="inv-faq-question">
+                        What is the minimum investment required to buy property in Dubai?
+                    </h3>
+
+                    <span class="inv-faq-icon" aria-hidden="true"></span>
+
+                </summary>
+
+                <p class="inv-faq-answer">
+
+                    Off-plan units in emerging communities can
+                    start from around AED 400,000–600,000, while
+                    ready properties in established areas
+                    typically start higher. Nexurban helps match
+                    your budget to opportunities with genuine
+                    investment potential rather than just the
+                    lowest price point.
+
+                </p>
+
+            </details>
+
+
+            <!-- Q3 -->
+
+            <details class="inv-faq-item">
+
+                <summary>
+
+                    <h3 class="inv-faq-question">
+                        Can foreigners invest in Dubai real estate?
+                    </h3>
+
+                    <span class="inv-faq-icon" aria-hidden="true"></span>
+
+                </summary>
+
+                <p class="inv-faq-answer">
+
+                    Yes. Dubai allows 100% freehold ownership for
+                    foreign nationals in designated investment
+                    zones, with no restriction on rental income
+                    repatriation, making it accessible for
+                    international investors.
+
+                </p>
+
+            </details>
+
+
+            <!-- Q4 -->
+
+            <details class="inv-faq-item">
+
+                <summary>
+
+                    <h3 class="inv-faq-question">
+                        What rental yields can I expect in Dubai?
+                    </h3>
+
+                    <span class="inv-faq-icon" aria-hidden="true"></span>
+
+                </summary>
+
+                <p class="inv-faq-answer">
+
+                    Gross rental yields in Dubai typically range
+                    from 5–9% depending on community, property
+                    type and market cycle — generally higher than
+                    many global gateway cities. Nexurban provides
+                    realistic, data-backed yield projections
+                    rather than inflated marketing figures.
+
+                </p>
+
+            </details>
+
+
+            <!-- Q5 -->
+
+            <details class="inv-faq-item">
+
+                <summary>
+
+                    <h3 class="inv-faq-question">
+                        Does investing in Dubai property qualify me for a UAE Golden Visa?
+                    </h3>
+
+                    <span class="inv-faq-icon" aria-hidden="true"></span>
+
+                </summary>
+
+                <p class="inv-faq-answer">
+
+                    Property investment above AED 2 million can
+                    qualify for the UAE's 10-year Golden Visa,
+                    subject to current immigration rules. Nexurban
+                    can guide you on structuring an investment
+                    that also supports visa eligibility.
+
+                </p>
+
+            </details>
 
 
         </div>
@@ -1665,12 +2728,27 @@
     <div class="inv-cta-band-inner">
 
 
-        <p class="inv-cta-text">
+        <div class="inv-cta-copy">
 
-            Your next investment starts<br>
-            with the right insight.
+            <h2 class="inv-cta-text">
 
-        </p>
+                Start your investment<br>
+                journey.
+
+            </h2>
+
+
+            <p class="inv-cta-description">
+
+                Every successful investment starts with a clear
+                objective. Tell us your budget, timeline and
+                goals, and our advisory team will shortlist
+                opportunities aligned with your Dubai real estate
+                investment strategy — not a generic catalogue.
+
+            </p>
+
+        </div>
 
 
         <a
@@ -1678,7 +2756,7 @@
             class="inv-cta-button"
         >
 
-            SPEAK TO AN EXPERT
+            SPEAK TO AN INVESTMENT ADVISOR
 
             <span class="inv-cta-arrow">
                 ↗
@@ -1692,5 +2770,59 @@
 </section>
 
 </div>
+
+
+<!-- =====================================================
+     FAQ SCHEMA (SEO)
+====================================================== -->
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Is Dubai real estate a good investment in 2026?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes — Dubai continues to record strong transaction volumes and rental demand, supported by population growth, no property tax and a stable regulatory environment. However, returns vary significantly by community, developer and entry price, which is why professional evaluation matters before you invest."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the minimum investment required to buy property in Dubai?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Off-plan units in emerging communities can start from around AED 400,000–600,000, while ready properties in established areas typically start higher. Nexurban helps match your budget to opportunities with genuine investment potential rather than just the lowest price point."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can foreigners invest in Dubai real estate?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Dubai allows 100% freehold ownership for foreign nationals in designated investment zones, with no restriction on rental income repatriation, making it accessible for international investors."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What rental yields can I expect in Dubai?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Gross rental yields in Dubai typically range from 5–9% depending on community, property type and market cycle — generally higher than many global gateway cities. Nexurban provides realistic, data-backed yield projections rather than inflated marketing figures."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Does investing in Dubai property qualify me for a UAE Golden Visa?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Property investment above AED 2 million can qualify for the UAE's 10-year Golden Visa, subject to current immigration rules. Nexurban can guide you on structuring an investment that also supports visa eligibility."
+            }
+        }
+    ]
+}
+</script>
 
 {% endblock %}

@@ -809,7 +809,39 @@
    MOBILE
 ========================================================= */
 
+@media (max-width: 1100px) {
+    .adv-portfolio-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 767px) {
+    .adv-portfolio-grid {
+        grid-template-columns: 1fr;
+        margin-top: 40px;
+    }
+
+    .adv-portfolio-card {
+        min-height: auto;
+        padding: 26px 22px;
+    }
+
+    .adv-portfolio-card h3 {
+        margin-top: 26px;
+    }
+
+    .adv-faq-question {
+        padding: 23px 0;
+        font-size: 21px;
+    }
+
+    .adv-faq-icon {
+        width: 27px;
+        height: 27px;
+        font-size: 15px;
+    }
+
+
 
     .adv-shell,
     .adv-hero-inner {
@@ -956,6 +988,144 @@
 
 
 /* =========================================================
+   PORTFOLIO CARDS — 4 IN ONE ROW
+========================================================= */
+
+.adv-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 55px;
+    border-top: 1px solid rgba(247,244,237,.14);
+    border-left: 1px solid rgba(247,244,237,.14);
+}
+
+.adv-portfolio-card {
+    min-height: 230px;
+    padding: 30px 26px;
+    border-right: 1px solid rgba(247,244,237,.14);
+    border-bottom: 1px solid rgba(247,244,237,.14);
+    background: transparent;
+    transition: transform .35s ease, background .35s ease;
+}
+
+.adv-portfolio-card:hover {
+    background: rgba(247,244,237,.035);
+    transform: translateY(-5px);
+}
+
+.adv-portfolio-card span {
+    display: block;
+    color: rgba(247,244,237,.38);
+    font-family: "Manrope", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.adv-portfolio-card h3 {
+    margin: 38px 0 0;
+    color: #f7f4ed;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.adv-portfolio-card p {
+    margin: 14px 0 0;
+    color: rgba(247,244,237,.53);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   FAQ — ANIMATED ACCORDION
+========================================================= */
+
+.adv-faq-list {
+    margin-top: 55px;
+    border-top: 1px solid rgba(17,17,17,.14);
+}
+
+.adv-faq-item {
+    border-bottom: 1px solid rgba(17,17,17,.14);
+}
+
+.adv-faq-question {
+    width: 100%;
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    background: transparent;
+    border: 0;
+    color: #111111;
+    text-align: left;
+    cursor: pointer;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.adv-faq-question span:first-child {
+    transition: color .3s ease;
+}
+
+.adv-faq-icon {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(17,17,17,.20);
+    border-radius: 50%;
+    font-family: "Manrope", sans-serif;
+    font-size: 17px;
+    line-height: 1;
+    transition: transform .35s ease, background .35s ease, color .35s ease;
+}
+
+.adv-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height .45s ease, opacity .3s ease, padding .45s ease;
+}
+
+.adv-faq-answer p {
+    max-width: 900px;
+    margin: 0;
+    padding: 0;
+    color: rgba(17,17,17,.58);
+    font-family: "Manrope", sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+.adv-faq-item.is-open .adv-faq-question span:first-child {
+    color: #ff1d0c;
+}
+
+.adv-faq-item.is-open .adv-faq-icon {
+    transform: rotate(45deg);
+    background: #ff1d0c;
+    border-color: #ff1d0c;
+    color: #ffffff;
+}
+
+.adv-faq-item.is-open .adv-faq-answer {
+    max-height: 300px;
+    opacity: 1;
+    padding-bottom: 28px;
+}
+
+
+/* =========================================================
    REDUCED MOTION
 ========================================================= */
 
@@ -993,7 +1163,6 @@
 
 <div class="adv-page">
 
-
 <!-- =====================================================
      HERO
 ====================================================== -->
@@ -1005,48 +1174,40 @@
         <div class="adv-hero-top">
 
             <div>
-
                 <p class="adv-hero-eyebrow">
-                    PROPERTY ADVISORY
+                    INVESTMENT ADVISORY
                 </p>
 
-               <h1 class="adv-hero-title">
-                Exceptional Properties.<br>
-                <em>Intelligent Investments.</em>
-            </h1>
-
-
+                <h1 class="adv-hero-title">
+                    Where Others See a Property.<br>
+                    <em>We See the Numbers Behind It.</em>
+                </h1>
             </div>
 
             <div class="adv-hero-side">
-                <p>
-                    Go beyond listings with market intelligence,
-                    location analysis, investment assessment and
-                    personalised property strategy.
+                <p style="font-size:15px;">
+                    Nexurban's real estate investment advisory Dubai service
+                    analyses the fundamentals behind every opportunity before
+                    it reaches a client recommendation.
                 </p>
             </div>
 
         </div>
 
-
         <div class="adv-hero-buttons">
-
             <a href="{% url 'contact' %}" class="adv-button adv-button-primary">
-                START A CONVERSATION
+                BOOK A CONSULTATION
                 <span class="adv-button-arrow">↗</span>
             </a>
 
             <a href="#lens" class="adv-button adv-button-outline">
                 OUR APPROACH
             </a>
-
         </div>
 
     </div>
 
 </section>
-
-
 
 <!-- =====================================================
      MARQUEE
@@ -1057,24 +1218,22 @@
     <div class="adv-marquee-track">
 
         <span>
+            <i></i> INVESTMENT ANALYSIS
+            <i></i> ROI ANALYSIS
             <i></i> MARKET INTELLIGENCE
-            <i></i> LOCATION ANALYSIS
-            <i></i> INVESTMENT ASSESSMENT
-            <i></i> PERSONALISED STRATEGY
+            <i></i> PORTFOLIO ADVISORY
         </span>
 
         <span>
+            <i></i> INVESTMENT ANALYSIS
+            <i></i> ROI ANALYSIS
             <i></i> MARKET INTELLIGENCE
-            <i></i> LOCATION ANALYSIS
-            <i></i> INVESTMENT ASSESSMENT
-            <i></i> PERSONALISED STRATEGY
+            <i></i> PORTFOLIO ADVISORY
         </span>
 
     </div>
 
 </div>
-
-
 
 <!-- =====================================================
      INVESTMENT LENS
@@ -1087,35 +1246,31 @@
         <div class="adv-lens-intro">
 
             <div>
-
                 <p class="adv-eyebrow">
-                    THE INVESTMENT LENS
+                    THE INVESTMENT ANALYSIS FRAMEWORK
                 </p>
 
                 <h2 class="adv-lens-title">
-                    A property is more than
-                    <em>its purchase price.</em>
+                    Every opportunity
+                    <em>behind the numbers.</em>
                 </h2>
-
             </div>
 
-            <p class="adv-lens-description">
-                We look at the complete investment picture —
-                because our objective is simple: help you
-                understand what you're buying, before you buy it.
+            <p class="adv-lens-description" style="font-size:15px;">
+                Our Dubai investment consultancy approach evaluates each
+                opportunity across eight core dimensions before making a
+                recommendation.
             </p>
 
         </div>
-
 
         <div class="adv-lens-rows">
 
             <div class="adv-lens-row">
                 <span class="adv-lens-num">01</span>
                 <h3 class="adv-lens-name">Entry Price</h3>
-                <p class="adv-lens-desc">
-                    Benchmarked against comparable transactions,
-                    not just the asking price on a brochure.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    Is the price fair relative to the market?
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1123,9 +1278,8 @@
             <div class="adv-lens-row">
                 <span class="adv-lens-num">02</span>
                 <h3 class="adv-lens-name">Payment Structure</h3>
-                <p class="adv-lens-desc">
-                    Understanding how a payment plan affects
-                    real cost, cash flow and timing.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    How does the payment structure affect your cash flow and risk?
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1133,19 +1287,17 @@
             <div class="adv-lens-row">
                 <span class="adv-lens-num">03</span>
                 <h3 class="adv-lens-name">Rental Potential</h3>
-                <p class="adv-lens-desc">
-                    Realistic income expectations based on
-                    demand, supply and comparable yields.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    Realistic net yield, not marketing projections.
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
 
             <div class="adv-lens-row">
                 <span class="adv-lens-num">04</span>
-                <h3 class="adv-lens-name">Capital Appreciation Potential</h3>
-                <p class="adv-lens-desc">
-                    Location fundamentals and demand drivers
-                    that support long-term value growth.
+                <h3 class="adv-lens-name">Capital Appreciation</h3>
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    Historical and projected growth trajectory.
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1153,9 +1305,8 @@
             <div class="adv-lens-row">
                 <span class="adv-lens-num">05</span>
                 <h3 class="adv-lens-name">Service Charges</h3>
-                <p class="adv-lens-desc">
-                    Ongoing costs factored into the true
-                    return, not left as a surprise later.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    The true impact of ongoing costs on net returns.
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1163,9 +1314,8 @@
             <div class="adv-lens-row">
                 <span class="adv-lens-num">06</span>
                 <h3 class="adv-lens-name">Location Dynamics</h3>
-                <p class="adv-lens-desc">
-                    Connectivity, infrastructure and community
-                    positioning within Dubai's wider growth map.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    Infrastructure and connectivity trends that shape future demand.
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1173,9 +1323,8 @@
             <div class="adv-lens-row">
                 <span class="adv-lens-num">07</span>
                 <h3 class="adv-lens-name">Developer Track Record</h3>
-                <p class="adv-lens-desc">
-                    Delivery history, build quality and
-                    reputation across previous projects.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    Delivery history, quality and reliability across previous projects.
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1183,9 +1332,8 @@
             <div class="adv-lens-row">
                 <span class="adv-lens-num">08</span>
                 <h3 class="adv-lens-name">Exit Potential</h3>
-                <p class="adv-lens-desc">
-                    A clear view of liquidity and resale
-                    demand before capital is committed.
+                <p class="adv-lens-desc" style="font-size:15px;">
+                    Resale liquidity and future demand.
                 </p>
                 <span class="adv-lens-mark">↗</span>
             </div>
@@ -1196,10 +1344,8 @@
 
 </section>
 
-
-
 <!-- =====================================================
-     QUOTE BAND
+     INVESTMENT STRATEGY
 ====================================================== -->
 
 <section class="adv-quote-band">
@@ -1207,23 +1353,23 @@
     <div class="adv-shell adv-quote-pad">
 
         <p>
-            Dubai offers thousands of properties. But the right
-            property is the one that aligns with your
-            <em>objective, capital, timeline and long-term vision.</em>
+            <em>Investment Strategy Tailored to Your Objective</em>
         </p>
 
-        <span class="adv-quote-sign">
-            NEXURBAN PROPERTIES · PROPERTY ADVISORY
-        </span>
+        <p style="font-family:'Manrope', sans-serif; font-size:15px; line-height:1.85; color:rgba(247,244,237,.68); margin-top:25px;">
+            No two investors share the same goals. Our investment strategy
+            Dubai real estate process begins by understanding whether you're
+            prioritising rental income, capital growth, portfolio diversification,
+            or Golden Visa eligibility — then builds a recommendation around
+            that objective, rather than a one-size-fits-all shortlist.
+        </p>
 
     </div>
 
 </section>
 
-
-
 <!-- =====================================================
-     PROCESS
+     ROI ANALYSIS
 ====================================================== -->
 
 <section class="adv-process">
@@ -1233,71 +1379,20 @@
         <div class="adv-process-intro">
 
             <p class="adv-eyebrow">
-                HOW WE ADVISE
+                ROI ANALYSIS
             </p>
 
             <h2 class="adv-process-title">
-                From first conversation
-                <em>to informed decision.</em>
+                ROI Analysis
+                <em>You Can Actually Trust.</em>
             </h2>
 
-            <p class="adv-process-description">
-                A structured, four-stage advisory process built
-                around your objective — not a catalogue of listings.
+            <p class="adv-process-description" style="font-size:15px;">
+                Every recommendation includes a transparent real estate ROI
+                analysis Dubai — covering projected yield, appreciation assumptions,
+                holding costs and realistic exit scenarios — so you understand
+                exactly what you're buying into before you commit capital.
             </p>
-
-        </div>
-
-
-        <div class="adv-timeline">
-
-            <div class="adv-step">
-                <div class="adv-step-heading">
-                    <span class="adv-step-number">01</span>
-                    <h3 class="adv-step-name">Discovery</h3>
-                </div>
-                <p class="adv-step-desc">
-                    We start by understanding your objective, capital,
-                    timeline and appetite for risk — before a single
-                    property is discussed.
-                </p>
-            </div>
-
-            <div class="adv-step">
-                <div class="adv-step-heading">
-                    <span class="adv-step-number">02</span>
-                    <h3 class="adv-step-name">Market Analysis</h3>
-                </div>
-                <p class="adv-step-desc">
-                    Location dynamics, developer credibility, pricing
-                    benchmarks and supply pipeline are assessed
-                    against market data.
-                </p>
-            </div>
-
-            <div class="adv-step">
-                <div class="adv-step-heading">
-                    <span class="adv-step-number">03</span>
-                    <h3 class="adv-step-name">Investment Assessment</h3>
-                </div>
-                <p class="adv-step-desc">
-                    Entry price, payment structure, rental potential,
-                    service charges and exit strategy are evaluated
-                    as one complete picture.
-                </p>
-            </div>
-
-            <div class="adv-step">
-                <div class="adv-step-heading">
-                    <span class="adv-step-number">04</span>
-                    <h3 class="adv-step-name">Strategy &amp; Execution</h3>
-                </div>
-                <p class="adv-step-desc">
-                    A personalised property strategy, supported
-                    end-to-end from first conversation to
-                    transaction completion — and beyond.
-                </p>
-            </div>
 
         </div>
 
@@ -1305,10 +1400,8 @@
 
 </section>
 
-
-
 <!-- =====================================================
-     WHY NEXURBAN
+     PORTFOLIO ADVISORY
 ====================================================== -->
 
 <section class="adv-why">
@@ -1316,68 +1409,52 @@
     <div class="adv-shell adv-section-pad">
 
         <p class="adv-eyebrow" style="color:#ff4c3fd3;">
-            WHY NEXURBAN
+            DUBAI PORTFOLIO ADVISORY
         </p>
 
         <h2 class="adv-lens-title" style="color:#f7f4ed;">
-            Decisions made with
-            <em style="color:#e8dfd1;">clarity, not narratives.</em>
+            Building and Managing
+            <em style="color:#e8dfd1;">a Property Portfolio.</em>
         </h2>
 
+        <p style="max-width:760px; margin:24px 0 0; color:rgba(247,244,237,.68); font-family:'Manrope',sans-serif; font-size:15px; line-height:1.85;">
+            For clients expanding beyond a single purchase, our Dubai portfolio
+            advisory service helps sequence acquisitions, balance risk across
+            communities and property types, and plan future liquidity — ensuring
+            your portfolio grows with intent rather than accumulation.
+        </p>
 
-        <div class="adv-why-grid">
+        <div class="adv-portfolio-grid">
 
-            <div class="adv-why-tile">
+            <div class="adv-portfolio-card">
                 <span>01</span>
-                <h3>Local Expertise</h3>
+                <h3>Portfolio Strategy</h3>
                 <p>
-                    Deep understanding of Dubai's communities,
-                    developers and transaction environment.
+                    Build a portfolio around your investment objectives and timeline.
                 </p>
             </div>
 
-            <div class="adv-why-tile">
+            <div class="adv-portfolio-card">
                 <span>02</span>
-                <h3>Market Intelligence</h3>
+                <h3>Risk Balance</h3>
                 <p>
-                    Decisions supported by market data,
-                    not just sales narratives.
+                    Balance exposure across communities and property types.
                 </p>
             </div>
 
-            <div class="adv-why-tile">
+            <div class="adv-portfolio-card">
                 <span>03</span>
-                <h3>Curated Opportunities</h3>
+                <h3>Acquisition Planning</h3>
                 <p>
-                    A focused selection rather than an
-                    overwhelming catalogue.
+                    Sequence future acquisitions with a clear long-term strategy.
                 </p>
             </div>
 
-            <div class="adv-why-tile">
+            <div class="adv-portfolio-card">
                 <span>04</span>
-                <h3>Personalised Advisory</h3>
+                <h3>Liquidity Planning</h3>
                 <p>
-                    Every client has a different objective —
-                    our recommendations reflect that.
-                </p>
-            </div>
-
-            <div class="adv-why-tile">
-                <span>05</span>
-                <h3>End-to-End Support</h3>
-                <p>
-                    From first conversation to transaction
-                    completion, and beyond.
-                </p>
-            </div>
-
-            <div class="adv-why-tile">
-                <span>06</span>
-                <h3>Long-Term Relationships</h3>
-                <p>
-                    We don't measure success by one transaction —
-                    we build relationships that grow with you.
+                    Consider future liquidity and exit requirements as the portfolio grows.
                 </p>
             </div>
 
@@ -1387,7 +1464,129 @@
 
 </section>
 
+<!-- =====================================================
+     FAQ
+====================================================== -->
 
+<section class="adv-process">
+
+    <div class="adv-shell adv-section-pad">
+
+        <div class="adv-process-intro">
+
+            <p class="adv-eyebrow">
+                FAQ
+            </p>
+
+            <h2 class="adv-process-title">
+                Investment Advisory
+                <em>Questions.</em>
+            </h2>
+
+        </div>
+
+        <div class="adv-faq-list">
+
+            <div class="adv-faq-item">
+                <button type="button" class="adv-faq-question" aria-expanded="false">
+                    <span>What is real estate investment advisory?</span>
+                    <span class="adv-faq-icon">+</span>
+                </button>
+                <div class="adv-faq-answer">
+                    <p>
+                        Real estate investment advisory is independent analysis of a property's
+                        investment fundamentals — pricing, yield, appreciation potential, costs
+                        and exit prospects — provided to help investors make informed decisions
+                        rather than relying solely on sales presentations.
+                    </p>
+                </div>
+            </div>
+
+            <div class="adv-faq-item">
+                <button type="button" class="adv-faq-question" aria-expanded="false">
+                    <span>How is investment advisory different from a regular property listing service?</span>
+                    <span class="adv-faq-icon">+</span>
+                </button>
+                <div class="adv-faq-answer">
+                    <p>
+                        A listing service shows you available properties; investment advisory
+                        analyses whether a specific property represents good value against clear
+                        financial criteria, including realistic yield and appreciation projections,
+                        before recommending it.
+                    </p>
+                </div>
+            </div>
+
+            <div class="adv-faq-item">
+                <button type="button" class="adv-faq-question" aria-expanded="false">
+                    <span>What factors matter most when evaluating a Dubai property investment?</span>
+                    <span class="adv-faq-icon">+</span>
+                </button>
+                <div class="adv-faq-answer">
+                    <p>
+                        Entry price relative to market, payment structure, realistic rental yield,
+                        service charge impact, location growth trajectory, developer reliability
+                        and exit liquidity are the core factors — each of which can materially
+                        affect actual investment returns.
+                    </p>
+                </div>
+            </div>
+
+            <div class="adv-faq-item">
+                <button type="button" class="adv-faq-question" aria-expanded="false">
+                    <span>Can investment advisory help me build a multi-property portfolio in Dubai?</span>
+                    <span class="adv-faq-icon">+</span>
+                </button>
+                <div class="adv-faq-answer">
+                    <p>
+                        Yes — portfolio-level advisory considers diversification across communities
+                        and property types, sequencing of purchases, and overall risk balance,
+                        rather than evaluating each property in isolation.
+                    </p>
+                </div>
+            </div>
+
+            <div class="adv-faq-item">
+                <button type="button" class="adv-faq-question" aria-expanded="false">
+                    <span>Does Nexurban only recommend off-plan or also ready properties for investment?</span>
+                    <span class="adv-faq-icon">+</span>
+                </button>
+                <div class="adv-faq-answer">
+                    <p>
+                        Both — the right structure depends on your objective. Off-plan can suit
+                        capital-growth-focused investors with flexible payment plans, while ready
+                        properties suit those prioritising immediate rental income. Recommendations
+                        are based on your specific goals, not a fixed preference for one type.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+        document.querySelectorAll(".adv-faq-question").forEach(function(button) {
+            button.addEventListener("click", function() {
+                const item = button.closest(".adv-faq-item");
+                const isOpen = item.classList.contains("is-open");
+
+                document.querySelectorAll(".adv-faq-item.is-open").forEach(function(openItem) {
+                    openItem.classList.remove("is-open");
+                    openItem.querySelector(".adv-faq-question").setAttribute("aria-expanded", "false");
+                });
+
+                if (!isOpen) {
+                    item.classList.add("is-open");
+                    button.setAttribute("aria-expanded", "true");
+                }
+            });
+        });
+        </script>
+
+        </div>
+
+    </div>
+
+</section>
 
 <!-- =====================================================
      CTA
@@ -1398,12 +1597,12 @@
     <div class="adv-cta-band-inner">
 
         <p class="adv-cta-text">
-            Understand what you're buying —<br>
-            before you buy it.
+            Explore Investment Advisory —<br>
+            Book a Consultation.
         </p>
 
         <a href="{% url 'contact' %}" class="adv-cta-button">
-            SPEAK TO AN EXPERT
+            BOOK A CONSULTATION
             <span class="adv-cta-arrow">↗</span>
         </a>
 
