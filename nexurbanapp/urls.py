@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.sitemaps.views import sitemap, index
-from nexurbanapp.sitemap import sitemaps
+from nexurbanapp.sitemaps import sitemaps
 from .views import robots_txt
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
        path('about/', views.about, name='about'),
        path('contact/', views.contact, name='contact'),
        path('area/', views.area, name='area'),
-        path('area-detail/<slug:area_slug>/', views.area_detail, name='area_detail'),
+      path('area-detail/<slug:area_slug>/', views.area_detail, name='area_detail'),
 
       path("property/<slug:slug>/", views.propertydetail, name="propertydetail"),
       path('sell', views.sell, name='sell'),
@@ -32,10 +32,8 @@ urlpatterns = [
       path('blog/page/<int:page>/', views.blog, name='blog_paginated'),
       path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
 
-      path("sitemap.xml", sitemap, {"sitemaps": sitemaps},
-        name="django.contrib.sitemaps.views.sitemap"),
+      path("sitemap.xml", sitemap, {"sitemaps": sitemaps},name="django.contrib.sitemaps.views.sitemap"),
 
 
-        path('robots.txt', robots_txt, name='robots_txt'),
-        path('robots.txt', robots_txt, name='robots_txt'),
+      path('robots.txt', robots_txt, name='robots_txt'),
   ]
