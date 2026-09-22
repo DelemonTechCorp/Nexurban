@@ -17,6 +17,7 @@ from .models import *
 from django.shortcuts import render, get_object_or_404
 from .models import BlogPost
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 
 # =========================================================
 # FIELD HELPERS
@@ -3602,3 +3603,15 @@ def blog_detail(request, slug):
         "main/blog_detail.html",
         context
     )
+
+
+# ...........................
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow: /admin/",
+        "Allow: /",
+        "Sitemap: https://www.nexurbanproperties.com/sitemap.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")

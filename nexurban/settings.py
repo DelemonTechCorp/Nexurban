@@ -26,9 +26,10 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+
 # DEBUG = True
 # SECRET_KEY = 'django-insecure-01*=mzemn!rki@b-8sx4k7^e5uw&q^52+$hrm)ry^_fb+oi1k('
-
 # ALLOWED_HOSTS = []
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'nexurbanapp',
      "django.contrib.humanize",
     'django_ckeditor_5',
+    "django.contrib.sitemaps",
 ]
 
 MIDDLEWARE = [
@@ -109,6 +111,7 @@ CKEDITOR_5_CONFIGS = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE'),
@@ -119,6 +122,7 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT','5432'),
     }
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
