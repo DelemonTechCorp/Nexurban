@@ -3607,11 +3607,15 @@ def blog_detail(request, slug):
 
 # ...........................
 
+from django.http import HttpResponse
+
 def robots_txt(request):
     lines = [
         "User-agent: *",
         "Disallow: /admin/",
-        "Allow: /",
-        "Sitemap: https://www.nexurbanproperties.com/sitemap.xml",
+        "Disallow: /test-opperp/",
+        "Disallow: /thank-you/",
+        "",
+        f"Sitemap: https://{request.get_host()}/sitemap.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")

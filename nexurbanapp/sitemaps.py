@@ -1,135 +1,153 @@
+import logging
+import math
+
+from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
+from django.utils.dateparse import parse_datetime
+from django.utils.text import slugify
 
 from .models import BlogPost
 from .services import XOpperpAPI, get_all_properties
+from .views import (
+    get_property_slug,
+    get_area_name,
+    get_city,
+    get_property_status_name,
+    get_sales_status_name,
+)
+
+logger = logging.getLogger(__name__)
+
+BLOG_PER_PAGE = 9
 
 
-# =========================================================
-# STATIC PAGES
-# =========================================================
+def parse_date(value):
+    if not value:
+        return None
+    try:
+        return parse_datetime(str(value))
+    except (ValueError, TypeError):
+        return None
 
-class StaticViewSitemap(Sitemap):
-    protocol = "https"
+
+def fetch_all():
+    try:
+        return get_all_properties(XOpperpAPI())
+    except Exception:
+        logger.exception("Sitemap: XOpperp fetch failed")
+        return []
+
+
+def is_sold_out(p):
+    return get_sales_status_name(p).strip().lower() == "sold out"
+
+
+class BaseSitemap(Sitemap):
+    protocol = "http" if settings.DEBUG else "https"
+
+
+class StaticViewSitemap(BaseSitemap):
     changefreq = "weekly"
-    priority = 0.8
+
+    PRIORITIES = {
+        "home": 1.0, "offplan": 0.9, "ready": 0.9,
+        "buy": 0.9, "blog": 0.8, "property_map_search": 0.8,
+    }
 
     def items(self):
         return [
-            "home",
-            "offplan",
-            "ready",
-            "about",
-            "contact",
-            "area",
-            "sell",
-            "invest",
-            "investmentadvisory",
-            "luxury",
-            "joint-development",
-            "joint-ventures",
-            "property-advisory",
-            "land-deals",
-            "flipbook",
-            "buy",
+            "home", "offplan", "ready", "buy", "sell", "invest",
+            "investmentadvisory", "luxury", "joint-development",
+            "joint-ventures", "property-advisory", "land-deals",
+            "flipbook", "about", "contact", "area", "blog",
             "property_map_search",
         ]
 
     def location(self, item):
         return reverse(item)
 
-
-# =========================================================
-# BLOG DETAIL PAGES
-# =========================================================
-
-class BlogSitemap(Sitemap):
-    protocol = "https"
-    changefreq = "daily"
-    priority = 1.0
-
-    def items(self):
-        return (
-            BlogPost.objects
-            .exclude(slug__isnull=True)
-            .exclude(slug="")
-            .order_by("-pk")
-        )
-
-    def location(self, obj):
-        return reverse(
-            "blog_detail",
-            kwargs={
-                "slug": obj.slug
-            }
-        )
-
-    def lastmod(self, obj):
-        for field in [
-            "updated_at",
-            "modified_at",
-            "created_at",
-            "created",
-        ]:
-            value = getattr(obj, field, None)
-
-            if value:
-                return value
-
-        return None
+    def priority(self, item):
+        return self.PRIORITIES.get(item, 0.7)
 
 
-# =========================================================
-# PROPERTY DETAIL PAGES
-# =========================================================
-
-class PropertySitemap(Sitemap):
-    protocol = "https"
+class PropertySitemap(BaseSitemap):
     changefreq = "daily"
     priority = 0.9
+    limit = 5000
 
     def items(self):
-        api = XOpperpAPI()
+        seen = set()
+        items = []
+        for p in fetch_all():
+            if get_property_status_name(p) not in ("Off Plan", "Ready"):
+                continue
+            if is_sold_out(p):
+                continue
+            slug = get_property_slug(p)
+            if slug and slug not in seen:
+                seen.add(slug)
+                items.append({"slug": slug, "created_at": p.get("created_at")})
+        return items
 
-        properties = get_all_properties(api)
+    def location(self, item):
+        return reverse("propertydetail", kwargs={"slug": item["slug"]})
 
-        # Only properties having slug
-        return [
-            obj
-            for obj in properties
-            if obj.get("slug")
-        ]
+    def lastmod(self, item):
+        return parse_date(item["created_at"])
+
+
+class AreaSitemap(BaseSitemap):
+    changefreq = "weekly"
+    priority = 0.8
+
+    def items(self):
+        slugs = set()
+        for p in fetch_all():
+            if "dubai" not in get_city(p).lower():
+                continue
+            if is_sold_out(p):
+                continue
+            name = get_area_name(p)
+            if name:
+                slugs.add(slugify(name))
+        return sorted(slugs)
+
+    def location(self, slug):
+        return reverse("area_detail", kwargs={"area_slug": slug})
+
+
+class BlogPostSitemap(BaseSitemap):
+    changefreq = "weekly"
+    priority = 0.8
+
+    def items(self):
+        return BlogPost.objects.exclude(slug="").order_by("-created_at")
 
     def location(self, obj):
-        return reverse(
-            "propertydetail",
-            kwargs={
-                "slug": obj["slug"]
-            }
-        )
+        return reverse("blog_detail", kwargs={"slug": obj.slug})
 
     def lastmod(self, obj):
-        for field in [
-            "updated_at",
-            "modified_at",
-            "updated",
-            "created_at",
-            "created",
-        ]:
-            value = obj.get(field)
-
-            if value:
-                return value
-
-        return None
+        return getattr(obj, "updated_at", None) or obj.created_at
 
 
-# =========================================================
-# SITEMAP REGISTRY
-# =========================================================
+class BlogListingSitemap(BaseSitemap):
+    changefreq = "daily"
+    priority = 0.6
+
+    def items(self):
+        total = BlogPost.objects.exclude(slug="").count()
+        pages = math.ceil(total / BLOG_PER_PAGE) if total else 0
+        return list(range(2, pages + 1))
+
+    def location(self, page):
+        return reverse("blog_paginated", kwargs={"page": page})
+
 
 sitemaps = {
     "static": StaticViewSitemap,
-    "blog": BlogSitemap,
     "properties": PropertySitemap,
+    "areas": AreaSitemap,
+    "blog": BlogPostSitemap,
+    "blog-pages": BlogListingSitemap,
 }
