@@ -1495,4 +1495,42 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<!-- ................ -->
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Place",
+"name": "{{area_display_name.name}}",
+"url": "https://nexurbanproperties.com/area-detail/{{area.slug}}/",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "{{area_display_name.name}}",
+"addressRegion": "Dubai",
+"addressCountry": "AE"
+},
+"containedInPlace": {"@type": "City", "name": "Dubai"}
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement": [
+{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://nexurbanproperties.com/"},
+{"@type": "ListItem", "position": 2, "name": "Communities", "item": "https://nexurbanproperties.com/area/"},
+{"@type": "ListItem", "position": 3, "name": "{{area.name}}", "item": "https://nexurbanproperties.com/areadetail/{{area.slug}}/"}
+]
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Place",
+"name": "JVC",
+"url": "https://nexurbanproperties.com/area-detail/jvc/",
+"address": {"@type": "PostalAddress", "addressLocality": "JVC", "addressRegion": "Dubai", "addressCountry": "AE"},
+"containedInPlace": {"@type": "City", "name": "Dubai"}
+}
+</script>
 {% endblock %}

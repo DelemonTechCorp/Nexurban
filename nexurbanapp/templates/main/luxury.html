@@ -4512,4 +4512,40 @@ body {
 }
 
 </style>
+
+<!-- ....... -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement": [
+{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://nexurbanproperties.com/"},
+{"@type": "ListItem", "position": 2, "name": "Luxury", "item": "https://nexurbanproperties.com/luxury"}
+]
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "RealEstateListing",
+"name": "{{property.name}}",
+"url": "https://nexurbanproperties.com/property/{{property.slug}}/",
+"offers": {"@type": "Offer", "price": "{{property.price}}", "priceCurrency": "AED"},
+"amenityFeature": [
+{"@type": "LocationFeatureSpecification", "name": "Branded Residence", "value": true},
+{"@type": "LocationFeatureSpecification", "name": "Waterfront", "value": true}
+],
+"address": {"@type": "PostalAddress", "addressLocality": "{{property.area}}", "addressCountry": "AE"}
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "RealEstateListing",
+"name": "Zabeel Saray",
+"url": "https://nexurbanproperties.com/property/zabeel-saray/",
+"offers": {"@type": "Offer", "price": "30000000", "priceCurrency": "AED"},
+"address": {"@type": "PostalAddress", "addressLocality": "Palm Jumeirah", "addressCountry": "AE"}
+}
+</script>
 {% endblock %}

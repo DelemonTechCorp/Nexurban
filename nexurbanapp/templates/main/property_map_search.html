@@ -1749,8 +1749,30 @@
     window.addEventListener("orientationchange", function () {
         setTimeout(function () { map.invalidateSize(); }, 300);
     });
-
 })();
+</script>
+<!-- .................. -->
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "WebPage",
+"name": "Map Search | Nexurban Properties",
+"url": "https://nexurbanproperties.com/map-search/",
+"isPartOf": {"@type": "WebSite", "name": "Nexurban Properties", "url": "https://nexurbanproperties.com/"}
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "WebSite",
+"url": "https://nexurbanproperties.com/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://nexurbanproperties.com/map-search/?q={search_term_string}",
+"query-input": "required name=search_term_string"
+}
+}
 </script>
 
 {% endblock %}

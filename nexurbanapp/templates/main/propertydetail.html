@@ -1075,5 +1075,48 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
     nxWireShowMoreToggle(btn, '[data-units-table]', null, 'tbody tr', 'nx-unit-hidden');
 });
 </script>
+<!-- .................. -->
 
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "RealEstateListing",
+"name": "{{p.name}}",
+"url": "https://nexurbanproperties.com/property/{{property.slug}}/",
+"image": "{{p.cover_image}}",
+"description": "{{p.full_description}}",
+"numberOfRooms": "{{p.bedrooms}}",
+"floorSize": {"@type": "QuantitativeValue", "value": "{{p.size_sqft}}", "unitCode": "FTK"},
+"offers": {
+"@type": "Offer",
+"price": "{{p.price}}",
+"priceCurrency": "AED",
+"availability": "{{p.status}}",
+"seller": {"@type": "Organization", "name": "{{p.developer}}"}
+},
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "{{p.area}}",
+"addressRegion": "{{p.city}}",
+"addressCountry": "AE"
+}
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "RealEstateListing",
+"name": "The Symphony by Imtiaz",
+"url": "https://nexurbanproperties.com/property/the-symphony-by-imtiaz/",
+"floorSize": {"@type": "QuantitativeValue", "value": "640", "unitCode": "FTK"},
+"offers": {
+"@type": "Offer",
+"price": "2000000",
+"priceCurrency": "AED",
+"availability": "https://schema.org/PreOrder",
+"seller": {"@type": "Organization", "name": "Imtiaz"}
+},
+"address": {"@type": "PostalAddress", "addressLocality": "Meydan", "addressRegion": "Dubai", "addressCountry": "AE"}
+}
+</script>
 {% endblock %}

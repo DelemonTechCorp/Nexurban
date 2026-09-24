@@ -861,4 +861,30 @@
   </div>
 </section>
 
+<!-- ............... -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Blog",
+"name": "Nexurban Properties Blog",
+"url": "https://nexurbanproperties.com/blog/",
+"publisher": {"@type": "Organization", "name": "Nexurban Properties", "logo":
+"https://nexurbanproperties.com/static/img/logo.png"}
+}
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Article",
+"headline": "{{post.title}}",
+"url": "{{post.url}}",
+"image": "{{post.cover_image}}",
+"datePublished": "{{post.published_date}}",
+"dateModified": "{{post.modified_date}}",
+"author": {"@type": "Organization", "name": "Nexurban Properties"},
+"publisher": {"@type": "Organization", "name": "Nexurban Properties", "logo":
+"https://nexurbanproperties.com/static/img/logo.png"}
+}
+</script>
 {% endblock %}
