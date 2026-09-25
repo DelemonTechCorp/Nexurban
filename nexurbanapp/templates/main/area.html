@@ -1690,12 +1690,31 @@
 <!-- ................. -->
 <script type="application/ld+json">
 {
-"@context": "https://schema.org",
-"@type": "CollectionPage",
-"name": "Dubai Communities | Nexurban Properties",
-"url": "https://nexurbanproperties.com/area/",
-"about": {"@type": "Thing", "name": "Dubai real estate communities"},
-"isPartOf": {"@type": "WebSite", "name": "Nexurban Properties", "url": "https://nexurbanproperties.com/"}
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Dubai Communities | Nexurban Properties",
+  "description": "Explore Dubai's top communities and neighbourhoods with Nexurban Properties — compare areas, property types, and investment opportunities across Dubai.",
+  "url": "https://nexurbanproperties.com/area/",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Nexurban Properties",
+    "url": "https://nexurbanproperties.com/"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Dubai Communities",
+    "numberOfItems": {{ areas|length }},
+    "itemListElement": [
+      {% for area in areas %}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.counter }},
+        "name": "{{ area.name|escapejs }}",
+        "url": "https://nexurbanproperties.com{% url 'area_detail' area.slug %}"
+      }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
 }
 </script>
 
