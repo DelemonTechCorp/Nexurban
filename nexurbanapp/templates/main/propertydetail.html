@@ -1082,17 +1082,17 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
 "@context": "https://schema.org",
 "@type": "RealEstateListing",
 "name": "{{p.name}}",
-"url": "https://nexurbanproperties.com/property/{{property.slug}}/",
-"image": "{{p.cover_image}}",
-"description": "{{p.full_description}}",
-"numberOfRooms": "{{p.bedrooms}}",
-"floorSize": {"@type": "QuantitativeValue", "value": "{{p.size_sqft}}", "unitCode": "FTK"},
+"url": "https://nexurbanproperties.com/property/{{p.slug}}/",
+"image": "{{p.cover}}",
+"description": "{{p.description}}",
+"numberOfRooms": "{{p.bedroom_labels}}",
+"floorSize": {"@type": "QuantitativeValue", "value": "{{p.area_from}}", "unitCode": "FTK"},
 "offers": {
 "@type": "Offer",
-"price": "{{p.price}}",
+"price": "{{p.price_from}}",
 "priceCurrency": "AED",
 "availability": "{{p.status}}",
-"seller": {"@type": "Organization", "name": "{{p.developer}}"}
+"seller": {"@type": "Organization", "name": "{{p.developer_name}}"}
 },
 "address": {
 "@type": "PostalAddress",
@@ -1106,12 +1106,12 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
 {
 "@context": "https://schema.org",
 "@type": "RealEstateListing",
-"name": "The Symphony by Imtiaz",
-"url": "https://nexurbanproperties.com/property/the-symphony-by-imtiaz/",
+"name": "{{p.name}}",
+"url": "https://nexurbanproperties.com/property/{{p.slug}}/",
 "floorSize": {"@type": "QuantitativeValue", "value": "640", "unitCode": "FTK"},
 "offers": {
 "@type": "Offer",
-"price": "2000000",
+"price": "{{p.price_from}}",
 "priceCurrency": "AED",
 "availability": "https://schema.org/PreOrder",
 "seller": {"@type": "Organization", "name": "Imtiaz"}
