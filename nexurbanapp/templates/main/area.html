@@ -1688,6 +1688,7 @@
 
 
 <!-- ................. -->
+ 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1699,11 +1700,11 @@
     "@type": "WebSite",
     "name": "Nexurban Properties",
     "url": "https://nexurbanproperties.com/"
-  },
+  }{% if areas %},
   "mainEntity": {
     "@type": "ItemList",
     "name": "Dubai Communities",
-    "numberOfItems": {{ areas|length }},
+    "numberOfItems": {% if total_areas_count %}{{ total_areas_count }}{% else %}{{ areas|length }}{% endif %},
     "itemListElement": [
       {% for area in areas %}
       {
@@ -1715,7 +1716,9 @@
       {% endfor %}
     ]
   }
+  {% endif %}
 }
 </script>
+ 
 
 {% endblock %}

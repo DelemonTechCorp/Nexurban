@@ -1076,36 +1076,87 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
 });
 </script>
 <!-- .................. -->
+
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "Kyomi Residence",
-  "description": "Kyomi Residence at International City Phase 3 is a residential project by Anax Developments offering studio, 1 and 2 bedroom apartments in Warsan Fourth, Dubai. Freehold property with handover in 2027.",
+  "@type": "RealEstateListing",
+  "name": "{{ p.name|escapejs }}",
+  "url": "https://nexurbanproperties.com{% url 'propertydetail' slug=p.slug %}",
+  {% if p.description %}"description": "{{ p.description|striptags|escapejs }}",{% endif %}
+  {% if p.images %}
   "image": [
-    "https://www.x-opperp.com/media/primary/covers/1164.jpg",
-    "https://www.x-opperp.com/media/primary/gallery/1164_0.jpg",
-    "https://www.x-opperp.com/media/primary/gallery/1164_1.jpg",
-    "https://www.x-opperp.com/media/primary/gallery/1164_2.jpg"
+    {% for img in p.images %}"{{ img|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}
   ],
-  "brand": {
-    "@type": "Organization",
-    "name": "Anax Developments L.L.C"
+  {% elif p.image %}"image": ["{{ p.image|escapejs }}"],{% endif %}
+
+  "about": {
+    "@type": "Apartment",
+    "name": "{{ p.name|escapejs }}",
+    {% if p.bedrooms %}"numberOfRooms": "{{ p.bedrooms|escapejs }}",{% endif %}
+    {% if p.area_sqft %}
+    "floorSize": {
+      "@type": "QuantitativeValue",
+      "value": {{ p.area_sqft|unlocalize }},
+      "unitCode": "FTK"
+    },
+    {% endif %}
+    {% if p.district or p.city %}
+    "address": {
+      "@type": "PostalAddress",
+      {% if p.district %}"addressLocality": "{{ p.district|escapejs }}",{% endif %}
+      {% if p.city %}"addressRegion": "{{ p.city|escapejs }}",{% endif %}
+      "addressCountry": "AE"
+    },
+    {% endif %}
+    {% if p.latitude is not None and p.longitude is not None %}
+    {% localize off %}
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": {{ p.latitude }},
+      "longitude": {{ p.longitude }}
+    },
+    {% endlocalize %}
+    {% endif %}
+    {% if p.amenities %}
+    "amenityFeature": [
+      {% for amenity in p.amenities %}
+      { "@type": "LocationFeatureSpecification", "name": "{{ amenity|escapejs }}", "value": true }{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    ],
+    {% endif %}
+    "additionalType": "https://schema.org/Apartment"
   },
+
+  {% if unit_types %}
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "AED",
-    "lowPrice": "571993",
-    "highPrice": "921537",
-    "offerCount": "2",
-    "availability": "https://schema.org/PreOrder",
-    "url": "https://nexurbanproperties.com/property/kyomi-residence/",
+    {% with lowest=unit_types|dictsort:"min_price"|first highest=unit_types|dictsort:"max_price"|last %}
+    {% if lowest.min_price %}"lowPrice": {{ lowest.min_price|unlocalize }},{% endif %}
+    {% if highest.max_price %}"highPrice": {{ highest.max_price|unlocalize }},{% endif %}
+    {% endwith %}
+    "offerCount": "{{ unit_types|length }}",
+    "availability": "{% if p.property_status == 'Ready' %}https://schema.org/InStock{% else %}https://schema.org/PreOrder{% endif %}",
+    "url": "https://nexurbanproperties.com{% url 'propertydetail' slug=p.slug %}",
     "seller": {
       "@type": "RealEstateAgent",
       "name": "Nexurban Properties",
       "url": "https://nexurbanproperties.com/"
     }
-  }
+  },
+  {% endif %}
+
+  {% if p.developer %}
+  "provider": {
+    "@type": "Organization",
+    "name": "{{ p.developer|escapejs }}"
+  },
+  {% endif %}
+
+  {% if p.handover %}"datePosted": "{{ p.handover|escapejs }}"{% else %}"datePosted": ""{% endif %}
 }
 </script>
 
@@ -1118,25 +1169,27 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://nexurbanproperties.com/"
+      "item": "https://nexurbanproperties.com{% url 'home' %}"
     },
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Off-plan",
-      "item": "https://nexurbanproperties.com/offplan"
-    },
-    {
+      "name": "{% if p.property_status == 'Off Plan' %}Off-plan{% elif p.property_status == 'Ready' %}Ready{% else %}Properties{% endif %}",
+      "item": "https://nexurbanproperties.com{% if p.property_status == 'Off Plan' %}{% url 'offplan' %}{% elif p.property_status == 'Ready' %}{% url 'ready' %}{% else %}{% url 'buy' %}{% endif %}"
+    }
+    {% if p.place %}
+    ,{
       "@type": "ListItem",
       "position": 3,
-      "name": "Warsan Fourth",
-      "item": "https://nexurbanproperties.com/area-detail/warsan-fourth/"
-    },
-    {
+      "name": "{{ p.place|escapejs }}",
+      "item": "https://nexurbanproperties.com{% url 'area_detail' p.place|slugify %}"
+    }
+    {% endif %}
+    ,{
       "@type": "ListItem",
-      "position": 4,
-      "name": "Kyomi Residence",
-      "item": "https://nexurbanproperties.com/property/kyomi-residence/"
+      "position": {% if p.place %}4{% else %}3{% endif %},
+      "name": "{{ p.name|escapejs }}",
+      "item": "https://nexurbanproperties.com{% url 'propertydetail' slug=p.slug %}"
     }
   ]
 }
