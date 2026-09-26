@@ -27,13 +27,13 @@ load_dotenv()
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-# DEBUG = True
-# SECRET_KEY = 'django-insecure-01*=mzemn!rki@b-8sx4k7^e5uw&q^52+$hrm)ry^_fb+oi1k('
-# ALLOWED_HOSTS = []
+DEBUG = True
+SECRET_KEY = 'django-insecure-01*=mzemn!rki@b-8sx4k7^e5uw&q^52+$hrm)ry^_fb+oi1k('
+ALLOWED_HOSTS = []
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG')
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+# SECRET_KEY = os.getenv('SECRET_KEY')
+# DEBUG = os.getenv('DEBUG')
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 
