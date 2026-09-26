@@ -1709,7 +1709,7 @@
       {
         "@type": "ListItem",
         "position": {{ forloop.counter }},
-        "name": "{{ area.name|escapejs }}",
+        "name": {{ area.name|escapejs|safe|json_script:"area_name" }},
         "url": "https://nexurbanproperties.com{% url 'area_detail' area.slug %}"
       }{% if not forloop.last %},{% endif %}
       {% endfor %}

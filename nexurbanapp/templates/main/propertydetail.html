@@ -1076,47 +1076,30 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
 });
 </script>
 <!-- .................. -->
-
 <script type="application/ld+json">
 {
-"@context": "https://schema.org",
-"@type": "RealEstateListing",
-"name": "{{p.name}}",
-"url": "https://nexurbanproperties.com/property/{{p.slug}}/",
-"image": "{{p.cover}}",
-"description": "{{p.description}}",
-"numberOfRooms": "{{p.bedroom_labels}}",
-"floorSize": {"@type": "QuantitativeValue", "value": "{{p.area_from}}", "unitCode": "FTK"},
-"offers": {
-"@type": "Offer",
-"price": "{{p.price_from}}",
-"priceCurrency": "AED",
-"availability": "{{p.status}}",
-"seller": {"@type": "Organization", "name": "{{p.developer_name}}"}
-},
-"address": {
-"@type": "PostalAddress",
-"addressLocality": "{{p.area}}",
-"addressRegion": "{{p.city}}",
-"addressCountry": "AE"
-}
-}
-</script>
-<script type="application/ld+json">
-{
-"@context": "https://schema.org",
-"@type": "RealEstateListing",
-"name": "{{p.name}}",
-"url": "https://nexurbanproperties.com/property/{{p.slug}}/",
-"floorSize": {"@type": "QuantitativeValue", "value": "640", "unitCode": "FTK"},
-"offers": {
-"@type": "Offer",
-"price": "{{p.price_from}}",
-"priceCurrency": "AED",
-"availability": "https://schema.org/PreOrder",
-"seller": {"@type": "Organization", "name": "Imtiaz"}
-},
-"address": {"@type": "PostalAddress", "addressLocality": "Meydan", "addressRegion": "Dubai", "addressCountry": "AE"}
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  "name": "{{ p.title|escapejs }}",
+  "url": "https://nexurbanproperties.com/property/{{ p.slug }}/",
+  "image": "{{ p.cover }}",
+  "description": "{{ p.description|striptags|escapejs }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ p.price_from }}",
+    "priceCurrency": "AED",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "{{ p.developer_name|escapejs }}"
+    }
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ p.district|escapejs }}",
+    "addressRegion": "{{ p.city|escapejs }}",
+    "addressCountry": "AE"
+  }
 }
 </script>
 {% endblock %}
