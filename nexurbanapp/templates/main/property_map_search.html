@@ -1752,45 +1752,70 @@
 })();
 </script>
 <!-- .................. -->
-
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "Dubai Property Map Search | Nexurban Properties",
-  "description": "Search Dubai properties by location with Nexurban's interactive map. Filter by community, price, and property type to find your ideal home.",
-  "url": "https://nexurbanproperties.com{% url 'property_map_search' %}",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "Nexurban Properties",
-    "url": "https://nexurbanproperties.com/"
-  },
-  "publisher": {
-    "@type": "RealEstateAgent",
-    "name": "Nexurban Properties",
-    "url": "https://nexurbanproperties.com/"
-  }
-}
-</script>
+  "@graph": [
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://nexurbanproperties.com{% url 'home' %}"
+      "@type": "CollectionPage",
+      "@id": "https://nexurbanproperties.com{% url 'property_map_search' %}#webpage",
+      "url": "https://nexurbanproperties.com{% url 'property_map_search' %}",
+      "name": "Dubai Property Map Search | Nexurban Properties",
+      "description": "Search Dubai properties by location with Nexurban's interactive map. Filter properties by community, price, property type and bedrooms.",
+      "isPartOf": {
+        "@id": "https://nexurbanproperties.com/#website"
+      },
+      "about": {
+        "@type": "Place",
+        "name": "Dubai, United Arab Emirates"
+      },
+      "breadcrumb": {
+        "@id": "https://nexurbanproperties.com{% url 'property_map_search' %}#breadcrumb"
+      },
+      "publisher": {
+        "@id": "https://nexurbanproperties.com/#organization"
+      }
     },
+
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Map Search",
-      "item": "https://nexurbanproperties.com{% url 'property_map_search' %}"
+      "@type": "WebSite",
+      "@id": "https://nexurbanproperties.com/#website",
+      "url": "https://nexurbanproperties.com/",
+      "name": "Nexurban Properties",
+      "publisher": {
+        "@id": "https://nexurbanproperties.com/#organization"
+      }
+    },
+
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://nexurbanproperties.com/#organization",
+      "name": "Nexurban Properties",
+      "url": "https://nexurbanproperties.com/"
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://nexurbanproperties.com{% url 'property_map_search' %}#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://nexurbanproperties.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Property Map Search",
+          "item": "https://nexurbanproperties.com{% url 'property_map_search' %}"
+        }
+      ]
     }
+
   ]
 }
 </script>
+
 {% endblock %}
