@@ -1694,7 +1694,7 @@
   "@type": "CollectionPage",
   "name": "Dubai Communities | Nexurban Properties",
   "description": "Explore Dubai's top communities and neighbourhoods with Nexurban Properties — compare areas, property types, and investment opportunities across Dubai.",
-  "url": "https://nexurbanproperties.com/area/",
+  "url": "https://nexurbanproperties.com{% url 'area' %}",
   "isPartOf": {
     "@type": "WebSite",
     "name": "Nexurban Properties",
@@ -1709,7 +1709,7 @@
       {
         "@type": "ListItem",
         "position": {{ forloop.counter }},
-        "name": {{ area.name|escapejs|safe|json_script:"area_name" }},
+        "name": "{{ area.name|escapejs }}",
         "url": "https://nexurbanproperties.com{% url 'area_detail' area.slug %}"
       }{% if not forloop.last %},{% endif %}
       {% endfor %}

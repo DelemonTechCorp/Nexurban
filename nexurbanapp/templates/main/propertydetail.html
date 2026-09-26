@@ -1079,27 +1079,66 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "RealEstateListing",
-  "name": "{{ p.title|escapejs }}",
-  "url": "https://nexurbanproperties.com/property/{{ p.slug }}/",
-  "image": "{{ p.cover }}",
-  "description": "{{ p.description|striptags|escapejs }}",
-  "offers": {
-    "@type": "Offer",
-    "price": "{{ p.price_from }}",
-    "priceCurrency": "AED",
-    "availability": "https://schema.org/InStock",
-    "seller": {
-      "@type": "Organization",
-      "name": "{{ p.developer_name|escapejs }}"
-    }
+  "@type": "Product",
+  "name": "Kyomi Residence",
+  "description": "Kyomi Residence at International City Phase 3 is a residential project by Anax Developments offering studio, 1 and 2 bedroom apartments in Warsan Fourth, Dubai. Freehold property with handover in 2027.",
+  "image": [
+    "https://www.x-opperp.com/media/primary/covers/1164.jpg",
+    "https://www.x-opperp.com/media/primary/gallery/1164_0.jpg",
+    "https://www.x-opperp.com/media/primary/gallery/1164_1.jpg",
+    "https://www.x-opperp.com/media/primary/gallery/1164_2.jpg"
+  ],
+  "brand": {
+    "@type": "Organization",
+    "name": "Anax Developments L.L.C"
   },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "{{ p.district|escapejs }}",
-    "addressRegion": "{{ p.city|escapejs }}",
-    "addressCountry": "AE"
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "AED",
+    "lowPrice": "571993",
+    "highPrice": "921537",
+    "offerCount": "2",
+    "availability": "https://schema.org/PreOrder",
+    "url": "https://nexurbanproperties.com/property/kyomi-residence/",
+    "seller": {
+      "@type": "RealEstateAgent",
+      "name": "Nexurban Properties",
+      "url": "https://nexurbanproperties.com/"
+    }
   }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://nexurbanproperties.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Off-plan",
+      "item": "https://nexurbanproperties.com/offplan"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Warsan Fourth",
+      "item": "https://nexurbanproperties.com/area-detail/warsan-fourth/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Kyomi Residence",
+      "item": "https://nexurbanproperties.com/property/kyomi-residence/"
+    }
+  ]
 }
 </script>
 {% endblock %}
