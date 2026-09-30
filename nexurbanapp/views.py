@@ -3192,7 +3192,8 @@ def area_detail(request, area_slug):
 
             "handover":
                 handover,
-        },} return render(request,"main/areadetail.html", context)
+        },} 
+    return render(request,"main/areadetail.html", context)
 
 def test_opperp(request):
 
