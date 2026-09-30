@@ -2780,13 +2780,17 @@ def area_detail(request, area_slug):
     # GET PROPERTIES
     # =====================================================
 
-api_failed = False
-try:
-    all_properties = get_all_properties(api)
-except Exception as e:
-    print("X-OPPERP AREA DETAIL API ERROR:", e)
-    all_properties = []
-    api_failed = True
+    try:
+        all_properties = get_all_properties(api)
+
+    except Exception as e:
+
+        print(
+            "X-OPPERP AREA DETAIL API ERROR:",
+            e
+        )
+
+        all_properties = []
 
     # =====================================================
     # NORMALIZE URL SLUG
@@ -2828,13 +2832,6 @@ except Exception as e:
             continue
 
         base.append(p)
-
-    print("AREA SLUG FROM URL:", repr(area_slug))
-    print("TOTAL PROPERTIES FROM API:", len(all_properties))
-    print("MATCHED IN THIS AREA:", len(base))
-
-    if not base and not api_failed:
-        raise Http404("Area not found")
 
     # =====================================================
     # AREA DISPLAY NAME
@@ -2995,10 +2992,6 @@ except Exception as e:
 
     for p in filtered:
 
-        slug = get_property_slug(p)
-        if not slug:
-            continue
-
         cover_image = (
             get_property_cover_image(p)
         )
@@ -3017,7 +3010,7 @@ except Exception as e:
                 or p.get("external_id")
             ),
 
-                "slug": slug,
+            "slug": get_property_slug(p),
 
             "title": title,
 
@@ -3194,6 +3187,7 @@ except Exception as e:
                 handover,
         },
     }
+
     return render(
         request,
         "main/areadetail.html",
