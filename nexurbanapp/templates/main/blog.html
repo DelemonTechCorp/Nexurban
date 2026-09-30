@@ -285,7 +285,8 @@
     </div>
 
     <div class="adv-hero-actions">
-      {% if featured_post %}
+      {# FIX: slug empty aayal url tag error varum, athukondu slug koodi check cheyyunnu #}
+      {% if featured_post and featured_post.slug %}
         <a href="{% url 'blog_detail' featured_post.slug %}" class="adv-hero-btn adv-hero-btn-primary">
           Read Latest Perspective <span>↗</span>
         </a>
@@ -307,6 +308,8 @@
     --ink: #0d0f0e;
     --ivory: #f2ede2;
     --paper: #f7f3ea;
+    --bronze: #b8925a;
+    --bronze-dim: #7d6842;
     background: var(--paper);
     padding: 5.5rem 0 1rem;
     font-family: 'Inter', -apple-system, sans-serif;
@@ -456,10 +459,13 @@
       <p class="kicker">The Advisory Desk</p>
     </div>
 
-    {% if featured_post %}
+    {# FIX: slug undenkil mathram featured card kaanikkuka #}
+    {% if featured_post and featured_post.slug %}
     <a href="{% url 'blog_detail' featured_post.slug %}" class="adv-feature group">
       <div class="image-frame">
+        {% if featured_post.image %}
         <img src="{{ featured_post.image.url }}" alt="{{ featured_post.title }}" class="image-zoom">
+        {% endif %}
         <span class="image-label">Featured</span>
       </div>
       <div class="adv-feature-copy">
@@ -629,10 +635,14 @@
 
 <div class="adv-index">
   {% for post in posts %}
-  <a href="{{ post.get_absolute_url }}" class="adv-row">
+  {# FIX: get_absolute_url-um slug empty aayal same error tharum, athukondu slug illatha posts skip cheyyunnu #}
+  {% if post.slug %}
+  <a href="{% url 'blog_detail' post.slug %}" class="adv-row">
     <span class="adv-row-num">{{ forloop.counter|add:"1"|stringformat:"02d" }}</span>
     <div class="adv-row-img">
+      {% if post.image %}
       <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+      {% endif %}
     </div>
     <div class="adv-row-main">
       <p class="eyebrow">{{ post.reading_time }} min read</p>
@@ -646,6 +656,7 @@
       </svg>
     </span>
   </a>
+  {% endif %}
   {% empty %}
   <p class="adv-empty">No more posts yet.</p>
   {% endfor %}
@@ -654,11 +665,11 @@
 {% if posts.has_other_pages %}
 <div class="adv-pagination">
   {% if posts.has_previous %}
-    <a href="?page={{ posts.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">← Previous</a>
+    <a href="?page={{ posts.previous_page_number }}{% if search_query %}&search={{ search_query|urlencode }}{% endif %}{% if sort_by %}&sort={{ sort_by|urlencode }}{% endif %}">← Previous</a>
   {% endif %}
   <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
   {% if posts.has_next %}
-    <a href="?page={{ posts.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}">Next →</a>
+    <a href="?page={{ posts.next_page_number }}{% if search_query %}&search={{ search_query|urlencode }}{% endif %}{% if sort_by %}&sort={{ sort_by|urlencode }}{% endif %}">Next →</a>
   {% endif %}
 </div>
 {% endif %}
@@ -672,6 +683,7 @@
     --espresso: #1c140f;
     --ivory: #f2ede2;
     --sand: #ff1d0c;
+    --bronze: #b8925a;
     background: var(--ink);
     padding: 6rem 0;
     font-family: 'Inter', -apple-system, sans-serif;
@@ -874,20 +886,21 @@
 }
 </script>
 
+{# FIX: ithu munpu 'post' variable use cheythirunnu, pakshe loop-inu purathu 'post' illa (empty schema aayirunnu). featured_post use cheyyunnu. #}
+{% if featured_post and featured_post.slug %}
 <script type="application/ld+json">
 {
 "@context": "https://schema.org",
 "@type": "Article",
-"headline": "{{post.title}}",
-"url": "{{post.url}}",
-"image": "{{post.cover_image}}",
-"datePublished": "{{post.published_date}}",
-"dateModified": "{{post.modified_date}}",
+"headline": "{{ featured_post.title|escapejs }}",
+"url": "https://nexurbanproperties.com{% url 'blog_detail' featured_post.slug %}",
+{% if featured_post.image %}"image": "https://nexurbanproperties.com{{ featured_post.image.url }}",{% endif %}
 "author": {"@type": "Organization", "name": "Nexurban Properties"},
 "publisher": {"@type": "Organization", "name": "Nexurban Properties", "logo":
 "https://nexurbanproperties.com/static/img/logo.png"}
 }
 </script>
+{% endif %}
 
 
 <div style="display: none;">
