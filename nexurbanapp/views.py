@@ -2730,469 +2730,469 @@ def area(request):
     return render(request, "main/area.html", context)
    
     
-# def area_detail(request, area_slug):
+def area_detail(request, area_slug):
 
-#     api = XOpperpAPI()
+    api = XOpperpAPI()
 
-#     current_page = request.GET.get("page", 1)
+    current_page = request.GET.get("page", 1)
 
-#     try:
-#         current_page = int(current_page)
-#     except (TypeError, ValueError):
-#         current_page = 1
+    try:
+        current_page = int(current_page)
+    except (TypeError, ValueError):
+        current_page = 1
 
-#     if current_page < 1:
-#         current_page = 1
+    if current_page < 1:
+        current_page = 1
 
-#     # =====================================================
-#     # FILTERS
-#     # =====================================================
+    # =====================================================
+    # FILTERS
+    # =====================================================
 
-#     property_name = request.GET.get(
-#         "property_name", ""
-#     ).strip()
+    property_name = request.GET.get(
+        "property_name", ""
+    ).strip()
 
-#     property_status = request.GET.get(
-#         "property_status", ""
-#     ).strip()
+    property_status = request.GET.get(
+        "property_status", ""
+    ).strip()
 
-#     budget = request.GET.get(
-#         "budget", ""
-#     ).strip()
+    budget = request.GET.get(
+        "budget", ""
+    ).strip()
 
-#     developer = request.GET.get(
-#         "developer", ""
-#     ).strip()
+    developer = request.GET.get(
+        "developer", ""
+    ).strip()
 
-#     bedrooms = request.GET.get(
-#         "bedrooms", ""
-#     ).strip()
+    bedrooms = request.GET.get(
+        "bedrooms", ""
+    ).strip()
 
-#     handover = request.GET.get(
-#         "handover", ""
-#     ).strip()
+    handover = request.GET.get(
+        "handover", ""
+    ).strip()
 
-#     budget_min, budget_max = parse_budget_range(
-#         budget
-#     )
+    budget_min, budget_max = parse_budget_range(
+        budget
+    )
 
-#     # =====================================================
-#     # GET PROPERTIES
-#     # =====================================================
+    # =====================================================
+    # GET PROPERTIES
+    # =====================================================
 
-# api_failed = False
-# try:
-#     all_properties = get_all_properties(api)
-# except Exception as e:
-#     print("X-OPPERP AREA DETAIL API ERROR:", e)
-#     all_properties = []
-#     api_failed = True
+    api_failed = False
+    try:
+        all_properties = get_all_properties(api)
+    except Exception as e:
+        print("X-OPPERP AREA DETAIL API ERROR:", e)
+        all_properties = []
+        api_failed = True
 
-#     # =====================================================
-#     # NORMALIZE URL SLUG
-#     #
-#     # /area-detail/jvc/
-#     # /area-detail/palm-jumeirah/
-#     # /area-detail/downtown-dubai/
-#     # =====================================================
+        # =====================================================
+        # NORMALIZE URL SLUG
+        #
+        # /area-detail/jvc/
+        # /area-detail/palm-jumeirah/
+        # /area-detail/downtown-dubai/
+        # =====================================================
 
-#     area_slug = area_slug.strip().lower()
+        area_slug = area_slug.strip().lower()
 
-#     # =====================================================
-#     # FIND PROPERTIES FOR THIS AREA
-#     # =====================================================
+    # =====================================================
+    # FIND PROPERTIES FOR THIS AREA
+    # =====================================================
 
-#     base = []
+    base = []
 
-#     for p in all_properties:
+    for p in all_properties:
 
-#         property_area = get_area_name(p)
+        property_area = get_area_name(p)
 
-#         if not property_area:
-#             continue
+        if not property_area:
+            continue
 
-#         property_area_slug = slugify(
-#             property_area
-#         )
+        property_area_slug = slugify(
+            property_area
+        )
 
-#         if property_area_slug != area_slug:
-#             continue
+        if property_area_slug != area_slug:
+            continue
 
-#         # Exclude sold-out properties
-#         if (
-#             get_sales_status_name(p)
-#             .strip()
-#             .lower()
-#             == "sold out"
-#         ):
-#             continue
+        # Exclude sold-out properties
+        if (
+            get_sales_status_name(p)
+            .strip()
+            .lower()
+            == "sold out"
+        ):
+            continue
 
-#         base.append(p)
+        base.append(p)
 
-#     print("AREA SLUG FROM URL:", repr(area_slug))
-#     print("TOTAL PROPERTIES FROM API:", len(all_properties))
-#     print("MATCHED IN THIS AREA:", len(base))
+    print("AREA SLUG FROM URL:", repr(area_slug))
+    print("TOTAL PROPERTIES FROM API:", len(all_properties))
+    print("MATCHED IN THIS AREA:", len(base))
 
-#     if not base and not api_failed:
-#         raise Http404("Area not found")
+    if not base and not api_failed:
+        raise Http404("Area not found")
 
-#     # =====================================================
-#     # AREA DISPLAY NAME
-#     # =====================================================
+    # =====================================================
+    # AREA DISPLAY NAME
+    # =====================================================
 
-#     area_display_name = (
-#         area_slug
-#         .replace("-", " ")
-#         .title()
-#     )
+    area_display_name = (
+        area_slug
+        .replace("-", " ")
+        .title()
+    )
 
-#     area_city = ""
+    area_city = ""
 
-#     # Use actual API name where available
-#     for p in base:
+    # Use actual API name where available
+    for p in base:
 
-#         actual_area = get_area_name(p)
-
-#         if actual_area:
-#             area_display_name = actual_area
-
-#         city_val = get_city(p)
+        actual_area = get_area_name(p)
+
+        if actual_area:
+            area_display_name = actual_area
+
+        city_val = get_city(p)
 
-#         if city_val:
-#             area_city = city_val
-
-#         break
-
-#     # =====================================================
-#     # DYNAMIC FILTER OPTIONS
-#     # =====================================================
+        if city_val:
+            area_city = city_val
+
+        break
+
+    # =====================================================
+    # DYNAMIC FILTER OPTIONS
+    # =====================================================
 
-#     property_names = (
-#         get_distinct_property_names(base)
-#     )
-
-#     property_statuses = (
-#         get_distinct_property_statuses(base)
-#     )
-
-#     developers = (
-#         get_distinct_developers(base)
-#     )
-
-#     bedroom_options = (
-#         get_distinct_bedrooms(base)
-#     )
-
-#     handover_options = (
-#         get_distinct_handover_options(base)
-#     )
-
-#     budget_options = (
-#         get_budget_options(base)
-#     )
-
-#     # =====================================================
-#     # APPLY FILTERS
-#     # =====================================================
-
-#     filtered = base
-
-#     # Property name
-#     if property_name:
-
-#         pname_lower = property_name.lower()
-
-#         filtered = [
-#             p
-#             for p in filtered
-#             if pname_lower
-#             in api_text(
-#                 p.get("title")
-#             ).lower()
-#         ]
-
-#     # Property status
-#     if property_status:
-
-#         pstatus_lower = (
-#             property_status.lower()
-#         )
-
-#         filtered = [
-#             p
-#             for p in filtered
-#             if pstatus_lower
-#             in get_property_status_name(
-#                 p
-#             ).lower()
-#         ]
-
-#     # Developer
-#     if developer:
-
-#         developer_lower = (
-#             developer.lower()
-#         )
-
-#         filtered = [
-#             p
-#             for p in filtered
-#             if developer_lower
-#             in get_developer_name(
-#                 p
-#             ).lower()
-#         ]
+    property_names = (
+        get_distinct_property_names(base)
+    )
+
+    property_statuses = (
+        get_distinct_property_statuses(base)
+    )
+
+    developers = (
+        get_distinct_developers(base)
+    )
+
+    bedroom_options = (
+        get_distinct_bedrooms(base)
+    )
+
+    handover_options = (
+        get_distinct_handover_options(base)
+    )
+
+    budget_options = (
+        get_budget_options(base)
+    )
+
+    # =====================================================
+    # APPLY FILTERS
+    # =====================================================
+
+    filtered = base
+
+    # Property name
+    if property_name:
+
+        pname_lower = property_name.lower()
+
+        filtered = [
+            p
+            for p in filtered
+            if pname_lower
+            in api_text(
+                p.get("title")
+            ).lower()
+        ]
+
+    # Property status
+    if property_status:
+
+        pstatus_lower = (
+            property_status.lower()
+        )
+
+        filtered = [
+            p
+            for p in filtered
+            if pstatus_lower
+            in get_property_status_name(
+                p
+            ).lower()
+        ]
+
+    # Developer
+    if developer:
+
+        developer_lower = (
+            developer.lower()
+        )
+
+        filtered = [
+            p
+            for p in filtered
+            if developer_lower
+            in get_developer_name(
+                p
+            ).lower()
+        ]
 
-#     # Bedrooms
-#     if bedrooms:
+    # Bedrooms
+    if bedrooms:
 
-#         filtered = [
-#             p
-#             for p in filtered
-#             if bedrooms
-#             in get_bedroom_list(p)
-#         ]
+        filtered = [
+            p
+            for p in filtered
+            if bedrooms
+            in get_bedroom_list(p)
+        ]
 
-#     # Handover
-#     if handover:
+    # Handover
+    if handover:
 
-#         filtered = [
-#             p
-#             for p in filtered
-#             if get_handover_code(p)
-#             == handover
-#         ]
+        filtered = [
+            p
+            for p in filtered
+            if get_handover_code(p)
+            == handover
+        ]
 
-#     # Budget minimum
-#     if budget_min is not None:
+    # Budget minimum
+    if budget_min is not None:
 
-#         filtered = [
-#             p
-#             for p in filtered
-#             if (
-#                 get_property_price(p)
-#                 or 0
-#             ) >= budget_min
-#         ]
+        filtered = [
+            p
+            for p in filtered
+            if (
+                get_property_price(p)
+                or 0
+            ) >= budget_min
+        ]
 
-#     # Budget maximum
-#     if budget_max is not None:
-
-#         filtered = [
-#             p
-#             for p in filtered
-#             if (
-#                 get_property_price(p)
-#                 or 0
-#             ) <= budget_max
-#         ]
-
-#     # =====================================================
-#     # BUILD DISPLAY PROPERTIES
-#     # =====================================================
+    # Budget maximum
+    if budget_max is not None:
+
+        filtered = [
+            p
+            for p in filtered
+            if (
+                get_property_price(p)
+                or 0
+            ) <= budget_max
+        ]
+
+    # =====================================================
+    # BUILD DISPLAY PROPERTIES
+    # =====================================================
 
-#     properties_display = []
-
-#     for p in filtered:
+    properties_display = []
+
+    for p in filtered:
 
-#         slug = get_property_slug(p)
-#         if not slug:
-#             continue
-
-#         cover_image = (
-#             get_property_cover_image(p)
-#         )
-
-#         title = (
-#             api_text(
-#                 p.get("title")
-#             )
-#             or "Luxury Property"
-#         )
-
-#         properties_display.append({
-
-#             "id": (
-#                 p.get("id")
-#                 or p.get("external_id")
-#             ),
-
-#                 "slug": slug,
-
-#             "title": title,
-
-#             "cover": normalize_image_url(
-#                 cover_image
-#             ),
-
-#             "property_status_name":
-#                 get_property_status_name(p),
-
-#             "sales_status_name":
-#                 get_sales_status_name(p),
-
-#             "city":
-#                 get_city(p),
-
-#             "district":
-#                 get_area_name(p),
-
-#             "area_from":
-#                 p.get("area_from")
-#                 or p.get("area_to"),
-
-#             "property_type":
-#                 get_property_type(p),
-
-#             "price_from":
-#                 get_property_price(p),
+        slug = get_property_slug(p)
+        if not slug:
+            continue
+
+        cover_image = (
+            get_property_cover_image(p)
+        )
+
+        title = (
+            api_text(
+                p.get("title")
+            )
+            or "Luxury Property"
+        )
+
+        properties_display.append({
+
+            "id": (
+                p.get("id")
+                or p.get("external_id")
+            ),
+
+                "slug": slug,
+
+            "title": title,
+
+            "cover": normalize_image_url(
+                cover_image
+            ),
+
+            "property_status_name":
+                get_property_status_name(p),
+
+            "sales_status_name":
+                get_sales_status_name(p),
+
+            "city":
+                get_city(p),
+
+            "district":
+                get_area_name(p),
+
+            "area_from":
+                p.get("area_from")
+                or p.get("area_to"),
+
+            "property_type":
+                get_property_type(p),
+
+            "price_from":
+                get_property_price(p),
 
-#             "developer":
-#                 get_developer_name(p),
+            "developer":
+                get_developer_name(p),
 
-#             "bedrooms":
-#                 get_bedroom_list(p),
+            "bedrooms":
+                get_bedroom_list(p),
 
-#             "handover":
-#                 get_handover(p),
-#         })
+            "handover":
+                get_handover(p),
+        })
 
-#     # =====================================================
-#     # PAGINATION
-#     # =====================================================
+    # =====================================================
+    # PAGINATION
+    # =====================================================
 
-#     page_size = 9
+    page_size = 9
 
-#     total_properties = len(
-#         properties_display
-#     )
+    total_properties = len(
+        properties_display
+    )
 
-#     total_pages = (
-#         (
-#             total_properties
-#             + page_size
-#             - 1
-#         )
-#         // page_size
-#         if total_properties
-#         else 0
-#     )
+    total_pages = (
+        (
+            total_properties
+            + page_size
+            - 1
+        )
+        // page_size
+        if total_properties
+        else 0
+    )
 
-#     if (
-#         total_pages
-#         and current_page > total_pages
-#     ):
-#         current_page = total_pages
+    if (
+        total_pages
+        and current_page > total_pages
+    ):
+        current_page = total_pages
 
-#     start = (
-#         current_page - 1
-#     ) * page_size
+    start = (
+        current_page - 1
+    ) * page_size
 
-#     end = start + page_size
+    end = start + page_size
 
-#     properties = properties_display[
-#         start:end
-#     ]
+    properties = properties_display[
+        start:end
+    ]
 
-#     previous_page = (
-#         current_page - 1
-#         if current_page > 1
-#         else None
-#     )
+    previous_page = (
+        current_page - 1
+        if current_page > 1
+        else None
+    )
 
-#     next_page = (
-#         current_page + 1
-#         if current_page < total_pages
-#         else None
-#     )
+    next_page = (
+        current_page + 1
+        if current_page < total_pages
+        else None
+    )
 
-#     page_numbers = _build_page_numbers(
-#         current_page,
-#         total_pages
-#     )
+    page_numbers = _build_page_numbers(
+        current_page,
+        total_pages
+    )
 
-#     # =====================================================
-#     # CONTEXT
-#     # =====================================================
+    # =====================================================
+    # CONTEXT
+    # =====================================================
 
-#     context = {
+    context = {
 
-#         # URL slug
-#         "area_slug":
-#             area_slug,
+        # URL slug
+        "area_slug":
+            area_slug,
 
-#         # Human-readable area name
-#         "area_name":
-#             area_display_name,
+        # Human-readable area name
+        "area_name":
+            area_display_name,
 
-#         "area_display_name":
-#             area_display_name,
+        "area_display_name":
+            area_display_name,
 
-#         "area_city":
-#             area_city,
+        "area_city":
+            area_city,
 
-#         # Properties
-#         "properties":
-#             properties,
+        # Properties
+        "properties":
+            properties,
 
-#         "total_properties":
-#             total_properties,
+        "total_properties":
+            total_properties,
 
-#         # Pagination
-#         "current_page":
-#             current_page,
+        # Pagination
+        "current_page":
+            current_page,
 
-#         "total_pages":
-#             total_pages,
+        "total_pages":
+            total_pages,
 
-#         "page_numbers":
-#             page_numbers,
+        "page_numbers":
+            page_numbers,
 
-#         "previous_page":
-#             previous_page,
+        "previous_page":
+            previous_page,
 
-#         "next_page":
-#             next_page,
+        "next_page":
+            next_page,
 
-#         # Filters
-#         "property_names":
-#             property_names,
+        # Filters
+        "property_names":
+            property_names,
 
-#         "property_statuses":
-#             property_statuses,
+        "property_statuses":
+            property_statuses,
 
-#         "developers":
-#             developers,
+        "developers":
+            developers,
 
-#         "bedroom_options":
-#             bedroom_options,
+        "bedroom_options":
+            bedroom_options,
 
-#         "handover_options":
-#             handover_options,
+        "handover_options":
+            handover_options,
 
-#         "budget_options":
-#             budget_options,
+        "budget_options":
+            budget_options,
 
-#         "filters": {
+        "filters": {
 
-#             "property_name":
-#                 property_name,
+            "property_name":
+                property_name,
 
-#             "property_status":
-#                 property_status,
+            "property_status":
+                property_status,
 
-#             "budget":
-#                 budget,
+            "budget":
+                budget,
 
-#             "developer":
-#                 developer,
+            "developer":
+                developer,
 
-#             "bedrooms":
-#                 bedrooms,
+            "bedrooms":
+                bedrooms,
 
-#             "handover":
-#                 handover,
-#         },} return render(request,"main/areadetail.html", context)
+            "handover":
+                handover,
+        },} return render(request,"main/areadetail.html", context)
 
 def test_opperp(request):
 
