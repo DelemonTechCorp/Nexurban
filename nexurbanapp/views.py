@@ -3364,6 +3364,7 @@ def property_map_search(request):
     return render(request, "main/property_map_search.html", context)
 
 
+
 def blog(request, page=1):
 
     # ==========================================
@@ -3411,7 +3412,6 @@ def blog(request, page=1):
     # ==========================================
 
     search_query = request.GET.get("search", "").strip()
-
     sort_by = request.GET.get("sort", "-created_at")
 
     try:
@@ -3421,7 +3421,13 @@ def blog(request, page=1):
     except ValueError:
         page_size = 9
 
-    posts = BlogPost.objects.all()
+    # Slug empty / null aaya posts ozhivakkunnu (blog_detail URL-inu slug venam)
+    all_posts = BlogPost.objects.exclude(Q(slug__isnull=True) | Q(slug=""))
+
+    # Featured = ettavum last add cheytha post (search/sort-inu bandham illa)
+    featured_post = all_posts.order_by("-created_at", "-pk").first()
+
+    posts = all_posts
 
     if search_query:
         posts = posts.filter(
@@ -3439,18 +3445,16 @@ def blog(request, page=1):
         "title": "title",
     }
 
-    posts = posts.order_by(sort_map.get(sort_by, "-created_at"))
+    posts = posts.order_by(sort_map.get(sort_by, "-created_at"), "-pk")
 
-    # First post = featured
-    featured_post = posts.first()
-
+    # Featured post list-il ninnu ozhivakkunnu
     if featured_post:
-        other_posts = posts.exclude(pk=featured_post.pk)
-    else:
-        other_posts = posts.none()
+        posts = posts.exclude(pk=featured_post.pk)
 
-    paginator = Paginator(other_posts, page_size)
-    posts_page = paginator.get_page(page)
+    # Template-il ?page=2 aanu use cheyyunnathu
+    page_number = request.GET.get("page", page)
+    paginator = Paginator(posts, page_size)
+    posts_page = paginator.get_page(page_number)
 
     context = {
         "featured_post": featured_post,
@@ -3462,9 +3466,6 @@ def blog(request, page=1):
     }
 
     return render(request, "main/blog.html", context)
-
-
-
 
 
 def blog_detail(request, slug):
