@@ -18,6 +18,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import BlogPost
 from django.core.paginator import Paginator
 from django.http import HttpResponse
+from django.db.models import Q
 
 # =========================================================
 # FIELD HELPERS
@@ -3181,6 +3182,8 @@ def submit_property_enquiry(request):
         messages.error(request, "Please check the form and try again.")
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
+
+
 def thank_you(request):
 
     # Lets one thank-you page serve all your forms with a tailored message
@@ -3215,6 +3218,18 @@ def thank_you(request):
                 "touch shortly with the details you requested."
             ),
         },
+        "newsletter": {
+            "eyebrow": "SUBSCRIBED",
+            "title": "You're on",
+            "title_em": "the list.",
+            "description": "Thank you for subscribing. You'll hear from us soon.",
+        },
+        "blog": {
+            "eyebrow": "ENQUIRY RECEIVED",
+            "title": "Thank you for",
+            "title_em": "your message.",
+            "description": "Our team will get back to you shortly.",
+        },
         "general": {
             "eyebrow": "SUBMISSION RECEIVED",
             "title": "Thank",
@@ -3228,6 +3243,8 @@ def thank_you(request):
     context = messages_map.get(form_type, messages_map["general"])
 
     return render(request, "main/thankyou.html", context)
+
+
 
 
 def property_map_search(request):
@@ -3355,17 +3372,11 @@ def blog(request, page=1):
 
     if request.method == "POST":
 
-        form_type = request.POST.get(
-            "form_type",
-            ""
-        ).strip()
+        form_type = request.POST.get("form_type", "").strip()
 
         if form_type == "newsletter":
 
-            email = request.POST.get(
-                "email",
-                ""
-            ).strip()
+            email = request.POST.get("email", "").strip()
 
             if email:
 
@@ -3378,97 +3389,68 @@ def blog(request, page=1):
                     interest="Newsletter",
                 )
 
-                print("================================")
-                print("NEWSLETTER SUBSCRIBER CREATED")
-                print("ID:", enquiry.id)
-                print("EMAIL:", enquiry.email)
-                print("================================")
+                print("NEWSLETTER SUBSCRIBER CREATED:", enquiry.id, enquiry.email)
 
                 try:
-
                     result = send_enquiry_email(enquiry)
-
-                    print("BREVO NEWSLETTER SUCCESS:")
-                    print(result)
+                    print("BREVO NEWSLETTER SUCCESS:", result)
 
                     enquiry.sent_to_brevo = True
-
-                    enquiry.save(
-                        update_fields=["sent_to_brevo"]
-                    )
+                    enquiry.save(update_fields=["sent_to_brevo"])
 
                 except Exception as e:
-
                     print("========== BREVO NEWSLETTER ERROR ==========")
                     print("ERROR:", str(e))
                     traceback.print_exc()
                     print("============================================")
 
-            return redirect(
-                f"{reverse('thank_you')}?type=newsletter"
-            )
+            return redirect(f"{reverse('thank_you')}?type=newsletter")
 
     # ==========================================
     # BLOG LISTING
     # ==========================================
 
-    search_query = request.GET.get(
-        "search",
-        ""
-    ).strip()
+    search_query = request.GET.get("search", "").strip()
 
-    sort_by = request.GET.get(
-        "sort",
-        "-created_at"
-    )
+    sort_by = request.GET.get("sort", "-created_at")
 
-    page_size = int(
-        request.GET.get(
-            "page_size",
-            9
-        )
-    )
+    try:
+        page_size = int(request.GET.get("page_size", 9))
+        if page_size < 1:
+            page_size = 9
+    except ValueError:
+        page_size = 9
 
     posts = BlogPost.objects.all()
 
     if search_query:
         posts = posts.filter(
             Q(title__icontains=search_query) |
-            Q(description__icontains=search_query) |
+            Q(excerpt__icontains=search_query) |
+            Q(meta_description__icontains=search_query) |
             Q(content__icontains=search_query)
         )
 
     sort_map = {
         "-publish_date": "-created_at",
         "publish_date": "created_at",
+        "-created_at": "-created_at",
+        "created_at": "created_at",
         "title": "title",
     }
 
-    posts = posts.order_by(
-        sort_map.get(
-            sort_by,
-            "-created_at"
-        )
-    )
+    posts = posts.order_by(sort_map.get(sort_by, "-created_at"))
 
     # First post = featured
     featured_post = posts.first()
 
     if featured_post:
-        other_posts = posts.exclude(
-            pk=featured_post.pk
-        )
+        other_posts = posts.exclude(pk=featured_post.pk)
     else:
         other_posts = posts.none()
 
-    paginator = Paginator(
-        other_posts,
-        page_size
-    )
-
-    posts_page = paginator.get_page(
-        page
-    )
+    paginator = Paginator(other_posts, page_size)
+    posts_page = paginator.get_page(page)
 
     context = {
         "featured_post": featured_post,
@@ -3479,11 +3461,11 @@ def blog(request, page=1):
         "current_page": posts_page.number,
     }
 
-    return render(
-        request,
-        "main/blog.html",
-        context
-    )
+    return render(request, "main/blog.html", context)
+
+
+
+
 
 def blog_detail(request, slug):
 

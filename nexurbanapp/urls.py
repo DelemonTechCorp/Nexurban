@@ -9,9 +9,9 @@ urlpatterns = [
        path('offplan', views.offplan, name='offplan'),
        path('ready', views.ready, name='ready'),
        path('about/', views.about, name='about'),
-       path('contact/', views.contact, name='contact'),
+       path('contact', views.contact, name='contact'),
        path('area/', views.area, name='area'),
-      path('area-detail/<slug:area_slug>/', views.area_detail, name='area_detail'),
+       path('area-detail/<slug:area_slug>/', views.area_detail, name='area_detail'),
 
       path("property/<slug:slug>/", views.propertydetail, name="propertydetail"),
       path('sell', views.sell, name='sell'),
