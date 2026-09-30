@@ -2497,45 +2497,80 @@ def _build_page_numbers(current_page, total_pages):
 # =========================================================
 # AREA VIEW
 # =========================================================
-
 def area(request):
 
     api = XOpperpAPI()
 
     current_page = request.GET.get("page", 1)
+
     try:
         current_page = int(current_page)
     except (TypeError, ValueError):
         current_page = 1
+
     if current_page < 1:
         current_page = 1
 
     search_area = request.GET.get("search_area", "").strip()
 
+    # -------------------------------------------------
+    # GET LIVE PROPERTIES
+    # -------------------------------------------------
     try:
         all_properties = get_all_properties(api)
+
+        print("===================================")
+        print("LIVE API PROPERTIES:", len(all_properties))
+        print("===================================")
+
     except Exception as e:
-        print("X-OPPERP AREA API ERROR:", e)
+        print("===================================")
+        print("X-OPPERP AREA API ERROR:", repr(e))
+        print("===================================")
+
         all_properties = []
 
+    # -------------------------------------------------
+    # DUBAI ONLY
+    # -------------------------------------------------
     dubai_properties = []
+
     for p in all_properties:
-        city = get_city(p).lower()
-        if city == "dubai" or "dubai" in city:
-            if get_sales_status_name(p).lower() != "sold out":
+
+        city = get_city(p)
+
+        if not city:
+            continue
+
+        city = str(city).strip().lower()
+
+        if "dubai" in city:
+
+            sales_status = get_sales_status_name(p)
+
+            if str(sales_status).strip().lower() != "sold out":
                 dubai_properties.append(p)
 
+    print("DUBAI PROPERTIES:", len(dubai_properties))
+
+    # -------------------------------------------------
+    # BUILD AREAS
+    # -------------------------------------------------
     area_data = {}
 
     for p in dubai_properties:
 
         area_name = get_area_name(p)
+
         if not area_name:
             continue
+
+        area_name = str(area_name).strip()
 
         area_key = area_name.lower()
 
         if area_key not in area_data:
+
             area_data[area_key] = {
                 "name": area_name,
                 "slug": slugify(area_name),
@@ -2543,28 +2578,62 @@ def area(request):
                 "property_count": 0,
             }
 
-
         area_entry = area_data[area_key]
+
         area_entry["property_count"] += 1
 
         if not area_entry["image"]:
-            cover_image = get_property_cover_image(p)
-            if cover_image:
-                area_entry["image"] = normalize_image_url(cover_image)
+
+            try:
+                cover_image = get_property_cover_image(p)
+
+                if cover_image:
+                    area_entry["image"] = normalize_image_url(
+                        cover_image
+                    )
+
+            except Exception as e:
+                print(
+                    "AREA IMAGE ERROR:",
+                    area_name,
+                    repr(e)
+                )
 
     areas = list(area_data.values())
 
+    print("TOTAL AREAS:", len(areas))
+
+    # -------------------------------------------------
+    # SEARCH
+    # -------------------------------------------------
     if search_area:
+
         search_lower = search_area.lower()
-        areas = [a for a in areas if search_lower in a["name"].lower()]
 
-    areas.sort(key=lambda x: x["property_count"], reverse=True)
+        areas = [
+            a for a in areas
+            if search_lower in a["name"].lower()
+        ]
 
+    # -------------------------------------------------
+    # SORT
+    # -------------------------------------------------
+    areas.sort(
+        key=lambda x: x["property_count"],
+        reverse=True
+    )
+
+    # -------------------------------------------------
+    # PAGINATION
+    # -------------------------------------------------
     page_size = 6
+
     total_areas = len(areas)
+
     total_pages = (
         (total_areas + page_size - 1) // page_size
-        if total_areas else 0
+        if total_areas
+        else 0
     )
 
     if total_pages and current_page > total_pages:
@@ -2572,12 +2641,25 @@ def area(request):
 
     start = (current_page - 1) * page_size
     end = start + page_size
+
     displayed_areas = areas[start:end]
 
-    previous_page = current_page - 1 if current_page > 1 else None
-    next_page = current_page + 1 if current_page < total_pages else None
+    previous_page = (
+        current_page - 1
+        if current_page > 1
+        else None
+    )
 
-    page_numbers = _build_page_numbers(current_page, total_pages)
+    next_page = (
+        current_page + 1
+        if current_page < total_pages
+        else None
+    )
+
+    page_numbers = _build_page_numbers(
+        current_page,
+        total_pages
+    )
 
     context = {
         "areas": displayed_areas,
@@ -2590,7 +2672,11 @@ def area(request):
         "search_area": search_area,
     }
 
-    return render(request, "main/area.html", context)
+    return render(
+        request,
+        "main/area.html",
+        context
+    )
 # =========================================================
 # DEBUG / TEST ENDPOINT
 # =========================================================
