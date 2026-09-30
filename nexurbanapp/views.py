@@ -2641,6 +2641,95 @@ def get_budget_options(properties):
             options.append((value, label))
 
     return options
+
+
+
+def area(request):
+
+    api = XOpperpAPI()
+
+    try:
+        current_page = max(int(request.GET.get("page", 1)), 1)
+    except (TypeError, ValueError):
+        current_page = 1
+
+    search_area = request.GET.get("search_area", "").strip()
+
+    try:
+        all_properties = get_all_properties(api)
+    except Exception as e:
+        print("X-OPPERP AREA API ERROR:", e)
+        all_properties = []
+
+    area_data = {}
+
+    for p in all_properties:
+
+        if "dubai" not in get_city(p).lower():
+            continue
+
+        if get_sales_status_name(p).lower() == "sold out":
+            continue
+
+        area_name = get_area_name(p)
+
+        if not area_name or area_name.strip().lower() in INVALID_LABELS:
+            continue
+
+        area_slug = slugify(area_name)
+
+        # slug illenkil detail URL work cheyyilla
+        if not area_slug:
+            continue
+
+        # group by SLUG (detail page-um ithe vech aanu match cheyyunnath)
+        entry = area_data.setdefault(area_slug, {
+            "name": area_name.strip(),
+            "slug": area_slug,
+            "image": "",
+            "property_count": 0,
+        })
+
+        entry["property_count"] += 1
+
+        if not entry["image"]:
+            cover = get_property_cover_image(p)
+            if cover:
+                entry["image"] = normalize_image_url(cover)
+
+    areas = list(area_data.values())
+
+    if search_area:
+        s = search_area.lower()
+        areas = [a for a in areas if s in a["name"].lower()]
+
+    # stable order: count desc, then name
+    areas.sort(key=lambda a: (-a["property_count"], a["name"].lower()))
+
+    page_size = 6
+    total_areas = len(areas)
+    total_pages = (total_areas + page_size - 1) // page_size if total_areas else 0
+
+    if total_pages and current_page > total_pages:
+        current_page = total_pages
+
+    start = (current_page - 1) * page_size
+    displayed_areas = areas[start:start + page_size]
+
+    context = {
+        "areas": displayed_areas,
+        "total_areas": total_areas,
+        "current_page": current_page,
+        "total_pages": total_pages,
+        "page_numbers": _build_page_numbers(current_page, total_pages),
+        "previous_page": current_page - 1 if current_page > 1 else None,
+        "next_page": current_page + 1 if current_page < total_pages else None,
+        "search_area": search_area,
+    }
+
+    return render(request, "main/area.html", context)
+   
+    
 def area_detail(request, area_slug):
 
     api = XOpperpAPI()
@@ -2691,17 +2780,13 @@ def area_detail(request, area_slug):
     # GET PROPERTIES
     # =====================================================
 
-    try:
-        all_properties = get_all_properties(api)
-
-    except Exception as e:
-
-        print(
-            "X-OPPERP AREA DETAIL API ERROR:",
-            e
-        )
-
-        all_properties = []
+api_failed = False
+try:
+    all_properties = get_all_properties(api)
+except Exception as e:
+    print("X-OPPERP AREA DETAIL API ERROR:", e)
+    all_properties = []
+    api_failed = True
 
     # =====================================================
     # NORMALIZE URL SLUG
@@ -2743,6 +2828,13 @@ def area_detail(request, area_slug):
             continue
 
         base.append(p)
+
+    print("AREA SLUG FROM URL:", repr(area_slug))
+    print("TOTAL PROPERTIES FROM API:", len(all_properties))
+    print("MATCHED IN THIS AREA:", len(base))
+
+    if not base and not api_failed:
+        raise Http404("Area not found")
 
     # =====================================================
     # AREA DISPLAY NAME
@@ -2903,6 +2995,10 @@ def area_detail(request, area_slug):
 
     for p in filtered:
 
+        slug = get_property_slug(p)
+        if not slug:
+            continue
+
         cover_image = (
             get_property_cover_image(p)
         )
@@ -2921,7 +3017,7 @@ def area_detail(request, area_slug):
                 or p.get("external_id")
             ),
 
-            "slug": get_property_slug(p),
+                "slug": slug,
 
             "title": title,
 
@@ -3098,7 +3194,6 @@ def area_detail(request, area_slug):
                 handover,
         },
     }
-
     return render(
         request,
         "main/areadetail.html",

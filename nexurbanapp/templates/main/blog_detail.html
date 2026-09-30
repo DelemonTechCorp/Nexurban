@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ post.title|default:"Dubai Real Estate Blog" }} | Nexurban{% endblock %}
-{% block meta_description %}{{ post.title|default:"Dubai real estate insights" }} - read market insights, area guides and property investment tips from Nexurban Properties, Dubai.{% endblock %}
+{% block title %}{{ post.meta_title }} {% endblock %}
+{% block meta_description %}{{ post.meta_description" }}{% endblock %}
 {% block content %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
