@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block meta_description %}Read Nexurban's Dubai real estate blog for market insights, area guides and investment tips.{% endblock %}
+{% block og_tags %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nexurban Properties">
+<meta property="og:title" content="Nexurban Blog | Dubai Real Estate Insights">
+<meta property="og:description" content="Market insights, area guides and investment tips for Dubai real estate.">
+<meta property="og:url" content="https://nexurbanproperties.com{{ request.path }}">
+{% if featured_post and featured_post.image %}
+<meta property="og:image" content="https://nexurbanproperties.com{{ featured_post.image.url }}">
+{% else %}
+<meta property="og:image" content="https://nexurbanproperties.com{% static 'img/blog-hero.jpg' %}">
+{% endif %}
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
 {% block content %}
 <style>
   :root{
@@ -469,7 +484,7 @@
         <span class="image-label">Featured</span>
       </div>
       <div class="adv-feature-copy">
-        <p class="eyebrow">Market Intelligence · {{ featured_post.reading_time }} min read</p>
+        <p class="eyebrow">Market Intelligence · {{ featured_post.created_at|date:"d M Y" }} · {{ featured_post.reading_time }} min read</p>
         <h2>{{ featured_post.title }}</h2>
         <p class="adv-feature-desc">
           {{ featured_post.description }}
@@ -645,7 +660,7 @@
       {% endif %}
     </div>
     <div class="adv-row-main">
-      <p class="eyebrow">{{ post.reading_time }} min read</p>
+      <p class="eyebrow">{{ post.created_at|date:"d M Y" }} · {{ post.reading_time }} min read</p>
       <h3>{{ post.title }}</h3>
       <p>{{ post.description }}</p>
     </div>
@@ -894,6 +909,8 @@
 "@type": "Article",
 "headline": "{{ featured_post.title|escapejs }}",
 "url": "https://nexurbanproperties.com{% url 'blog_detail' featured_post.slug %}",
+
+"datePublished": "{{ featured_post.created_at|date:'c' }}",
 {% if featured_post.image %}"image": "https://nexurbanproperties.com{{ featured_post.image.url }}",{% endif %}
 "author": {"@type": "Organization", "name": "Nexurban Properties"},
 "publisher": {"@type": "Organization", "name": "Nexurban Properties", "logo":

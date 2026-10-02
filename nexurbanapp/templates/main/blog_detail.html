@@ -2,6 +2,19 @@
 {% load static %}
 {% block title %}{{ meta_title }} {% endblock %}
 {% block meta_description %}{{ meta_description }}{% endblock %}
+{% block og_tags %}
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nexurban Properties">
+<meta property="og:title" content="{{ post.meta_title|default:post.title }}">
+<meta property="og:description" content="{{ post.meta_description|default:post.excerpt|truncatechars:160 }}">
+<meta property="og:url" content="https://nexurbanproperties.com{{ request.path }}">
+{% if post.image %}
+<meta property="og:image" content="https://nexurbanproperties.com{{ post.image.url }}">
+<meta name="twitter:image" content="https://nexurbanproperties.com{{ post.image.url }}">
+{% endif %}
+<meta property="article:published_time" content="{{ post.created_at|date:'c' }}">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
 {% block content %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -595,6 +608,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <h1 class="hero-title">Real Estate Insights &amp;<em>Market Updates</em></h1>
+
     <p class="hero-subtitle">
       Explore expert insights, market trends, property news, and the latest developments in Dubai real estate.
     </p>
@@ -608,7 +622,7 @@
     <!-- ============ MAIN COLUMN / ARTICLE BODY ============ -->
     <article class="reveal reveal-2" id="overview">
       <h1 style="font-size:40px; margin-top:12px;">{{ post.title }}</h1>
-
+      <time datetime="{{ post.created_at|date:'Y-m-d' }}">{{ post.created_at|date:"F j, Y" }}</time>
       {% if post.image %}
       <div class="toc-image" style="margin-top:28px;">
         <div style="position:absolute; inset:0; background-image:url('{{ post.image.url }}'); background-size:cover; background-position:center;"></div>
@@ -922,6 +936,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Article",
+"headline": "{{ post.title|escapejs }}",
+"datePublished": "{{ post.created_at|date:'c' }}",
+{% if post.image %}"image": "https://nexurbanproperties.com{{ post.image.url }}",{% endif %}
+"author": {"@type": "Organization", "name": "Nexurban Properties"},
+"publisher": {"@type": "Organization", "name": "Nexurban Properties", "logo": "https://nexurbanproperties.com/static/img/logo.png"}
+}
 </script>
 
 {% endblock %}
