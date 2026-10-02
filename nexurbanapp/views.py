@@ -19,6 +19,7 @@ from .models import BlogPost
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
+from django.shortcuts import redirect
 
 # =========================================================
 # FIELD HELPERS
@@ -27,12 +28,21 @@ from django.db.models import Q
 # objects on this endpoint.
 # =========================================================
 from django.utils.text import slugify
+
+
+
 def propertydetail(request, slug):
 
     
     # =====================================================
     # HANDLE ENQUIRY FORM SUBMISSION
     # =====================================================
+
+    if slug == "w-residences":
+        return redirect(
+            "/property/w-residences-at-dubai-harbour/",
+            permanent=True
+        )
 
     if request.method == "POST":
 
@@ -1241,20 +1251,51 @@ def home(request):
         context
     )
 
+
+
+def offplan_old(request):
+    old_page = request.GET.get("page")
+
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page > 1:
+            return redirect(
+                "offplan_paginated",
+                page=old_page,
+                permanent=True
+            )
+
+    return redirect("offplan", permanent=True)
 # =========================================================
 # OFF-PLAN
 # =========================================================
-def offplan(request):
+def offplan(request, page=1):
 
-    api = XOpperpAPI()
+    old_page = request.GET.get("page")
 
-    current_page = request.GET.get("page", 1)
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("offplan")
+
+        return redirect(
+            "offplan_paginated",
+            page=old_page
+        )
+
     try:
-        current_page = int(current_page)
+        current_page = max(int(page), 1)
     except (TypeError, ValueError):
         current_page = 1
-    if current_page < 1:
-        current_page = 1
+
 
     # BASIC FILTERS
     property_name = request.GET.get("property_name", "").strip()
@@ -1269,11 +1310,13 @@ def offplan(request):
 
     budget_min, budget_max = parse_budget_range(budget)
 
+    api = XOpperpAPI()
+
     try:
         all_properties = get_all_properties(api)
     except Exception as e:
-        print("X-OPPERP API ERROR:", e)
-        all_properties = []
+            print("X-OPPERP API ERROR:", e)
+            all_properties = []
 
     # OFF-PLAN BASE SET, excluding Sold Out
     base = [
@@ -1424,16 +1467,27 @@ def offplan(request):
 # READY
 # =========================================================
 
-def ready(request):
+def ready(request, page=1):
 
-    api = XOpperpAPI()
+    old_page = request.GET.get("page")
 
-    current_page = request.GET.get("page", 1)
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("ready")
+
+        return redirect(
+            "ready_paginated",
+            page=old_page
+        )
+
     try:
-        current_page = int(current_page)
+        current_page = max(int(page), 1)
     except (TypeError, ValueError):
-        current_page = 1
-    if current_page < 1:
         current_page = 1
 
     # BASIC FILTERS
@@ -1448,6 +1502,8 @@ def ready(request):
     handover = request.GET.get("handover", "").strip()
 
     budget_min, budget_max = parse_budget_range(budget)
+
+    api = XOpperpAPI()
 
     try:
         all_properties = get_all_properties(api)
@@ -1607,18 +1663,62 @@ def ready(request):
 # LUXURY
 # =========================================================
 
-def luxury(request):
+def luxury(request, page=1):
 
-    api = XOpperpAPI()
+    old_page = request.GET.get("page")
 
-    current_page = request.GET.get("page", 1)
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("luxury")
+
+        return redirect(
+            "luxury_paginated",
+            page=old_page
+        )
 
     try:
-        current_page = int(current_page)
+        current_page = max(int(page), 1)
     except (TypeError, ValueError):
         current_page = 1
 
-    if current_page < 1:
+
+    city = request.GET.get("city", "").strip()
+    property_type = request.GET.get("property_type", "").strip()
+    min_price = request.GET.get("min_price", "").strip()
+    max_price = request.GET.get("max_price", "").strip()
+
+    api = XOpperpAPI()
+
+    try:
+        all_properties = get_all_properties(api)
+    except Exception as e:
+        print("X-OPPERP LUXURY API ERROR:", e)
+        all_properties = []
+
+    old_page = request.GET.get("page")
+
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("luxury")
+
+        return redirect(
+            "luxury_paginated",
+            page=old_page
+        )
+
+    try:
+        current_page = max(int(page), 1)
+    except (TypeError, ValueError):
         current_page = 1
 
     city = request.GET.get("city", "").strip()
@@ -1811,16 +1911,45 @@ def luxury(request):
 # BUY
 # =========================================================
 
-def buy(request):
+def buy_old(request):
+    old_page = request.GET.get("page")
 
-    api = XOpperpAPI()
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
 
-    current_page = request.GET.get("page", 1)
+        if old_page > 1:
+            return redirect(
+                "buy_paginated",
+                page=old_page,
+                permanent=True
+            )
+
+    return redirect("buy", permanent=True)
+
+def buy(request, page=1):
+
+    old_page = request.GET.get("page")
+
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("buy")
+
+        return redirect(
+            "buy_paginated",
+            page=old_page
+        )
+
     try:
-        current_page = int(current_page)
+        current_page = max(int(page), 1)
     except (TypeError, ValueError):
-        current_page = 1
-    if current_page < 1:
         current_page = 1
 
     # BASIC FILTERS
@@ -1837,18 +1966,22 @@ def buy(request):
 
     budget_min, budget_max = parse_budget_range(budget)
 
+    api = XOpperpAPI()
+
     try:
         all_properties = get_all_properties(api)
+
+        # BUY BASE SET = Off Plan + Ready, excluding Sold Out
+        base = [
+            p for p in all_properties
+            if get_property_status_name(p) in ("Off Plan", "Ready")
+            and get_sales_status_name(p) != "Sold Out"
+        ]
+
     except Exception as e:
         print("X-OPPERP BUY API ERROR:", e)
         all_properties = []
-
-    # BUY BASE SET = Off Plan + Ready, excluding Sold Out
-    base = [
-        p for p in all_properties
-        if get_property_status_name(p) in ("Off Plan", "Ready")
-        and get_sales_status_name(p) != "Sold Out"
-    ]
+        base = []
 
     # DYNAMIC FILTER OPTIONS (from base, not hardcoded)
     property_names = get_distinct_property_names(base)
@@ -1997,9 +2130,18 @@ def buy(request):
 # =========================================================
 # SIMPLE STATIC PAGES
 # =========================================================
-
 def about(request):
     return render(request, 'main/about.html')
+
+
+def about_old(request):
+    return redirect("about", permanent=True)
+
+def Jd(request):
+    return render(request, 'main/jointdevelopment.html')
+
+def propertyadvisory(request):
+    return render(request, 'main/propertyadvisory.html')
 
 def Jd(request):
     return render(request, 'main/jointdevelopment.html')
@@ -2010,8 +2152,15 @@ def propertyadvisory(request):
 def JointVentures(request):
     return render(request, 'main/jointventures.html')
 
+def land_deals_old(request):
+    return redirect("land-deals", permanent=True)
+
 def landdeal(request):
     return render(request, 'main/landdeals.html')
+
+def contact_old(request):
+    return redirect("contact", permanent=True)
+
 def contact(request):
     if request.method == "POST":
 
@@ -2463,8 +2612,11 @@ def sell(request):
         return redirect(f"{reverse('thank_you')}?type=valuation")
 
     return render(request, "main/sell.html")
-def flipbook(request):
-    return render(request, 'main/flipbook.html')
+
+
+
+# def flipbook(request):
+#     return render(request, 'main/flipbook.html')
 
 
 # =========================================================
@@ -2497,22 +2649,31 @@ def _build_page_numbers(current_page, total_pages):
 # =========================================================
 # AREA VIEW
 # =========================================================
-def area(request):
+
+
+def area(request, page=1):
+
+    old_page = request.GET.get("page")
+
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("area")
+
+        return redirect(
+            "area_paginated",
+            page=old_page
+        )
+
+    current_page = max(int(page), 1)
 
     api = XOpperpAPI()
 
-    current_page = request.GET.get("page", 1)
-
-    try:
-        current_page = int(current_page)
-    except (TypeError, ValueError):
-        current_page = 1
-
-    if current_page < 1:
-        current_page = 1
-
     search_area = request.GET.get("search_area", "").strip()
-
     # -------------------------------------------------
     # GET LIVE PROPERTIES
     # -------------------------------------------------
@@ -2729,106 +2890,56 @@ def get_budget_options(properties):
     return options
 
 
+def area_detail_old(request, area_slug):
+    old_page = request.GET.get("page")
 
-def area(request):
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
 
-    api = XOpperpAPI()
+        if old_page > 1:
+            return redirect(
+                "area_detail_paginated",
+                area_slug=area_slug,
+                page=old_page,
+                permanent=True
+            )
 
-    try:
-        current_page = max(int(request.GET.get("page", 1)), 1)
-    except (TypeError, ValueError):
-        current_page = 1
+    return redirect(
+        "area_detail",
+        area_slug=area_slug,
+        permanent=True
+    )
 
-    search_area = request.GET.get("search_area", "").strip()
 
-    try:
-        all_properties = get_all_properties(api)
-    except Exception as e:
-        print("X-OPPERP AREA API ERROR:", e)
-        all_properties = []
+#  AREA DETAIL
 
-    area_data = {}
 
-    for p in all_properties:
+def area_detail(request, area_slug, page=1):
 
-        if "dubai" not in get_city(p).lower():
-            continue
+    old_page = request.GET.get("page")
 
-        if get_sales_status_name(p).lower() == "sold out":
-            continue
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
 
-        area_name = get_area_name(p)
+        if old_page <= 1:
+            return redirect(
+                "area_detail",
+                area_slug=area_slug
+            )
 
-        if not area_name or area_name.strip().lower() in INVALID_LABELS:
-            continue
+        return redirect(
+            "area_detail_paginated",
+            area_slug=area_slug,
+            page=old_page
+        )
 
-        area_slug = slugify(area_name)
-
-        # slug illenkil detail URL work cheyyilla
-        if not area_slug:
-            continue
-
-        # group by SLUG (detail page-um ithe vech aanu match cheyyunnath)
-        entry = area_data.setdefault(area_slug, {
-            "name": area_name.strip(),
-            "slug": area_slug,
-            "image": "",
-            "property_count": 0,
-        })
-
-        entry["property_count"] += 1
-
-        if not entry["image"]:
-            cover = get_property_cover_image(p)
-            if cover:
-                entry["image"] = normalize_image_url(cover)
-
-    areas = list(area_data.values())
-
-    if search_area:
-        s = search_area.lower()
-        areas = [a for a in areas if s in a["name"].lower()]
-
-    # stable order: count desc, then name
-    areas.sort(key=lambda a: (-a["property_count"], a["name"].lower()))
-
-    page_size = 6
-    total_areas = len(areas)
-    total_pages = (total_areas + page_size - 1) // page_size if total_areas else 0
-
-    if total_pages and current_page > total_pages:
-        current_page = total_pages
-
-    start = (current_page - 1) * page_size
-    displayed_areas = areas[start:start + page_size]
-
-    context = {
-        "areas": displayed_areas,
-        "total_areas": total_areas,
-        "current_page": current_page,
-        "total_pages": total_pages,
-        "page_numbers": _build_page_numbers(current_page, total_pages),
-        "previous_page": current_page - 1 if current_page > 1 else None,
-        "next_page": current_page + 1 if current_page < total_pages else None,
-        "search_area": search_area,
-    }
-
-    return render(request, "main/area.html", context)
-   
-    
-def area_detail(request, area_slug):
-
-    api = XOpperpAPI()
-
-    current_page = request.GET.get("page", 1)
-
-    try:
-        current_page = int(current_page)
-    except (TypeError, ValueError):
-        current_page = 1
-
-    if current_page < 1:
-        current_page = 1
+    current_page = page
 
     # =====================================================
     # FILTERS
@@ -2865,7 +2976,8 @@ def area_detail(request, area_slug):
     # =====================================================
     # GET PROPERTIES
     # =====================================================
-
+    api = XOpperpAPI()
+    
     api_failed = False
     try:
         all_properties = get_all_properties(api)
@@ -3538,6 +3650,33 @@ def property_map_search(request):
     }
 
     return render(request, "main/property_map_search.html", context)
+
+
+
+
+    # BLOG_OLD
+
+def blog_old(request):
+    old_page = request.GET.get("page")
+
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page > 1:
+            return redirect(
+                "blog_paginated",
+                page=old_page,
+                permanent=True
+            )
+
+    return redirect("blog", permanent=True)
+
+
+
+# BLOG
 
 
 

@@ -60,7 +60,7 @@ class StaticViewSitemap(BaseSitemap):
             "home", "offplan", "ready", "buy", "sell", "invest",
             "investmentadvisory", "luxury", "joint-development",
             "joint-ventures", "property-advisory", "land-deals",
-            "flipbook", "about", "contact", "area", "blog",
+             "about", "contact", "area", "blog",
             "property_map_search",
         ]
 
