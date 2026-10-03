@@ -926,4 +926,58 @@
     </p>
 </div>
 
+
+<!-- ================= BLOG LIST SCHEMA ================= -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Nexurban Properties Blog",
+  "url": "https://nexurbanproperties.com/dubai-real-estate-blog/",
+  "description": "Dubai real estate market insights, area guides, investment tips and property news from Nexurban Properties.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Nexurban Properties",
+    "url": "https://nexurbanproperties.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://nexurbanproperties.com/static/img/logo.png"
+    }
+  }
+}
+</script>
+
+{% if featured_post and featured_post.slug %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ featured_post.title|escapejs }}",
+  "url": "https://nexurbanproperties.com{% url 'blog_detail' featured_post.slug %}",
+  "image": "{% if featured_post.image %}https://nexurbanproperties.com{{ featured_post.image.url }}{% endif %}",
+  "datePublished": "{{ featured_post.created_at|date:'c' }}",
+  "dateModified": "{{ featured_post.created_at|date:'c' }}",
+  "author": {
+    "@type": "Organization",
+    "name": "Nexurban Properties",
+    "url": "https://nexurbanproperties.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Nexurban Properties",
+    "url": "https://nexurbanproperties.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://nexurbanproperties.com/static/img/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://nexurbanproperties.com{% url 'blog_detail' featured_post.slug %}"
+  }
+}
+</script>
+{% endif %}
+
 {% endblock %}

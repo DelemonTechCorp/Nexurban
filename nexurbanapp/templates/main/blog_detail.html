@@ -952,4 +952,68 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 </script>
 
+<!-- ================= ARTICLE SCHEMA ================= -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ post.title|escapejs }}",
+  "url": "https://nexurbanproperties.com{% url 'blog_detail' post.slug %}",
+  {% if post.image %}
+  "image": "https://nexurbanproperties.com{{ post.image.url }}",
+  {% endif %}
+  "datePublished": "{{ post.created_at|date:'c' }}",
+  "dateModified": "{{ post.created_at|date:'c' }}",
+  "author": {
+    "@type": "Organization",
+    "name": "Nexurban Properties",
+    "url": "https://nexurbanproperties.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Nexurban Properties",
+    "url": "https://nexurbanproperties.com/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://nexurbanproperties.com/static/img/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://nexurbanproperties.com{% url 'blog_detail' post.slug %}"
+  }
+}
+</script>
+
+
+<!-- ================= BREADCRUMB SCHEMA ================= -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://nexurbanproperties.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://nexurbanproperties.com/dubai-real-estate-blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ post.title|escapejs }}",
+      "item": "https://nexurbanproperties.com{% url 'blog_detail' post.slug %}"
+    }
+  ]
+}
+</script>
+
 {% endblock %}
