@@ -2189,10 +2189,6 @@ def contact(request):
         return redirect(f"{reverse('thank_you')}?type=contact")
 
     return render(request, "main/contact.html")
-
-
-
-    
 def invest(request):
     return render(request, 'main/invest.html')
 def investmentadvisory(request):

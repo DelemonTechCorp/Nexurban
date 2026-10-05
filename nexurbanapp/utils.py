@@ -1,27 +1,14 @@
-# import os
-# import requests
-
-
-# BREVO_URL = "https://api.brevo.com/v3/smtp/email"
-
-# BREVO_API_KEY = os.getenv("BREVO_API_KEY")
-# BREVO_EMAIL = os.getenv("BREVO_EMAIL")
-
-
+import os
 import requests
-from decouple import config
+
 
 BREVO_URL = "https://api.brevo.com/v3/smtp/email"
 
-BREVO_API_KEY = config("BREVO_API_KEY", default=None)
-BREVO_EMAIL = config("BREVO_EMAIL", default=None)
-
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+BREVO_EMAIL = os.getenv("BREVO_EMAIL")
 
 
 def send_enquiry_email(enquiry):
-
-    if not BREVO_API_KEY or not BREVO_EMAIL:
-        raise RuntimeError("BREVO_API_KEY / BREVO_EMAIL missing in .env")
 
     headers = {
         "accept": "application/json",
