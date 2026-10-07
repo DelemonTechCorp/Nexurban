@@ -1577,141 +1577,310 @@
 
     /* Proximity-based grouping — same distance thresholds/approach as the
        reference implementation, re-computed on every zoom level. */
-    function groupByProximity(props, zoom) {
-        var t = zoom >= 16 ? 0.0005
-              : zoom >= 15 ? 0.001
-              : zoom >= 14 ? 0.003
-              : zoom >= 13 ? 0.006
-              : zoom >= 12 ? 0.012
-              : zoom >= 11 ? 0.025
-              : zoom >= 10 ? 0.05
-              : zoom >= 9  ? 0.12
-              : zoom >= 8  ? 0.3
-              : zoom >= 7  ? 0.7 : 1.5;
 
-        var groups = [], used = {};
-        props.forEach(function (p, i) {
-            if (used[i]) return;
-            var grp = [p]; used[i] = true;
-            props.forEach(function (q, j) {
-                if (used[j]) return;
-                if (Math.abs(p.lat - q.lat) < t && Math.abs(p.lng - q.lng) < t) {
-                    grp.push(q); used[j] = true;
-                }
-            });
-            groups.push(grp);
-        });
-        return groups;
+
+
+
+   function groupByProximity(props, zoom) {
+
+    var t = zoom >= 16 ? 0.0005
+          : zoom >= 15 ? 0.001
+          : zoom >= 14 ? 0.003
+          : zoom >= 13 ? 0.006
+          : zoom >= 12 ? 0.012
+          : zoom >= 11 ? 0.025
+          : zoom >= 10 ? 0.05
+          : zoom >= 9  ? 0.12
+          : zoom >= 8  ? 0.3
+          : zoom >= 7  ? 0.7
+          : 1.5;
+
+    var grid = new Map();
+    var groups = [];
+
+    props.forEach(function (p) {
+
+        var lat = parseFloat(p.lat);
+        var lng = parseFloat(p.lng);
+
+        var cellLat = Math.floor(lat / t);
+        var cellLng = Math.floor(lng / t);
+
+        var key = cellLat + ":" + cellLng;
+
+        if (!grid.has(key)) {
+            grid.set(key, []);
+        }
+
+        grid.get(key).push(p);
+    });
+
+    grid.forEach(function (group) {
+        groups.push(group);
+    });
+
+    return groups;
+}
+
+
+
+
+var activeMarkers = [];
+var markerById = {};
+var lastRenderedZoom = null;
+
+function renderMarkers(props) {
+
+    var currentZoom = map.getZoom();
+
+    /* Don't rebuild markers if zoom level hasn't actually changed */
+    if (lastRenderedZoom === currentZoom && activeMarkers.length) {
+        return;
     }
 
-    var activeMarkers = [];
-    var markerById = {};
+    lastRenderedZoom = currentZoom;
 
-    function renderMarkers(props) {
-        activeMarkers.forEach(function (m) { map.removeLayer(m); });
-        activeMarkers = [];
-        markerById = {};
+    activeMarkers.forEach(function (m) {
+        map.removeLayer(m);
+    });
 
-        var valid = props.filter(hasCoords);
-        if (!valid.length) return;
+    activeMarkers = [];
+    markerById = {};
 
-        var groups = groupByProximity(valid, map.getZoom());
+    var valid = [];
 
-        groups.forEach(function (group) {
-            var avgLat = group.reduce(function (s, p) { return s + parseFloat(p.lat); }, 0) / group.length;
-            var avgLng = group.reduce(function (s, p) { return s + parseFloat(p.lng); }, 0) / group.length;
-            var single = group.length === 1;
-            var p0 = group[0];
+    for (var i = 0; i < props.length; i++) {
+        if (hasCoords(props[i])) {
+            valid.push(props[i]);
+        }
+    }
 
-            var icon = L.divIcon({
-                className : '',
-                html      : makeMarkerHTML(group.length, !single, false),
-                iconSize  : single ? [30, 30] : [38, 38],
-                iconAnchor: single ? [15, 30] : [19, 38],
+    if (!valid.length) return;
+
+    var groups = groupByProximity(valid, currentZoom);
+
+    groups.forEach(function (group) {
+
+        var totalLat = 0;
+        var totalLng = 0;
+
+        for (var i = 0; i < group.length; i++) {
+            totalLat += parseFloat(group[i].lat);
+            totalLng += parseFloat(group[i].lng);
+        }
+
+        var avgLat = totalLat / group.length;
+        var avgLng = totalLng / group.length;
+
+        var single = group.length === 1;
+        var p0 = group[0];
+
+        var icon = L.divIcon({
+            className: '',
+            html: makeMarkerHTML(
+                group.length,
+                !single,
+                false
+            ),
+            iconSize: single ? [30, 30] : [38, 38],
+            iconAnchor: single ? [15, 30] : [19, 38]
+        });
+
+        var marker = L.marker(
+            [avgLat, avgLng],
+            {
+                icon: icon,
+                riseOnHover: true
+            }
+        );
+
+        if (single) {
+
+            marker.bindPopup(buildPopup(p0));
+
+            marker.on('click', function () {
+                setActiveCard(p0.id);
             });
 
-            var marker = L.marker([avgLat, avgLng], { icon: icon, riseOnHover: true }).addTo(map);
+            markerById[p0.id] = marker;
 
-            if (single) {
+        } else {
 
-                marker.bindPopup(buildPopup(p0));
+            marker.bindPopup(
+                buildClusterPopup(group),
+                {
+                    maxWidth: 280,
+                    minWidth: 240
+                }
+            );
 
-                marker.on('click', function () {
-                    setActiveCard(p0.id);
-                });
+            marker.on('click', function () {
 
-                markerById[p0.id] = marker;
-
-            } else {
-
-                marker.bindPopup(
-                    buildClusterPopup(group),
-                    { maxWidth: 280, minWidth: 240 }
+                map.setView(
+                    marker.getLatLng(),
+                    Math.min(map.getZoom() + 2, 18),
+                    {
+                        animate: true
+                    }
                 );
 
-                marker.on('click', function () {
-                    /* Zoom in toward the cluster centre; the zoomend handler
-                       below re-groups the pins so the cluster splits apart
-                       once the properties are far enough apart on screen. */
-                    map.setView(marker.getLatLng(), Math.min(map.getZoom() + 2, 18), { animate: true });
-                });
+            });
 
-                group.forEach(function (gp) { markerById[gp.id] = marker; });
-            }
+            group.forEach(function (gp) {
+                markerById[gp.id] = marker;
+            });
+        }
 
-            activeMarkers.push(marker);
-        });
-    }
+        activeMarkers.push(marker);
+    });
+
+    /* Add all markers only once */
+    activeMarkers.forEach(function (marker) {
+        marker.addTo(map);
+    });
+}
 
     renderMarkers(listings);
 
-    map.on('zoomend', function () {
-        map.closePopup();
-        renderMarkers(listings);
-    });
+   map.on('zoomend', function () {
+    map.closePopup();
+    renderMarkers(listings);
+});
 
     /* ---------------------------------------------------------
        SIDEBAR LIST — built from the same listings array
     --------------------------------------------------------- */
 
-    listings.forEach(function (item) {
+    // listings.forEach(function (item) {
 
-        const card = document.createElement("div");
-        card.className = "nx-map-card";
-        card.dataset.id = item.id;
+    //     const card = document.createElement("div");
+    //     card.className = "nx-map-card";
+    //     card.dataset.id = item.id;
 
-        card.innerHTML =
-            '<div class="nx-map-card-image" style="background-image:url(\'' + (item.image || '') + '\')"></div>' +
-            '<div class="nx-map-card-body">' +
-                '<p class="nx-map-card-place">' + item.place + '</p>' +
-                (item.url
-                    ? '<a href="' + item.url + '" class="nx-map-card-name">' + item.name + '</a>'
-                    : '<p class="nx-map-card-name">' + item.name + '</p>') +
-                '<div class="nx-map-card-meta">' +
-                    '<span class="nx-map-card-price">' + item.price + '</span>' +
-                    '<span>&middot;</span>' +
-                    '<span>' + item.bedrooms + '</span>' +
-                '</div>' +
-                (item.url ? '<a href="' + item.url + '" class="nx-map-card-view">View property &rarr;</a>' : '') +
-            '</div>';
+    //     card.innerHTML =
+    //         '<div class="nx-map-card-image" style="background-image:url(\'' + (item.image || '') + '\')"></div>' +
+    //         '<div class="nx-map-card-body">' +
+    //             '<p class="nx-map-card-place">' + item.place + '</p>' +
+    //             (item.url
+    //                 ? '<a href="' + item.url + '" class="nx-map-card-name">' + item.name + '</a>'
+    //                 : '<p class="nx-map-card-name">' + item.name + '</p>') +
+    //             '<div class="nx-map-card-meta">' +
+    //                 '<span class="nx-map-card-price">' + item.price + '</span>' +
+    //                 '<span>&middot;</span>' +
+    //                 '<span>' + item.bedrooms + '</span>' +
+    //             '</div>' +
+    //             (item.url ? '<a href="' + item.url + '" class="nx-map-card-view">View property &rarr;</a>' : '') +
+    //         '</div>';
 
-        card.addEventListener("click", function (e) {
-            if (e.target.tagName === "A") return;
+    //     card.addEventListener("click", function (e) {
+    //         if (e.target.tagName === "A") return;
 
-            const marker = markerById[item.id];
-            if (!marker) return;
+    //         const marker = markerById[item.id];
+    //         if (!marker) return;
 
-            map.setView(marker.getLatLng(), 16, { animate: true });
-            setTimeout(function () { marker.openPopup(); }, 350);
-            setActiveCard(item.id);
+    //         map.setView(marker.getLatLng(), 16, { animate: true });
+    //         setTimeout(function () { marker.openPopup(); }, 350);
+    //         setActiveCard(item.id);
 
-            if (window.innerWidth <= 800) {
-                document.getElementById("nx-leaflet-map").scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        });
+    //         if (window.innerWidth <= 800) {
+    //             document.getElementById("nx-leaflet-map").scrollIntoView({ behavior: "smooth", block: "start" });
+    //         }
+    //     });
 
-        listEl.appendChild(card);
+    //     listEl.appendChild(card);
+    // });
+
+
+    var SIDEBAR_LIMIT = 100;
+
+var sidebarListings = listings.slice(0, SIDEBAR_LIMIT);
+
+sidebarListings.forEach(function (item) {
+
+    const card = document.createElement("div");
+    card.className = "nx-map-card";
+    card.dataset.id = item.id;
+
+    card.innerHTML =
+        '<div class="nx-map-card-image" style="background-image:url(\'' +
+        (item.image || '') +
+        '\')"></div>' +
+
+        '<div class="nx-map-card-body">' +
+
+            '<p class="nx-map-card-place">' +
+                item.place +
+            '</p>' +
+
+            (item.url
+                ? '<a href="' + item.url +
+                  '" class="nx-map-card-name">' +
+                  item.name +
+                  '</a>'
+
+                : '<p class="nx-map-card-name">' +
+                  item.name +
+                  '</p>'
+            ) +
+
+            '<div class="nx-map-card-meta">' +
+
+                '<span class="nx-map-card-price">' +
+                    item.price +
+                '</span>' +
+
+                '<span>&middot;</span>' +
+
+                '<span>' +
+                    item.bedrooms +
+                '</span>' +
+
+            '</div>' +
+
+            (item.url
+                ? '<a href="' + item.url +
+                  '" class="nx-map-card-view">' +
+                  'View property &rarr;' +
+                  '</a>'
+
+                : ''
+            ) +
+
+        '</div>';
+
+    card.addEventListener("click", function (e) {
+
+        if (e.target.tagName === "A") return;
+
+        const marker = markerById[item.id];
+
+        if (!marker) return;
+
+        map.setView(
+            marker.getLatLng(),
+            16,
+            { animate: true }
+        );
+
+        setTimeout(function () {
+            marker.openPopup();
+        }, 350);
+
+        setActiveCard(item.id);
+
+        if (window.innerWidth <= 800) {
+            document
+                .getElementById("nx-leaflet-map")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+        }
+
     });
+
+    listEl.appendChild(card);
+});
 
     const bounds = listings.filter(hasCoords).map(function (i) { return [i.lat, i.lng]; });
     if (bounds.length) {
