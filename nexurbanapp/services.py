@@ -62,6 +62,43 @@ class XOpperpAPI:
         )
 
 
+# def get_all_properties(api, force_refresh=False):
+#     if not force_refresh:
+#         cached = cache.get(PROPERTY_LIST_CACHE_KEY)
+#         if cached is not None:
+#             return cached
+
+#     all_properties = []
+#     page = 1
+#     page_size = 100
+
+#     while True:
+#         response = api.get_properties({"page": page, "page_size": page_size})
+#         response.raise_for_status()
+#         data = response.json()
+
+#         if isinstance(data, dict):
+#             results = data.get("results", [])
+#         elif isinstance(data, list):
+#             results = data
+#         else:
+#             results = []
+
+#         if not results:
+#             break
+
+#         all_properties.extend(results)
+
+#         next_url = data.get("next") if isinstance(data, dict) else None
+#         if not next_url:
+#             break
+
+#         page += 1
+
+#     cache.set(PROPERTY_LIST_CACHE_KEY, all_properties, CACHE_TTL)
+#     return all_properties
+
+
 def get_all_properties(api, force_refresh=False):
     if not force_refresh:
         cached = cache.get(PROPERTY_LIST_CACHE_KEY)
@@ -70,32 +107,42 @@ def get_all_properties(api, force_refresh=False):
 
     all_properties = []
     page = 1
-    page_size = 100
+    page_size = 500
 
     while True:
-        response = api.get_properties({"page": page, "page_size": page_size})
+        response = api.get_properties({
+            "page": page,
+            "page_size": page_size,
+        })
         response.raise_for_status()
         data = response.json()
 
         if isinstance(data, dict):
             results = data.get("results", [])
+            next_url = data.get("next")
         elif isinstance(data, list):
             results = data
+            next_url = None
         else:
             results = []
+            next_url = None
 
         if not results:
             break
 
         all_properties.extend(results)
 
-        next_url = data.get("next") if isinstance(data, dict) else None
         if not next_url:
             break
 
         page += 1
 
-    cache.set(PROPERTY_LIST_CACHE_KEY, all_properties, CACHE_TTL)
+    cache.set(
+        PROPERTY_LIST_CACHE_KEY,
+        all_properties,
+        CACHE_TTL
+    )
+
     return all_properties
 
 
