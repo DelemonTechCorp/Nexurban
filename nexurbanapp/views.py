@@ -29,7 +29,13 @@ from django.shortcuts import redirect
 # =========================================================
 from django.utils.text import slugify
 
-
+AREA_SLUG_ALIASES = {
+    "al-barsha-1": "al-barsha-first",
+}
+AREA_SLUG_REDIRECTS = {
+    "al-jadaf": "al-jaddaf",
+    "aljadaf": "al-jaddaf",
+}
 
 def propertydetail(request, slug):
 
@@ -37,6 +43,11 @@ def propertydetail(request, slug):
     # =====================================================
     # HANDLE ENQUIRY FORM SUBMISSION
     # =====================================================
+
+    clean_slug = re.sub(r"-{2,}", "-", re.sub(r"[_]+", "-", slug)).strip("-")
+
+    if clean_slug != slug:
+        return redirect("propertydetail", slug=clean_slug, permanent=True)
 
     if slug == "w-residences":
         return redirect(
@@ -700,13 +711,16 @@ def propertydetail(request, slug):
 
 def get_property_slug(property_data):
     """
-    Create URL slug from property title.
+    Create clean SEO-friendly URL slug from property title.
     """
 
     title = api_text(property_data.get("title"))
 
     if title:
-        return slugify(title)
+        title = re.sub(r"[_&/|]+", " ", title)
+        slug = slugify(title)
+        
+        return re.sub(r"-{2,}", "-", slug).strip("-")
 
     fallback = (
         api_text(property_data.get("id"))
@@ -714,6 +728,10 @@ def get_property_slug(property_data):
     )
 
     return slugify(fallback) if fallback else ""
+
+
+
+
 def api_text(value):
     """
     Safely convert API values into readable text.
@@ -786,6 +804,8 @@ def get_property_status_name(property_data):
 def get_sales_status_name(property_data):
     """Flat field, e.g. 'On Sale', 'Sold Out'."""
     return api_text(property_data.get("sales_status_name"))
+
+
 def get_bedroom_list(p):
     """
     Return actual bedroom values from the API.
@@ -862,6 +882,9 @@ def get_bedroom_list(p):
             result.append("Studio" if high == 0 else str(high))
 
     return result
+
+
+
 def get_property_price(property_data):
     """
     price_from is the documented starting price field. Falls
@@ -1663,29 +1686,59 @@ def ready(request, page=1):
 # LUXURY
 # =========================================================
 
+# def luxury(request, page=1):
+
+#     old_page = request.GET.get("page")
+
+#     if old_page:
+#         try:
+#             old_page = int(old_page)
+#         except (TypeError, ValueError):
+#             old_page = 1
+
+#         if old_page <= 1:
+#             return redirect("luxury")
+
+#         return redirect(
+#             "luxury_paginated",
+#             page=old_page
+#         )
+
+#     try:
+#         current_page = max(int(page), 1)
+#     except (TypeError, ValueError):
+#         current_page = 1
+
+
+#     city = request.GET.get("city", "").strip()
+#     property_type = request.GET.get("property_type", "").strip()
+#     min_price = request.GET.get("min_price", "").strip()
+#     max_price = request.GET.get("max_price", "").strip()
+
+#     api = XOpperpAPI()
+
+#     try:
+#         all_properties = get_all_properties(api)
+#     except Exception as e:
+#         print("X-OPPERP LUXURY API ERROR:", e)
+#         all_properties = []
+
 def luxury(request, page=1):
 
     old_page = request.GET.get("page")
-
     if old_page:
         try:
             old_page = int(old_page)
         except (TypeError, ValueError):
             old_page = 1
-
         if old_page <= 1:
             return redirect("luxury")
-
-        return redirect(
-            "luxury_paginated",
-            page=old_page
-        )
+        return redirect("luxury_paginated", page=old_page)
 
     try:
         current_page = max(int(page), 1)
     except (TypeError, ValueError):
         current_page = 1
-
 
     city = request.GET.get("city", "").strip()
     property_type = request.GET.get("property_type", "").strip()
@@ -1693,12 +1746,13 @@ def luxury(request, page=1):
     max_price = request.GET.get("max_price", "").strip()
 
     api = XOpperpAPI()
-
     try:
         all_properties = get_all_properties(api)
     except Exception as e:
         print("X-OPPERP LUXURY API ERROR:", e)
         all_properties = []
+
+    # ... ivide LUXURY BASE SET mutal keezhottu ippo ullath pole
 
     old_page = request.GET.get("page")
 
@@ -2919,6 +2973,38 @@ def area_detail_old(request, area_slug):
 
 def area_detail(request, area_slug, page=1):
 
+    area_slug = area_slug.strip().lower()
+
+    if area_slug in AREA_SLUG_REDIRECTS:
+        return redirect(
+            "area_detail",
+            area_slug=AREA_SLUG_REDIRECTS[area_slug],
+            permanent=True,
+        )
+
+    old_page = request.GET.get("page")
+
+    if old_page:
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect(
+                "area_detail",
+                area_slug=area_slug
+            )
+
+        return redirect(
+            "area_detail_paginated",
+            area_slug=area_slug,
+            page=old_page
+        )
+
+    current_page = page
+
+    
     old_page = request.GET.get("page")
 
     if old_page:
@@ -2999,7 +3085,7 @@ def area_detail(request, area_slug, page=1):
     # =====================================================
     # FIND PROPERTIES FOR THIS AREA
     # =====================================================
-
+    area_slug = AREA_SLUG_ALIASES.get(area_slug, area_slug)
     base = []
 
     for p in all_properties:
@@ -3027,9 +3113,17 @@ def area_detail(request, area_slug, page=1):
 
         base.append(p)
 
+
+
     print("AREA SLUG FROM URL:", repr(area_slug))
     print("TOTAL PROPERTIES FROM API:", len(all_properties))
     print("MATCHED IN THIS AREA:", len(base))
+
+    print("BARSHA NAMES:", sorted({
+        get_area_name(p) for p in all_properties
+        if "barsha" in get_area_name(p).lower()
+    }))
+    print("TOTAL FROM API:", len(all_properties))
 
     if not base and not api_failed:
         raise Http404("Area not found")
@@ -3393,6 +3487,9 @@ def area_detail(request, area_slug, page=1):
         },} 
     return render(request,"main/areadetail.html", context)
 
+
+
+
 def test_opperp(request):
 
     api = XOpperpAPI()
@@ -3685,6 +3782,18 @@ def blog(request, page=1):
     # ==========================================
     # NEWSLETTER SUBSCRIPTION
     # ==========================================
+    old_page = request.GET.get("page")
+
+    if old_page and request.method == "GET":
+        try:
+            old_page = int(old_page)
+        except (TypeError, ValueError):
+            old_page = 1
+
+        if old_page <= 1:
+            return redirect("blog")
+
+        return redirect("blog_paginated", page=old_page)
 
     if request.method == "POST":
 
@@ -3767,7 +3876,8 @@ def blog(request, page=1):
         posts = posts.exclude(pk=featured_post.pk)
 
     # Template-il ?page=2 aanu use cheyyunnathu
-    page_number = request.GET.get("page", page)
+    # page_number = request.GET.get("page", page)
+    page_number = page
     paginator = Paginator(posts, page_size)
     posts_page = paginator.get_page(page_number)
 
@@ -3781,6 +3891,9 @@ def blog(request, page=1):
     }
 
     return render(request, "main/blog.html", context)
+
+
+    
 
 
 def blog_detail(request, slug):
