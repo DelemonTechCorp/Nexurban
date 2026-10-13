@@ -509,8 +509,6 @@
 
 
 <!-- index -->
-
-
 <style>
   .adv-index{
     --ink: #0d0f0e;
@@ -690,7 +688,7 @@
 </div>
 {% endif %} -->
 
-{% if posts.has_other_pages %}
+<!-- {% if posts.has_other_pages %}
 <div class="adv-pagination">
 
   {% if posts.has_previous %}
@@ -708,7 +706,112 @@
   {% endif %}
 
 </div>
+{% endif %} -->
+
+
+{% if posts.has_other_pages %}
+{% with total=posts.paginator.num_pages current=posts.number %}
+<div class="adv-pagination">
+
+  {# First #}
+  {% if posts.has_previous %}
+    <a class="pg-btn" href="{% url 'blog' %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="First">&laquo;</a>
+  {% else %}
+    <span class="pg-btn disabled">&laquo;</span>
+  {% endif %}
+
+  {# Previous #}
+  {% if posts.has_previous %}
+    {% if posts.previous_page_number == 1 %}
+      <a class="pg-btn" href="{% url 'blog' %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Previous">&lsaquo;</a>
+    {% else %}
+      <a class="pg-btn" href="{% url 'blog_paginated' page=posts.previous_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Previous">&lsaquo;</a>
+    {% endif %}
+  {% else %}
+    <span class="pg-btn disabled">&lsaquo;</span>
+  {% endif %}
+
+  {# Page numbers with ellipsis #}
+  {% for num in posts.paginator.page_range %}
+    {% if num == current %}
+      <span class="pg-btn active">{{ num }}</span>
+    {% elif num == 1 or num == total or num >= current|add:"-1" and num <= current|add:"1" %}
+      <a class="pg-btn"
+         href="{% if num == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=num %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">{{ num }}</a>
+    {% elif num == current|add:"-2" or num == current|add:"2" %}
+      <span class="pg-dots">…</span>
+    {% endif %}
+  {% endfor %}
+
+  {# Next #}
+  {% if posts.has_next %}
+    <a class="pg-btn" href="{% url 'blog_paginated' page=posts.next_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Next">&rsaquo;</a>
+  {% else %}
+    <span class="pg-btn disabled">&rsaquo;</span>
+  {% endif %}
+
+  {# Last #}
+  {% if posts.has_next %}
+    <a class="pg-btn" href="{% url 'blog_paginated' page=total %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Last">&raquo;</a>
+  {% else %}
+    <span class="pg-btn disabled">&raquo;</span>
+  {% endif %}
+
+  {# Page select dropdown #}
+  <select class="pg-select" onchange="if(this.value) window.location.href=this.value;" aria-label="Select page">
+    {% for num in posts.paginator.page_range %}
+      <option value="{% if num == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=num %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}"
+              {% if num == current %}selected{% endif %}>Page {{ num }}</option>
+    {% endfor %}
+  </select>
+
+</div>
+{% endwith %}
 {% endif %}
+
+<style>
+.adv-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 32px 0;
+}
+.pg-btn {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .15s ease;
+}
+a.pg-btn:hover { background: #f3f4f6; border-color: #9ca3af; }
+.pg-btn.active { background: #1d6fd8; border-color: #1d6fd8; color: #fff; }
+.pg-btn.disabled { opacity: .45; cursor: not-allowed; background: #f9fafb; }
+.pg-dots { padding: 0 4px; color: #6b7280; }
+.pg-select {
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+@media (max-width: 480px) {
+  .pg-btn { min-width: 34px; height: 34px; }
+}
+</style>
 
 <!-- Contact section -->
 
