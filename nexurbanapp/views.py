@@ -20,14 +20,14 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
 from django.shortcuts import redirect
-
-# =========================================================
-# FIELD HELPERS
-# Matched to the documented X-Opperp v1 partner API schema.
-# Fields are flat strings/numbers — no nested translation
-# objects on this endpoint.
-# =========================================================
 from django.utils.text import slugify
+from .utils import build_property_title, build_area_title, send_enquiry_email
+from django.shortcuts import redirect
+
+SLUG_ALIASES = {
+    "dubai-downtown": "downtown-dubai",
+    "dubai-hills": "dubai-hills-estate",
+}
 
 AREA_SLUG_ALIASES = {
     "al-barsha-1": "al-barsha-first",
@@ -37,12 +37,15 @@ AREA_SLUG_REDIRECTS = {
     "aljadaf": "al-jaddaf",
 }
 
-def propertydetail(request, slug):
 
-    
-    # =====================================================
-    # HANDLE ENQUIRY FORM SUBMISSION
-    # =====================================================
+# =========================================================
+# FIELD HELPERS
+# Matched to the documented X-Opperp v1 partner API schema.
+# Fields are flat strings/numbers — no nested translation
+# objects on this endpoint.
+# =========================================================
+
+def propertydetail(request, slug):
 
     clean_slug = re.sub(r"-{2,}", "-", re.sub(r"[_]+", "-", slug)).strip("-")
 
@@ -695,6 +698,19 @@ def propertydetail(request, slug):
 
     }
 
+    context["seo_title"] = build_property_title(
+        p["name"],
+        p["district"] or p["place"],
+    )
+
+    area_link_slug = slugify(p["district"]) if p.get("district") else ""
+
+    context["area_link_slug"] = (
+        area_link_slug
+        if area_page_exists(all_properties, area_link_slug)
+        else ""
+    )
+
     return render(
         request,
         "main/propertydetail.html",
@@ -704,7 +720,7 @@ def propertydetail(request, slug):
 
 
 
-##
+
 ### 6. Full updated HTML
 
 
@@ -2972,6 +2988,8 @@ def area_detail_old(request, area_slug):
 
 
 def area_detail(request, area_slug, page=1):
+    if area_slug in SLUG_ALIASES:
+        return redirect("area_detail", area_slug=SLUG_ALIASES[area_slug], permanent=True)
 
     area_slug = area_slug.strip().lower()
 
@@ -3487,7 +3505,21 @@ def area_detail(request, area_slug, page=1):
         },} 
     return render(request,"main/areadetail.html", context)
 
+def legacy_property_redirect(request, slug):
+    api = XOpperpAPI()
 
+    try:
+        all_properties = get_all_properties(api)
+    except Exception as e:
+        print("LEGACY REDIRECT API ERROR:", e)
+        raise Http404("Property not found")
+
+    prop = _find_property_by_slug(all_properties, slug)
+
+    if not prop:
+        raise Http404("Page not found")
+
+    return redirect("propertydetail", slug=get_property_slug(prop), permanent=True)
 
 
 def test_opperp(request):
@@ -4032,3 +4064,27 @@ def robots_txt(request):
         f"Sitemap: https://{request.get_host()}/sitemap.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+
+def area_page_exists(all_properties, area_slug):
+    """
+    True only if /<area_slug>-properties/ would NOT 404.
+    Mirrors the matching logic in area_detail().
+    """
+    if not area_slug:
+        return False
+
+    area_slug = AREA_SLUG_ALIASES.get(area_slug, area_slug)
+
+    for item in all_properties:
+        item_area = get_area_name(item)
+        if not item_area:
+            continue
+        if slugify(item_area) != area_slug:
+            continue
+        if get_sales_status_name(item).strip().lower() == "sold out":
+            continue
+        return True
+
+    return False

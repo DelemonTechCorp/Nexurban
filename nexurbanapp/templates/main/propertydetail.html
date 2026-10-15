@@ -3,7 +3,7 @@
 {% load humanize %}
 {% load l10n %}
 
-{% block title %}{{ p.name|cut:" Real Estate Development" }} | Nexurban{% endblock %}
+{% block title %}{{ seo_title }}{% endblock %}
 {% block meta_description %}{{ p.name|default:"Dubai property" }} in Dubai: explore prices, floor plans, payment plans, amenities and availability. Speak with Nexurban Properties for the latest offers, expert investment advice and a free consultation.{% endblock %}{% block content %}
 
 <style>
@@ -1195,4 +1195,11 @@ document.querySelectorAll('[data-units-toggle]').forEach(function (btn) {
   ]
 }
 </script>
+
+
+<div style="display: none;">
+    <p>
+        15 Northside is a residential property in Dubai. Explore the property's available details, including its location, property type, unit configurations, amenities, nearby facilities, and other relevant features. Buyers and investors can review the development information to understand whether the property suits their residential needs or investment objectives. Consider the surrounding community, accessibility, lifestyle facilities, and available property specifications when evaluating this opportunity. For accurate information about 15 Northside, including the developer, bedroom options, prices, payment plans, completion status, and available units, refer to the verified project details. Property prices and availability may change, so confirm the latest information before making a purchase decision.
+    </p>
+</div>
 {% endblock %}
