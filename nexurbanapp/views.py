@@ -24,6 +24,13 @@ from django.utils.text import slugify
 from .utils import build_property_title, build_area_title, send_enquiry_email
 from django.shortcuts import redirect
 
+
+SLUG_OVERRIDES = {
+    "no17-no18ano18b-and-no19-citywalk-residential": "no-17-no-18a-no-18b-and-no-19-citywalk-residential",
+    "no20-no21a-no21b-and-no22-citywalk-residential": "no-20-no-21a-no-21b-and-no-22-citywalk-residential"
+}
+REVERSE_SLUG_OVERRIDES = {v: k for k, v in SLUG_OVERRIDES.items()}
+
 SLUG_ALIASES = {
     "dubai-downtown": "downtown-dubai",
     "dubai-hills": "dubai-hills-estate",
@@ -35,8 +42,11 @@ AREA_SLUG_ALIASES = {
 AREA_SLUG_REDIRECTS = {
     "al-jadaf": "al-jaddaf",
     "aljadaf": "al-jaddaf",
+    "al-barsha-1": "al-barsha-first"
 }
-
+def canonical_area_slug(name):
+    s = slugify(name or "")
+    return AREA_SLUG_ALIASES.get(s, s)
 
 # =========================================================
 # FIELD HELPERS
@@ -44,10 +54,25 @@ AREA_SLUG_REDIRECTS = {
 # Fields are flat strings/numbers — no nested translation
 # objects on this endpoint.
 # =========================================================
+def build_slug_suffix(slug):
+    parts = slug.split("-")
+    if len(parts) >= 2 and parts[-2] in ("frond", "tower"):
+        return f"{parts[-2].title()} {parts[-1].upper()}"   # Frond M, Tower 1
+    if parts[-1] in ("ii", "iii", "iv", "v"):
+        return parts[-1].upper()                            # II, III
+    return ""
+
+
 
 def propertydetail(request, slug):
 
     clean_slug = re.sub(r"-{2,}", "-", re.sub(r"[_]+", "-", slug)).strip("-")
+    if clean_slug != slug:
+        return redirect("propertydetail", slug=clean_slug, permanent=True)
+
+    # old API-style slug -> new slug (301)
+    if slug in SLUG_OVERRIDES:
+        return redirect("propertydetail", slug=SLUG_OVERRIDES[slug], permanent=True)
 
     if clean_slug != slug:
         return redirect("propertydetail", slug=clean_slug, permanent=True)
@@ -698,24 +723,34 @@ def propertydetail(request, slug):
 
     }
 
-    context["seo_title"] = build_property_title(
-        p["name"],
-        p["district"] or p["place"],
-    )
+    # context["seo_title"] = build_property_title(
+    #     p["name"],
+    #     p["district"] or p["place"],
+    # )
+    suffix = build_slug_suffix(slug)
+
+    if suffix and suffix.lower() in p["name"].lower():
+        suffix = ""
+
+    name = p["name"]
+
+    # "Agua Residences By Citi Developers" -> "Agua Residences Tower 1 by Citi Developers"
+    if suffix and " By " in name:
+        first, rest = name.split(" By ", 1)
+        name = f"{first} {suffix} by {rest}"
+    elif suffix:
+        name = f"{name} {suffix}"
+
+    context["seo_title"] = f"{name} | Nexurban"
 
     area_link_slug = slugify(p["district"]) if p.get("district") else ""
 
     context["area_link_slug"] = (
-        area_link_slug
-        if area_page_exists(all_properties, area_link_slug)
-        else ""
-    )
+    area_link_slug
+    if area_page_exists(all_properties, area_link_slug)
+    else "")
 
-    return render(
-        request,
-        "main/propertydetail.html",
-        context
-    )
+    return render(request,"main/propertydetail.html",context)
 
 
 
@@ -735,8 +770,8 @@ def get_property_slug(property_data):
     if title:
         title = re.sub(r"[_&/|]+", " ", title)
         slug = slugify(title)
-        
-        return re.sub(r"-{2,}", "-", slug).strip("-")
+        slug = re.sub(r"-{2,}", "-", slug).strip("-")
+        return SLUG_OVERRIDES.get(slug, slug)   # NEW
 
     fallback = (
         api_text(property_data.get("id"))
@@ -744,8 +779,6 @@ def get_property_slug(property_data):
     )
 
     return slugify(fallback) if fallback else ""
-
-
 
 
 def api_text(value):
@@ -4088,3 +4121,25 @@ def area_page_exists(all_properties, area_slug):
         return True
 
     return False
+
+
+   
+
+def build_seo_title(property_obj):
+    base = property_obj.name  # e.g. "Palm Central Private Residences"
+    slug = property_obj.slug  # e.g. "palm-central-private-residences-frond-m"
+
+    # Slug-inte last part edukkuka
+    last = slug.split("-")[-1]          # "m", "n", "ii", "iii", "1", "2", "b"
+    second_last = slug.split("-")[-2]   # "frond", "tower", "views"
+
+    suffix = ""
+    if second_last in ("frond", "tower"):
+        suffix = f"{second_last.title()} {last.upper()}"   # Frond M, Tower 1
+    elif last in ("ii", "iii", "iv"):
+        suffix = last.upper()                              # II, III
+
+    title = f"{base} {suffix}".strip()
+    return f"{title} | Nexurban"
+
+

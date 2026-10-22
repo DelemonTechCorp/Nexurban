@@ -8,6 +8,52 @@ from .views import robots_txt
 urlpatterns = [
 
     # ---------- 301 REDIRECTS (keep these at the very top) ----------
+#  path(
+#         "property/no17-no18ano18b-and-no19-citywalk-residential/",
+#         RedirectView.as_view(
+#             url="/property/no-17-no-18a-no-18b-and-no-19-citywalk-residential/",
+#             permanent=True,  # 301
+#         ),
+#     ),
+
+path(
+    "property/no17-no18ano18b-and-no19-citywalk-residential/",
+    RedirectView.as_view(
+        url="/property/no-17-no-18a-no-18b-and-no-19-citywalk-residential/",
+        permanent=True,
+    ),
+),
+
+path(
+    "property/no20-no21a-no21b-and-no22-citywalk-residential/",
+    RedirectView.as_view(
+        url="/property/no-20-no-21a-no-21b-and-no-22-citywalk-residential/",
+        permanent=True,
+    ),
+),
+
+
+    path(
+    'property/<slug:parent>/perty/<slug:slug>/',
+    RedirectView.as_view(pattern_name='propertydetail', permanent=True),
+),
+
+    path(
+        "al-barsha-1-properties/",
+        RedirectView.as_view(
+            url="/al-barsha-first-properties/",
+            permanent=True,  # 301
+        ),
+    ),
+
+     path(
+        "dubai-properties/",
+        RedirectView.as_view(
+            url="/dubai-communities/?search_area=dubai",
+            permanent=True,   # 301
+        ),
+    ),
+
     path(
         'al-barsha-south-fourth-properties/',
         RedirectView.as_view(url='/al-barsha-1-properties/', permanent=True),
@@ -89,4 +135,27 @@ urlpatterns = [
     path('robots.txt', robots_txt, name='robots_txt'),
 
     path('<slug:slug>/', views.legacy_property_redirect),
+
+
+   
+
+ path(
+        'dubai-properties/',
+        RedirectView.as_view(
+            url='/dubai-communities/?search_area=dubai',
+            permanent=True,
+        ),
+    ),
+    path(
+        'dubai-properties/page/<int:page>/',
+        RedirectView.as_view(
+            url='/dubai-communities/?search_area=dubai',
+            permanent=True,
+        ),
+    ),
+
+    path(
+        'al-barsha-south-fourth-properties/',
+        RedirectView.as_view(url='/al-barsha-1-properties/', permanent=True),
+    ),
 ]

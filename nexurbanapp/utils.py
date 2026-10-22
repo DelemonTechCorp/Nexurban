@@ -246,27 +246,55 @@ def _fit(options, fallback, suffixes=(SEO_SUFFIX, SEO_SUFFIX_SHORT)):
     cut = fallback[:room].rsplit(" ", 1)[0].rstrip(" ,-")
     return cut + last
 
-
-def build_property_title(name, area=""):
+def build_property_title(name, area="", suffix=""):
     name = _fix_text(name)
     area = _fix_text(area)
+    suffix = _fix_text(suffix)
 
     short = _shorten(name)
 
+    def sfx(n):
+        return f"{n} {suffix}".strip() if suffix else n
+
     options = []
     for n in dict.fromkeys((name, short)):
+        n = sfx(n)
         if area:
             options.append(f"{n} for Sale in {area}, Dubai, Prices")
             options.append(f"{n} for Sale in {area}, Dubai")
         options.append(f"{n} for Sale in Dubai, Prices & Payment Plan")
         options.append(f"{n} for Sale in Dubai")
-    options += [name, short]
+
+    options += [sfx(name), sfx(short)]
 
     if "," in short:
-        options.append(short.split(",", 1)[1].strip())
+        options.append(sfx(short.split(",", 1)[1].strip()))
 
-    return _fit(options, short, suffixes=(SEO_SUFFIX,))
-   
+    return _fit(options, sfx(short), suffixes=(SEO_SUFFIX,))
+    name = _fix_text(name)
+    area = _fix_text(area)
+
+    short = _shorten(name)
+
+    def sfx(n):
+        # suffix ellaa option-ilum ettavum ente cherkkunnu
+        return f"{n} {suffix}".strip() if suffix else n
+
+    options = []
+    for n in dict.fromkeys((name, short)):
+        n = sfx(n)
+        if area:
+            options.append(f"{n} for Sale in {area}, Dubai, Prices")
+        options.append(f"{n} for Sale in {area}, Dubai")
+        options.append(f"{n} for Sale in Dubai, Prices & Payment Plan")
+        options.append(f"{n} for Sale in Dubai")
+
+    options += [sfx(name), sfx(short)]
+
+    if "," in short:
+        options.append(sfx(short.split(",", 1)[1].strip()))
+
+    return _fit(options, sfx(short), suffixes=(SEO_SUFFIX,))
 
 
 def build_area_title(area_name):
