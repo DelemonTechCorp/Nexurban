@@ -23,7 +23,105 @@ from django.shortcuts import redirect
 from django.utils.text import slugify
 from .utils import build_property_title, build_area_title, send_enquiry_email
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
+from .models import BlogPost, Enquiry
+import random
+
+import time
+
+from django.core import signing
+from django.core.cache import cache
+
+BLOCKED_DOMAINS = {"atom77777.com", "usmailerbox.org", "pokomail.org"}
+BOT_NAME_RE = re.compile(r"^[a-z]+_[a-z]{2}Sl$", re.IGNORECASE)
+URL_RE = re.compile(r"https?://|www\.", re.IGNORECASE)
+
+
+def make_form_token():
+    return signing.dumps(time.time(), salt="blog-form")
+
+
+def make_math_challenge(request):
+    a, b = random.randint(2, 9), random.randint(2, 9)
+    request.session["captcha_answer"] = str(a + b)
+    return f"{a} + {b}"
+
+
+def get_client_ip(request):
+    xff = request.META.get("HTTP_X_FORWARDED_FOR")
+    if xff:
+        return xff.split(",")[0].strip()
+    return request.META.get("REMOTE_ADDR", "")
+
+
+def rate_limited(request, limit=3, window=3600):
+    key = f"form_rl:{get_client_ip(request)}"
+    cache.add(key, 0, window)
+    try:
+        count = cache.incr(key)
+    except ValueError:
+        cache.set(key, 1, window)
+        count = 1
+    return count > limit
+
+
+def is_spam(request, check_content=True, use_math=True):
+    post = request.POST
+
+    if post.get("website"):
+        return True
+
+    try:
+        ts = signing.loads(post.get("form_token", ""), salt="blog-form", max_age=7200)
+        if time.time() - ts < 3:
+            return True
+    except signing.BadSignature:
+        return True
+
+    if use_math:
+        expected = request.session.pop("captcha_answer", None)
+        if not expected or post.get("captcha", "").strip() != expected:
+            return True
+
+    email = post.get("email", "").strip().lower()
+    domain = email.rsplit("@", 1)[-1] if "@" in email else ""
+    if domain in BLOCKED_DOMAINS:
+        return True
+
+    if check_content:
+        if BOT_NAME_RE.match(post.get("name", "").strip()):
+            return True
+        if len(URL_RE.findall(post.get("message", ""))) > 1:
+            return True
+
+    if rate_limited(request):
+        return True
+
+    return False
+
+def is_spam_light(request):
+    post = request.POST
+
+    if post.get("website"):          # honeypot
+        return True
+
+    email = post.get("email", "").strip().lower()
+    domain = email.rsplit("@", 1)[-1] if "@" in email else ""
+    if domain in BLOCKED_DOMAINS:
+        return True
+
+    if BOT_NAME_RE.match(post.get("name", "").strip()):
+        return True
+
+    if len(URL_RE.findall(post.get("message", ""))) > 1:
+        return True
+
+    if rate_limited(request, limit=5):
+        return True
+
+    return False
 
 SLUG_OVERRIDES = {
     "no17-no18ano18b-and-no19-citywalk-residential": "no-17-no-18a-no-18b-and-no-19-citywalk-residential",
@@ -84,6 +182,8 @@ def propertydetail(request, slug):
         )
 
     if request.method == "POST":
+        if is_spam_light(request):
+            return redirect(f"{reverse('thank_you')}?type=contact")
 
         enquiry = Enquiry.objects.create(
             form_type="property",
@@ -2266,6 +2366,8 @@ def contact_old(request):
 
 def contact(request):
     if request.method == "POST":
+        if is_spam_light(request):
+            return redirect(f"{reverse('thank_you')}?type=valuation")
 
         enquiry = Enquiry.objects.create(
             form_type="contact",
@@ -2690,6 +2792,8 @@ def build_unit_types(units):
 def sell(request):
 
     if request.method == "POST":
+        if is_spam_light(request):
+             return redirect(f"{reverse('thank_you')}?type=valuation")
 
         enquiry = Enquiry.objects.create(
             form_type="valuation",
@@ -3861,6 +3965,8 @@ def blog(request, page=1):
         return redirect("blog_paginated", page=old_page)
 
     if request.method == "POST":
+        if is_spam_light(request):
+            return redirect(f"{reverse('thank_you')}?type=valuation")
 
         form_type = request.POST.get("form_type", "").strip()
 
@@ -3961,6 +4067,131 @@ def blog(request, page=1):
     
 
 
+# def blog_detail(request, slug):
+
+#     post = get_object_or_404(
+#         BlogPost,
+#         slug=slug
+#     )
+
+#     if request.method == "POST":
+
+#         form_type = request.POST.get("form_type", "").strip()
+
+#         # ==========================================
+#         # NEWSLETTER SUBSCRIPTION
+#         # ==========================================
+
+#         if form_type == "newsletter":
+
+#             email = request.POST.get("email", "").strip()
+
+#             if email:
+
+#                 enquiry = Enquiry.objects.create(
+#                     form_type="newsletter",
+#                     name="Newsletter Subscriber",
+#                     email=email,
+#                     phone="",
+#                     message="Newsletter subscription",
+#                     property_slug=post.slug,
+#                     property_name=post.title,
+#                     interest="Newsletter",
+#                 )
+
+#                 print("NEWSLETTER CREATED:", enquiry.id)
+
+#                 try:
+
+#                     result = send_enquiry_email(enquiry)
+
+#                     print("BREVO NEWSLETTER SUCCESS:", result)
+
+#                     enquiry.sent_to_brevo = True
+
+#                     enquiry.save(
+#                         update_fields=["sent_to_brevo"]
+#                     )
+
+#                 except Exception as e:
+
+#                     print("========== BREVO NEWSLETTER ERROR ==========")
+#                     print("ERROR:", str(e))
+#                     traceback.print_exc()
+#                     print("============================================")
+
+#             return redirect(
+#                 f"{reverse('thank_you')}?type=newsletter"
+#             )
+
+#         # ==========================================
+#         # BLOG ENQUIRY
+#         # ==========================================
+
+#         enquiry = Enquiry.objects.create(
+#             form_type="blog",
+
+#             name=request.POST.get("name", "").strip(),
+
+#             email=request.POST.get("email", "").strip(),
+
+#             phone=request.POST.get("phone", "").strip(),
+
+#             message=request.POST.get("message", "").strip(),
+
+#             property_slug=post.slug,
+
+#             property_name=post.title,
+
+#             interest="Blog Enquiry",
+#         )
+
+#         print("BLOG ENQUIRY CREATED:", enquiry.id)
+
+#         try:
+
+#             result = send_enquiry_email(enquiry)
+
+#             print("BREVO SUCCESS:", result)
+
+#             enquiry.sent_to_brevo = True
+
+#             enquiry.save(
+#                 update_fields=["sent_to_brevo"]
+#             )
+
+#         except Exception as e:
+
+#             print("========== BREVO ERROR ==========")
+#             print("ERROR:", str(e))
+#             traceback.print_exc()
+#             print("=================================")
+
+#         return redirect(
+#             f"{reverse('thank_you')}?type=blog"
+#         )
+
+#     related_posts = BlogPost.objects.exclude(
+#         id=post.id
+#     ).order_by("-created_at")[:3]
+
+#     context = {
+#         "post": post,
+#         "meta_title":post.meta_title,
+#         "meta_description":post.meta_description,
+#         "related_posts": related_posts,
+#     }
+
+#     return render(
+#         request,
+#         "main/blog_detail.html",
+#         context
+#     )
+
+
+# ...........................
+
+
 def blog_detail(request, slug):
 
     post = get_object_or_404(
@@ -3971,12 +4202,29 @@ def blog_detail(request, slug):
     if request.method == "POST":
 
         form_type = request.POST.get("form_type", "").strip()
+        is_newsletter = form_type == "newsletter"
+
+        # ==========================================
+        # SPAM CHECK (runs before anything is saved)
+        # ==========================================
+
+        if is_spam(
+            request,
+            check_content=not is_newsletter,
+            use_math=not is_newsletter,
+        ):
+            print("SPAM BLOCKED:", request.POST.get("email", ""))
+
+            # Pretend success so bots don't adapt
+            return redirect(
+                f"{reverse('thank_you')}?type={'newsletter' if is_newsletter else 'blog'}"
+            )
 
         # ==========================================
         # NEWSLETTER SUBSCRIPTION
         # ==========================================
 
-        if form_type == "newsletter":
+        if is_newsletter:
 
             email = request.POST.get("email", "").strip()
 
@@ -3996,19 +4244,14 @@ def blog_detail(request, slug):
                 print("NEWSLETTER CREATED:", enquiry.id)
 
                 try:
-
                     result = send_enquiry_email(enquiry)
 
                     print("BREVO NEWSLETTER SUCCESS:", result)
 
                     enquiry.sent_to_brevo = True
-
-                    enquiry.save(
-                        update_fields=["sent_to_brevo"]
-                    )
+                    enquiry.save(update_fields=["sent_to_brevo"])
 
                 except Exception as e:
-
                     print("========== BREVO NEWSLETTER ERROR ==========")
                     print("ERROR:", str(e))
                     traceback.print_exc()
@@ -4024,38 +4267,26 @@ def blog_detail(request, slug):
 
         enquiry = Enquiry.objects.create(
             form_type="blog",
-
             name=request.POST.get("name", "").strip(),
-
             email=request.POST.get("email", "").strip(),
-
             phone=request.POST.get("phone", "").strip(),
-
             message=request.POST.get("message", "").strip(),
-
             property_slug=post.slug,
-
             property_name=post.title,
-
             interest="Blog Enquiry",
         )
 
         print("BLOG ENQUIRY CREATED:", enquiry.id)
 
         try:
-
             result = send_enquiry_email(enquiry)
 
             print("BREVO SUCCESS:", result)
 
             enquiry.sent_to_brevo = True
-
-            enquiry.save(
-                update_fields=["sent_to_brevo"]
-            )
+            enquiry.save(update_fields=["sent_to_brevo"])
 
         except Exception as e:
-
             print("========== BREVO ERROR ==========")
             print("ERROR:", str(e))
             traceback.print_exc()
@@ -4065,15 +4296,21 @@ def blog_detail(request, slug):
             f"{reverse('thank_you')}?type=blog"
         )
 
+    # ==========================================
+    # GET REQUEST
+    # ==========================================
+
     related_posts = BlogPost.objects.exclude(
         id=post.id
     ).order_by("-created_at")[:3]
 
     context = {
         "post": post,
-        "meta_title":post.meta_title,
-        "meta_description":post.meta_description,
+        "meta_title": post.meta_title,
+        "meta_description": post.meta_description,
         "related_posts": related_posts,
+        "form_token": make_form_token(),
+        "captcha_question": make_math_challenge(request),
     }
 
     return render(
@@ -4081,9 +4318,6 @@ def blog_detail(request, slug):
         "main/blog_detail.html",
         context
     )
-
-
-# ...........................
 
 from django.http import HttpResponse
 

@@ -816,6 +816,12 @@
   >
 
     {% csrf_token %}
+      <div style="position:absolute; left:-9999px;" aria-hidden="true">
+    <input type="text" name="website" tabindex="-1" autocomplete="off">
+  </div>
+
+  <input type="hidden" name="form_token" value="{{ form_token }}">
+    <input type="hidden" name="form_token" value="{{ form_token }}">
 
     <input
       class="field"

@@ -3024,6 +3024,9 @@
             <form class="nx-valuation-form" method="POST" action="{% url 'sell' %}">
                 {% csrf_token %}
 
+                 <div style="position:absolute; left:-9999px;" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="nx-form-field">
                     <label for="valuation-name">YOUR NAME</label>
                     <input
