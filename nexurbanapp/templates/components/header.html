@@ -21,12 +21,12 @@
        position: relative kept the header IN the document flow,
        taking up 108px of real space at the top of every page.
        Being transparent, that space just showed through to
-       whatever background color the page underneath had â€”
+       whatever background color the page underneath had —
        white on the off-plan page, dark (or nothing) elsewhere.
 
        position: absolute removes it from the flow entirely and
        pins it to the very top, so it overlays directly on top
-       of the hero image on every page â€” the hero shows through
+       of the hero image on every page — the hero shows through
        it consistently, no matter what that page's own
        background color is.
     */
@@ -689,7 +689,7 @@ body.nx-menu-open {
         <!-- Logo -->
         <a href="/" class="nx-logo-link">
             <img
-                src="{% static 'img/logo_optimized.png' %}"
+                src="{% static 'img/logo.png' %}"
                 alt="Nexurban Properties"
                 class="nx-logo"
             >
@@ -794,7 +794,7 @@ body.nx-menu-open {
 
         <a href="/">
             <img
-                src="{% static 'img/logo_optimized.png' %}"
+                src="{% static 'img/logo.png' %}"
                 alt="Nexurban Properties"
                 class="nx-sidebar-logo"
             >
@@ -812,14 +812,14 @@ body.nx-menu-open {
             <span>BUY</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
         <a href="{% url 'sell' %}" class="nx-sidebar-link">
             <span>SELL</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
 
@@ -828,7 +828,7 @@ body.nx-menu-open {
             <span>OFF-PLAN</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
 
@@ -837,7 +837,7 @@ body.nx-menu-open {
             <span>READY</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
 
@@ -846,7 +846,7 @@ body.nx-menu-open {
             <span>LUXURY</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
 
@@ -855,7 +855,7 @@ body.nx-menu-open {
             <span>COMMUNITIES</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
 
@@ -864,7 +864,7 @@ body.nx-menu-open {
             <span> ADVISORY</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
          
@@ -872,26 +872,26 @@ body.nx-menu-open {
             <span> MAP</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
           <a href="{% url 'blog' %}" class="nx-sidebar-link">
             <span> BLOG</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
         <a href="{% url 'about' %}" class="nx-sidebar-link">
             <span>ABOUT</span>
 
             <span class="nx-arrow">
-                â†—
+                ↗
             </span>
         </a>
 
 <div class="nx-more">
-    <span class="nx-nav-link">MORE â–¾</span>
+    <span class="nx-nav-link">MORE ▾</span>
     <div class="nx-more-menu">
         <a href="{% url 'buy' %}" class="nx-nav-link">BUY</a>
         <a href="{% url 'sell' %}" class="nx-nav-link">SELL</a>
