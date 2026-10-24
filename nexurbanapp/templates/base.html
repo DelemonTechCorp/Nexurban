@@ -4,13 +4,14 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>{% block title %}{{ area_display_name }} | Dubai Real Estate{% if page_obj and page_obj.number > 1 %} - Page {{ page_obj.number }}{% endif %} | Nexurban{% endblock %}</title>
   <link rel="icon" type="img/png" href="{% static 'img/logo.png' %}">
  
   {% block canonical %}
   <link rel="canonical" href="https://nexurbanproperties.com/{{ area_slug }}-properties/">
   {% endblock %}
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{% block meta_description %}{% if page_obj and page_obj.number > 1 %}{{ area_display_name }} properties for sale in Dubai with Nexurban. Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.{% else %}Browse off-plan and ready properties for sale across Dubai with Nexurban Properties. Compare communities, developers, prices and payment plans.{% endif %}{% endblock %}">
   <meta name="keywords" content="{% block meta_keywords %} {% endblock %}">
 
@@ -33,6 +34,7 @@
   <style>
     body {
       margin: 0;
+      padding: 0;
     }
 
     p {
@@ -96,40 +98,40 @@
     
   </style>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-
-      var sections = document.querySelectorAll("section");
-
-      if (!("IntersectionObserver" in window)) {
-        sections.forEach(function (s) { s.classList.add("nx-in-view"); });
-        return;
-      }
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("nx-in-view");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-
-      sections.forEach(function (section) {
-        observer.observe(section);
-      });
-
-    });
-  </script>
 
   {% include 'components/header.html' %}
 
-  {% block content %}
-  {% endblock %}
+  {% block content %} {% endblock %}
 
   {% include 'components/footer.html' %}
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    var sections = document.querySelectorAll("section");
+
+    if (!("IntersectionObserver" in window)) {
+      sections.forEach(function (s) { s.classList.add("nx-in-view"); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("nx-in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    sections.forEach(function (section) {
+      observer.observe(section);
+    });
+
+  });
+</script>
 
 </body>
 

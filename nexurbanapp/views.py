@@ -74,7 +74,7 @@ def is_spam(request, check_content=True, use_math=True):
         return True
 
     try:
-        ts = signing.loads(post.get("form_token", ""), salt="blog-form", max_age=7200)
+        ts = signing.loads(post.get("form_token", ""), salt="blog-form", max_age=86400)
         if time.time() - ts < 3:
             return True
     except signing.BadSignature:
@@ -96,7 +96,7 @@ def is_spam(request, check_content=True, use_math=True):
         if len(URL_RE.findall(post.get("message", ""))) > 1:
             return True
 
-    if rate_limited(request):
+    if rate_limited(request, limit=5):
         return True
 
     return False
@@ -4261,10 +4261,13 @@ def blog_detail(request, slug):
         # SPAM CHECK (runs before anything is saved)
         # ==========================================
 
+        # Math captcha is off: the template has no captcha field, so it
+        # rejected every genuine submission. Honeypot + timing token + content
+        # checks + rate limit still apply.
         if is_spam(
             request,
             check_content=not is_newsletter,
-            use_math=not is_newsletter,
+            use_math=False,
         ):
             print("SPAM BLOCKED:", request.POST.get("email", ""))
 
@@ -4363,7 +4366,6 @@ def blog_detail(request, slug):
         "meta_description": post.meta_description,
         "related_posts": related_posts,
         "form_token": make_form_token(),
-        "captcha_question": make_math_challenge(request),
     }
 
     return render(

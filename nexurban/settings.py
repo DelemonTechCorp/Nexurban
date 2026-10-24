@@ -180,6 +180,12 @@ MAILERS = {
 
 
 
+# Daily DB backup (see nexurbanapp/management/commands/backup_db.py)
+BACKUP_FILE = config("BACKUP_FILE", default=str(BASE_DIR / "backups" / "db_backup.jsonl"))
+BACKUP_TIME = config("BACKUP_TIME", default="02:00")              # HH:MM, 24h
+BACKUP_TIMEZONE = config("BACKUP_TIMEZONE", default="Asia/Dubai")
+
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.db.DatabaseCache",
