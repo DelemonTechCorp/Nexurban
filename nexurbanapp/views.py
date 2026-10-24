@@ -162,6 +162,59 @@ def build_slug_suffix(slug):
 
 
 
+
+
+SLUG_INDEX_KEY = "nx_slug_index_v1"
+
+
+def get_slug_index(api):
+    """slug -> light summary, built once and cached for 30 min."""
+    index = cache.get(SLUG_INDEX_KEY)
+    if index is not None:
+        return index
+
+    all_properties = get_all_properties(api)
+
+    by_slug = {}
+    summaries = []
+    area_slugs = set()
+
+    for p in all_properties:
+        slug = get_property_slug(p)
+        if not slug:
+            continue
+
+        area_name = get_area_name(p)
+        sold_out = get_sales_status_name(p).strip().lower() == "sold out"
+
+        s = {
+            "id": p.get("id") or p.get("external_id"),
+            "slug": slug,
+            "name": api_text(p.get("title")) or "Luxury Property",
+            "place": area_name or get_city(p),
+            "tag": get_property_type(p) or get_property_status_name(p),
+            "price": format_price_display(get_property_price(p)),
+            "image": normalize_image_url(get_property_cover_image(p)),
+            "area_l": area_name.lower(),
+            "city_l": get_city(p).lower(),
+            "sold_out": sold_out,
+        }
+
+        by_slug.setdefault(slug, s)      # same as old "first match wins"
+        summaries.append(s)
+
+        if area_name and not sold_out:
+            area_slugs.add(slugify(area_name))
+
+    index = {"by_slug": by_slug, "summaries": summaries, "area_slugs": area_slugs}
+    cache.set(SLUG_INDEX_KEY, index, 60 * 30)
+    return index
+
+
+
+
+
+
 def propertydetail(request, slug):
 
     clean_slug = re.sub(r"-{2,}", "-", re.sub(r"[_]+", "-", slug)).strip("-")

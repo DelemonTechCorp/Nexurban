@@ -8,18 +8,17 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 .nx-nav-link { color: #2727275c !important; text-decoration: none; }
 .nx-nav-link:hover { color: #ff1d0c !important; }
 
 /* =========================================================
-   NEXURBAN PROPERTY DETAIL — v4
+   NEXURBAN PROPERTY DETAIL â€” v4
    A "listing dossier" concept: the page reads like a single
    continuous property file rather than stacked generic
    sections. Warm parchment paper, deep ink, brand red, and a
    dusty bronze reserved only for investor-facing numbers.
-   Every section below only renders when its own data exists —
+   Every section below only renders when its own data exists â€”
    if a listing has no payment plan, no amenities, etc. that
    whole block disappears instead of showing an empty shell.
 ========================================================= */
@@ -126,7 +125,7 @@
 .nx-hero-price { margin: 0; color: var(--nx-ink); font-family: var(--nx-serif); font-size: 32px; font-weight: 400; line-height: 1; }
 .nx-hero-desc { margin: 16px 0 0; color: #5c564c; font-size: 12px; line-height: 1.75; }
 
-/* READ MORE — shared, works reliably because we measure actual content height in JS */
+/* READ MORE â€” shared, works reliably because we measure actual content height in JS */
 .nx-readmore-wrap { position: relative; overflow: hidden; transition: max-height .45s ease; }
 .nx-readmore-wrap.is-collapsed { max-height: var(--nx-clamp, 120px); }
 .nx-readmore-wrap.is-collapsed::after {
@@ -180,7 +179,7 @@
 .nx-property-block-title { margin: 0; font-family: var(--nx-serif); font-size: 36px; font-weight: 400; line-height: 1.05; }
 .nx-property-block-copy { max-width: 300px; margin: 0; color: #8b857c; font-size: 11.5px; line-height: 1.7; }
 
-/* AMENITIES — a quiet accent bar instead of a numbered index,
+/* AMENITIES â€” a quiet accent bar instead of a numbered index,
    since a list of amenities isn't a sequence. */
 .nx-amenities-grid {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -220,7 +219,7 @@
 .nx-scale-label { color: #7d776f; font-size: 10px; }
 
 /* =========================================================
-   UNIT TYPES — back to the original dark-header table look,
+   UNIT TYPES â€” back to the original dark-header table look,
    just trimmed down to the four columns a common buyer needs:
    unit type, bedrooms, area, price. No floor/bathroom/view/
    status columns.
@@ -453,15 +452,16 @@ textarea.nx-enquiry-field { height: 105px; padding-top: 16px; resize: vertical; 
             </div>
 
 
-            <div class="nx-hero-stage">
+<div class="nx-hero-stage">
 
-                <img
-                    class="nx-hero-bg"
-                    id="nx-main-image"
-                    src="{{ p.image|default:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop' }}"
-                    alt="{{ p.name|default:'Nexurban Residence' }}"
-                >
-
+    <img
+        class="nx-hero-bg"
+        id="nx-main-image"
+        src="{{ p.image|default:'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop' }}"
+        alt="{{ p.name|default:'Nexurban Residence' }}"
+        fetchpriority="high"
+        decoding="async"
+    >
                 <div class="nx-hero-scrim"></div>
 
                 <div class="nx-hero-copy">
@@ -485,7 +485,7 @@ textarea.nx-enquiry-field { height: 105px; padding-top: 16px; resize: vertical; 
                 <div class="nx-hero-thumbs">
                     {% for img in p.images|slice:":4" %}
                         <div class="nx-hero-thumb{% if forloop.first %} active{% endif %}" onclick="nxSetMainImage(this, '{{ img|escapejs }}', {{ forloop.counter }})">
-                            <img src="{{ img }}" alt="{{ p.name }} photo {{ forloop.counter }}">
+                            <img loading="lazy" decoding="async" src="{{ img }}" alt="{{ p.name }} photo {{ forloop.counter }}"
                         </div>
                     {% endfor %}
                     <div class="nx-hero-counter" data-hero-counter>01 / {{ p.images|length }}</div>
@@ -646,7 +646,7 @@ textarea.nx-enquiry-field { height: 105px; padding-top: 16px; resize: vertical; 
                     {% endif %}
 
 
-                    <!-- PAYMENT PLAN(S) — the block starts hidden (display:none) and a
+                    <!-- PAYMENT PLAN(S) â€” the block starts hidden (display:none) and a
                          tiny inline script un-hides it the moment a plan with real
                          numbers is rendered. Net effect: if every plan in
                          p.payment_plans is empty, the whole "Payment plan" heading
@@ -706,7 +706,7 @@ textarea.nx-enquiry-field { height: 105px; padding-top: 16px; resize: vertical; 
 
 
                     <!-- =====================================================
-                         UNIT TYPES — old table style, kept to only the data a
+                         UNIT TYPES â€” old table style, kept to only the data a
                          common buyer needs: unit type, bedrooms, area, price.
                          No floor/bathroom/view/status columns.
 
@@ -728,7 +728,7 @@ textarea.nx-enquiry-field { height: 105px; padding-top: 16px; resize: vertical; 
                                 <p class="nx-section-eyebrow">Unit types</p>
                                 <h3 class="nx-property-block-title">Find your fit</h3>
                             </div>
-                            <p class="nx-property-block-copy">A quick look at what's on offer — no need to compare every single unit.</p>
+                            <p class="nx-property-block-copy">A quick look at what's on offer â€” no need to compare every single unit.</p>
                         </div>
 
                         <div class="nx-units-table-wrap">
