@@ -1,0 +1,542 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}Greenwood by Aldar Dubai | Villas & Townhouses{% endblock %}
+{% block meta_description %}Discover Greenwood by Aldar in Dubai Silicon Oasis. Explore luxury villas, townhouses, apartments, payment plans and upcoming property opportunities. Register your interest today!{% endblock %}
+{% block meta_keywords %}Greenwood by Aldar, Aldar Greenwood Dubai, Dubai Silicon Oasis villas, Dubai Silicon Oasis townhouses, off-plan villas in Dubai, Aldar properties Dubai, Nexurban Properties{% endblock %}
+{% block extra_css %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap">
+<style>
+.gw{--bg:#fff;--fg:#1c1815;--card:#faf9f8;--primary:#ff3a1f;--muted:#6f6a65;--accent:#f9f0ee;--border:#e8e6e4;--ink:#1c1815;--inkfg:#faf9f8;--steel:#b8b8b8;--serif:"Times New Roman",Times,serif}
+.gw *{box-sizing:border-box;margin:0;padding:0;border-color:var(--border)}
+.gw{overflow-x:clip;max-width:100%}
+.gw{font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
+.gw img{display:block;max-width:100%}
+.gw a{color:inherit;text-decoration:none}
+.gw ul,.gw ol{list-style:none}
+.gw .wrap{max-width:80rem;margin:0 auto;padding:0 1rem}
+@media(min-width:640px){.gw .wrap{padding:0 1.5rem}
+}
+@media(min-width:1024px){.gw .wrap{padding:0 2rem}
+}
+.gw section{scroll-margin-top:5rem}
+.gw .sec{padding:3rem 0}
+@media(min-width:640px){.gw .sec{padding:3.5rem 0}
+}
+@media(min-width:1024px){.gw .sec{padding:4.5rem 0}
+}
+.gw .bg-card{background:var(--card)}
+.gw em,.gw .serif{font-family:var(--serif);font-style:italic;font-weight:400;-webkit-text-stroke:.3px currentColor}
+.gw .btn{display:inline-flex;align-items:center;justify-content:center;height:2.5rem;padding:0 2rem;border-radius:.5rem;font:600 .875rem Manrope,sans-serif;background:var(--primary);color:#fff;border:1px solid transparent;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.15);transition:.2s}
+.gw .btn:hover{opacity:.9}
+.gw .btn.sm{height:2rem;padding:0 .75rem;font-size:.75rem}
+.gw .btn.full{width:100%}
+.gw .btn.out{background:var(--bg);color:var(--fg);border-color:var(--border)}
+.gw .btn.out:hover{background:var(--accent)}
+.gw .btn.ghost{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.4)}
+.gw .btn.ghost:hover{background:#fff;color:var(--fg)}
+.gw .btns{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.gw #top{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--ink)}
+.gw #top>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gw #top .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.6) 12%,rgba(0,0,0,0) 38%),linear-gradient(90deg,rgba(28,24,21,.85),rgba(28,24,21,.45),rgba(28,24,21,.1))}
+.gw #top .wrap{position:relative;padding-top:8rem;padding-bottom:5rem;width:100%}
+.gw .pill{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:1.25rem;padding:.375rem 1rem;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);border-radius:99px;color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;backdrop-filter:blur(6px)}
+.gw .pill i,.gw .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--primary);display:inline-block}
+.gw h1{max-width:48rem;color:#fff;font-weight:800;line-height:1.05;letter-spacing:-.025em;font-size:2.25rem}
+@media(min-width:640px){.gw h1{font-size:3.75rem}
+}
+@media(min-width:1024px){.gw h1{font-size:4.5rem}
+}
+.gw .lead{margin-top:1.5rem;max-width:36rem;color:rgba(255,255,255,.8);font-size:1rem}
+@media(min-width:640px){.gw .lead{font-size:1.125rem}
+}
+.gw .stats{margin-top:2.5rem;max-width:48rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.2);border-radius:.75rem;overflow:hidden}
+@media(min-width:640px){.gw .stats{grid-template-columns:repeat(4,1fr)}
+}
+.gw .stats div{background:rgba(28,24,21,.6);padding:1rem}
+.gw .stats b{display:block;color:#fff;font-size:1.125rem;font-weight:800}
+.gw .stats span{display:block;margin-top:.25rem;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.gw .scrollhint{position:absolute;right:2rem;bottom:1.5rem;display:none;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+@media(min-width:768px){.gw .scrollhint{display:block}
+}
+.gw .ticker{overflow:hidden;border-block:1px solid var(--border);background:var(--ink);color:var(--inkfg);padding:.875rem 0}
+.gw .track{display:flex;width:max-content;gap:2.5rem;animation:marquee 32s linear infinite}
+.gw .track span{display:flex;align-items:center;gap:2.5rem;white-space:nowrap;font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.gw .track i{width:6px;height:6px;border-radius:50%;background:var(--primary)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.gw .tag{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;font-size:.75rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--primary)}
+.gw .tag:before{content:"";width:2rem;height:1px;background:currentColor}
+.gw h2{font-size:1.875rem;font-weight:800;line-height:1.15;letter-spacing:-.025em}
+@media(min-width:640px){.gw h2{font-size:2.25rem}
+}
+@media(min-width:1024px){.gw h2{font-size:3rem}
+}
+.gw h3{letter-spacing:-.01em}
+.gw .p{font-size:1.125rem;line-height:1.7;color:var(--muted)}
+.gw .p+.p{margin-top:1.25rem}
+.gw .grid2{margin-top:2rem;display:grid;gap:2rem;align-items:start}
+.gw .grid2>*{min-width:0}
+@media(min-width:1024px){.gw .grid2{grid-template-columns:1fr 1fr;gap:3rem}
+.gw .grid2.c{align-items:center}
+.gw .sticky{position:sticky;top:6rem}
+}
+.gw .photo{width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; object-position:center; border-radius:1rem; box-shadow:0 10px 25px rgba(0,0,0,.18);}
+.gw .p{font-size:medium}
+.gw .cap{margin-top:.75rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
+.gw .note{margin-top:1rem;font-size:.75rem;color:var(--steel)}
+.gw dl{margin-top:2rem;border:1px solid var(--border);border-radius:1rem;background:var(--accent);padding:0 1.5rem}
+.gw dl>div{display:grid;grid-template-columns:120px 1fr;gap:1rem;padding:.875rem 0}
+.gw dl>div+div{border-top:1px solid var(--border)}
+@media(min-width:640px){.gw dl>div{grid-template-columns:180px 1fr}
+}
+.gw dt{font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--steel)}
+.gw dd{font-size:.875rem;font-weight:600}
+.gw .cards{margin-top:2.5rem;display:grid;gap:1.25rem}
+@media(min-width:640px){.gw .cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1024px){.gw .cards{grid-template-columns:repeat(4,1fr)}
+}
+.gw .cards>*{min-width:0}
+.gw .card{height:100%;padding:1.5rem;border:1px solid var(--border);border-radius:.75rem;background:var(--card);transition:box-shadow .2s}
+.gw .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.gw .card b{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.02em;color:var(--primary)}
+.gw .card p{margin-top:.75rem;font-size:.875rem;line-height:1.65;color:var(--muted)}
+.gw .units{margin-top:2rem;display:grid;gap:1.5rem}
+@media(min-width:768px){.gw .units{grid-template-columns:repeat(3,1fr)}
+}
+.gw .units>*{min-width:0}
+.gw .unit{height:100%;overflow:hidden;border:1px solid var(--border);border-radius:1rem;background:var(--bg);transition:box-shadow .2s}
+.gw .unit:hover{box-shadow:0 15px 30px rgba(0,0,0,.15)}
+.gw .unit .im{overflow:hidden}
+.gw .unit img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;transition:transform .5s}
+.gw .unit:hover img{transform:scale(1.05)}
+.gw .unit .bd{padding:1.75rem 1.75rem 2.25rem;display:flex;flex-direction:column}
+.gw .unit .hd{display:contents}
+.gw .unit .badge{order:3;align-self:flex-start;margin-top:1.5rem}
+.gw .unit h3{font-size:1.25rem;font-weight:800}
+.gw .badge{padding:.25rem .75rem;border-radius:99px;background:var(--accent);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.gw .unit p{order:2;margin-top:.75rem;font-size:.875rem;line-height:1.65;color:var(--muted)}
+.gw .tbl{margin-top:2.5rem;border:1px solid var(--border);border-radius:1rem;background:var(--bg);overflow:hidden}
+.gw .scroll{overflow-x:auto}
+.gw table{width:100%;min-width:640px;border-collapse:collapse;text-align:left;font-size:.875rem}
+.gw th{padding:1rem 1.5rem;background:var(--ink);color:var(--inkfg);font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.gw td{padding:1rem 1.5rem;border-top:1px solid var(--border)}
+.gw tbody tr:hover{background:rgba(249,240,238,.5)}
+.gw td a{color:var(--primary);font-weight:600}
+.gw td a:hover{text-decoration:underline}
+.gw .tfoot{display:flex;flex-direction:column;gap:1rem;padding:1.5rem;border-top:1px solid var(--border)}
+@media(min-width:640px){.gw .tfoot{flex-direction:row;align-items:center;justify-content:space-between}
+}
+.gw .tfoot p{max-width:36rem;font-size:.75rem;color:var(--steel)}
+.gw .feat{margin-top:2.5rem;display:grid;gap:2rem 2.5rem}
+@media(min-width:640px){.gw .feat{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1024px){.gw .feat{grid-template-columns:repeat(3,1fr)}
+}
+.gw .feat>*{min-width:0}
+.gw .feat>div{border-top:2px solid var(--border);padding-top:1.25rem}
+.gw .feat .n{font:italic 1.875rem var(--serif);color:var(--steel)}
+.gw .feat h3{margin-top:.75rem;font-size:1.125rem;font-weight:800}
+.gw .feat p{margin-top:.5rem;font-size:.875rem;line-height:1.65;color:var(--muted)}
+.gw .plan{margin-top:3rem;display:grid;gap:1.25rem}
+@media(min-width:768px){.gw .plan{grid-template-columns:repeat(3,1fr)}
+}
+.gw .plan>*{min-width:0}
+.gw .step{position:relative;overflow:hidden;padding:2rem;border:1px solid var(--border);border-radius:1rem;background:var(--bg)}
+.gw .step .ghostn{position:absolute;right:-.5rem;top:-1.5rem;font:italic 7rem/1 var(--serif);color:rgba(184,184,184,.2);pointer-events:none}
+.gw .step>*:not(.ghostn){position:relative}
+.gw .step b{display:block;font-size:2.25rem;font-weight:800;letter-spacing:-.02em;color:var(--primary)}
+.gw .step h3{margin-top:.75rem;font-size:1.125rem;font-weight:800}
+.gw .step p{margin-top:.5rem;font-size:.875rem;color:var(--muted)}
+.gw .notes{margin-top:1.5rem;display:grid;gap:1rem}
+@media(min-width:640px){.gw .notes{grid-template-columns:repeat(3,1fr)}
+}
+.gw .notes>*{min-width:0}
+.gw .notes div{display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:.75rem;background:var(--ink);color:var(--inkfg)}
+.gw .notes b{font:italic 1.5rem var(--serif);font-weight:400}
+.gw .notes span{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.gw #documents.sec{padding:4rem 0}
+@media(min-width:640px){.gw #documents.sec{padding:5rem 0}
+}
+@media(min-width:1024px){.gw #documents.sec{padding:6.5rem 0}
+}
+.gw #documents .photo{object-fit:contain;aspect-ratio:4/3;box-shadow:none;border-radius:0}
+.gw .map{margin-bottom:1.5rem;border:1px solid var(--border);border-radius:1rem;overflow:hidden;box-shadow:0 10px 25px rgba(0,0,0,.12)}
+.gw .map iframe{display:block;width:100%;height:300px;border:0}
+@media(min-width:1024px){.gw .map iframe{height:340px}
+}
+.gw .loc-photo{display:block; width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; object-position:center; border-radius:1rem; box-shadow:0 10px 25px rgba(0,0,0,.18);}
+.gw .drive li{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0}
+.gw .drive li+li{border-top:1px solid var(--border)}
+.gw .drive{margin-top:2rem;border-block:1px solid var(--border)}
+.gw .drive span:first-child{font-size:.875rem;font-weight:600}
+.gw .drive span+span{font:italic 1.125rem var(--serif);color:var(--primary)}
+.gw .gal{margin-top:2.5rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+@media(min-width:768px){.gw .gal{grid-template-columns:repeat(3,1fr)}
+}
+.gw .gal div{overflow:hidden;border-radius:.75rem}
+.gw .gal img{width:100%;aspect-ratio:4/3;max-height:220px;object-fit:cover;transition:transform .5s}
+.gw .gal div:hover img{transform:scale(1.05)}
+.gw .dstats{margin-top:2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:.75rem;overflow:hidden}
+.gw .dstats div{background:var(--card);padding:1.25rem;text-align:center}
+.gw .dstats b{display:block;font:italic 1.5rem var(--serif);font-weight:400;color:var(--primary)}
+.gw .dstats span{display:block;margin-top:.25rem;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--steel)}
+.gw .faq{max-width:56rem;margin:0 auto}
+.gw .faq .list{margin-top:2rem}
+.gw details{border-bottom:1px solid var(--border)}
+.gw summary{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;font-size:1rem;font-weight:700;cursor:pointer;list-style:none}
+.gw summary::-webkit-details-marker{display:none}
+.gw summary:hover{color:var(--primary)}
+.gw summary:after{content:"";flex:none;width:.55rem;height:.55rem;border:solid var(--muted);border-width:0 2px 2px 0;transform:rotate(45deg);transition:.2s}
+.gw details[open] summary:after{transform:rotate(-135deg)}
+.gw details p{padding-bottom:1rem;font-size:.875rem;line-height:1.7;color:var(--muted)}
+.gw .steps{margin-top:2rem}
+.gw .steps li{display:flex;gap:1.25rem;margin-bottom:1.25rem}
+.gw .steps b{font:italic 1.5rem var(--serif);font-weight:400;color:var(--primary)}
+.gw .steps span{padding-top:.25rem;font-size:.875rem;font-weight:600}
+.gw .formbox{padding:2rem;border-radius:1rem;background:var(--ink);color:var(--inkfg)}
+@media(min-width:640px){.gw .formbox{padding:2.5rem}
+}
+.gw .formbox h3{font-size:1.5rem;font-weight:800}
+.gw .formbox .sub{margin-top:.5rem;font-size:.875rem;opacity:.7}
+.gw form{margin-top:1.5rem}
+.gw .fld{margin-bottom:1.25rem}
+.gw label{display:block;margin-bottom:.4rem;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.gw .formbox label{color:rgba(250,249,248,.6)}
+.gw input,.gw select{width:100%;min-width:0;height:2.5rem;padding:0 .75rem;border:1px solid rgba(255,255,255,.2);border-radius:.5rem;background:rgba(255,255,255,.1);color:var(--inkfg);font:inherit;font-size:.875rem}
+.gw input::placeholder{color:rgba(250,249,248,.4)}
+.gw input:focus,.gw select:focus{outline:2px solid var(--primary);outline-offset:1px}
+.gw select option{color:#000}
+.gw .row{display:flex;gap:.5rem}
+.gw .row select{width:120px;flex:none}
+.gw .row input{flex:1;width:auto}
+.gw .legal{margin-top:1rem;text-align:center;font-size:11px;opacity:.5}
+.gw .done{display:none;text-align:center;padding:2.5rem 0}
+.gw .done .ok{display:flex;align-items:center;justify-content:center;width:3.5rem;height:3.5rem;margin:0 auto;border-radius:50%;background:var(--primary);color:#fff;font-size:1.5rem}
+.gw .done p{max-width:24rem;margin:.75rem auto 0;font-size:.875rem;opacity:.7}
+.gw .done button{margin-top:1.5rem;background:none;border:0;color:var(--primary);font:700 .75rem Manrope;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.gw .reveal{opacity:0}
+.gw .reveal.in{animation:up .7s ease-out forwards}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.gw .reveal{opacity:1}
+.gw .reveal.in{animation:none}
+.gw .track{animation:none}
+}
+.gw{overflow-x:clip;font-family:'Manrope',sans-serif}
+.gw h1,.gw h2,.gw h3,.gw h4{font-family:'Times New Roman',Times,serif}
+.gw p,.gw li,.gw dd,.gw dt,.gw td,.gw th,.gw label,.gw summary,.gw a,.gw button,.gw input,.gw select{font-family:'Manrope',sans-serif}
+</style>
+{% endblock %}
+{% block content %}
+<div class="gw">
+
+<section id="top">
+  <img src="{% static 'img/herolanding.webp' %}" alt="Aerial view of the Greenwood villa community in Dubai" width="1920" height="1088">
+  <div class="shade"></div>
+  <div class="wrap">
+    <p class="pill reveal"><i></i>Dubai Silicon Oasis · Dubai</p>
+    <h1 class="reveal" style="animation-delay:100ms">A greener chapter of <em>Dubai living</em></h1>
+    <p class="lead reveal" style="animation-delay:200ms">Aldar Greenwood — villas, twin villas and townhouses in a community envisioned around nature and family life, with the convenience of an established Dubai address.</p>
+    <div class="btns reveal" style="animation-delay:300ms">
+      <a class="btn" href="#documents">Download Brochure</a>
+      <a class="btn ghost" href="#contact">Register Your Interest</a>
+    </div>
+    <div class="stats reveal" style="animation-delay:400ms">
+      <div><b>AED 2.5M</b><span>Indicative starting price</span></div>
+      <div><b>3–5 BR</b><span>Villas &amp; townhouses</span></div>
+      <div><b>50 / 50</b><span>Proposed payment split</span></div>
+      <div><b>Freehold</b><span>For all nationalities</span></div>
+    </div>
+  </div>
+  <a class="scrollhint" href="#about">Scroll to overview ↓</a>
+</section>
+
+<div class="ticker"><div class="track" id="track"></div></div>
+
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="reveal"><p class="tag">01 — The Community</p><h2>About <em>Greenwood</em></h2></div>
+    <div class="grid2">
+      <div class="reveal">
+        <p class="p">Aldar Greenwood introduces a fresh vision of family living in Dubai Silicon Oasis, bringing together a green-community concept and a choice of homes designed for different stages of life — from a first family townhouse to a five-bedroom villa.</p>
+        <p class="p">The community is planned around landscaped open space, so daily routines — the school run, an evening walk, weekend play — happen among trees and parks rather than traffic. It sits inside an established district with schools, retail and major road links already in place.</p>
+        <dl>
+          <div><dt>Developer</dt><dd>Aldar Properties</dd></div>
+          <div><dt>Location</dt><dd>Dubai Silicon Oasis, Dubai</dd></div>
+          <div><dt>Home types</dt><dd>Townhouses · Villas · Twin villas</dd></div>
+          <div><dt>Bedrooms</dt><dd>3 to 5</dd></div>
+          <div><dt>Starting price</dt><dd>Approx. AED 2.5–2.6M (indicative)</dd></div>
+          <div><dt>Ownership</dt><dd>Freehold</dd></div>
+        </dl>
+        <div class="btns"><a class="btn" href="#contact">Request Full Details</a></div>
+      </div>
+      <div class="reveal" style="animation-delay:150ms">
+        <img class="photo" src="{% static 'img/aboutlanding.webp' %}" alt="Greenwood family homes set around landscaped open space" loading="lazy" width="1600" height="1008">
+        <p class="cap">Family homes set around landscaped open space</p>
+      </div>
+    </div>
+    <div class="cards" style="font-family: 'Times New Roman', Times, serif;">
+      <div class="reveal"><div class="card"><b>Aldar</b><p>Delivered by one of the UAE's largest listed developers, now expanding its Dubai portfolio.</p></div></div>
+      <div class="reveal" style="animation-delay:80ms"><div class="card"><b>DSO</b><p>An established district — schools, retail and road links already operating around you.</p></div></div>
+      <div class="reveal" style="animation-delay:160ms"><div class="card"><b>Blue Line</b><p>The planned Dubai Metro Blue Line is expected to improve connectivity in the wider area.</p></div></div>
+      <div class="reveal" style="animation-delay:240ms"><div class="card"><b>50 / 50</b><p>Proposed split — half before handover, half on completion — easing cash flow.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="homes" class="sec bg-card">
+  <div class="wrap">
+    <div class="reveal"><p class="tag">02 — The Homes</p><h2>Choose your <em>home type</em></h2></div>
+    <div class="units">
+      <div class="reveal"><article class="unit"><div class="im"><img src="{% static 'img/unit-townhouselanding.webp' %}" alt="Greenwood townhouse exterior" loading="lazy" width="1200" height="912"></div><div class="bd"><div class="hd"><h3>Townhouses</h3><span class="badge">3 &amp; 4 bedrooms</span></div><p>Family townhouses with private outdoor space — the community's most accessible entry point.</p></div></article></div>
+      <div class="reveal" style="animation-delay:100ms"><article class="unit"><div class="im"><img src="{% static 'img/unit-twinlanding.webp' %}" alt="Greenwood standalone villa" loading="lazy" width="1200" height="912"></div><div class="bd"><div class="hd"><h3>Villas</h3><span class="badge">3, 4 &amp; 5 bedrooms</span></div><p>Standalone villas in a wider range of sizes, for growing families who want more room inside and out.</p></div></article></div>
+      <div class="reveal" style="animation-delay:200ms"><article class="unit"><div class="im"><img src="{% static 'img/unit-villalanding.webp' %}" alt="Greenwood twin villa" loading="lazy" width="1200" height="912"></div><div class="bd"><div class="hd"><h3>Twin Villas</h3><span class="badge">4 bedrooms</span></div><p>Semi-detached four-bedroom homes balancing villa-scale space with an efficient footprint.</p></div></article></div>
+    </div>
+    <div class="reveal"><div class="tbl">
+      <div class="scroll"><table>
+        <thead><tr><th>Home type</th><th>Bedrooms</th><th>Indicative price</th><th>Floor plan</th></tr></thead>
+        <tbody>
+          <tr><td><b>Townhouse</b></td><td>3 BR</td><td><b>From approx. AED 2.5M</b></td><td><a href="#contact">Download ↗</a></td></tr>
+          <tr><td><b>Townhouse</b></td><td>4 BR</td><td><b>On request</b></td><td><a href="#contact">Download ↗</a></td></tr>
+          <tr><td><b>Twin Villa</b></td><td>4 BR</td><td><b>On request</b></td><td><a href="#contact">Download ↗</a></td></tr>
+          <tr><td><b>Villa</b></td><td>3, 4 &amp; 5 BR</td><td><b>On request</b></td><td><a href="#contact">Download ↗</a></td></tr>
+        </tbody>
+      </table></div>
+      <div class="tfoot"><p>Prices, unit mix and sizes are indicative and subject to Aldar's official launch and availability.</p><a class="btn" href="#contact">Request the Price List</a></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="reveal"><p class="tag">03 — Why Greenwood</p><h2>Designed around <em>family life</em></h2></div>
+    <div class="feat" id="feat"></div>
+  </div>
+</section>
+
+<section id="documents" class="sec bg-card">
+  <div class="wrap">
+    <div class="reveal"><p class="tag">04 — Documents</p><h2>The <em>brochure</em>, floor plans &amp; payment plan</h2></div>
+    <div class="grid2 c">
+      <div class="reveal">
+        <p class="p">Get the official Greenwood brochure, home layouts and payment structure as they are released. Register your details and a Nexurban specialist will send the documents straight away.</p>
+        <div class="btns"><a class="btn" href="#contact">Download Brochure</a><a class="btn out" href="#contact">Download Floor Plan</a><a class="btn out" href="#contact">Download Payment Plan</a></div>
+      </div>
+      <div class="reveal" style="animation-delay:150ms"><img class="photo" src="{% static 'img/brochure-mockuplanding.webp' %}" alt="Greenwood by Aldar printed brochure" loading="lazy" width="1200" height="912"></div>
+    </div>
+    <div class="plan reveal">
+      <div class="step"><span class="ghostn">10%</span><b>10%</b><h3>Down Payment</h3><p>On booking and signing of the reservation form</p></div>
+      <div class="step"><span class="ghostn">40%</span><b>40%</b><h3>During Construction</h3><p>Paid across construction milestones</p></div>
+      <div class="step"><span class="ghostn">50%</span><b>50%</b><h3>On Handover</h3><p>Balance payable at completion</p></div>
+    </div>
+    <div class="reveal" style="animation-delay:120ms">
+      <div class="notes">
+        <div><b>4%</b><span>Dubai Land Department transfer fee</span></div>
+        <div><b>AED 2M+</b><span>Golden Visa eligibility threshold</span></div>
+        <div><b>0%</b><span>Annual property tax in the UAE</span></div>
+      </div>
+      <div class="btns"><a class="btn" href="#contact">Download Payment Plan</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="location" class="sec">
+  <div class="wrap">
+    <div class="grid2" style="margin-top:0">
+      <div class="reveal">
+        <p class="tag">05 — Location</p><h2>Dubai Silicon Oasis, <em>Dubai</em></h2>
+        <p class="p" style="margin-top:1.5rem">Greenwood is planned for buyers who want a green residential setting with the convenience of an established Dubai address. Dubai Silicon Oasis sits between Dubai–Al Ain Road and Sheikh Mohammed Bin Zayed Road, with quick access to Downtown, the airport and Academic City. The upcoming Metro Blue Line is expected to strengthen connectivity; exact station proximity is confirmed with the official release.</p>
+        <ul class="drive">
+          <li><span>Dubai Academic City</span><span>5 min</span></li>
+          <li><span>Dubai Outlet Mall</span><span>10 min</span></li>
+          <li><span>Global Village</span><span>15 min</span></li>
+          <li><span>Dubai International Airport (DXB)</span><span>15 min</span></li>
+          <li><span>Downtown Dubai &amp; Burj Khalifa</span><span>20 min</span></li>
+          <li><span>Al Maktoum International Airport (DWC)</span><span>35 min</span></li>
+        </ul>
+        <p class="note">Drive times are approximate and vary with traffic.</p>
+      </div>
+      <div class="reveal" style="animation-delay:150ms">
+        <div class="map"><iframe title="Dubai Silicon Oasis map" src="https://maps.google.com/maps?q=Dubai+Silicon+Oasis,+Dubai&z=14&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+        <img class="loc-photo" src="{% static 'img/masterplanlanding.webp' %}" alt="Greenwood community masterplan visual" loading="lazy" width="1600" height="912">
+        <p class="cap">Greenwood community visual</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="gal">
+        <div><img src="{% static 'img/gallery1land.webp' %}" alt="Greenwood landscaped streets" loading="lazy"></div>
+        <div><img src="{% static 'img/gallery5land.webp' %}" alt="Greenwood townhouse with private garden" loading="lazy"></div>
+        <div><img src="{% static 'img/gallery4land.webp' %}" alt="Greenwood standalone villa with pool" loading="lazy"></div>
+        <div><img src="{% static 'img/gallery3land.webp' %}" alt="Greenwood twin villa exterior" loading="lazy"></div>
+        <div><img src="{% static 'img/gallery2land.webp' %}" alt="Greenwood community masterplan visual" loading="lazy"></div>
+        <div><img src="{% static 'img/gallery-6land.webp' %}" alt="Aerial view over the Greenwood community" loading="lazy"></div>
+      </div>
+      <div class="btns"><a class="btn" href="#contact">Request the Masterplan</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="developer" class="sec bg-card">
+  <div class="wrap">
+    <div class="reveal"><p class="tag">06 — Developer</p><h2>About <em>Aldar Properties</em></h2></div>
+    <div class="grid2 c">
+      <div class="reveal">
+        <p class="p">Aldar Properties PJSC is a leading UAE developer of residential, commercial, retail and hospitality destinations, with a focus on innovation, sustainability and community building.</p>
+        <p class="p">Its master-planned communities include Yas Island, Saadiyat Island, Al Raha and Reem Island in Abu Dhabi — and Greenwood brings that community-first approach to Dubai.</p>
+        <div class="dstats"><div><b>ADX</b><span>Listed developer</span></div><div><b>2005</b><span>Established</span></div><div><b>UAE</b><span>Abu Dhabi &amp; Dubai</span></div></div>
+      </div>
+      <div class="reveal" style="animation-delay:150ms"><img class="photo" src="{% static 'img/developerlanding.webp' %}" alt="Aldar corporate headquarters" loading="lazy" width="1200" height="912"></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="sec">
+  <div class="wrap faq">
+    <div class="reveal"><p class="tag">07 — FAQ</p><h2>Frequently asked <em>questions</em></h2></div>
+    <div class="list reveal" id="faqList" style="animation-delay:120ms"></div>
+  </div>
+</section>
+
+<section id="contact" class="sec bg-card">
+  <div class="wrap">
+    <div class="grid2" style="margin-top:0">
+      <div class="reveal">
+        <p class="tag">08 — Get in touch</p><h2>Get <em>consultation</em></h2>
+        <p class="p" style="margin-top:1.5rem;max-width:28rem">Speak to a Nexurban Greenwood specialist about home types, pricing and launch timing. No obligation.</p>
+        <ol class="steps">
+          <li><b>01</b><span>Schedule at your earliest convenience</span></li>
+          <li><b>02</b><span>Have a question? We're here to help</span></li>
+          <li><b>03</b><span>Request key documents — brochure, pricing, payment plan &amp; floor plans</span></li>
+        </ol>
+        <div class="btns"><a class="btn out" href="https://wa.me/971581052757" target="_blank" rel="noreferrer">WhatsApp · +971 58 105 2757</a></div>
+      </div>
+      <div class="reveal" style="animation-delay:150ms">
+        <div class="formbox">
+          <div id="formWrap">
+            <h3>Register your interest</h3><p class="sub">We reply within one business hour.</p>
+            <form id="leadForm" method="post" action="{% url 'greenwood' %}">
+              {% csrf_token %}
+              <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+              <div class="fld"><label for="name">Full name</label><input id="name" name="name" required placeholder="Your full name"></div>
+              <div class="fld"><label for="email">Email address</label><input id="email" name="email" type="email" required placeholder="you@example.com"></div>
+              <div class="fld"><label for="phone">Phone number</label>
+                <div class="row">
+                  <select name="country-code" id="code" aria-label="Country code">
+                    <option value="+971" selected>🇦🇪 +971</option>
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+7">🇷🇺 +7</option>
+                    <option value="+966">🇸🇦 +966</option>
+                  </select>
+                  <input id="phone" name="phone" type="tel" required placeholder="50 123 4567">
+                </div></div>
+              <div class="fld"><label for="interest">I'm interested in</label>
+                <select id="interest" name="interest">
+                  <option value="Download the brochure">Download the brochure</option>
+                  <option value="Floor plans &amp; layouts">Floor plans &amp; layouts</option>
+                  <option value="Payment plan &amp; pricing">Payment plan &amp; pricing</option>
+                  <option value="Booking a consultation call">Booking a consultation call</option>
+                  <option value="Investment advisory">Investment advisory</option>
+                </select></div>
+              <button class="btn full" type="submit">Register Your Interest</button>
+              <p class="legal">By submitting, you agree to be contacted by Nexurban Properties about Greenwood. Your details are never shared.</p>
+            </form>
+          </div>
+          <div class="done" id="done">
+            <div class="ok">✓</div>
+            <h3 style="margin-top:1.5rem;font-size:1.5rem;font-weight:800">Request received</h3>
+            <p>Thank you — a Nexurban Greenwood specialist will contact you within one business hour.</p>
+            <button id="again">Send another request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+
+
+  // Ticker
+  var T=["3 & 4BR townhouses","3, 4 & 5BR villas","4BR twin villas","Upcoming Metro Blue Line in the wider area","Golden Visa eligible from AED 2M","Freehold for all nationalities"];
+  $('track').innerHTML=T.concat(T,T).map(function(t){return '<span>'+t+'<i></i></span>'}).join('');
+
+  // Highlights
+  var F=[
+    ["Green Community Concept","A nature-led plan that puts landscaped surroundings at the centre of daily life."],
+    ["Parks & Walking Trails","Shaded paths and open lawns for evening walks, cycling and outdoor play."],
+    ["Family-First Design","Layouts sized for real family routines, with private outdoor space for every home."],
+    ["Schools Nearby","Dubai Silicon Oasis and neighbouring districts host a wide choice of international schools."],
+    ["Retail on the Doorstep","Supermarkets, cafés and malls already operate across DSO and the surrounding area."],
+    ["Upcoming Blue Line","Planned Metro Blue Line connectivity in the wider area; station access subject to confirmation."],
+    ["Major Road Access","Fast links via Dubai–Al Ain Road and Sheikh Mohammed Bin Zayed Road."],
+    ["Aldar Quality","Built by the developer behind Yas Island, Saadiyat Island and Al Raha communities."],
+    ["Golden Visa Route","Purchases from AED 2M generally qualify for the UAE 10-year Golden Visa."]
+  ];
+  $('feat').innerHTML=F.map(function(f,i){
+    return '<div class="reveal" style="animation-delay:'+(i%3)*80+'ms"><div class="n">'+String(i+1).padStart(2,'0')+'</div><h3>'+f[0].replace(/&/g,'&amp;')+'</h3><p>'+f[1]+'</p></div>';
+  }).join('');
+
+  // FAQ
+  var Q=[
+    ["Where is Greenwood by Aldar located?","In Dubai Silicon Oasis (DSO), between Dubai–Al Ain Road and Sheikh Mohammed Bin Zayed Road — around 15 minutes from Dubai International Airport and 20 minutes from Downtown Dubai."],
+    ["Who is the developer?","Aldar Properties PJSC, the ADX-listed developer behind Yas Island, Saadiyat Island, Al Raha and Reem Island communities in Abu Dhabi."],
+    ["What types of homes are available?","3- and 4-bedroom townhouses, 3-, 4- and 5-bedroom villas, and 4-bedroom twin villas. Exact sizes and layouts are confirmed at launch."],
+    ["What is the starting price?","Indicative starting prices are around AED 2.5–2.6 million, subject to the official launch and availability. Request the price list to receive confirmed pricing as soon as it is published."],
+    ["What is the payment plan?","A proposed 50 / 50 split — indicatively 10% on booking, 40% during construction and 50% on handover. Final booking and instalment terms are confirmed at launch."],
+    ["Is there a metro station nearby?","The planned Dubai Metro Blue Line is expected to serve the wider area. Exact station proximity and access routes will be confirmed with the official project release."],
+    ["Can foreigners buy at Greenwood?","Yes. Dubai Silicon Oasis is a freehold area where all nationalities can buy, register and resell property in their own name."],
+    ["Does buying here qualify me for a Golden Visa?","Property purchases from AED 2 million generally qualify for the UAE 10-year Golden Visa, subject to current government criteria."],
+    ["Can I get a mortgage?","Yes. UAE banks typically finance up to 80% for residents on properties under AED 5M, and around 50–60% for non-residents, with terms up to 25 years. Speak to a Nexurban specialist for an estimate."],
+    ["What other costs should I budget for?","The Dubai Land Department transfer fee (4% of the price), a small admin/registration fee, mortgage arrangement and valuation fees if financing, and annual service charges after handover."]
+  ];
+  $('faqList').innerHTML=Q.map(function(q){return '<details><summary>'+q[0]+'</summary><p>'+q[1]+'</p></details>'}).join('');
+  var ds=document.querySelectorAll('#faqList details');
+  ds.forEach(function(d){d.addEventListener('toggle',function(){if(d.open)ds.forEach(function(o){if(o!==d)o.open=false})})});
+
+  // Country codes
+  var C=[["+971","UAE"],["+91","India"],["+966","Saudi Arabia"],["+44","United Kingdom"],["+1","USA / Canada"],["+61","Australia"],["+49","Germany"],["+968","Oman"],["+974","Qatar"],["+973","Bahrain"],["+965","Kuwait"],["+92","Pakistan"]];
+  $('code').innerHTML=C.map(function(c){return '<option value="'+c[0]+'">'+c[1]+' ('+c[0]+')</option>'}).join('');
+
+  
+
+    // Form submit (Django)
+  $('leadForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    var form=e.target;
+    var btn=form.querySelector('button[type=submit]');
+    btn.disabled=true;
+
+    fetch(form.action,{method:'POST',body:new FormData(form)})
+      .then(function(res){
+        if(res.ok){
+          $('formWrap').style.display='none';
+          $('done').style.display='block';
+          form.reset();
+        }else{
+          alert('Something went wrong. Please try again.');
+        }
+      })
+      .catch(function(){
+        alert('Network error. Please try again.');
+      })
+      .then(function(){btn.disabled=false});
+  });
+  $('again').addEventListener('click',function(){
+    $('leadForm').reset();$('done').style.display='none';$('formWrap').style.display='block';
+  });
+
+  // Scroll reveal
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+    els.forEach(function(el){io.observe(el)});
+  }else{els.forEach(function(el){el.style.opacity=1})}
+})();
+</script>
+</div>
+{% endblock %}

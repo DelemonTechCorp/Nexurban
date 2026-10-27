@@ -4432,3 +4432,44 @@ def build_seo_title(property_obj):
     return f"{title} | Nexurban"
 
 
+
+
+def greenwood(request):
+        return render(request, "landingpages/greenwood.html")
+
+
+
+def greenwood(request):
+    if request.method == "POST":
+        if is_spam_light(request):
+            return redirect(f"{reverse('thank_you')}?type=property")
+
+        # country code + phone onnichu
+        code = request.POST.get("country-code", "").strip()
+        phone = request.POST.get("phone", "").strip()
+        full_phone = f"{code} {phone}".strip()
+
+        enquiry = Enquiry.objects.create(
+            form_type="property",
+            name=request.POST.get("name", "").strip(),
+            email=request.POST.get("email", "").strip(),
+            phone=full_phone,
+            interest=request.POST.get("interest", "").strip(),
+            message=request.POST.get("message", "").strip() or "Greenwood landing page enquiry",
+            property_name="Greenwood by Aldar",
+            property_slug="greenwood",
+        )
+
+        try:
+            send_enquiry_email(enquiry)
+            enquiry.sent_to_brevo = True
+            enquiry.save(update_fields=["sent_to_brevo"])
+        except Exception as e:
+            print("========== BREVO ERROR ==========")
+            print("ERROR:", str(e))
+            traceback.print_exc()
+            print("=================================")
+
+        return redirect(f"{reverse('thank_you')}?type=property")
+
+    return render(request, "landingpages/greenwood.html")
