@@ -3991,7 +3991,7 @@ def blog_old(request):
                 permanent=True
             )
 
-    return redirect("blog", permanent=True)
+    return redirect("blog_paginated", page=1, permanent=True)
 
 
 
@@ -4001,123 +4001,135 @@ def blog_old(request):
 
 def blog(request, page=1):
 
-    # ==========================================
-    # NEWSLETTER SUBSCRIPTION
-    # ==========================================
-    old_page = request.GET.get("page")
+        # ==========================================
+        # NEWSLETTER SUBSCRIPTION
+        # ==========================================
+        old_page = request.GET.get("page")
+            # /dubai-real-estate-blog/  ->  /dubai-real-estate-blog/page/1/
+        if request.method == "GET" and request.resolver_match.url_name == "blog":
+            return redirect("blog_paginated", page=1, permanent=True)
 
-    if old_page and request.method == "GET":
-        try:
-            old_page = int(old_page)
-        except (TypeError, ValueError):
-            old_page = 1
+        if old_page and request.method == "GET":
+            try:
+                old_page = int(old_page)
+            except (TypeError, ValueError):
+                old_page = 1
 
-        if old_page <= 1:
-            return redirect("blog")
+            if old_page <= 1:
+                return redirect("blog")
 
-        return redirect("blog_paginated", page=old_page)
+            return redirect("blog_paginated", page=old_page)
 
-    if request.method == "POST":
-        if is_spam_light(request):
-            return redirect(f"{reverse('thank_you')}?type=valuation")
+        if request.method == "POST":
+            if is_spam_light(request):
+                return redirect(f"{reverse('thank_you')}?type=valuation")
 
-        form_type = request.POST.get("form_type", "").strip()
+            form_type = request.POST.get("form_type", "").strip()
 
-        if form_type == "newsletter":
+            if form_type == "newsletter":
 
-            email = request.POST.get("email", "").strip()
+                email = request.POST.get("email", "").strip()
 
-            if email:
+                if email:
 
-                enquiry = Enquiry.objects.create(
-                    form_type="newsletter",
-                    name="Newsletter Subscriber",
-                    email=email,
-                    phone="",
-                    message="Newsletter subscription",
-                    interest="Newsletter",
-                )
+                    enquiry = Enquiry.objects.create(
+                        form_type="newsletter",
+                        name="Newsletter Subscriber",
+                        email=email,
+                        phone="",
+                        message="Newsletter subscription",
+                        interest="Newsletter",
+                    )
 
-                print("NEWSLETTER SUBSCRIBER CREATED:", enquiry.id, enquiry.email)
+                    print("NEWSLETTER SUBSCRIBER CREATED:", enquiry.id, enquiry.email)
 
-                try:
-                    result = send_enquiry_email(enquiry)
-                    print("BREVO NEWSLETTER SUCCESS:", result)
+                    try:
+                        result = send_enquiry_email(enquiry)
+                        print("BREVO NEWSLETTER SUCCESS:", result)
 
-                    enquiry.sent_to_brevo = True
-                    enquiry.save(update_fields=["sent_to_brevo"])
+                        enquiry.sent_to_brevo = True
+                        enquiry.save(update_fields=["sent_to_brevo"])
 
-                except Exception as e:
-                    print("========== BREVO NEWSLETTER ERROR ==========")
-                    print("ERROR:", str(e))
-                    traceback.print_exc()
-                    print("============================================")
+                    except Exception as e:
+                        print("========== BREVO NEWSLETTER ERROR ==========")
+                        print("ERROR:", str(e))
+                        traceback.print_exc()
+                        print("============================================")
 
-            return redirect(f"{reverse('thank_you')}?type=newsletter")
+                return redirect(f"{reverse('thank_you')}?type=newsletter")
 
-    # ==========================================
-    # BLOG LISTING
-    # ==========================================
+        # ==========================================
+        # BLOG LISTING
+        # ==========================================
 
-    search_query = request.GET.get("search", "").strip()
-    sort_by = request.GET.get("sort", "-created_at")
+        search_query = request.GET.get("search", "").strip()
+        sort_by = request.GET.get("sort", "-created_at")
 
-    try:
-        page_size = int(request.GET.get("page_size", 9))
-        if page_size < 1:
-            page_size = 9
-    except ValueError:
-        page_size = 9
+        page_size = 2
 
-    # Slug empty / null aaya posts ozhivakkunnu (blog_detail URL-inu slug venam)
-    all_posts = BlogPost.objects.exclude(Q(slug__isnull=True) | Q(slug=""))
+        # try:
+        #     page_size = int(request.GET.get("page_size", 2))
+        #     if page_size < 1:
+        #         page_size = 2
+        # except ValueError:
+        #     page_size = 2   
 
-    # Featured = ettavum last add cheytha post (search/sort-inu bandham illa)
-    featured_post = all_posts.order_by("-created_at", "-pk").first()
+        # try:
+        #     page_size = int(request.GET.get("page_size", 6))
+        #     if page_size < 1:
+        #         page_size = 6
+        # except ValueError:
+        #     page_size = 6
 
-    posts = all_posts
+        # Slug empty / null aaya posts ozhivakkunnu (blog_detail URL-inu slug venam)
+        all_posts = BlogPost.objects.exclude(Q(slug__isnull=True) | Q(slug=""))
 
-    if search_query:
-        posts = posts.filter(
-            Q(title__icontains=search_query) |
-            Q(excerpt__icontains=search_query) |
-            Q(meta_description__icontains=search_query) |
-            Q(content__icontains=search_query)
-        )
+        # Featured = ettavum last add cheytha post (search/sort-inu bandham illa)
+        featured_post = all_posts.order_by("-created_at", "-pk").first()
 
-    sort_map = {
-        "-publish_date": "-created_at",
-        "publish_date": "created_at",
-        "-created_at": "-created_at",
-        "created_at": "created_at",
-        "title": "title",
-    }
+        posts = all_posts
 
-    posts = posts.order_by(sort_map.get(sort_by, "-created_at"), "-pk")
+        if search_query:
+            posts = posts.filter(
+                Q(title__icontains=search_query) |
+                Q(excerpt__icontains=search_query) |
+                Q(meta_description__icontains=search_query) |
+                Q(content__icontains=search_query)
+            )
 
-    # Featured post list-il ninnu ozhivakkunnu
-    if featured_post:
-        posts = posts.exclude(pk=featured_post.pk)
+        sort_map = {
+            "-publish_date": "-created_at",
+            "publish_date": "created_at",
+            "-created_at": "-created_at",
+            "created_at": "created_at",
+            "title": "title",
+        }
 
-    # Template-il ?page=2 aanu use cheyyunnathu
-    # page_number = request.GET.get("page", page)
-    page_number = page
-    paginator = Paginator(posts, page_size)
-    posts_page = paginator.get_page(page_number)
+        posts = posts.order_by(sort_map.get(sort_by, "-created_at"), "-pk")
 
-    context = {
-        "featured_post": featured_post,
-        "posts": posts_page,
-        "search_query": search_query,
-        "sort_by": sort_by,
-        "page_size": page_size,
-        "current_page": posts_page.number,
-    }
+        # Featured post list-il ninnu ozhivakkunnu
+        if featured_post:
+            posts = posts.exclude(pk=featured_post.pk)
 
-    return render(request, "main/blog.html", context)
+        # Template-il ?page=2 aanu use cheyyunnathu
+        # page_number = request.GET.get("page", page)
+        page_number = page
+        paginator = Paginator(posts, page_size)
+        posts_page = paginator.get_page(page_number)
+
+        context = {
+            "featured_post": featured_post,
+            "posts": posts_page,
+            "search_query": search_query,
+            "sort_by": sort_by,
+            "page_size": page_size,
+            "current_page": posts_page.number,
+        }
+
+        return render(request, "main/blog.html", context)
 
 
-    
+        
 
 
 # def blog_detail(request, slug):

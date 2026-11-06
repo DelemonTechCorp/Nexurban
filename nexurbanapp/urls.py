@@ -8,13 +8,13 @@ from .views import robots_txt
 urlpatterns = [
 
     # ---------- 301 REDIRECTS (keep these at the very top) ----------
-#  path(
-#         "property/no17-no18ano18b-and-no19-citywalk-residential/",
-#         RedirectView.as_view(
-#             url="/property/no-17-no-18a-no-18b-and-no-19-citywalk-residential/",
-#             permanent=True,  # 301
-#         ),
-#     ),
+path(
+    '-properties/',
+    RedirectView.as_view(
+        url='/off-plan-properties-dubai/',
+        permanent=True
+    ),
+),
 
 path(
     "property/no17-no18ano18b-and-no19-citywalk-residential/",
@@ -160,6 +160,6 @@ path(
         'al-barsha-south-fourth-properties/',
         RedirectView.as_view(url='/al-barsha-1-properties/', permanent=True),
     ),
-    
 
+   
 ]

@@ -652,7 +652,7 @@
   {# FIX: get_absolute_url-um slug empty aayal same error tharum, athukondu slug illatha posts skip cheyyunnu #}
   {% if post.slug %}
   <a href="{% url 'blog_detail' post.slug %}" class="adv-row">
-    <span class="adv-row-num">{{ forloop.counter|add:"1"|stringformat:"02d" }}</span>
+    <span class="adv-row-num">{{ posts.start_index|add:forloop.counter0|add:"1"|stringformat:"02d" }}</span>
     <div class="adv-row-img">
       {% if post.image %}
       <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
@@ -676,142 +676,224 @@
   {% endfor %}
 </div>
 
-<!-- {% if posts.has_other_pages %}
-<div class="adv-pagination">
-  {% if posts.has_previous %}
-    <a href="?page={{ posts.previous_page_number }}{% if search_query %}&search={{ search_query|urlencode }}{% endif %}{% if sort_by %}&sort={{ sort_by|urlencode }}{% endif %}">← Previous</a>
-  {% endif %}
-  <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-  {% if posts.has_next %}
-    <a href="?page={{ posts.next_page_number }}{% if search_query %}&search={{ search_query|urlencode }}{% endif %}{% if sort_by %}&sort={{ sort_by|urlencode }}{% endif %}">Next →</a>
-  {% endif %}
-</div>
-{% endif %} -->
 
-<!-- {% if posts.has_other_pages %}
-<div class="adv-pagination">
-
-  {% if posts.has_previous %}
-    {% if posts.previous_page_number == 1 %}
-      <a href="{% url 'blog' %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">← Previous</a>
-    {% else %}
-      <a href="{% url 'blog_paginated' page=posts.previous_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">← Previous</a>
-    {% endif %}
-  {% endif %}
-
-  <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-
-  {% if posts.has_next %}
-    <a href="{% url 'blog_paginated' page=posts.next_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">Next →</a>
-  {% endif %}
-
-</div>
-{% endif %} -->
-
+<!-- og pagination -->
+<!-- PAGINATION -->
 
 {% if posts.has_other_pages %}
 {% with total=posts.paginator.num_pages current=posts.number %}
-<div class="adv-pagination">
 
-  {# First #}
+<div class="nx-pagination">
+
+  <!-- PREVIOUS -->
   {% if posts.has_previous %}
-    <a class="pg-btn" href="{% url 'blog' %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="First">&laquo;</a>
+    <a class="nx-page-button nx-page-prev"
+       href="{% if posts.previous_page_number == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=posts.previous_page_number %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">
+      ← PREV
+    </a>
   {% else %}
-    <span class="pg-btn disabled">&laquo;</span>
+    <span class="nx-page-button nx-page-prev nx-page-disabled">← PREV</span>
   {% endif %}
 
-  {# Previous #}
-  {% if posts.has_previous %}
-    {% if posts.previous_page_number == 1 %}
-      <a class="pg-btn" href="{% url 'blog' %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Previous">&lsaquo;</a>
-    {% else %}
-      <a class="pg-btn" href="{% url 'blog_paginated' page=posts.previous_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Previous">&lsaquo;</a>
-    {% endif %}
-  {% else %}
-    <span class="pg-btn disabled">&lsaquo;</span>
-  {% endif %}
-
-  {# Page numbers with ellipsis #}
+  <!-- PAGE NUMBERS -->
   {% for num in posts.paginator.page_range %}
+
     {% if num == current %}
-      <span class="pg-btn active">{{ num }}</span>
+      <span class="nx-page-button nx-page-number active">{{ num }}</span>
+
     {% elif num == 1 or num == total or num >= current|add:"-1" and num <= current|add:"1" %}
-      <a class="pg-btn"
-         href="{% if num == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=num %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">{{ num }}</a>
+      <a class="nx-page-button nx-page-number"
+         href="{% if num == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=num %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">
+        {{ num }}
+      </a>
+
     {% elif num == current|add:"-2" or num == current|add:"2" %}
-      <span class="pg-dots">…</span>
+      <span class="nx-page-dots">…</span>
+
     {% endif %}
+
   {% endfor %}
 
-  {# Next #}
+  <!-- NEXT -->
   {% if posts.has_next %}
-    <a class="pg-btn" href="{% url 'blog_paginated' page=posts.next_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Next">&rsaquo;</a>
+    <a class="nx-page-button nx-page-next"
+       href="{% url 'blog_paginated' page=posts.next_page_number %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}">
+      NEXT →
+    </a>
   {% else %}
-    <span class="pg-btn disabled">&rsaquo;</span>
+    <span class="nx-page-button nx-page-next nx-page-disabled">NEXT →</span>
   {% endif %}
 
-  {# Last #}
-  {% if posts.has_next %}
-    <a class="pg-btn" href="{% url 'blog_paginated' page=total %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}" title="Last">&raquo;</a>
-  {% else %}
-    <span class="pg-btn disabled">&raquo;</span>
-  {% endif %}
-
-  {# Page select dropdown #}
-  <select class="pg-select" onchange="if(this.value) window.location.href=this.value;" aria-label="Select page">
-    {% for num in posts.paginator.page_range %}
-      <option value="{% if num == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=num %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}"
-              {% if num == current %}selected{% endif %}>Page {{ num }}</option>
-    {% endfor %}
-  </select>
+  <!-- GO TO PAGE (dropdown) -->
+  <div class="nx-page-select-wrap">
+    <select class="nx-page-select"
+            aria-label="Select page"
+            onchange="if(this.value) window.location.href=this.value;">
+      <option value="">GO TO PAGE</option>
+      {% for num in posts.paginator.page_range %}
+        <option value="{% if num == 1 %}{% url 'blog' %}{% else %}{% url 'blog_paginated' page=num %}{% endif %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}"
+                {% if num == current %}selected{% endif %}>
+          PAGE {{ num }}
+        </option>
+      {% endfor %}
+    </select>
+    <span class="nx-page-select-arrow"></span>
+  </div>
 
 </div>
+
 {% endwith %}
 {% endif %}
 
 <style>
-.adv-pagination {
+/* =========================================================
+   BLOG PAGINATION — same design as Off-Plan page
+========================================================= */
+
+.nx-pagination {
+  margin: 70px auto 90px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 7px;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 32px 0;
 }
-.pg-btn {
-  min-width: 38px;
-  height: 38px;
-  padding: 0 10px;
+
+.nx-page-button {
+  min-width: 43px;
+  height: 43px;
+  padding: 0 13px;
+  border: 1px solid rgba(17,17,17,.15);
+  background: transparent;
+  color: #111111;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: #fff;
-  color: #111827;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: "Manrope", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
   text-decoration: none;
-  transition: all .15s ease;
-}
-a.pg-btn:hover { background: #f3f4f6; border-color: #9ca3af; }
-.pg-btn.active { background: #1d6fd8; border-color: #1d6fd8; color: #fff; }
-.pg-btn.disabled { opacity: .45; cursor: not-allowed; background: #f9fafb; }
-.pg-dots { padding: 0 4px; color: #6b7280; }
-.pg-select {
-  height: 38px;
-  padding: 0 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 14px;
   cursor: pointer;
-  margin-left: 6px;
+  box-sizing: border-box;
+  transition: background .3s ease, color .3s ease, border-color .3s ease;
 }
-@media (max-width: 480px) {
-  .pg-btn { min-width: 34px; height: 34px; }
+
+.nx-page-number {
+  width: 43px;
+  padding: 0;
+}
+
+.nx-page-button.active {
+  background: #ff1d0c;
+  color: #ffffff;
+  border-color: #ff1d0c;
+}
+
+.nx-page-button:hover:not(.active) {
+  background: #111111;
+  color: #ffffff;
+  border-color: #111111;
+}
+
+.nx-page-prev,
+.nx-page-next {
+  min-width: 82px;
+  padding-left: 17px;
+  padding-right: 17px;
+}
+
+.nx-page-disabled {
+  opacity: .35;
+  pointer-events: none;
+}
+
+.nx-page-dots {
+  width: 30px;
+  height: 43px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(17,17,17,.45);
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+}
+
+/* GO TO PAGE DROPDOWN */
+
+.nx-page-select-wrap {
+  position: relative;
+  margin-left: 8px;
+}
+
+.nx-page-select {
+  height: 43px;
+  padding: 0 38px 0 16px;
+  border: 1px solid rgba(17,17,17,.15);
+  background: transparent;
+  color: #111111;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color .3s ease, color .3s ease;
+}
+
+.nx-page-select:hover,
+.nx-page-select:focus {
+  border-color: #ff1d0c;
+  color: #ff1d0c;
+}
+
+.nx-page-select option {
+  background: #ffffff;
+  color: #111111;
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nx-page-select-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -6px;
+  border-right: 1.5px solid #ff1d0c;
+  border-bottom: 1.5px solid #ff1d0c;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .nx-pagination {
+    gap: 5px;
+    margin: 45px auto 60px;
+  }
+  .nx-page-button {
+    min-width: 39px;
+    height: 39px;
+    font-size: 11px;
+  }
+  .nx-page-number { width: 39px; }
+  .nx-page-prev,
+  .nx-page-next { min-width: 70px; }
+  .nx-page-dots { width: 22px; height: 39px; }
+  .nx-page-select-wrap { margin-left: 0; width: 100%; display: flex; justify-content: center; margin-top: 8px; }
+  .nx-page-select { height: 39px; font-size: 10px; }
 }
 </style>
+
 
 <!-- Contact section -->
 
