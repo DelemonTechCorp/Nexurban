@@ -4065,7 +4065,7 @@ def blog(request, page=1):
         search_query = request.GET.get("search", "").strip()
         sort_by = request.GET.get("sort", "-created_at")
 
-        page_size = 2
+        page_size = 9
 
         # try:
         #     page_size = int(request.GET.get("page_size", 2))

@@ -331,8 +331,9 @@
     font-family: 'Inter', -apple-system, sans-serif;
   }
 
+  
   .adv-section .site-shell{
-    width: min(1100px, 88%);
+    width: min(1130px, 88%);
     margin: 0 auto;
   }
 
@@ -475,10 +476,13 @@
       <p class="kicker">The Advisory Desk</p>
     </div>
 
-    {# FIX: slug undenkil mathram featured card kaanikkuka #}
+
     {% if featured_post and featured_post.slug %}
+       
     <a href="{% url 'blog_detail' featured_post.slug %}" class="adv-feature group">
+      
       <div class="image-frame">
+        
         {% if featured_post.image %}
         <img src="{{ featured_post.image.url }}" alt="{{ featured_post.title }}" class="image-zoom">
         {% endif %}
@@ -488,7 +492,7 @@
         <p class="eyebrow">Market Intelligence · {{ featured_post.created_at|date:"d M Y" }} · {{ featured_post.reading_time }} min read</p>
         <h2>{{ featured_post.title }}</h2>
         <p class="adv-feature-desc">
-          {{ featured_post.description }}
+          {{ featured_post.excerpt }}
         </p>
         <p class="arrow-link">
           Read the Perspective
@@ -649,7 +653,6 @@
 
 <div class="adv-index">
   {% for post in posts %}
-  {# FIX: get_absolute_url-um slug empty aayal same error tharum, athukondu slug illatha posts skip cheyyunnu #}
   {% if post.slug %}
   <a href="{% url 'blog_detail' post.slug %}" class="adv-row">
     <span class="adv-row-num">{{ posts.start_index|add:forloop.counter0|add:"1"|stringformat:"02d" }}</span>
@@ -661,7 +664,7 @@
     <div class="adv-row-main">
       <p class="eyebrow">{{ post.created_at|date:"d M Y" }} · {{ post.reading_time }} min read</p>
       <h3>{{ post.title }}</h3>
-      <p>{{ post.description }}</p>
+      <p>{{ post.excerpt }}</p>
     </div>
     <span class="adv-row-arrow">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
